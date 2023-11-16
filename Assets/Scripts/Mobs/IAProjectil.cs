@@ -41,7 +41,7 @@ public class IAProjectil : IA
 
     private void IsRoaming()
     {
-        if (DetectPlayerX)
+        if (DetectPlayerY)
         {
             state = State.RushDistancePlayer;
             speedMovement = speedChasingPlayer;
@@ -64,7 +64,7 @@ public class IAProjectil : IA
 
     private void IsAttacking()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerX)
+        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerY)
         {
             if (Mathf.Abs(transform.position.x - player.position.x) < minDistance && (RaycastHitWall || !RaycastDetectNotVoid))
                 return;

@@ -34,7 +34,7 @@ public class IAJumpMonster : IA
 
     private void DetectionPlayer()
     {
-        if (DetectPlayerX)
+        if (DetectPlayerY)
         {
             direction = transform.position.x < player.position.x;
             timeWaitingForJump = timeWaitingForJumpAtk;

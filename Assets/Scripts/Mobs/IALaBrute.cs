@@ -20,12 +20,12 @@ public class IALaBrute : IA
 
     private void DetectionPlayer()
     {
-        if (DetectPlayerX)
+        if (DetectPlayerY)
         {
             direction = transform.position.x < player.position.x;
             speedMovement = speedChasingPlayer;
         }
-        if (DistanceBetweenIAandPlayer > detectPlayerRange || !RaycastDetectPlayer.transform.CompareTag("Player"))
+        if (!RaycastDetectPlayer.transform.CompareTag("Player"))
             speedMovement = speedRoaming;
     }
 }

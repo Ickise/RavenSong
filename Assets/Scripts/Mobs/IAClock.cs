@@ -30,7 +30,7 @@ public class IAClock : IA
     private void IsWaitingPlayer()
     {
         if (isReloading) return;
-        if (DetectPlayerX)
+        if (DetectPlayerY)
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
