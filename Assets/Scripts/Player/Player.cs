@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     [SerializeField] private float distanceRoulade, speedRoulade;
     private int currentNbJump;
     private float lastDirection;
-
     private bool IsGrounded
     {
         get
