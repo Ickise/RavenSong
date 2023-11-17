@@ -20,7 +20,7 @@ public abstract class IA : MonoBehaviour
     }
     protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, distanceIsGrounded, layerDefault); } }
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceHitSomething, layerDefault); } }
-    protected bool DetectPlayerY { get { return Mathf.Abs(transform.position.y - player.position.y) < 2f && RaycastDetectPlayer.transform.CompareTag("Player"); } }
+    protected bool DetectPlayerY { get { return Mathf.Abs(transform.position.y - player.position.y) < 2f && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     protected RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, detectPlayerRange, layerDetectPlayer); } }
 
     void Start()

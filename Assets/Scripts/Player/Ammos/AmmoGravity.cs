@@ -20,7 +20,7 @@ public class AmmoGravity : Ammo
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (IsRecover) return;
-        CanRecover = true;
+        if (canPlayerRecover) CanRecover = true;
         if (trail) return;
         gameObject.SetActive(false);
         GetComponent<TrailRenderer>().minVertexDistance = 0.1f;

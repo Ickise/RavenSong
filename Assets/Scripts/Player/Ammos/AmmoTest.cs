@@ -9,7 +9,7 @@ public class AmmoTest : Ammo
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (IsRecover) return;
-        CanRecover = true;
+        if (canPlayerRecover) CanRecover = true;
         rb2D.velocity = Vector2.zero;
         if (other.CompareTag("Electric React"))
         {

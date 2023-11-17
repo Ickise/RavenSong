@@ -14,7 +14,7 @@ public class AmmoRebon : Ammo
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (IsRecover) return;
-        CanRecover = true;
+        if (canPlayerRecover) CanRecover = true;
     }
 
     protected override void Update()

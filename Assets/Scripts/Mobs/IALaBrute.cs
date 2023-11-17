@@ -25,7 +25,7 @@ public class IALaBrute : IA
             direction = transform.position.x < player.position.x;
             speedMovement = speedChasingPlayer;
         }
-        if (!RaycastDetectPlayer.transform.CompareTag("Player"))
+        if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))
             speedMovement = speedRoaming;
     }
 }

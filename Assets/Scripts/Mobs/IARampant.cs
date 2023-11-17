@@ -57,7 +57,7 @@ public class IARampant : IA
                 speedMovement = speedChasingPlayer;
             }
         }
-        else if (!RaycastDetectPlayer.transform.CompareTag("Player"))
+        else if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))
         {
             state = State.WaitPlayer;
             rb2D.velocity = Vector2.zero;

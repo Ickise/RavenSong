@@ -2,6 +2,7 @@ using UnityEngine;
 
 public abstract class Ammo : MonoBehaviour
 {
+    [SerializeField] protected bool canPlayerRecover;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
     protected Rigidbody2D rb2D;
@@ -31,6 +32,9 @@ public abstract class Ammo : MonoBehaviour
             if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
                 Destroy(gameObject);
         }
+        // if (CanRecover || canPlayerRecover)
+        //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
+        //         Destroy(gameObject);
     }
 
     protected abstract void OnTriggerEnter2D(Collider2D other);
