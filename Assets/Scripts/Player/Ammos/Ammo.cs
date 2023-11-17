@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Ammo : MonoBehaviour
 {
-    [SerializeField] protected bool canPlayerRecover;
+    [SerializeField] protected bool canPlayerRecover = true;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
     protected Rigidbody2D rb2D;
