@@ -54,7 +54,7 @@ public class Player : MonoBehaviour
     {
         lastDirection = 1f;
         layerDefault = LayerMask.GetMask("Default");
-        layerCanJumpOn = LayerMask.GetMask("Default") | LayerMask.GetMask("Props");
+        layerCanJumpOn = LayerMask.GetMask("Default") | LayerMask.GetMask("Props") | LayerMask.GetMask("Escalier");
         layerIA = LayerMask.GetMask("IA");
         spriteRenderer = GetComponent<SpriteRenderer>();
         rigidBody2D = GetComponent<Rigidbody2D>();
