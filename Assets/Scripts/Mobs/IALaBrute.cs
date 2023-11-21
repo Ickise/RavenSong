@@ -11,7 +11,7 @@ public class IALaBrute : IA
     private void Walking()
     {
         if (IsGrounded && (RaycastHitWall || !RaycastDetectNotVoid))
-            if (speedMovement == speedRoaming)
+            if (speedMovement == speedBalader)
                 direction = !direction;
             else
                 return;
@@ -23,9 +23,9 @@ public class IALaBrute : IA
         if (DetectPlayerY)
         {
             direction = transform.position.x < player.position.x;
-            speedMovement = speedChasingPlayer;
+            speedMovement = speedAttaquePlayer;
         }
         if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))
-            speedMovement = speedRoaming;
+            speedMovement = speedBalader;
     }
 }

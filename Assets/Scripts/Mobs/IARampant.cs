@@ -33,7 +33,7 @@ public class IARampant : IA
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
-            speedMovement = speedChasingPlayer;
+            speedMovement = speedAttaquePlayer;
         }
     }
 
@@ -54,7 +54,7 @@ public class IARampant : IA
             {
                 speedMovement = 0f;
                 yield return new WaitForSeconds(IaStunTime);
-                speedMovement = speedChasingPlayer;
+                speedMovement = speedAttaquePlayer;
             }
         }
         else if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))

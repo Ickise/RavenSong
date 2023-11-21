@@ -5,27 +5,28 @@ public abstract class IA : MonoBehaviour
     protected Rigidbody2D rb2D;
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
-    [Tooltip("direction at the start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float distanceIsGrounded = 1.1f, distanceHitSomething = 0.6f, speedRoaming = 2f, speedChasingPlayer = 3f, detectPlayerRange = 10f, jumpForce = 10f;
-    [SerializeField] private bool canJumpObstacle;
+    [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
+    [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f;
+    // [SerializeField] private bool canJumpObstacle;
     protected float speedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
     {
         get
         {
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down * 2f);
-            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded * 2f, layerDefault);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceToucheMurOuVide, Vector2.down * 2f);
+            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceToucheMurOuVide, Vector2.down, tailleMob * 2f, layerDefault);
         }
     }
-    protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, distanceIsGrounded, layerDefault); } }
-    protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceHitSomething, layerDefault); } }
-    protected bool DetectPlayerY { get { return Mathf.Abs(transform.position.y - player.position.y) < 2f && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
-    protected RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, detectPlayerRange, layerDetectPlayer); } }
+    protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob, layerDefault); } }
+    protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceToucheMurOuVide, layerDefault); } }
+    protected bool DetectPlayerY { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
+    protected RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
 
     void Start()
     {
-        speedMovement = speedRoaming;
+        tailleMob += 0.1f;
+        speedMovement = speedBalader;
         layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("Props");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("Props");
         player = GameObject.FindGameObjectWithTag("Player").transform;

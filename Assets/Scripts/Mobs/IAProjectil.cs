@@ -33,7 +33,7 @@ public class IAProjectil : IA
 
     private void Roaming()
     {
-        speedMovement = speedRoaming;
+        speedMovement = speedBalader;
         if (IsGrounded && (RaycastHitWall || !RaycastDetectNotVoid))
             direction = !direction;
         RunToDirection();
@@ -44,7 +44,7 @@ public class IAProjectil : IA
         if (DetectPlayerY)
         {
             state = State.RushDistancePlayer;
-            speedMovement = speedChasingPlayer;
+            speedMovement = speedAttaquePlayer;
         }
     }
 
