@@ -5,6 +5,9 @@ public class IAProjectil : IA
 {
     [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3;
     [SerializeField] private GameObject projectil;
+    private RaycastHit2D RaycastDetectPlayerProjectil { get { return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + hauteurPlayerDetection), player.position - new Vector3(transform.position.x, transform.position.y + hauteurPlayerDetection), distancePlayerDetection, layerDetectPlayer); } }
+    private bool DetectPlayerYProjectil { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayerProjectil && RaycastDetectPlayerProjectil.transform.CompareTag("Player"); } }
+
     private State state;
     private enum State
     {
@@ -41,7 +44,7 @@ public class IAProjectil : IA
 
     private void IsRoaming()
     {
-        if (DetectPlayerY)
+        if (DetectPlayerYProjectil)
         {
             state = State.RushDistancePlayer;
             speedMovement = speedAttaquePlayer;
@@ -64,9 +67,9 @@ public class IAProjectil : IA
 
     private void IsAttacking()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerY)
+        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerYProjectil)
         {
-            if (Mathf.Abs(transform.position.x - player.position.x) < minDistance && (RaycastHitWall || !RaycastDetectNotVoid))
+            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance) && (RaycastHitWall || !RaycastDetectNotVoid) && DetectPlayerYProjectil)
                 return;
             StopAllCoroutines();
             state = State.Roaming;

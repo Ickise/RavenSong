@@ -5,9 +5,11 @@ public class Escalier : MonoBehaviour
 {
     [SerializeField] private Transform plateforme, downPoint, upPoint;
     private bool onPlateform;
+    private float yInput;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (yInput < 0) return;
         if (other.CompareTag("Player") && other.transform.position.y > plateforme.position.y)
         {
             plateforme.gameObject.SetActive(true);
@@ -33,7 +35,8 @@ public class Escalier : MonoBehaviour
 
     public void PassDown(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<Vector2>().y < 0)
+        yInput = context.ReadValue<Vector2>().y;
+        if (yInput < 0)
         {
             plateforme.gameObject.SetActive(false);
             onPlateform = false;
