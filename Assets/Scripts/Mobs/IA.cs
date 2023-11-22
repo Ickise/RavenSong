@@ -21,8 +21,8 @@ public abstract class IA : MonoBehaviour
     }
     protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob, layerDefault); } }
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceToucheMurOuVide, layerDefault); } }
-    protected bool DetectPlayerY { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
-    protected RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
+    protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
+    private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
 
     void Start()
     {
@@ -37,16 +37,7 @@ public abstract class IA : MonoBehaviour
     private void Update()
     {
         StateManager();
-        // if (canJumpObstacle)
-        //     JumpObstacle();
-        // print(IsGrounded + "   " + !RaycastHitWall + "   " + Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded, layerDefault));
     }
-
-    // private void JumpObstacle()
-    // {
-    //     if (IsGrounded && !RaycastHitWall && Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded, layerDefault))
-    //         rb2D.AddForce((direction ? Vector2.one : new Vector2(-1, 1)) * 2f, ForceMode2D.Impulse);
-    // }
 
     protected abstract void StateManager();
 
@@ -61,6 +52,20 @@ public abstract class IA : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
     }
 
+    // private void Update()
+    // {
+    //     StateManager();
+    //     // if (canJumpObstacle)
+    //     //     JumpObstacle();
+    //     // print(IsGrounded + "   " + !RaycastHitWall + "   " + Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded, layerDefault));
+    // }
+
+    // private void JumpObstacle()
+    // {
+    //     if (IsGrounded && !RaycastHitWall && Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded, layerDefault))
+    //         rb2D.AddForce((direction ? Vector2.one : new Vector2(-1, 1)) * 2f, ForceMode2D.Impulse);
+    // }
+    
     // private void Roaming()
     // {
     //     rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);

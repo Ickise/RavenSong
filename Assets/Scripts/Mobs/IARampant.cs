@@ -29,7 +29,7 @@ public class IARampant : IA
 
     private void IsWaitingPlayer()
     {
-        if (RaycastDetectPlayer.transform.CompareTag("Player"))
+        if (DetectPlayer)
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
@@ -40,7 +40,7 @@ public class IARampant : IA
     private void ChasePlayer()
     {
         direction = transform.position.x < player.position.x;
-        rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);
+        RunToDirection();
     }
 
     private void IsChasePlayer()
@@ -57,7 +57,7 @@ public class IARampant : IA
                 speedMovement = speedAttaquePlayer;
             }
         }
-        else if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))
+        else if (!DetectPlayer)
         {
             state = State.WaitPlayer;
             rb2D.velocity = Vector2.zero;

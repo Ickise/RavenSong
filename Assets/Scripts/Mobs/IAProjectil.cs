@@ -5,7 +5,13 @@ public class IAProjectil : IA
 {
     [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3;
     [SerializeField] private GameObject projectil;
-    private RaycastHit2D RaycastDetectPlayerProjectil { get { return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + hauteurPlayerDetection), player.position - new Vector3(transform.position.x, transform.position.y + hauteurPlayerDetection), distancePlayerDetection, layerDetectPlayer); } }
+    private RaycastHit2D RaycastDetectPlayerProjectil
+    {
+        get
+        {
+            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + hauteurPlayerDetection), player.position - new Vector3(transform.position.x, transform.position.y + hauteurPlayerDetection), distancePlayerDetection, layerDetectPlayer);
+        }
+    }
     private bool DetectPlayerYProjectil { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayerProjectil && RaycastDetectPlayerProjectil.transform.CompareTag("Player"); } }
 
     private State state;
