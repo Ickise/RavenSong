@@ -8,6 +8,7 @@ public abstract class IA : MonoBehaviour
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
     [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f;
     // [SerializeField] private bool canJumpObstacle;
+    [SerializeField] private bool drawCirclesEditor;
     protected float speedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
@@ -52,6 +53,12 @@ public abstract class IA : MonoBehaviour
     protected void RunToDirection()
     {
         rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);
+    }
+
+    void OnDrawGizmos()
+    {
+        if (!drawCirclesEditor) return;
+        Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
     }
 
     // private void Roaming()
