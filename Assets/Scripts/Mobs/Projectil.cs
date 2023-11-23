@@ -24,7 +24,9 @@ public class Projectil : MonoBehaviour
             Vector2 pos2 = transform.position;
             rb2D.velocity = Vector2.zero;
             directionEndTween = pos2 - pos1;
-            transform.DOBlendableMoveBy(directionEndTween * 10000f, 1f / timeToRushPlayer * (40f + Vector2.Distance(startPos, transform.position) / 2f)).SetSpeedBased(true).SetEase(Ease.Linear).SetId("doBlendableMoveBy");
+            transform.DOBlendableMoveBy(directionEndTween * 10000f, 1f / timeToRushPlayer * (40f + Vector2.Distance(startPos, transform.position) / 2f))
+            .SetSpeedBased(true)
+            .SetEase(Ease.Linear);
         }
     }
 
