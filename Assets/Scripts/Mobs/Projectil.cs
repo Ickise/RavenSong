@@ -1,23 +1,17 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
-using Unity.VisualScripting;
 
 public class Projectil : MonoBehaviour
 {
-    [SerializeField] private float timeToRushPlayer;
+    [SerializeField] private float timeToRushPlayer = 2f, maxHeight = 8f;
     [SerializeField] private LayerMask layerDestroyProjectil;
-    [SerializeField] private float maxHeight;
     private Rigidbody2D rb2D;
     private Vector2 directionEndTween;
 
-    private void Awake()
-    {
-        rb2D = GetComponent<Rigidbody2D>();
-    }
-
     private void Start()
     {
+        rb2D = GetComponent<Rigidbody2D>();
         Vector2 startPos = transform.position;
         Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
         transform.DOJump(playerPos, maxHeight, 1, timeToRushPlayer).SetEase(Ease.Linear);
@@ -30,7 +24,9 @@ public class Projectil : MonoBehaviour
             Vector2 pos2 = transform.position;
             rb2D.velocity = Vector2.zero;
             directionEndTween = pos2 - pos1;
-            transform.DOBlendableMoveBy(directionEndTween * 10000f, 1f / timeToRushPlayer * (40f + Vector2.Distance(startPos, transform.position) / 2f)).SetSpeedBased(true).SetEase(Ease.Linear).SetId("doBlendableMoveBy");
+            transform.DOBlendableMoveBy(directionEndTween * 10000f, 1f / timeToRushPlayer * (40f + Vector2.Distance(startPos, transform.position) / 2f))
+            .SetSpeedBased(true)
+            .SetEase(Ease.Linear);
         }
     }
 

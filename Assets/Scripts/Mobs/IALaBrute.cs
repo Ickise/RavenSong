@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class IALaBrute : IA
 {
     protected override void StateManager()
@@ -20,12 +18,12 @@ public class IALaBrute : IA
 
     private void DetectionPlayer()
     {
-        if (DetectPlayerY)
+        if (DetectPlayer)
         {
             direction = transform.position.x < player.position.x;
             speedMovement = speedAttaquePlayer;
         }
-        if (!RaycastDetectPlayer || !RaycastDetectPlayer.transform.CompareTag("Player"))
+        else
             speedMovement = speedBalader;
     }
 }

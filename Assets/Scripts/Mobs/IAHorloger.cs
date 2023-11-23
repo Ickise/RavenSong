@@ -31,7 +31,7 @@ public class IAHorloger : IA
     private void IsWaitingPlayer()
     {
         if (isReloading) return;
-        if (DetectPlayerY)
+        if (DetectPlayer)
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
@@ -40,6 +40,7 @@ public class IAHorloger : IA
             {
                 yield return new WaitForSeconds(runTime);
                 DOTween.To(() => rb2D.velocity, x => rb2D.velocity = x, Vector2.zero, decelerationTime);
+                StartCoroutine(StartReload());
                 state = State.WaitPlayer;
             }
         }
