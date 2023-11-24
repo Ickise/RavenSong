@@ -9,6 +9,7 @@ public abstract class IA : MonoBehaviour
     [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f;
     // [SerializeField] private bool canJumpObstacle;
     [SerializeField] private bool drawCirclesEditor;
+    [SerializeField] private int nombreVie;
     protected float speedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
