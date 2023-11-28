@@ -22,7 +22,7 @@ namespace Aurinaxtailer
                 - objectToLookMouse.position;
             diff.Normalize();
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            objectToLookMouse.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+            objectToLookMouse.rotation = Quaternion.Euler(0f, 0f, rot_z - 90f);
             return objectToLookMouse.rotation;
         }
 #endif
