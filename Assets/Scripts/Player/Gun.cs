@@ -1,0 +1,51 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+using Aurinaxtailer;
+using System.Collections.Generic;
+using TMPro;
+
+public class Gun : MonoBehaviour
+{
+    [SerializeField] private List<GameObject> ammo;
+    [SerializeField] private Transform shootPosition;
+    [SerializeField] private float distanceForRecoverAmmo;
+    [Tooltip("ball at the start"), SerializeField] private int indexAmmo;
+    [SerializeField] private TextMeshProUGUI UIammo;
+    private List<Ammo> currentAmmo = new List<Ammo>();
+
+    void Awake()
+    {
+        for (int i = 0; i < ammo.Count; i++)
+            currentAmmo.Add(null); 
+        UIammo.text = ammo[indexAmmo].name;
+    }
+
+    public void Shoot(InputAction.CallbackContext context)
+    {
+        if (!context.started || currentAmmo[indexAmmo] != null) return;
+        currentAmmo[indexAmmo] = Instantiate(ammo[indexAmmo], shootPosition.position, transform.rotation).GetComponent<Ammo>();
+    }
+
+    public void AmmoRecover(InputAction.CallbackContext context)
+    {
+        if (!context.started || currentAmmo[indexAmmo] == null || !currentAmmo[indexAmmo].CanRecover) return;
+        currentAmmo[indexAmmo].Recover(this);
+    }
+
+    public void ChangeAmmo(InputAction.CallbackContext context)
+    {
+        if (!context.started) return;
+        if (context.ReadValue<float>() > 0)
+            indexAmmo = indexAmmo >= ammo.Count - 1 ? 0 : indexAmmo + 1;
+        else
+            indexAmmo = indexAmmo <= 0 ? ammo.Count - 1 : indexAmmo - 1;
+        UIammo.text = ammo[indexAmmo].name;
+    }
+
+    void Update()
+    {
+        Rotation2D.LookAtMouse2D(transform);
+        if (currentAmmo[indexAmmo] != null && !currentAmmo[indexAmmo].IsRecover && Vector2.Distance(transform.position, currentAmmo[indexAmmo].transform.position) > distanceForRecoverAmmo)
+            currentAmmo[indexAmmo].CanRecover = true;
+    }
+}
