@@ -53,6 +53,13 @@ public class AmmoRebon : Ammo
         Debug.DrawRay(transform.position, transform.up * 1.2f * rb2D.velocity.magnitude * Time.fixedDeltaTime);
         RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerRebond);
         if (hit2D)
+        {
+            if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
+            {
+                rb2D.sharedMaterial = null;
+                return;
+            }
             OnTriggerEnter2D(hit2D.transform.GetComponent<Collider2D>());
+        }
     }
 }
