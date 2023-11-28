@@ -24,6 +24,7 @@ public class IAProjectil : IA
 
     protected override void StateManager()
     {
+        if (!IsGrounded) return;
         switch (state)
         {
             default:
@@ -43,7 +44,7 @@ public class IAProjectil : IA
     private void Roaming()
     {
         speedMovement = speedBalader;
-        if (IsGrounded && (RaycastHitWall || !RaycastDetectNotVoid))
+        if (RaycastHitWall || !RaycastDetectNotVoid)
             direction = !direction;
         RunToDirection();
     }

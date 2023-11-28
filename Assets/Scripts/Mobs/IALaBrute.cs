@@ -2,13 +2,14 @@ public class IALaBrute : IA
 {
     protected override void StateManager()
     {
+        if (!IsGrounded) return;
         Walking();
         DetectionPlayer();
     }
 
     private void Walking()
     {
-        if (IsGrounded && (RaycastHitWall || !RaycastDetectNotVoid))
+        if (RaycastHitWall || !RaycastDetectNotVoid)
             if (speedMovement == speedBalader)
                 direction = !direction;
             else

@@ -14,6 +14,7 @@ public class IARampant : IA
 
     protected override void StateManager()
     {
+        if (isOnGround && !IsGrounded) return;
         switch (state)
         {
             default:

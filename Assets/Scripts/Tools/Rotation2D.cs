@@ -5,7 +5,7 @@ namespace Aurinaxtailer
 {
     public static class Rotation2D
     {
-        public static Quaternion LookAt2D(Quaternion rotation, Vector3 target)
+        public static Quaternion LookToDirection2D(Quaternion rotation, Vector3 target)
         {
             Vector3 diff = target;
             diff.Normalize();
