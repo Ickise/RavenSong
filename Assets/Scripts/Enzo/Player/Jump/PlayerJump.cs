@@ -30,7 +30,7 @@ public class PlayerJump : MonoBehaviour
 
     private void Jump()
     {
-        AudioManager.instance.PlaySFX(jumpAudio);
+        // AudioManager.instance.PlaySFX(jumpAudio);
         
         hangTimeCounter = 0f;
         jumpBufferCounter = 0f;

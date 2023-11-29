@@ -24,10 +24,6 @@ public class PlayerController2D : MonoBehaviour
         {
             playerRigidbody2D.velocity = new Vector2(InputReader.instance.direction.x * speed, playerRigidbody2D.velocity.y);
         }
-        else
-        {
-            playerRigidbody2D.velocity = new Vector2(0f, playerRigidbody2D.velocity.y);
-        }
 
         if (_raycastDetection.isGrounded)
         {
