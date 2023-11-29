@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8888719148359703479}
   - component: {fileID: 8888719148359703478}
   - component: {fileID: -8893235863881112579}
-  m_Layer: 3
+  m_Layer: 11
   m_Name: LaBrute
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,10 +162,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: 0
-  distanceIsGrounded: 1.1
-  distanceHitSomething: 0.6
-  speedRoaming: 2
-  speedChasingPlayer: 3
-  detectPlayerRange: 10
+  tailleMob: 1
+  distanceToucheMurOuVide: 0.6
+  speedBalader: 2
+  speedAttaquePlayer: 3
+  distancePlayerDetection: 10
+  hauteurPlayerDetection: 2
   jumpForce: 10
-  canJumpObstacle: 0
+  drawCirclesEditor: 0
+  nombreVie: 0
