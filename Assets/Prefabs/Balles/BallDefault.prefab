@@ -78,11 +78,11 @@ GameObject:
   - component: {fileID: 8404946919698269789}
   - component: {fileID: 8450475804937163209}
   - component: {fileID: 1033450378088997341}
-  - component: {fileID: 6405164590892810735}
+  - component: {fileID: -8375849857031039658}
   - component: {fileID: -1422134552621487096}
   - component: {fileID: -7240406257146566889}
   m_Layer: 10
-  m_Name: BallRebon
+  m_Name: BallDefault
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.9479451, g: 1, b: 0, a: 1}
+  m_Color: {r: 0.64009017, g: 0.6415094, b: 0.61367035, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -171,8 +171,8 @@ Rigidbody2D:
   m_Mass: 0.5
   m_LinearDrag: 0.2
   m_AngularDrag: 5
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 4b3ed7580967b3a499f6c7eb49b467cf, type: 2}
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -183,7 +183,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6405164590892810735
+--- !u!114 &-8375849857031039658
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -192,16 +192,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8612664303447618227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ead8cb8b67a58974ebac63aea43265ff, type: 3}
+  m_Script: {fileID: 11500000, guid: bfb4411c085564549ab2fe507bfc09d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   canPlayerRecover: 0
-  speedRecover: 200
+  speedRecover: 0
   force: 200
-  forceRecule: 20
-  layerRebond:
-    serializedVersion: 2
-    m_Bits: 2049
+  forceRecule: 15
 --- !u!58 &-1422134552621487096
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -310,7 +307,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9514903, b: 0, a: 1}
+      key0: {r: 0.6392157, g: 0.6431373, b: 0.6117647, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -335,7 +332,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

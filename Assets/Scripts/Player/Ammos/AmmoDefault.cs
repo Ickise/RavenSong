@@ -1,18 +1,14 @@
-using UnityEngine;
-using Aurinaxtailer;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine;
 
-public class AmmoRebon : Ammo
+public class AmmoDefault : Ammo
 {
-    private bool hasStoped;
-    [SerializeField] private LayerMask layerRebond;
 
     public override void Recover()
     {
         IsRecover = true;
     }
-
     protected override void OnTriggerEnter2D(Collider2D other)
     {
         if (IsRecover) return;
@@ -39,35 +35,7 @@ public class AmmoRebon : Ammo
                 currentIA.enabled = true;
             }
         }
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-        if (!hasStoped && ammoMagnitude < 100)
-        {
-            // rb2D.velocity = Vector2.zero;
-            // DOTween.To(() => rb2D.velocity, x => rb2D.velocity = x, Vector2.zero, 3f);
-            // rb2D.drag = 1f;
-            rb2D.gravityScale = 1f;
-            rb2D.sharedMaterial = null;
-            hasStoped = true;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        transform.rotation = Rotation2D.LookToDirection2D(transform.rotation, rb2D.velocity);
-        Debug.DrawRay(transform.position, transform.up * 1.2f * rb2D.velocity.magnitude * Time.fixedDeltaTime);
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerRebond);
-        if (hit2D)
-        {
-            if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
-            {
-                rb2D.sharedMaterial = null;
-                return;
-            }
-            OnTriggerEnter2D(hit2D.transform.GetComponent<Collider2D>());
-        }
+        if (ammoMagnitude < 75f)
+            gameObject.layer = LayerMask.NameToLayer("IADontCollide");
     }
 }

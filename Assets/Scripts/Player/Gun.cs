@@ -16,7 +16,8 @@ public class Gun : MonoBehaviour
     void Awake()
     {
         for (int i = 0; i < ammo.Count; i++)
-            currentAmmo.Add(null); 
+            currentAmmo.Add(null);
+        if (UIammo == null) return;
         UIammo.text = ammo[indexAmmo].name;
     }
 
@@ -24,12 +25,13 @@ public class Gun : MonoBehaviour
     {
         if (!context.started || currentAmmo[indexAmmo] != null) return;
         currentAmmo[indexAmmo] = Instantiate(ammo[indexAmmo], shootPosition.position, transform.rotation).GetComponent<Ammo>();
+        currentAmmo[indexAmmo]._gun = this;
     }
 
     public void AmmoRecover(InputAction.CallbackContext context)
     {
         if (!context.started || currentAmmo[indexAmmo] == null || !currentAmmo[indexAmmo].CanRecover) return;
-        currentAmmo[indexAmmo].Recover(this);
+        currentAmmo[indexAmmo].Recover();
     }
 
     public void ChangeAmmo(InputAction.CallbackContext context)
@@ -39,6 +41,7 @@ public class Gun : MonoBehaviour
             indexAmmo = indexAmmo >= ammo.Count - 1 ? 0 : indexAmmo + 1;
         else
             indexAmmo = indexAmmo <= 0 ? ammo.Count - 1 : indexAmmo - 1;
+        if (UIammo == null) return;
         UIammo.text = ammo[indexAmmo].name;
     }
 
