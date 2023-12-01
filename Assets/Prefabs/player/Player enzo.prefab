@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 747856985619423663}
   m_Layer: 3
   m_Name: Player enzo
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -176,7 +176,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -295,7 +295,19 @@ MonoBehaviour:
     m_ActionId: d1eb84b9-17f2-4c5a-933c-9b6dc14055c9
     m_ActionName: Player/Roll[/Keyboard/r]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7335652219000336131}
+        m_TargetAssemblyTypeName: Gun, Assembly-CSharp
+        m_MethodName: ChangeAmmo
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 0f36a637-c1e3-407e-a786-10d13bd8b7b3
     m_ActionName: Player/ChangeAmmo[/Mouse/scroll/y]
   - m_PersistentCalls:
@@ -628,7 +640,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5996619747820030045}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.48, y: -0.109999895, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 3.1999998, z: 3.1999998}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -701,6 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo:
+  - {fileID: 8612664303447618227, guid: 8a68675fb1081f84ebe6079228548e23, type: 3}
   - {fileID: 8612664303447618227, guid: baba3ffdd4e91f044a980997a35f60c6, type: 3}
   - {fileID: 8612664303447618227, guid: 04d7e127bea8adf409c5c78b2a54d9b6, type: 3}
   - {fileID: 8612664303447618227, guid: fbcf82187ae6e1944a2ab8f1b286274d, type: 3}
@@ -923,7 +936,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6.656047
+  orthographic size: 9.696347
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

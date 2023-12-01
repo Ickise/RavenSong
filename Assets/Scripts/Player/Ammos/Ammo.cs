@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections;
 
 public abstract class Ammo : MonoBehaviour
 {
     [SerializeField] protected bool canPlayerRecover = true;
+    [SerializeField] protected LayerMask layerBall;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
     protected Rigidbody2D rb2D;
@@ -10,6 +12,7 @@ public abstract class Ammo : MonoBehaviour
     [SerializeField] protected float speedRecover, force, forceRecule;
     public Gun _gun { get; set; }
     protected float ammoMagnitude;
+    protected bool active = true;
 
     protected virtual void Awake()
     {
@@ -38,8 +41,31 @@ public abstract class Ammo : MonoBehaviour
         //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         //         Destroy(gameObject);
         ammoMagnitude = rb2D.velocity.magnitude;
+        if (ammoMagnitude < 75f)
+        {
+            gameObject.layer = LayerMask.NameToLayer("IADontCollide");
+            active = false;
+        }
     }
 
-    protected abstract void OnTriggerEnter2D(Collider2D other);
+    private void FixedUpdate()
+    {
+        // Debug.DrawRay(transform.position, transform.up * 1.2f * rb2D.velocity.magnitude * Time.fixedDeltaTime);
+        if (!active) return;
+        RaycastHit2D hit2D = Physics2D.CircleCast(transform.position, transform.localScale.x, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerBall);
+        if (hit2D)
+        {
+            print(hit2D.transform.name);
+            StartCoroutine(Wait1frame(hit2D));
+            IEnumerator Wait1frame(RaycastHit2D hit2D)
+            {
+                yield return 0;
+                active = false;
+                Trigger(hit2D.transform.gameObject);
+            }
+        }
+    }
+
+    protected abstract void Trigger(GameObject other);
     public abstract void Recover();
 }

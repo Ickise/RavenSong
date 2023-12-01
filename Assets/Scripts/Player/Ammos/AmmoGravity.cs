@@ -17,7 +17,7 @@ public class AmmoGravity : Ammo
         }
     }
 
-    protected override void OnTriggerEnter2D(Collider2D other)
+    protected override void Trigger(GameObject other)
     {
         if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;

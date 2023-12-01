@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class AmmoDefault : Ammo
 {
-
     public override void Recover()
     {
         IsRecover = true;
     }
-    protected override void OnTriggerEnter2D(Collider2D other)
+    protected override void Trigger(GameObject other)
     {
         if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
-        if (other.gameObject.layer == LayerMask.NameToLayer("IA"))
+        if (other.layer == LayerMask.NameToLayer("IA"))
         {
+            print("ouizz");
             IA currentIA = other.GetComponent<IA>();
             currentIA.enabled = false;
             Rigidbody2D rbCurrentIA = other.GetComponent<Rigidbody2D>();
@@ -35,7 +35,5 @@ public class AmmoDefault : Ammo
                 currentIA.enabled = true;
             }
         }
-        if (ammoMagnitude < 75f)
-            gameObject.layer = LayerMask.NameToLayer("IADontCollide");
     }
 }

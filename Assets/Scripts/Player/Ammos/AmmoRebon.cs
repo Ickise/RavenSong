@@ -6,24 +6,24 @@ using DG.Tweening;
 public class AmmoRebon : Ammo
 {
     private bool hasStoped;
-    [SerializeField] private LayerMask layerRebond;
 
     public override void Recover()
     {
         IsRecover = true;
     }
 
-    protected override void OnTriggerEnter2D(Collider2D other)
+    protected override void Trigger(GameObject other)
     {
+        active = true;
         if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
-        if (other.gameObject.layer == LayerMask.NameToLayer("IA"))
+        if (other.layer == LayerMask.NameToLayer("IA"))
         {
             IA currentIA = other.GetComponent<IA>();
             currentIA.enabled = false;
             Rigidbody2D rbCurrentIA = other.GetComponent<Rigidbody2D>();
             rbCurrentIA.velocity = Vector2.zero;
-            rb2D.velocity = Vector2.zero;
+            // rb2D.velocity = Vector2.zero;
             rbCurrentIA.AddForce((transform.position.x > currentIA.transform.position.x ? new Vector2(-1, 1).normalized : new Vector2(1, 1).normalized) * forceRecule, ForceMode2D.Impulse);
             currentIA.NbVie -= 1;
             if (currentIA.NbVie < 1)
@@ -52,22 +52,6 @@ public class AmmoRebon : Ammo
             rb2D.gravityScale = 1f;
             rb2D.sharedMaterial = null;
             hasStoped = true;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        transform.rotation = Rotation2D.LookToDirection2D(transform.rotation, rb2D.velocity);
-        Debug.DrawRay(transform.position, transform.up * 1.2f * rb2D.velocity.magnitude * Time.fixedDeltaTime);
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerRebond);
-        if (hit2D)
-        {
-            if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
-            {
-                rb2D.sharedMaterial = null;
-                return;
-            }
-            OnTriggerEnter2D(hit2D.transform.GetComponent<Collider2D>());
         }
     }
 }
