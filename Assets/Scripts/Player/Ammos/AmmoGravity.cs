@@ -27,11 +27,10 @@ public class AmmoGravity : Ammo
         currentNoGravityZone = Instantiate(noGravityZone, transform.position, Quaternion.identity);
     }
 
-    public override void Recover(Gun _gun)
+    public override void Recover()
     {
         gameObject.SetActive(true);
         Destroy(currentNoGravityZone);
-        this._gun = _gun;
         IsRecover = true;
     }
 }

@@ -9,7 +9,8 @@ public abstract class IA : MonoBehaviour
     [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f;
     // [SerializeField] private bool canJumpObstacle;
     [SerializeField] private bool drawCirclesEditor;
-    [SerializeField] private int nombreVie;
+    [SerializeField] private int nombreVie = 1;
+    public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float speedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
@@ -66,7 +67,7 @@ public abstract class IA : MonoBehaviour
     //     if (IsGrounded && !RaycastHitWall && Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceHitSomething, Vector2.down, distanceIsGrounded, layerDefault))
     //         rb2D.AddForce((direction ? Vector2.one : new Vector2(-1, 1)) * 2f, ForceMode2D.Impulse);
     // }
-    
+
     // private void Roaming()
     // {
     //     rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);

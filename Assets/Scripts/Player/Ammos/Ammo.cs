@@ -8,7 +8,7 @@ public abstract class Ammo : MonoBehaviour
     protected Rigidbody2D rb2D;
     protected Collider2D c2D;
     [SerializeField] protected float speedRecover, force, forceRecule;
-    protected Gun _gun;
+    public Gun _gun { get; set; }
     protected float ammoMagnitude;
 
     protected virtual void Awake()
@@ -32,6 +32,8 @@ public abstract class Ammo : MonoBehaviour
             if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
                 Destroy(gameObject);
         }
+        if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
+            Destroy(gameObject);
         // if (CanRecover || canPlayerRecover)
         //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         //         Destroy(gameObject);
@@ -39,5 +41,5 @@ public abstract class Ammo : MonoBehaviour
     }
 
     protected abstract void OnTriggerEnter2D(Collider2D other);
-    public abstract void Recover(Gun _gun);
+    public abstract void Recover();
 }

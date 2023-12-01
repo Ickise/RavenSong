@@ -31,10 +31,9 @@ public class AmmoTest : Ammo
         }
     }
 
-    public override void Recover(Gun _gun)
+    public override void Recover()
     {
         gameObject.SetActive(true);
-        this._gun = _gun;
         IsRecover = true;
     }
 }
