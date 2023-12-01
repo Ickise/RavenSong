@@ -10,7 +10,7 @@ public abstract class IA : MonoBehaviour
     // [SerializeField] private bool canJumpObstacle;
     [SerializeField] private bool drawCirclesEditor;
     [SerializeField] private int nombreVie = 1;
-    public int NbVie { get; set; }
+    public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float speedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
