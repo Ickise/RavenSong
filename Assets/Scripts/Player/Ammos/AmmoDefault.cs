@@ -14,7 +14,6 @@ public class AmmoDefault : Ammo
         if (canPlayerRecover) CanRecover = true;
         if (other.layer == LayerMask.NameToLayer("IA"))
         {
-            print("ouizz");
             IA currentIA = other.GetComponent<IA>();
             currentIA.enabled = false;
             Rigidbody2D rbCurrentIA = other.GetComponent<Rigidbody2D>();

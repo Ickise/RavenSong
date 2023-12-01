@@ -9,7 +9,7 @@ public abstract class Ammo : MonoBehaviour
     public bool IsRecover { get; protected set; }
     protected Rigidbody2D rb2D;
     protected Collider2D c2D;
-    [SerializeField] protected float speedRecover, force, forceRecule;
+    [SerializeField] protected float vitesseRecuperation = 200f, force = 200f, forceRecule = 15f, vitesseMinimumEffect = 75f;
     public Gun _gun { get; set; }
     protected float ammoMagnitude;
     protected bool active = true;
@@ -31,7 +31,7 @@ public abstract class Ammo : MonoBehaviour
     {
         if (IsRecover)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _gun.transform.position, speedRecover * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, _gun.transform.position, vitesseRecuperation * Time.deltaTime);
             if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
                 Destroy(gameObject);
         }
@@ -41,7 +41,7 @@ public abstract class Ammo : MonoBehaviour
         //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         //         Destroy(gameObject);
         ammoMagnitude = rb2D.velocity.magnitude;
-        if (ammoMagnitude < 75f)
+        if (ammoMagnitude < vitesseMinimumEffect)
         {
             gameObject.layer = LayerMask.NameToLayer("IADontCollide");
             active = false;
