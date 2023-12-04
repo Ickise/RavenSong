@@ -634,6 +634,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 19318302601555160}
+  - component: {fileID: 1950024307085444702}
+  - component: {fileID: 6005799244035455201}
   m_Layer: 3
   m_Name: shoot position
   m_TagString: Untagged
@@ -656,6 +658,54 @@ Transform:
   m_Father: {fileID: 5561882108913191949}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &1950024307085444702
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108646155374385951}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!231 &6005799244035455201
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5108646155374385951}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 1
+  m_Distance: 17.390795
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!1 &5739711255492213874
 GameObject:
   m_ObjectHideFlags: 0
@@ -906,6 +956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo:
+  - {fileID: 8612664303447618227, guid: 57dff4f2429a886418aa47256194f3c8, type: 3}
   - {fileID: 8612664303447618227, guid: 8a68675fb1081f84ebe6079228548e23, type: 3}
   - {fileID: 8612664303447618227, guid: baba3ffdd4e91f044a980997a35f60c6, type: 3}
   - {fileID: 8612664303447618227, guid: 04d7e127bea8adf409c5c78b2a54d9b6, type: 3}

@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8404946919698269789}
   - component: {fileID: 8450475804937163209}
+  - component: {fileID: 4350618667605521484}
   - component: {fileID: 1033450378088997341}
-  - component: {fileID: 6772304484445405165}
   - component: {fileID: -1422134552621487096}
   - component: {fileID: -7240406257146566889}
   m_Layer: 10
-  m_Name: BallElectric
+  m_Name: BallGrappin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 8612664303447618227}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.49, y: -1.26, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.1741572, b: 0, a: 1}
+  m_Color: {r: 0.6415094, g: 0.4841224, b: 0.038732607, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -88,6 +88,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4350618667605521484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612664303447618227}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2dee33074edcc146bd6c47574485a9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canPlayerRecover: 1
+  layerBall:
+    serializedVersion: 2
+    m_Bits: 2049
+  vitesseRecuperation: 200
+  force: 100
+  forceRecule: 15
+  vitesseMinimumEffect: 75
+  forceGrappin: 3
 --- !u!50 &1033450378088997341
 Rigidbody2D:
   serializedVersion: 4
@@ -100,9 +121,9 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDrag: 0.2
-  m_AngularDrag: 20
+  m_AngularDrag: 5
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -115,26 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &6772304484445405165
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8612664303447618227}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd2c79550c5a4ff4a86fc92725c877ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canPlayerRecover: 0
-  layerBall:
-    serializedVersion: 2
-    m_Bits: 2049
-  vitesseRecuperation: 0
-  force: 50
-  forceRecule: 0
-  vitesseMinimumEffect: 75
 --- !u!58 &-1422134552621487096
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -212,7 +213,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.3
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -222,7 +223,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.35576895
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -231,7 +232,7 @@ TrailRenderer:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.8449112
-        value: 0.096153915
+        value: 0
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -243,7 +244,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.9514903, b: 0, a: 1}
+      key0: {r: 0.6392157, g: 0.6431373, b: 0.6117647, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -268,7 +269,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0

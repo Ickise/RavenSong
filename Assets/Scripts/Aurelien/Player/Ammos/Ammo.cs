@@ -55,17 +55,16 @@ public abstract class Ammo : MonoBehaviour
         RaycastHit2D hit2D = Physics2D.CircleCast(transform.position, transform.localScale.x, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerBall);
         if (hit2D)
         {
-            print(hit2D.transform.name);
             StartCoroutine(Wait1frame(hit2D));
             IEnumerator Wait1frame(RaycastHit2D hit2D)
             {
                 yield return 0;
                 active = false;
-                Trigger(hit2D.transform.gameObject);
+                Trigger(hit2D);
             }
         }
     }
 
-    protected abstract void Trigger(GameObject other);
+    protected abstract void Trigger(RaycastHit2D hit2D);
     public abstract void Recover();
 }

@@ -8,6 +8,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private List<GameObject> ammo;
     [SerializeField] private Transform shootPosition;
+    public Transform ShootPosition { get { return shootPosition; } }
     [SerializeField] private float distanceForRecoverAmmo;
     [Tooltip("ball at the start"), SerializeField] private int indexAmmo;
     [SerializeField] private TextMeshProUGUI UIammo;
