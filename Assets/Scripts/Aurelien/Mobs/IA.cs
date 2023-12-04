@@ -39,14 +39,15 @@ public abstract class IA : MonoBehaviour
     private void Update()
     {
         StateManager();
+        AtkPlayer();
     }
 
     protected abstract void StateManager();
 
     private void AtkPlayer()
     {
-        // if (Vector2.Distance(transform.position, player.position) < distanceAttaquePlayer)
-
+        if (Vector2.Distance(transform.position, player.position) < distanceAttaquePlayer)
+            player.GetComponent<Respawn>().RespawnPlayer();
     }
 
     protected void RunToDirection()

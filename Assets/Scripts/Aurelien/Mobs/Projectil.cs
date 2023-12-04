@@ -34,6 +34,8 @@ public class Projectil : MonoBehaviour
     {
         if ((layerDestroyProjectil & 1 << other.gameObject.layer) == 1 << other.gameObject.layer)
         {
+            if (other.CompareTag("Player"))
+                other.GetComponent<Respawn>().RespawnPlayer();
             StopAllCoroutines();
             Destroy(gameObject);
         }
