@@ -9,6 +9,8 @@ public class InputReader : MonoBehaviour
     public bool jump;
     public bool leftClick;
     public bool activateAim = false;
+    public bool canStun;
+    public bool canDown;
     
     public static InputReader instance;
     
@@ -22,6 +24,10 @@ public class InputReader : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context) => jump = context.performed;
 
     public void OnFire(InputAction.CallbackContext context) => leftClick = context.performed;
-
+    
     public void OnAim(InputAction.CallbackContext context) => activateAim = context.performed;
+
+    public void OnStun(InputAction.CallbackContext context) => canStun = context.performed;
+
+    public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
 }
