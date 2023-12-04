@@ -6,7 +6,7 @@ public abstract class IA : MonoBehaviour
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f;
+    [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
     // [SerializeField] private bool canJumpObstacle;
     [SerializeField] private bool drawCirclesEditor;
     [SerializeField] private int nombreVie = 1;
@@ -42,6 +42,12 @@ public abstract class IA : MonoBehaviour
     }
 
     protected abstract void StateManager();
+
+    private void AtkPlayer()
+    {
+        // if (Vector2.Distance(transform.position, player.position) < distanceAttaquePlayer)
+
+    }
 
     protected void RunToDirection()
     {
