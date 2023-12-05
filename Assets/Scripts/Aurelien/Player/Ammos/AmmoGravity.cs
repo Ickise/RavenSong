@@ -19,7 +19,6 @@ public class AmmoGravity : Ammo
 
     protected override void Trigger(RaycastHit2D hit2D)
     {
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
         if (trail) return;
         gameObject.SetActive(false);

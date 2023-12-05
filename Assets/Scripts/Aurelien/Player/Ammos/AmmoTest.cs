@@ -8,7 +8,6 @@ public class AmmoTest : Ammo
 
     protected override void Trigger(RaycastHit2D hit2D)
     {
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
         rb2D.velocity = Vector2.zero;
         if (hit2D.transform.CompareTag("Electric React"))

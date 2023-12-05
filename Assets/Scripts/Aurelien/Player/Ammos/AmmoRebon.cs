@@ -15,7 +15,6 @@ public class AmmoRebon : Ammo
     protected override void Trigger(RaycastHit2D hit2D)
     {
         active = true;
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
         if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
         {

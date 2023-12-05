@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 8012276900402190899}
   - component: {fileID: 747856985619423663}
   - component: {fileID: 3873875208504716918}
+  - component: {fileID: 7451929887715311215}
   m_Layer: 3
   m_Name: Player enzo
   m_TagString: Player
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d40c54c8a5e92418030adbd95edcf1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 5
+  jumpForce: 20
   hangTime: 0.1
   hangTimeCounter: 0
   jumpBufferLength: 0.1
@@ -435,7 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15
-  gravity: 1
+  gravity: 5
   playerRigidbody2D: {fileID: 3775067873167366473}
   _raycastDetection: {fileID: 7672566409580914129}
   runAudio: {fileID: 8300000, guid: 713f20d4358d5c34cb91dab71964cf0f, type: 3}
@@ -497,6 +498,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
+--- !u!231 &7451929887715311215
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441308369916113764}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 1.5
+  m_DampingRatio: 0
+  m_Frequency: 0.5
 --- !u!1 &2532280008830181610
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +657,6 @@ GameObject:
   m_Component:
   - component: {fileID: 19318302601555160}
   - component: {fileID: 1950024307085444702}
-  - component: {fileID: 6005799244035455201}
   m_Layer: 3
   m_Name: shoot position
   m_TagString: Untagged
@@ -685,27 +706,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!231 &6005799244035455201
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5108646155374385951}
-  m_Enabled: 1
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 1
-  m_Distance: 17.390795
-  m_DampingRatio: 0
-  m_Frequency: 1
 --- !u!1 &5739711255492213874
 GameObject:
   m_ObjectHideFlags: 0

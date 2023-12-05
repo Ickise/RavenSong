@@ -10,7 +10,6 @@ public class AmmoDefault : Ammo
     }
     protected override void Trigger(RaycastHit2D hit2D)
     {
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
         if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
         {
