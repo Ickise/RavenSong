@@ -111,8 +111,6 @@ GameObject:
   - component: {fileID: 3775067873167366473}
   - component: {fileID: 5578715252151829945}
   - component: {fileID: 6482090840447388875}
-  - component: {fileID: 490050558279549563}
-  - component: {fileID: 1778222461326692959}
   - component: {fileID: 8012276900402190899}
   - component: {fileID: 747856985619423663}
   - component: {fileID: 3873875208504716918}
@@ -211,7 +209,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -387,41 +385,6 @@ MonoBehaviour:
   activateAim: 0
   canStun: 0
   canDown: 0
---- !u!114 &490050558279549563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441308369916113764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59d40c54c8a5e92418030adbd95edcf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  jumpForce: 5
-  hangTime: 0.1
-  hangTimeCounter: 0
-  jumpBufferLength: 0.1
-  jumpBufferCounter: 0
-  _raycastDetection: {fileID: 7672566409580914129}
-  playerRigidbody2D: {fileID: 3775067873167366473}
-  jumpAudio: {fileID: 8300000, guid: 9904bbb83d26dbe4f8c57d0ee449d8e2, type: 3}
---- !u!114 &1778222461326692959
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441308369916113764}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad43a0fc81b0e2f46994fd5bd6284aae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallMultiplier: 2.5
-  lowJumpMultiplier: 2
-  playerRigidbody2D: {fileID: 3775067873167366473}
 --- !u!114 &8012276900402190899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -434,11 +397,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a63645c8ac3b4b4b905dffa07cbb85d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15
-  gravity: 1
+  speed: 5
+  gravityFactor: 1
+  jumpForce: 5
+  hangTime: 0.1
+  jumpBufferLength: 0.1
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
   playerRigidbody2D: {fileID: 3775067873167366473}
   _raycastDetection: {fileID: 7672566409580914129}
-  runAudio: {fileID: 8300000, guid: 713f20d4358d5c34cb91dab71964cf0f, type: 3}
+  hangTimeCounter: 0
+  jumpBufferCounter: 0
 --- !u!61 &747856985619423663
 BoxCollider2D:
   m_ObjectHideFlags: 0
