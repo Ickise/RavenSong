@@ -68,8 +68,8 @@ public class RaycastDetection : MonoBehaviour
     private void SetBool()
     {
         isGrounded = isRaycastOfListIsNotNull(new RaycastHit2D[] {hitLeftGround, hitRightGround});
-        stopLeft = isRaycastNotNull((hitLeftUp));
-        stopRight = isRaycastNotNull((hitRightUp));
+        stopLeft = isRaycastOfListIsNotNull(new RaycastHit2D[] { hitLeftUp, hitLeftDown });
+        stopRight = isRaycastOfListIsNotNull(new RaycastHit2D[] { hitRightUp, hitRightDown });
     }
     
     private void OnDrawGizmos()

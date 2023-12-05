@@ -19,8 +19,16 @@ public class PlayerController2D : MonoBehaviour
 
     private void ModularMovement()
     {
-        playerRigidbody2D.velocity = new Vector2(InputReader.instance.direction.x * speed, playerRigidbody2D.velocity.y);
-            
+        if (InputReader.instance.direction.x > 0 && !_raycastDetection.stopRight ||
+            InputReader.instance.direction.x < 0 && !_raycastDetection.stopLeft)
+        {
+            playerRigidbody2D.velocity = new Vector2(InputReader.instance.direction.x * speed, playerRigidbody2D.velocity.y);
+        }
+        else
+        {
+            playerRigidbody2D.velocity = new Vector2(0, playerRigidbody2D.velocity.y);
+        }
+      
         if (_raycastDetection.isGrounded)
         {
             playerRigidbody2D.gravityScale = 0;
