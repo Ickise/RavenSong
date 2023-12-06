@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AmmoGrappin : Ammo
@@ -50,8 +51,11 @@ public class AmmoGrappin : Ammo
         if (canPlayerRecover)
         {
             base.Update();
-            lineRenderer.SetPosition(0, _gun.ShootPosition.position);
-            lineRenderer.SetPosition(1, transform.position);
+            if (lineRenderer.positionCount > 0)
+            {
+                lineRenderer.SetPosition(0, _gun.ShootPosition.position);
+                lineRenderer.SetPosition(1, transform.position);
+            }
         }
         else if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
             Destroy(gameObject);

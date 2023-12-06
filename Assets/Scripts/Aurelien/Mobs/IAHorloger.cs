@@ -31,7 +31,7 @@ public class IAHorloger : IA
     private void IsWaitingPlayer()
     {
         if (isReloading) return;
-        if (DetectPlayer)
+        if (DetectPlayer && IsGrounded)
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;

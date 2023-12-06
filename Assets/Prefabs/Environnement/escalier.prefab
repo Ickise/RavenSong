@@ -98,7 +98,7 @@ Transform:
   - {fileID: 8373678463398455069}
   - {fileID: 6091586012248743513}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4418844160347114710
 SpriteRenderer:
@@ -211,12 +211,13 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.5230615, y: -0.97112083}
-      - {x: -0.47635698, y: -0.90181786}
-      - {x: -0.36723807, y: -0.7981113}
-      - {x: -0.26870644, y: -0.7051742}
+    - - {x: -0.4989916, y: -1.0054742}
+      - {x: -0.42821714, y: -0.9361712}
+      - {x: -0.3081313, y: -0.8276648}
+      - {x: -0.20720342, y: -0.7259942}
       - {x: 0.235, y: -0.22000003}
-      - {x: 0.24499999, y: -0.19}
+      - {x: 0.25496954, y: -0.2102083}
+      - {x: 0.32593867, y: -0.1206916}
       - {x: 0.285, y: -0.17000002}
       - {x: 1.3349999, y: 0.88}
       - {x: 1.395, y: 0.9599999}
@@ -336,8 +337,12 @@ MonoBehaviour:
     m_ActionName: Player/ChangeAmmo[/Mouse/scroll/y]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 0961bd70-e10a-4d6b-b3ea-28c133307639
-    m_ActionName: Player/CrossHit[/Keyboard/c]
+    m_ActionId: b0f0c051-220a-4b87-a5bb-8c592dff09fa
+    m_ActionName: Player/Down[/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5945ab08-71b4-4eec-af0b-13d323c59e05
+    m_ActionName: Player/CrossKick[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
