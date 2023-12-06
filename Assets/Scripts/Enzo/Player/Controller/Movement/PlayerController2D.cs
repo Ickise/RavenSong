@@ -2,15 +2,24 @@ using UnityEngine;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("À set up")]
+    [Header("Modifie les mouvements")]
     [SerializeField] private float speed = 5f;
+
+    [Header("Modifie le saut")]
     [SerializeField] private float gravityFactor = 1f;
     [SerializeField] private float jumpForce = 5f;
+
+    [Header("Modifie le temps où le joueur saute après avoir quitté une plateforme")]
     [SerializeField] private float hangTime = 0.1f;
+    
+    [Header("Modifie le temps où l'input de saut a été enregistré")]
     [SerializeField] private float jumpBufferLength = 0.1f; 
+    
+    [Header("Modifie la rapidité pour tomber du saut")]
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
     
+    [Header("Component à set up")]
     [SerializeField] private Rigidbody2D playerRigidbody2D;
 
     [SerializeField] private RaycastDetection _raycastDetection;
@@ -19,7 +28,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float hangTimeCounter; 
     [SerializeField] private float jumpBufferCounter; 
     
-    private bool canJump => jumpBufferCounter > 0 && hangTimeCounter > 0;
+    private bool canJump => jumpBufferCounter >= 0 && hangTimeCounter >= 0;
 
     private Vector2 playerVelocity;
 
