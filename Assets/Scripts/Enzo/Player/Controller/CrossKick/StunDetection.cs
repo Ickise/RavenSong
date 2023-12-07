@@ -39,7 +39,7 @@ public class StunDetection : MonoBehaviour
             stopTimeToEnableRaycast = true;
             
             raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right, distance, layerMask);
-            if(raycastHit2D.collider.GetComponent<IA>() != null) _ia = raycastHit2D.collider.GetComponent<IA>();
+            if(raycastHit2D.collider.GetComponent<IA>() != null) _ia = raycastHit2D.collider.GetComponent<IA>(); //fait une seule erreur s'il ne détecte rien, à voir
 
         }
 
