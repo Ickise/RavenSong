@@ -22,7 +22,7 @@ public abstract class IA : MonoBehaviour
         }
     }
     protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob, layerDefault); } }
-    protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceToucheMurOuVide, layerDefault); } }
+    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, (tailleMob - 0.1f) * 2f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, distanceToucheMurOuVide, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
 

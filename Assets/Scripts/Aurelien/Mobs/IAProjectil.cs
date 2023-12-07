@@ -9,7 +9,9 @@ public class IAProjectil : IA
     {
         get
         {
-            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + hauteurPlayerDetection), player.position - new Vector3(transform.position.x, transform.position.y + hauteurPlayerDetection), distancePlayerDetection, layerDetectPlayer);
+            RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.up, hauteurPlayerDetection, layerDefault);
+            return hit2D ? Physics2D.Raycast(new Vector2(hit2D.point.x, hit2D.point.y - 0.1f), player.position - new Vector3(hit2D.point.x, hit2D.point.y - 0.1f), distancePlayerDetection, layerDetectPlayer) :
+            Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + hauteurPlayerDetection), player.position - new Vector3(transform.position.x, transform.position.y + hauteurPlayerDetection), distancePlayerDetection, layerDetectPlayer);
         }
     }
     private bool DetectPlayerYProjectil { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayerProjectil && RaycastDetectPlayerProjectil.transform.CompareTag("Player"); } }
