@@ -3,65 +3,81 @@ using UnityEngine;
 public class StunDetection : MonoBehaviour
 {
     [Header("À set up")]
-    [SerializeField] private Collider2D stunCollider2D;
-    private IA _ia; // ici il faudra mettre le component qu'on veut déssactiver pour arrêter les mouvements etc...
-
     [SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
-    [SerializeField] private float timeToDisableStunCollider = 0.3f;
-    
+    [SerializeField] private float timeToDisableRaycast = 0.3f;
+    [SerializeField] private float distance = 0.5f;
+
+    [SerializeField] private LayerMask layerMask;
+
     [Header("Ne pas set up")]
     [SerializeField] private float timeToCrossKick;
-    [SerializeField] private float timeToEnableStunCollider;
+    [SerializeField] private float timeToEnableRaycast;
     [SerializeField] private float timeToStun;
+    
+    private IA _ia;
+
+    private RaycastHit2D raycastHit2D;
 
     private bool canLaunchTimeToStun;
-    private bool launchTimeToDisableStunCollider;
-
+    private bool stopTimeToEnableRaycast;
+    
     private void Update()
     {
+        StunEnemy();
+    }
+
+    private void StunEnemy()
+    {
         timeToCrossKick += Time.deltaTime;
-        
+
         if (InputReader.instance.canStun && timeToCrossKick >= crossKickCooldown)
         {
-            stunCollider2D.enabled = true;
-            canLaunchTimeToStun = true;
-            
             timeToCrossKick = 0;
+            
+            canLaunchTimeToStun = true;
+            stopTimeToEnableRaycast = true;
+            
+            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right, distance, layerMask);
+            if(raycastHit2D.collider.GetComponent<IA>() != null) _ia = raycastHit2D.collider.GetComponent<IA>();
+
         }
 
         if (canLaunchTimeToStun)
         {
-            timeToEnableStunCollider += Time.deltaTime;
+            if (stopTimeToEnableRaycast) timeToEnableRaycast += Time.deltaTime;
+
             timeToStun += Time.deltaTime;
             
-            if (timeToEnableStunCollider >= timeToDisableStunCollider )
+            if(_ia != null) _ia.enabled = false;
+            
+            if (timeToEnableRaycast >= timeToDisableRaycast)
             {
-                stunCollider2D.enabled = false;
-                timeToEnableStunCollider = 0;
+                raycastHit2D = new RaycastHit2D();
+
+                timeToEnableRaycast = 0;
+                stopTimeToEnableRaycast = false;
             }
             
             if (timeToStun >= stunDuration)
             {
                 if (_ia != null)
                 {
-                    _ia.enabled = true; // bien mettre le bon component
+                    _ia.enabled = true;
+                    _ia = null;
                 }
                 
                 timeToStun = 0;
-                timeToEnableStunCollider = 0;
                 canLaunchTimeToStun = false;
             }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnDrawGizmos()
     {
-        _ia = (IA) other.GetComponent<IA>();
-        
-        if (_ia!= null)
+        if (stopTimeToEnableRaycast)
         {
-            _ia.enabled = false; // à modifier pour mettre le bon component 
+            Gizmos.DrawLine(transform.position, transform.position + Vector3.right * distance);
         }
     }
 }
