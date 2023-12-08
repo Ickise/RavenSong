@@ -26,7 +26,6 @@ public class IAProjectil : IA
 
     protected override void StateManager()
     {
-        if (!IsGrounded) return;
         switch (state)
         {
             default:

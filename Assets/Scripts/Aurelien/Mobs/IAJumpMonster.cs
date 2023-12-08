@@ -14,7 +14,7 @@ public class IAJumpMonster : IA
 
     private void Roaming()
     {
-        if (canJump && Physics2D.Raycast(transform.position, Vector2.down, tailleMob, layerDefault))
+        if (canJump && Physics2D.Raycast(transform.position, Vector2.down, tailleMob.y, layerDefault))
         {
             rb2D.AddForce((direction ? Vector2.one : new Vector2(-1, 1)) * jumpForce, ForceMode2D.Impulse);
             canJump = false;
@@ -29,7 +29,7 @@ public class IAJumpMonster : IA
 
         if (RaycastHitWall)
             direction = !direction;
-        Debug.DrawRay(transform.position, (direction ? Vector2.right : Vector2.left) * distanceToucheMurOuVide);
+        Debug.DrawRay(transform.position, (direction ? Vector2.right : Vector2.left) * tailleMob.x);
     }
 
     private void DetectionPlayer()

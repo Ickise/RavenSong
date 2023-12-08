@@ -2,7 +2,6 @@ public class IALaBrute : IA
 {
     protected override void StateManager()
     {
-        if (!IsGrounded) return;
         Walking();
         DetectionPlayer();
     }
