@@ -11,6 +11,7 @@ public class InputReader : MonoBehaviour
     public bool activateAim = false;
     public bool canStun;
     public bool canDown;
+    public bool canRoll;
     
     public static InputReader instance;
     
@@ -30,4 +31,6 @@ public class InputReader : MonoBehaviour
     public void OnStun(InputAction.CallbackContext context) => canStun = context.performed;
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
+
+    public void OnRoll(InputAction.CallbackContext context) => canRoll = context.performed;
 }
