@@ -31,15 +31,6 @@ public class RaycastDetection : MonoBehaviour
         SetBool();
     }
 
-    private bool isRaycastNotNull(RaycastHit2D raycastHit2D)
-    {
-        if (raycastHit2D.collider != null)
-        {
-            return true;
-        }
-        return false;
-    }
-    
     private void SetRaycast()
     {
         capsuleCastRightHit = Physics2D.CapsuleCast(capsuleCastRight.position, capsuleSizeWall, CapsuleDirection2D.Vertical,
@@ -55,9 +46,8 @@ public class RaycastDetection : MonoBehaviour
     private void SetBool()
     { 
         isGrounded = capsuleCastGroundHit;
-        isGrounded = isRaycastNotNull(capsuleCastGroundHit);
 
-        stopLeft = isRaycastNotNull(capsuleCastLeftHit);
-        stopRight = isRaycastNotNull(capsuleCastRightHit);
+        stopLeft = capsuleCastLeftHit;
+        stopRight = capsuleCastRightHit;
     }
 }
