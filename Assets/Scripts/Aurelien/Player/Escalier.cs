@@ -26,9 +26,9 @@ public class Escalier : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         plateforme.position = new Vector2(transform.position.x, Mathf.Lerp(downPoint.position.y, upPoint.position.y, 1f - ((upPoint.position.x - other.transform.position.x) / (upPoint.position.x - downPoint.position.x))));
-        if (Mathf.Abs(plateforme.position.y - other.transform.position.y) < 1.5f && onPlateform)
+        if (Mathf.Abs(plateforme.position.y - other.transform.position.y) < 1.4f && onPlateform)
         {
-            other.transform.position = new Vector2(other.transform.position.x, plateforme.position.y + 1.12f);
+            other.transform.position = new Vector2(other.transform.position.x, plateforme.position.y + 1.1f);
             isOnEscalier = true;
         }
         else
