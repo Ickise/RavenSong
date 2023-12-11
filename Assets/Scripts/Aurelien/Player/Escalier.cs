@@ -33,6 +33,7 @@ public class Escalier : MonoBehaviour
         }
         else
             isOnEscalier = false;
+        
 
     }
 
@@ -47,22 +48,29 @@ public class Escalier : MonoBehaviour
     public void PassDown(InputAction.CallbackContext context)
     {
         yInput = context.ReadValue<Vector2>().y;
-        if (yInput == -1)
-        {
-            plateforme.gameObject.SetActive(false);
-            onPlateform = false;
-        }
     }
 
     public void IsJumping(InputAction.CallbackContext context)
     {
         if (context.started)
         {
+            if (yInput == -1 && isOnEscalier)
+            {
+                plateforme.gameObject.SetActive(false);
+                onPlateform = false;
+            }
             // if (yInput == -1)
             //     plateforme.gameObject.SetActive(false);
             onPlateform = false;
         }
         if (context.canceled)
-            onPlateform = true;
+        {
+            StartCoroutine(OnplateformTrue());
+            IEnumerator OnplateformTrue()
+            {
+                yield return new WaitForSeconds(0.2f);
+                onPlateform = true;
+            }
+        }
     }
 }

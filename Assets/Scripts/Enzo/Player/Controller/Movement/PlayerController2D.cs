@@ -53,7 +53,7 @@ public class PlayerController2D : MonoBehaviour
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
            canjump = false;
-           if (Escalier.isOnEscalier && InputReader.instance.direction.y == -1 && InputReader.instance.jump) { }
+           if (Escalier.isOnEscalier && InputReader.instance.direction.y == -1) { }
            else Jump();
         }
         else if(!InputReader.instance.jump)
