@@ -4,7 +4,7 @@ public class StunDetection : MonoBehaviour
 {
     [Header("À set up")]
     [SerializeField] private Collider2D stunCollider2D;
-    private Collider2D ennemiCollider2D; // ici il faudra mettre le component qu'on veut déssactiver pour arrêter les mouvements etc...
+    private IA _ia; // ici il faudra mettre le component qu'on veut déssactiver pour arrêter les mouvements etc...
 
     [SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
@@ -43,9 +43,9 @@ public class StunDetection : MonoBehaviour
             
             if (timeToStun >= stunDuration)
             {
-                if (ennemiCollider2D != null)
+                if (_ia != null)
                 {
-                    ennemiCollider2D.enabled = true; // bien mettre le bon component
+                    _ia.enabled = true; // bien mettre le bon component
                 }
                 
                 timeToStun = 0;
@@ -57,11 +57,11 @@ public class StunDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        ennemiCollider2D = other;
+        _ia = (IA) other.GetComponent<IA>();
         
-        if (ennemiCollider2D != null)
+        if (_ia!= null)
         {
-            ennemiCollider2D.enabled = false; // à modifier pour mettre le bon component 
+            _ia.enabled = false; // à modifier pour mettre le bon component 
         }
     }
 }

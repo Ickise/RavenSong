@@ -5,11 +5,7 @@ public class PlayerJump : MonoBehaviour
     [Header("À set up")]
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float hangTime = 0.1f; //coyote time, temps après ne plus être sur une plateforme et qu'on puisse quand même sauter
-    [SerializeField] private float hangTimeCounter; //le chrono pour pouvoir relancer un coyote time
     [SerializeField] private float jumpBufferLength = 0.1f; //jump buffer, correspond au moment où le joueur appuie sur espace pour sauter avant de toucher le sol
-    [SerializeField] private float jumpBufferCounter; //chrono qui se lance pour pouvoir refaire un jumpbuffer
-
-    private bool canJump => jumpBufferCounter > 0 && hangTimeCounter > 0;
 
     [SerializeField] private RaycastDetection _raycastDetection;
 
@@ -17,6 +13,11 @@ public class PlayerJump : MonoBehaviour
     
     [SerializeField] private AudioClip jumpAudio;
     
+    [Header("Ne pas set up")]
+    [SerializeField] private float hangTimeCounter; //le chrono pour pouvoir relancer un coyote time
+    [SerializeField] private float jumpBufferCounter; //chrono qui se lance pour pouvoir refaire un jumpbuffer
+    private bool canJump => jumpBufferCounter > 0 && hangTimeCounter > 0;
+
     private void Update()
     {
         if (canJump) Jump();
