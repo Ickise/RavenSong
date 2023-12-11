@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BetterPlayerJump : MonoBehaviour
+public class OldBetterPlayerJump : MonoBehaviour
 {
     [Header("À set up")]
     [SerializeField] private float fallMultiplier = 2.5f;
