@@ -7,7 +7,8 @@ public class Respawn : MonoBehaviour
 
     private void Awake()
     {
-        CurrentRespawnPoint = spawnPoint.position;
+        if (spawnPoint != null)
+            CurrentRespawnPoint = spawnPoint.position;
     }
 
     public void RespawnPlayer()

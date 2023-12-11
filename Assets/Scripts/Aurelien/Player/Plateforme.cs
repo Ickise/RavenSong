@@ -17,7 +17,7 @@ public class Plateforme : MonoBehaviour
 
     public void PassDown(InputAction.CallbackContext context)
     {
-        if (context.ReadValue<Vector2>().y < 0)
+        if (context.ReadValue<Vector2>().y == -1)
             plateformeCollider.SetActive(false);
     }
 }

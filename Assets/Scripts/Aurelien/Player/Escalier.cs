@@ -1,3 +1,5 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +7,7 @@ public class Escalier : MonoBehaviour
 {
     [SerializeField] private Transform plateforme, downPoint, upPoint;
     private bool onPlateform;
+    // public static bool CanJumpEscalier { get { return  && yInput == -1; } }
     private float yInput;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -23,6 +26,7 @@ public class Escalier : MonoBehaviour
         plateforme.position = new Vector2(transform.position.x, Mathf.Lerp(downPoint.position.y, upPoint.position.y, 1f - ((upPoint.position.x - other.transform.position.x) / (upPoint.position.x - downPoint.position.x))));
         if (Mathf.Abs(plateforme.position.y - other.transform.position.y) < 1.5f && onPlateform)
             other.transform.position = new Vector2(other.transform.position.x, plateforme.position.y + 1.12f);
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -30,13 +34,12 @@ public class Escalier : MonoBehaviour
         if (!other.CompareTag("Player")) return;
         plateforme.gameObject.SetActive(false);
         plateforme.position = new Vector2(transform.position.x, Mathf.Lerp(downPoint.position.y, upPoint.position.y, 0));
-
     }
 
     public void PassDown(InputAction.CallbackContext context)
     {
         yInput = context.ReadValue<Vector2>().y;
-        if (yInput < 0)
+        if (yInput == -1)
         {
             plateforme.gameObject.SetActive(false);
             onPlateform = false;
@@ -46,8 +49,12 @@ public class Escalier : MonoBehaviour
     public void IsJumping(InputAction.CallbackContext context)
     {
         if (context.started)
+        {
+            // if (yInput == -1)
+            //     plateforme.gameObject.SetActive(false);
             onPlateform = false;
-        else if (context.canceled)
+        }
+        if (context.canceled)
             onPlateform = true;
     }
 }

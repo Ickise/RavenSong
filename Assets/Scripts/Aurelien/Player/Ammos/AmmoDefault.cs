@@ -8,15 +8,14 @@ public class AmmoDefault : Ammo
     {
         IsRecover = true;
     }
-    protected override void Trigger(GameObject other)
+    protected override void Trigger(RaycastHit2D hit2D)
     {
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
-        if (other.layer == LayerMask.NameToLayer("IA"))
+        if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
         {
-            IA currentIA = other.GetComponent<IA>();
+            IA currentIA = hit2D.transform.GetComponent<IA>();
             currentIA.enabled = false;
-            Rigidbody2D rbCurrentIA = other.GetComponent<Rigidbody2D>();
+            Rigidbody2D rbCurrentIA = hit2D.transform.GetComponent<Rigidbody2D>();
             rbCurrentIA.velocity = Vector2.zero;
             rb2D.velocity = Vector2.zero;
             rbCurrentIA.AddForce((transform.position.x > currentIA.transform.position.x ? new Vector2(-1, 1).normalized : new Vector2(1, 1).normalized) * forceRecule, ForceMode2D.Impulse);

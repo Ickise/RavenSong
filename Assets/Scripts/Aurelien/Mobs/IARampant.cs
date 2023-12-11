@@ -5,6 +5,14 @@ public class IARampant : IA
 {
     [SerializeField] private float distanceXtoFall = 1f, IaStunTime = 3f;
     private bool isOnGround;
+    protected RaycastHit2D RaycastDetectNotVoidRampant
+    {
+        get
+        {
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * tailleMob.x, Vector2.up * tailleMob.y);
+            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * tailleMob.x, Vector2.up, tailleMob.y * 1.5f, layerDefault);
+        }
+    }
     private State state;
     private enum State
     {
@@ -12,9 +20,15 @@ public class IARampant : IA
         ChasePlayer,
     }
 
+    protected override void Update()
+    {
+        AtkPlayer();
+        if (isOnGround && !IsGrounded) return;
+        StateManager();
+    }
+
     protected override void StateManager()
     {
-        if (isOnGround && !IsGrounded) return;
         switch (state)
         {
             default:
@@ -41,6 +55,7 @@ public class IARampant : IA
     private void ChasePlayer()
     {
         direction = transform.position.x < player.position.x;
+        if (!isOnGround && !RaycastDetectNotVoidRampant) return;
         RunToDirection();
     }
 

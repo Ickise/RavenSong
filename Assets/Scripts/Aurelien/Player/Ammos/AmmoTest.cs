@@ -6,27 +6,26 @@ public class AmmoTest : Ammo
 {
     private GameObject electricCollider;
 
-    protected override void Trigger(GameObject other)
+    protected override void Trigger(RaycastHit2D hit2D)
     {
-        if (IsRecover) return;
         if (canPlayerRecover) CanRecover = true;
         rb2D.velocity = Vector2.zero;
-        if (other.CompareTag("Electric React"))
+        if (hit2D.transform.CompareTag("Electric React"))
         {
-            SpriteRenderer otherSprite = other.GetComponent<SpriteRenderer>();
+            SpriteRenderer otherSprite = hit2D.transform.GetComponent<SpriteRenderer>();
             otherSprite.color = Color.red;
             otherSprite.DOColor(Color.white, 1f);
             electricCollider = new GameObject();
-            CopyComponent.CopyTransform(other.transform, electricCollider.transform, true);
+            CopyComponent.CopyTransform(hit2D.transform, electricCollider.transform, true);
             electricCollider.transform.localScale *= 1.01f;
             electricCollider.AddComponent<BoxCollider2D>().isTrigger = true;
             electricCollider.AddComponent<ElectricEffectOnObject>();
             Destroy(electricCollider, 0.5f);
         }
 
-        else if (other.gameObject.layer == LayerMask.NameToLayer("IA"))
+        else if (hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
         {
-            other.transform.DOShakePosition(3f, Vector3.right * 0.1f, 30, 0, false, false, ShakeRandomnessMode.Full);
+            hit2D.transform.DOShakePosition(3f, Vector3.right * 0.1f, 30, 0, false, false, ShakeRandomnessMode.Full);
             gameObject.SetActive(false);
         }
     }
