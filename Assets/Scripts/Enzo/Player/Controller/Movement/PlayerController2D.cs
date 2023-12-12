@@ -104,8 +104,8 @@ public class PlayerController2D : MonoBehaviour
             return;
         }
 
-        float factor = isFalling ? fallMultiplier : lowJumpMultiplier;
-        playerVelocity += Vector2.up * Physics2D.gravity.y * (factor - 1) * Time.deltaTime;
+        var factor = isFalling ? fallMultiplier : lowJumpMultiplier;
+        playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
     }
 
     private void CoyoteTime()
