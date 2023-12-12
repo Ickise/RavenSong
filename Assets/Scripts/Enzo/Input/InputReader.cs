@@ -14,17 +14,23 @@ public class InputReader : MonoBehaviour
     public bool canRoll;
     
     public static InputReader instance;
+    private PlayerController2D _playerController2D;
     
     private void Start()
     {
         instance = this;
+        _playerController2D = GetComponent<PlayerController2D>();
     }
     
     public void OnMovement(InputAction.CallbackContext context) => direction = context.ReadValue<Vector2>();
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (context.started) jump = true;
+        if (context.started)
+        {
+            jump = true;
+            _playerController2D.SetVelocity();
+        }
         if (context.canceled) jump = false;
     }
 

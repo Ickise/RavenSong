@@ -416,7 +416,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 355897676}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
@@ -676,7 +676,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440172203}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &440172205
 Camera:
   m_ObjectHideFlags: 0
@@ -805,7 +805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &670878568
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,6 +1040,58 @@ PrefabInstance:
     - target: {fileID: 7672566409580914129, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: layerGround.m_Bits
       value: 576
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: speed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: minSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: jumpSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxHeight
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: currentSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: gravityFactor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: ralentissement
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: accelerationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxAirControlSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: minAirControlSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: currentAirControlSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: accelerationAirControlSpeed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
