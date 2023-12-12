@@ -14,14 +14,14 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private float timeToCrossKick;
     [SerializeField] private float timeToEnableRaycast;
     [SerializeField] private float timeToStun;
-    
+
     private IA _ia;
 
     private RaycastHit2D raycastHit2D;
 
     private bool canLaunchTimeToStun;
     private bool stopTimeToEnableRaycast;
-    
+
     private void Update()
     {
         StunEnemy();
@@ -34,13 +34,24 @@ public class StunDetection : MonoBehaviour
         if (InputReader.instance.canStun && timeToCrossKick >= crossKickCooldown)
         {
             timeToCrossKick = 0;
-            
+
             canLaunchTimeToStun = true;
             stopTimeToEnableRaycast = true;
-            
-            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right, distance, layerMask);
-            if(raycastHit2D.collider.GetComponent<IA>() != null) _ia = raycastHit2D.collider.GetComponent<IA>(); //fait une seule erreur s'il ne détecte rien, à voir
 
+            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right, distance, layerMask);
+            Debug.DrawRay(transform.position, Vector2.right * distance);
+            if (raycastHit2D)
+            {
+                if (raycastHit2D.transform.GetComponent<IA>())
+                    _ia = raycastHit2D.transform.GetComponent<IA>();
+                else if (raycastHit2D.transform.CompareTag("DestroyObject"))
+                {
+                    Explodable explodableObj = raycastHit2D.transform.GetComponent<Explodable>();
+                    explodableObj.explode();
+                    ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+                    ef.doExplosion(transform.position);
+                }
+            }
         }
 
         if (canLaunchTimeToStun)
@@ -48,9 +59,9 @@ public class StunDetection : MonoBehaviour
             if (stopTimeToEnableRaycast) timeToEnableRaycast += Time.deltaTime;
 
             timeToStun += Time.deltaTime;
-            
-            if(_ia != null) _ia.enabled = false;
-            
+
+            if (_ia != null) _ia.enabled = false;
+
             if (timeToEnableRaycast >= timeToDisableRaycast)
             {
                 raycastHit2D = new RaycastHit2D();
@@ -58,7 +69,7 @@ public class StunDetection : MonoBehaviour
                 timeToEnableRaycast = 0;
                 stopTimeToEnableRaycast = false;
             }
-            
+
             if (timeToStun >= stunDuration)
             {
                 if (_ia != null)
@@ -66,7 +77,7 @@ public class StunDetection : MonoBehaviour
                     _ia.enabled = true;
                     _ia = null;
                 }
-                
+
                 timeToStun = 0;
                 canLaunchTimeToStun = false;
             }
