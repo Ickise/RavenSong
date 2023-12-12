@@ -21,8 +21,12 @@ public class InputReader : MonoBehaviour
     }
     
     public void OnMovement(InputAction.CallbackContext context) => direction = context.ReadValue<Vector2>();
-    
-    public void OnJump(InputAction.CallbackContext context) => jump = context.performed;
+
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        if (context.started) jump = true;
+        if (context.canceled) jump = false;
+    }
 
     public void OnFire(InputAction.CallbackContext context) => leftClick = context.performed;
     

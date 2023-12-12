@@ -6,8 +6,8 @@ public abstract class IA : MonoBehaviour
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float tailleMob = 1, distanceToucheMurOuVide = 0.6f, speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
-    // [SerializeField] private bool canJumpObstacle;
+    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
+    [SerializeField] protected Vector2 tailleMob = new Vector2(1f, 2f);
     [SerializeField] private bool drawCirclesEditor;
     [SerializeField] private int nombreVie = 1;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
@@ -17,18 +17,19 @@ public abstract class IA : MonoBehaviour
     {
         get
         {
-            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceToucheMurOuVide, Vector2.down * 2f);
-            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * distanceToucheMurOuVide, Vector2.down, tailleMob * 2f, layerDefault);
+            Debug.DrawRay(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * tailleMob.x, Vector2.down * tailleMob.y);
+            return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * tailleMob.x, Vector2.down, tailleMob.y * 1.5f, layerDefault);
         }
     }
-    protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob, layerDefault); } }
-    protected RaycastHit2D RaycastHitWall { get { return Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, distanceToucheMurOuVide, layerDefault); } }
+    protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob.y, layerDefault); } }
+    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.1f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
 
     void Start()
     {
-        tailleMob += 0.1f;
+        tailleMob.x *= 0.7f;
+        tailleMob.y += 0.1f;
         speedMovement = speedBalader;
         layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
@@ -36,15 +37,16 @@ public abstract class IA : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    protected virtual void Update()
     {
+        if (!IsGrounded) return;
         StateManager();
         AtkPlayer();
     }
 
     protected abstract void StateManager();
 
-    private void AtkPlayer()
+    protected void AtkPlayer()
     {
         if (Vector2.Distance(transform.position, player.position) < distanceAttaquePlayer)
             player.GetComponent<Respawn>().RespawnPlayer();

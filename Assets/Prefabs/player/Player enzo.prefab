@@ -80,6 +80,7 @@ GameObject:
   - component: {fileID: 8012276900402190899}
   - component: {fileID: 747856985619423663}
   - component: {fileID: 3873875208504716918}
+  - component: {fileID: 8217276307982103039}
   m_Layer: 3
   m_Name: Player enzo
   m_TagString: Player
@@ -365,15 +366,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  airControlSpeed: 4
   gravityFactor: 1
   jumpForce: 7
   hangTime: 0.1
-  jumpBufferLength: 0.1
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
-  coolDownToRoll: 2
-  speedRoll: 2
-  rollDistance: 2
   timeToEnableCollider: 2
   playerRigidbody2D: {fileID: 3775067873167366473}
   playerCollider2D: {fileID: 747856985619423663}
@@ -438,6 +436,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPoint: {fileID: 0}
+--- !u!231 &8217276307982103039
+SpringJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441308369916113764}
+  m_Enabled: 0
+  serializedVersion: 4
+  m_EnableCollision: 1
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_BreakAction: 3
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureDistance: 0
+  m_Distance: 1.5
+  m_DampingRatio: 0
+  m_Frequency: 1
 --- !u!1 &2532280008830181610
 GameObject:
   m_ObjectHideFlags: 0
