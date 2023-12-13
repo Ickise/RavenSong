@@ -61,6 +61,13 @@ public abstract class Ammo : MonoBehaviour
                 yield return 0;
                 active = false;
                 Trigger(hit2D);
+                if (hit2D.transform.CompareTag("DestroyObject"))
+                {
+                    Explodable explodableObj = hit2D.transform.GetComponent<Explodable>();
+                    explodableObj.explode();
+                    ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+                    ef.doExplosion(transform.position);
+                }
             }
         }
     }
