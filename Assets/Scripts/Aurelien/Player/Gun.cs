@@ -48,7 +48,6 @@ public class Gun : MonoBehaviour
 
     void Update()
     {
-        print(Escalier.isOnEscalier);
         Rotation2D.LookAtMouse2D(transform);
         if (currentAmmo[indexAmmo] != null && !currentAmmo[indexAmmo].IsRecover && Vector2.Distance(transform.position, currentAmmo[indexAmmo].transform.position) > distanceForRecoverAmmo)
             currentAmmo[indexAmmo].CanRecover = true;
