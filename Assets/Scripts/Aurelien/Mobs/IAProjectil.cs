@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class IAProjectil : IA
 {
-    [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3;
+    [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3, minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
     [SerializeField] private GameObject projectil;
     private RaycastHit2D RaycastDetectPlayerProjectil
     {
@@ -90,4 +90,9 @@ public class IAProjectil : IA
         Instantiate(projectil, transform.position, Quaternion.identity);
         StartCoroutine(Attack());
     }
+
+    // private IEnumerator Pause()
+    // {
+    //     // yield return new WaitForSeconds()
+    // }
 }
