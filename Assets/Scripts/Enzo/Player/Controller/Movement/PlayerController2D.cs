@@ -8,7 +8,8 @@ public class PlayerController2D : MonoBehaviour
     [Header("Modifie les mouvements")]
     [SerializeField] private float accelerationSpeed = 0.1f;
     [SerializeField] private float maxSpeed = 5f;
-    
+    [SerializeField] private float groundFriction = 0.3f;
+
     [Header("Modifie le aircontrol")]
     [SerializeField] private float accelerationAirControlSpeed = 0.1f;
     [SerializeField] private float maxAirControlSpeed = 4f;
@@ -19,7 +20,7 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Modifie le temps où le joueur saute après avoir quitté une plateforme")]
     [SerializeField] private float hangTime = 0.1f;
-    
+
     [Header("Modifie la rapidité pour tomber du saut")]
     [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
@@ -42,7 +43,7 @@ public class PlayerController2D : MonoBehaviour
 
     private bool onRoll;
     private bool canjump = true;
-    
+
     private Vector2 playerVelocity;
     private float velocityWhenJump;
 
@@ -57,21 +58,20 @@ public class PlayerController2D : MonoBehaviour
         SetGravity();
         ComputeGravity();
         CanRoll();
-        
+
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
-           canjump = false;
-           if (Escalier.isOnEscalier && InputReader.instance.direction.y == -1) { }
-           else Jump();
+            canjump = false;
+            if ((Escalier.isOnEscalier || Plateforme.isOnPlateforme) && InputReader.instance.direction.y == -1) { }
+            else Jump();
         }
-        else if(!InputReader.instance.jump)
+        else if (!InputReader.instance.jump)
         {
             canjump = true;
         }
         playerRigidbody2D.velocity = playerVelocity;
     }
 
-    [SerializeField] private float ralentissement = 0.3f;
 
     private void ModularMovement()
     {
@@ -80,7 +80,7 @@ public class PlayerController2D : MonoBehaviour
             playerVelocity.x += InputReader.instance.direction.x * accelerationSpeed;
             playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             if (InputReader.instance.direction.x == 0)
-                playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, ralentissement);
+                playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
         }
         else
         {
@@ -91,11 +91,11 @@ public class PlayerController2D : MonoBehaviour
     }
 
     public void SetVelocity() => velocityWhenJump = playerVelocity.x;
-    
+
     private void Jump()
     {
         hangTimeCounter = 0f;
-        
+
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
     private void CoyoteTime()
@@ -103,7 +103,7 @@ public class PlayerController2D : MonoBehaviour
         if (_raycastDetection.isGrounded) hangTimeCounter = hangTime;
         else hangTimeCounter -= Time.deltaTime;
     }
-    
+
     private void SetGravity()
     {
         if (_raycastDetection.isGrounded)
@@ -129,18 +129,18 @@ public class PlayerController2D : MonoBehaviour
         playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
     }
     private void CanRoll()
-     {
-         timeToGetRoll += Time.deltaTime;
+    {
+        timeToGetRoll += Time.deltaTime;
 
-         if (timeToGetRoll >= coolDownToRoll && InputReader.instance.canRoll)
-         {
-             StartCoroutine(RollInvincibility());
+        if (timeToGetRoll >= coolDownToRoll && InputReader.instance.canRoll)
+        {
+            StartCoroutine(RollInvincibility());
 
             transform.position += InputReader.instance.direction.x > 0 ? Vector3.right * rollDistance : Vector3.left * rollDistance;
             StopCoroutine(RollInvincibility());
             timeToGetRoll = 0;
-         }
-     }
+        }
+    }
     IEnumerator RollInvincibility()
     {
         playerCollider2D.enabled = false;
