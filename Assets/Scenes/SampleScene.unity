@@ -352,7 +352,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11928337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.56, y: -3.6, z: -10}
+  m_LocalPosition: {x: 5.4, y: -3.09, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -402,11 +402,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.56
+      value: 5.4
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.6
+      value: -3.09
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.z
@@ -457,12 +457,36 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: jumpForce
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: gravityFactor
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: airControlSpeed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: accelerationSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxAirControlSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: accelerationAirControlSpeed
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2252,11 +2276,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 21.35
+      value: -13.13
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.07
+      value: -3.15
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3733,7 +3757,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &333019647
 Rigidbody2D:
   serializedVersion: 4
@@ -6189,7 +6213,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 600837358}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.56, y: -2.95, z: 0}
+  m_LocalPosition: {x: -9.25, y: 4.75, z: 0}
   m_LocalScale: {x: 3.086, y: 3.086, z: 3.086}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -14477,7 +14501,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!231 &1395830168
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -20884,15 +20908,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9170997065097261477, guid: 496ba847ef6a78c4780c067df6aec25e, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.1443083
+      value: 2.3338652
       objectReference: {fileID: 0}
     - target: {fileID: 9170997065097261477, guid: 496ba847ef6a78c4780c067df6aec25e, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.1443083
+      value: 2.3338652
       objectReference: {fileID: 0}
     - target: {fileID: 9170997065097261477, guid: 496ba847ef6a78c4780c067df6aec25e, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.1443083
+      value: 2.3338652
       objectReference: {fileID: 0}
     - target: {fileID: 9170997065097261477, guid: 496ba847ef6a78c4780c067df6aec25e, type: 3}
       propertyPath: m_LocalPosition.x
