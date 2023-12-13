@@ -48,7 +48,7 @@ public class Escalier : MonoBehaviour
 
     public void IsJumping(InputAction.CallbackContext context)
     {
-        if (context.started && isOnEscalier)
+        if (context.started && isOnEscalier && plateforme.gameObject.activeInHierarchy)
         {
             if (yInput == -1)
                 plateforme.gameObject.SetActive(false);
