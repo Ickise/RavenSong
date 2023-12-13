@@ -43,7 +43,7 @@ public abstract class Ammo : MonoBehaviour
         ammoMagnitude = rb2D.velocity.magnitude;
         if (ammoMagnitude < vitesseMinimumEffect)
         {
-            gameObject.layer = LayerMask.NameToLayer("IADontCollide");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
             active = false;
         }
     }
@@ -65,7 +65,7 @@ public abstract class Ammo : MonoBehaviour
                 {
                     Explodable explodableObj = hit2D.transform.GetComponent<Explodable>();
                     explodableObj.explode();
-                    ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+                    ExplosionForce ef = FindObjectOfType<ExplosionForce>();
                     ef.doExplosion(transform.position);
                 }
             }
