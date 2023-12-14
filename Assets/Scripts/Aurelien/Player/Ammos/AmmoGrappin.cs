@@ -22,6 +22,7 @@ public class AmmoGrappin : Ammo
 
     protected override void Trigger(RaycastHit2D hit2D)
     {
+        print("zefz");
         CanRecover = true;
         if (hit2D.transform.GetComponent<Rigidbody2D>() == null) return;
         attached = true;
@@ -39,29 +40,25 @@ public class AmmoGrappin : Ammo
 
     protected override void Update()
     {
-        if (IsRecover && attached)
+        lineRenderer.SetPosition(0, _gun.ShootPosition.position);
+        lineRenderer.SetPosition(1, transform.position);
+        if (IsRecover)
         {
             attached = false;
             transform.parent = null;
             rb2D.bodyType = RigidbodyType2D.Dynamic;
             c2D.enabled = true;
-            springJoint2D.enabled = false;
-            lineRenderer.positionCount = 0;
+            if (springJoint2D != null)
+                springJoint2D.enabled = false;
+            if (!canPlayerRecover)
+                lineRenderer.enabled = false;
+            // gameObject.layer = LayerMask.NameToLayer("Ammo");
         }
         if (canPlayerRecover)
-        {
             base.Update();
-            if (lineRenderer.positionCount > 0)
-            {
-                lineRenderer.SetPosition(0, _gun.ShootPosition.position);
-                lineRenderer.SetPosition(1, transform.position);
-            }
-        }
         else if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
             Destroy(gameObject);
         if (!attached) return;
-        lineRenderer.SetPosition(0, _gun.ShootPosition.position);
-        lineRenderer.SetPosition(1, transform.position);
         if (grappinBreak && Physics2D.Raycast(_gun.ShootPosition.position, transform.position - _gun.ShootPosition.position, Vector3.Distance(_gun.ShootPosition.position, transform.position), layerMaskBreak))
             IsRecover = true;
         springJoint2D.anchor = _gun.transform.parent.InverseTransformPoint(_gun.ShootPosition.position);
