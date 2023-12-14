@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RaycastDetection : MonoBehaviour
@@ -51,5 +52,11 @@ public class RaycastDetection : MonoBehaviour
 
         stopLeft = capsuleCastLeftHit;
         stopRight = capsuleCastRightHit;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawCube(capsuleCastGround.position, capsuleSizeGround);
     }
 }
