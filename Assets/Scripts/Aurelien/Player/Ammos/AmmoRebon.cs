@@ -43,7 +43,7 @@ public class AmmoRebon : Ammo
     protected override void Update()
     {
         base.Update();
-        if (!hasStoped && ammoMagnitude < 100)
+        if (!hasStoped && ammoMagnitude < vitesseMinimumEffect)
         {
             // rb2D.velocity = Vector2.zero;
             // DOTween.To(() => rb2D.velocity, x => rb2D.velocity = x, Vector2.zero, 3f);
