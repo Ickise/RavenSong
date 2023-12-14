@@ -8,7 +8,7 @@ public class RaycastDetection : MonoBehaviour
     [SerializeField] private Transform capsuleCastGround;
     
     [SerializeField] private Vector2 capsuleSizeWall = new Vector2(0.1f, 2f); 
-    [SerializeField] private Vector2 capsuleSizeGround = new Vector2(1f, 0.05f);
+    [SerializeField] private Vector2 capsuleSizeGround = new Vector2(1f, 0.1f);
     
     [SerializeField] private LayerMask layerGround;
     [SerializeField] private LayerMask layerWall;
@@ -39,8 +39,10 @@ public class RaycastDetection : MonoBehaviour
         capsuleCastLeftHit = Physics2D.CapsuleCast(capsuleCastLeft.position, capsuleSizeWall, CapsuleDirection2D.Vertical,
             capsuleAngle, Vector2.right, distanceToDetectWall, layerWall);
         
-        capsuleCastGroundHit = Physics2D.CapsuleCast(capsuleCastGround.position, capsuleSizeGround, CapsuleDirection2D.Horizontal,
-            capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
+       // capsuleCastGroundHit = Physics2D.CapsuleCast(capsuleCastGround.position, capsuleSizeGround, CapsuleDirection2D.Horizontal,
+         //   capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
+
+        capsuleCastGroundHit = Physics2D.BoxCast(capsuleCastGround.position, capsuleSizeGround, capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
     }
 
     private void SetBool()
