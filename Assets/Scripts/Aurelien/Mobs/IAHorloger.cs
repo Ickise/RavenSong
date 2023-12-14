@@ -53,7 +53,7 @@ public class IAHorloger : IA
 
     private void IsChasePlayer()
     {
-        if (Physics2D.Raycast(transform.position, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDetectPlayer))
+        if (RaycastHitWall)
         {
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
