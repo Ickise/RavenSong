@@ -33,10 +33,17 @@ public abstract class Ammo : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, _gun.transform.position, vitesseRecuperation * Time.deltaTime);
             if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
+            {
                 Destroy(gameObject);
+                return;
+            }
         }
         if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
+        {
+            print("ezfez");
             Destroy(gameObject);
+            return;
+        }
         // if (CanRecover || canPlayerRecover)
         //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         //         Destroy(gameObject);
@@ -52,7 +59,7 @@ public abstract class Ammo : MonoBehaviour
     {
         // Debug.DrawRay(transform.position, transform.up * 1.2f * rb2D.velocity.magnitude * Time.fixedDeltaTime);
         if (!active) return;
-        RaycastHit2D hit2D = Physics2D.CircleCast(transform.position, transform.localScale.x, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerBall);
+        RaycastHit2D hit2D = Physics2D.CircleCast(transform.position, transform.localScale.x * 0.5f, transform.up, rb2D.velocity.magnitude * Time.fixedDeltaTime, layerBall);
         if (hit2D)
         {
             StartCoroutine(Wait1frame(hit2D));

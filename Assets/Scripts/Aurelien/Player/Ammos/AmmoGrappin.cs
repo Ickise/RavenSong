@@ -22,7 +22,6 @@ public class AmmoGrappin : Ammo
 
     protected override void Trigger(RaycastHit2D hit2D)
     {
-        print("zefz");
         CanRecover = true;
         if (hit2D.transform.GetComponent<Rigidbody2D>() == null) return;
         attached = true;
@@ -52,7 +51,6 @@ public class AmmoGrappin : Ammo
                 springJoint2D.enabled = false;
             if (!canPlayerRecover)
                 lineRenderer.enabled = false;
-            // gameObject.layer = LayerMask.NameToLayer("Ammo");
         }
         if (canPlayerRecover)
             base.Update();
@@ -64,11 +62,10 @@ public class AmmoGrappin : Ammo
         springJoint2D.anchor = _gun.transform.parent.InverseTransformPoint(_gun.ShootPosition.position);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         if (!attached) return;
         attached = false;
-        transform.parent = null;
         rb2D.bodyType = RigidbodyType2D.Dynamic;
         c2D.enabled = true;
         springJoint2D.enabled = false;
