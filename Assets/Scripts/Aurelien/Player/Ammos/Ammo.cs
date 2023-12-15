@@ -40,7 +40,6 @@ public abstract class Ammo : MonoBehaviour
         }
         if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         {
-            print("ezfez");
             Destroy(gameObject);
             return;
         }
