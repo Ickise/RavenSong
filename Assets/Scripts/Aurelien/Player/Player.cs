@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField] private int nbDoubleJump;
     [SerializeField] private float distanceRoulade, speedRoulade;
     private int currentNbJump;
-    private float lastDirection;
+    public float LastDirection { get; set; }
     private bool IsGrounded
     {
         get
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        lastDirection = 1f;
+        LastDirection = 1f;
         layerDefault = LayerMask.GetMask("Default");
         layerCanJumpOn = LayerMask.GetMask("Default") | LayerMask.GetMask("Props") | LayerMask.GetMask("Escalier");
         layerIA = LayerMask.GetMask("IA");
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     {
         direction = context.ReadValue<Vector2>();
         if (context.performed)
-            lastDirection = direction.x;
+            LastDirection = direction.x;
     }
 
     void Update()
@@ -115,12 +115,14 @@ public class Player : MonoBehaviour
         if (DOTween.IsTweening(transform) || !context.started || !IsGrounded) return;
         transform.localScale += Vector3.down * 0.5f;
         transform.position += Vector3.down * 0.5f;
-        rigidBody2D.DOMoveX(transform.position.x + distanceRoulade * lastDirection, speedRoulade).SetId("roll").SetSpeedBased(true)
+        rigidBody2D.DOMoveX(transform.position.x + distanceRoulade * LastDirection, speedRoulade).SetId("roll").SetSpeedBased(true)
         .OnComplete(() =>
         {
+            print("zefze");
             transform.DOScaleY(1f, 0.2f);
         }).OnKill(() =>
         {
+            print("aaaaa");
             if (IsOnWalls)
             {
                 rigidBody2D.velocity = Vector2.zero;
@@ -135,10 +137,10 @@ public class Player : MonoBehaviour
     public void CrossHit(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position + Vector3.down * 0.5f, Vector2.right * lastDirection, 1f, layerIA);
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position + Vector3.down * 0.5f, Vector2.right * LastDirection, 1f, layerIA);
         if (hit2D.transform != null && hit2D.transform.gameObject.layer == LayerMask.NameToLayer("IA"))
             hit2D.transform.DOShakePosition(3f, Vector3.right * 0.1f, 30, 0, false, false, ShakeRandomnessMode.Full);
-        Debug.DrawRay(transform.position + Vector3.down * 0.5f, Vector2.right * lastDirection, Color.green, 1f);
+        Debug.DrawRay(transform.position + Vector3.down * 0.5f, Vector2.right * LastDirection, Color.green, 1f);
     }
 }
 
