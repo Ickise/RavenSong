@@ -4,6 +4,7 @@ public abstract class IA : MonoBehaviour
 {
     protected Rigidbody2D rb2D;
     protected Transform player;
+    protected SpriteRenderer spriteRenderer;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
@@ -35,6 +36,7 @@ public abstract class IA : MonoBehaviour
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb2D = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     protected virtual void Update()
@@ -48,13 +50,14 @@ public abstract class IA : MonoBehaviour
 
     protected void AtkPlayer()
     {
-        if (Vector2.Distance(transform.position, player.position) < distanceAttaquePlayer)
+        if (Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaquePlayer, layerDetectPlayer))
             player.GetComponent<Respawn>().RespawnPlayer();
     }
 
     protected void RunToDirection()
     {
         rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);
+        spriteRenderer.flipX = direction ? true : false;
     }
 
     void OnDrawGizmos()
