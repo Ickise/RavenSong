@@ -27,6 +27,7 @@ public abstract class Ammo : MonoBehaviour
         IsRecover = false;
         CanRecover = false;
         rb2D.AddForce(transform.up * force, ForceMode2D.Impulse);
+        if (VFXImpactBall == null) return;
         VFXImpactBall.Stop();
     }
 
@@ -68,7 +69,8 @@ public abstract class Ammo : MonoBehaviour
             IEnumerator Wait1frame(RaycastHit2D hit2D)
             {
                 yield return 0;
-                VFXImpactBall.Play();
+                if (VFXImpactBall != null)
+                    VFXImpactBall.Play();
                 active = false;
                 Trigger(hit2D);
                 if (hit2D.transform.CompareTag("DestroyObject"))
