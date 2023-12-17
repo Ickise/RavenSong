@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.VFX;
 
 public abstract class Ammo : MonoBehaviour
 {
     [SerializeField] protected bool canPlayerRecover = true;
     [SerializeField] protected LayerMask layerBall;
+    [SerializeField] private VisualEffect VFXImpactBall;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
     protected Rigidbody2D rb2D;
@@ -25,6 +27,8 @@ public abstract class Ammo : MonoBehaviour
         IsRecover = false;
         CanRecover = false;
         rb2D.AddForce(transform.up * force, ForceMode2D.Impulse);
+        if (VFXImpactBall == null) return;
+        VFXImpactBall.Stop();
     }
 
     protected virtual void Update()
@@ -40,7 +44,6 @@ public abstract class Ammo : MonoBehaviour
         }
         if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         {
-            print("ezfez");
             Destroy(gameObject);
             return;
         }
@@ -66,6 +69,8 @@ public abstract class Ammo : MonoBehaviour
             IEnumerator Wait1frame(RaycastHit2D hit2D)
             {
                 yield return 0;
+                if (VFXImpactBall != null)
+                    VFXImpactBall.Play();
                 active = false;
                 Trigger(hit2D);
                 if (hit2D.transform.CompareTag("DestroyObject"))

@@ -49,6 +49,7 @@ public class IAHorloger : IA
     private void ChasePlayer()
     {
         rb2D.velocity = new Vector2(direction ? speedAttaquePlayer : -speedAttaquePlayer, rb2D.velocity.y);
+        spriteRenderer.flipX = direction ? false : true;
     }
 
     private void IsChasePlayer()

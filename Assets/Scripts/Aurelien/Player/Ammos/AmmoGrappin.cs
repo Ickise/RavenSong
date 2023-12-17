@@ -68,6 +68,7 @@ public class AmmoGrappin : Ammo
         attached = false;
         rb2D.bodyType = RigidbodyType2D.Dynamic;
         c2D.enabled = true;
-        springJoint2D.enabled = false;
+        if (springJoint2D != null)
+            springJoint2D.enabled = false;
     }
 }
