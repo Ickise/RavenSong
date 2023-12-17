@@ -16,12 +16,17 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private float timeToStun;
 
     private IA _ia;
+    private PlayerController2D _playerController2D;
 
     private RaycastHit2D raycastHit2D;
 
     private bool canLaunchTimeToStun;
     private bool stopTimeToEnableRaycast;
 
+    private void Start()
+    {
+        _playerController2D = GetComponent<PlayerController2D>();
+    }
     private void Update()
     {
         StunEnemy();
@@ -38,7 +43,7 @@ public class StunDetection : MonoBehaviour
             canLaunchTimeToStun = true;
             stopTimeToEnableRaycast = true;
 
-            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right, distance, layerMask);
+            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right * _playerController2D.LastDirection, distance, layerMask);
             Debug.DrawRay(transform.position, Vector2.right * distance);
             if (raycastHit2D)
             {

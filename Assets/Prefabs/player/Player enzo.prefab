@@ -50,7 +50,6 @@ MonoBehaviour:
   capsuleCastRight: {fileID: 9042907321866558037}
   capsuleCastLeft: {fileID: 4259184368002415169}
   capsuleCastGround: {fileID: 6694783965226400782}
-  capsuleSizeWall: {x: 0.1, y: 2}
   capsuleSizeGround: {x: 1, y: 0.1}
   layerGround:
     serializedVersion: 2
@@ -59,7 +58,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 193
   distanceToDetectFloor: 0
-  distanceToDetectWall: 0
+  distanceToDetectWall: 0.6
   capsuleAngle: 0
   isGrounded: 0
   stopRight: 0
@@ -278,7 +277,19 @@ MonoBehaviour:
     m_ActionId: 2848ae8d-85a9-4d0d-934d-beade4ad9e22
     m_ActionName: Player/BallRecover[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnRoll
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d1eb84b9-17f2-4c5a-933c-9b6dc14055c9
     m_ActionName: Player/Roll[/Keyboard/r]
   - m_PersistentCalls:
@@ -329,6 +340,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5945ab08-71b4-4eec-af0b-13d323c59e05
     m_ActionName: Player/CrossKick[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7335652219000336131}
+        m_TargetAssemblyTypeName: Gun, Assembly-CSharp
+        m_MethodName: ManetteDirection
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5c4f7a19-8d4b-44be-a3a9-c1843ae8ae35
+    m_ActionName: Player/manette direction
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -375,9 +402,9 @@ MonoBehaviour:
   hangTime: 0.1
   fallMultiplier: 3
   lowJumpMultiplier: 2
-  coolDownToRoll: 2
-  rollDistance: 2
-  timeToEnableCollider: 2
+  distanceRoulade: 4
+  speedRoulade: 15
+  forceBonk: 10
   playerRigidbody2D: {fileID: 3775067873167366473}
   playerCollider2D: {fileID: 747856985619423663}
   _raycastDetection: {fileID: 7672566409580914129}
@@ -897,6 +924,7 @@ MonoBehaviour:
   distanceForRecoverAmmo: 50
   indexAmmo: 2
   UIammo: {fileID: 0}
+  manette: 0
 --- !u!1 &8367739445690453636
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,7 +1109,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.5
+  orthographic size: 9.696347
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
