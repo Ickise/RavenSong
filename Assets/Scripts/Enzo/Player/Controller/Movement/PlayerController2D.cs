@@ -104,6 +104,12 @@ public class PlayerController2D : MonoBehaviour
             velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
+
+        if (InputReader.instance.direction.x > 0 && _raycastDetection.stopRight ||
+            InputReader.instance.direction.x < 0 && _raycastDetection.stopLeft)
+        {
+            playerVelocity.x = 0;
+        }
     }
 
     public void SetVelocity() => velocityWhenJump = playerVelocity.x;
