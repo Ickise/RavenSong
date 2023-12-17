@@ -50,7 +50,8 @@ public abstract class IA : MonoBehaviour
 
     protected void AtkPlayer()
     {
-        if (Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaquePlayer, layerDetectPlayer))
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaquePlayer, layerDetectPlayer);
+        if (hit2D && hit2D.transform.CompareTag("Player"))
             player.GetComponent<Respawn>().RespawnPlayer();
     }
 
