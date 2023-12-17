@@ -25,7 +25,7 @@ public class StunDetection : MonoBehaviour
 
     private void Start()
     {
-        _playerController2D = GetComponent<PlayerController2D>();
+        _playerController2D = GetComponentInParent<PlayerController2D>();
     }
     private void Update()
     {
