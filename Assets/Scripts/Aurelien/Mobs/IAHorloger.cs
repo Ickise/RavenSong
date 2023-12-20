@@ -5,6 +5,7 @@ using DG.Tweening;
 public class IAHorloger : IA
 {
     [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
+    [SerializeField] private int chargeTime = 1;
     private bool isReloading;
     private State state;
     private enum State
@@ -30,16 +31,18 @@ public class IAHorloger : IA
 
     private void IsWaitingPlayer()
     {
-        if (isReloading) return;
+        if (isReloading || DOTween.IsTweening(spriteRenderer)) return;
         if (DetectPlayer)
         {
-            state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
-            StartCoroutine(RunTime());
+            spriteRenderer.DOColor(Color.red, chargeTime / 4f)
+            .SetLoops(chargeTime * 4, LoopType.Yoyo)
+            .OnComplete(() => { state = State.ChasePlayer; StartCoroutine(RunTime()); });
             IEnumerator RunTime()
             {
                 yield return new WaitForSeconds(runTime);
                 DOTween.To(() => rb2D.velocity, x => rb2D.velocity = x, Vector2.zero, decelerationTime);
+                isReloading = true;
                 StartCoroutine(StartReload());
                 state = State.WaitPlayer;
             }

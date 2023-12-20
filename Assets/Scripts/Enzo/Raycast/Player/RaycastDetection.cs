@@ -49,6 +49,15 @@ public class RaycastDetection : MonoBehaviour
             capsuleAngle, Vector2.right * directionX, distanceToDetectWall, layerWall);
     }
 
+    public RaycastHit2D RaycastJump
+    {
+        get
+        {
+            return Physics2D.CapsuleCast(transform.position - capsuleCastGround.localPosition, capsuleSizeGround, CapsuleDirection2D.Horizontal,
+            capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
+        }
+    }
+
     private void SetBool()
     {
         isGrounded = capsuleCastGroundHit;

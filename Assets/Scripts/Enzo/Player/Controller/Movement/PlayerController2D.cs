@@ -71,10 +71,9 @@ public class PlayerController2D : MonoBehaviour
     private void FixedUpdate()
     {
         if (onRoll) return;
-        ModularMovement();
+
         SetGravity();
         ComputeGravity();
-
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
             canjump = false;
@@ -82,17 +81,17 @@ public class PlayerController2D : MonoBehaviour
             else Jump();
         }
         else if (!InputReader.instance.jump)
-        {
             canjump = true;
-        }
+        ModularMovement();
         playerRigidbody2D.velocity = playerVelocity;
     }
-
 
     private void ModularMovement()
     {
         if (_raycastDetection.isGrounded)
         {
+            if (!InputReader.instance.jump)
+                velocityWhenJump = 0f;
             playerVelocity.x += InputReader.instance.direction.x * accelerationSpeed;
             playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             if (InputReader.instance.direction.x == 0)
@@ -100,7 +99,9 @@ public class PlayerController2D : MonoBehaviour
         }
         else
         {
-            if (!InputReader.instance.jump) return;
+            if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
+            if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
+                playerVelocity.y = 0f;
             playerVelocity.x = velocityWhenJump;
             velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
@@ -112,9 +113,9 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
+
     private void CoyoteTime()
     {
         if (_raycastDetection.isGrounded) hangTimeCounter = hangTime;
