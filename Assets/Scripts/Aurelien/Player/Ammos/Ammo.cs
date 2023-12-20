@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.VFX;
+using Unity.VisualScripting;
 
 public abstract class Ammo : MonoBehaviour
 {
@@ -72,6 +73,7 @@ public abstract class Ammo : MonoBehaviour
                 if (VFXImpactBall != null)
                     VFXImpactBall.Play();
                 active = false;
+                if (hit2D.transform == null) yield break;
                 Trigger(hit2D);
                 if (hit2D.transform.CompareTag("DestroyObject"))
                 {
