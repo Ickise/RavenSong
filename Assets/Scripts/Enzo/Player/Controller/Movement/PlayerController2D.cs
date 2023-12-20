@@ -27,13 +27,13 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float lowJumpMultiplier = 2f;
 
     [Header("Modifie les paramètres de la roulade")]
-    // [SerializeField] private float coolDownToRoll = 2f;
     // //[SerializeField] private float speedRoll = 10f;
     // [SerializeField] private float rollDistance = 2f;
     // [SerializeField] private float timeToEnableCollider = 2f;
     [SerializeField] private float distanceRoulade = 4f;
     [SerializeField] private float speedRoulade = 15f;
     [SerializeField] private float forceBonk = 10f;
+    [SerializeField] private float coolDownToRoll = 2f;
 
     [Header("Component à set up")]
     [SerializeField] private Rigidbody2D playerRigidbody2D;
@@ -45,8 +45,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float timeToGetRoll;
     [SerializeField] private float hangTimeCounter;
 
-    private bool onRoll;
-    private bool canjump = true;
+    private bool onRoll, canjump = true, canRoll = true;
     public float LastDirection { get; set; } = 1f;
 
     private Vector2 playerVelocity;
@@ -62,6 +61,7 @@ public class PlayerController2D : MonoBehaviour
                 playerCollider2D.enabled = true;
                 DOTween.Kill("roll");
                 StopAllCoroutines();
+                StartCoroutine(RollCoolDown());
             }
             return;
         }
@@ -163,7 +163,7 @@ public class PlayerController2D : MonoBehaviour
 
     public void Roll()
     {
-        if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded) return;
+        if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
         transform.localScale += Vector3.down * 0.5f;
         transform.position += Vector3.down * 0.5f;
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * LastDirection, speedRoulade).SetId("roll").SetSpeedBased(true)
@@ -177,6 +177,7 @@ public class PlayerController2D : MonoBehaviour
             }
             transform.DOMoveY(transform.position.y + 0.5f, 0.1f);
             transform.DOScaleY(1f, 0.1f);
+            StartCoroutine(RollCoolDown());
         });
         StartCoroutine(RollInvincibility());
     }
@@ -188,5 +189,12 @@ public class PlayerController2D : MonoBehaviour
         yield return new WaitUntil(() => !DOTween.IsTweening("roll"));
         onRoll = false;
         playerCollider2D.enabled = true;
+    }
+
+    IEnumerator RollCoolDown()
+    {
+        canRoll = false;
+        yield return new WaitForSeconds(coolDownToRoll);
+        canRoll = true;
     }
 }
