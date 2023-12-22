@@ -10,7 +10,7 @@ namespace Aurinaxtailer
             Vector3 diff = target;
             diff.Normalize();
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
-            rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+            rotation = Quaternion.Euler(0f, 0f, rot_z - 90f);
             return rotation;
         }
 
@@ -20,6 +20,16 @@ namespace Aurinaxtailer
             Vector3 diff =
                 Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue())
                 - objectToLookMouse.position;
+            diff.Normalize();
+            float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
+            objectToLookMouse.rotation = Quaternion.Euler(0f, 0f, rot_z - 90f);
+            return objectToLookMouse.rotation;
+        }
+
+        public static Quaternion LookToMouse2DPerspective(Transform objectToLookMouse)
+        {
+            Vector2 target = Camera.main.ScreenPointToRay(Mouse.current.position.ReadValue()).direction;
+            Vector2 diff = target;
             diff.Normalize();
             float rot_z = Mathf.Atan2(diff.y, diff.x) * Mathf.Rad2Deg;
             objectToLookMouse.rotation = Quaternion.Euler(0f, 0f, rot_z - 90f);
