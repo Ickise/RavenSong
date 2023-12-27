@@ -64,7 +64,7 @@ public class Gun : MonoBehaviour
         if (manette && manetteDirection != Vector3.zero)
             transform.rotation = Rotation2D.LookToDirection2D(transform.rotation, manetteDirection);
         else if (!manette)
-            Rotation2D.LookAtMouse2D(transform);
+            Rotation2D.LookToMouse2DPerspective(transform);
         if (currentAmmo[indexAmmo] != null && !currentAmmo[indexAmmo].IsRecover && Vector2.Distance(transform.position, currentAmmo[indexAmmo].transform.position) > distanceForRecoverAmmo)
             currentAmmo[indexAmmo].CanRecover = true;
     }
