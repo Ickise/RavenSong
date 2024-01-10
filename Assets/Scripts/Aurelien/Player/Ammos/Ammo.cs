@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.VFX;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public abstract class Ammo : MonoBehaviour
 {
@@ -10,6 +10,7 @@ public abstract class Ammo : MonoBehaviour
     [SerializeField] private VisualEffect VFXImpactBall;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
+    public Image Image { get; set; }
     protected Rigidbody2D rb2D;
     protected Collider2D c2D;
     [SerializeField] protected float vitesseRecuperation = 200f, force = 200f, forceRecule = 15f, vitesseMinimumEffect = 75f;
