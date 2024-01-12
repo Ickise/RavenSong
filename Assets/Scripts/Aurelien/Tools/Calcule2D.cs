@@ -37,4 +37,21 @@ namespace Aurinaxtailer
         }
 #endif
     }
+
+    public static class Intersection2D
+    {
+        public static Vector2 GetIntersectionBetweenABandCD(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
+        {
+            var a = (B.y - A.y) / (B.x - A.x);
+            var b = A.y - (a * A.x);
+
+            var c = (D.y - C.y) / (D.x - C.x);
+            var d = C.y - (c * C.x);
+
+            Vector2 intersection;
+            intersection.x = (b - d) * (1f / (c - a));
+            intersection.y = a * intersection.x + b;
+            return intersection;
+        }
+    }
 }

@@ -1,9 +1,7 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using Cinemachine;
+using Aurinaxtailer;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using UnityEngine.InputSystem.Interactions;
 
 public class BallInterfacePosition : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class BallInterfacePosition : MonoBehaviour
     private Camera cam;
     private Vector3 DLWP, ULWP, DRWP, URWP;
     private List<Vector3> screenAngles = new List<Vector3>();
-    private Vector2 intersection;
+    private List<Vector2> intersectionAmmos = new List<Vector2>();
 
     void Start()
     {
@@ -22,12 +20,12 @@ public class BallInterfacePosition : MonoBehaviour
     void Update()
     {
         SetViewportToWorldPoints();
+        intersectionAmmos = new List<Vector2>();
         foreach (var ammo in _gun.CurrentAmmos)
         {
             if (ammo == null) return;
-            CalculeIntersectionSegments();
-            // print(ammo.transform.position + "  ammo pos");
-            // if (IsOnScreen(ammo.transform.position))
+            if (!IsOnScreen(ammo.transform.position))
+                intersectionAmmos.Add(CalculeIntersectionSegments(ammo.transform.position));
             //     Indicator(ammo);
         }
     }
@@ -46,34 +44,26 @@ public class BallInterfacePosition : MonoBehaviour
         screenAngles = new List<Vector3>() { DLWP, ULWP, URWP, DRWP, DLWP };
     }
 
-    private List<Vector2> intersections = new List<Vector2>();
-    private void CalculeIntersectionSegments()
+    private Vector2 CalculeIntersectionSegments(Vector2 currentAmmoPos)
     {
-        intersections = new List<Vector2>();
-        Vector2 C = _gun.transform.position;
-        Vector2 D = _gun.CurrentAmmos[0].transform.position;
-
+        List<Vector2> intersections = new List<Vector2>();
+        Vector2 gunPos = _gun.transform.position;
         for (int i = 0; i < screenAngles.Count - 1; i++)
+            intersections.Add(Intersection2D.GetIntersectionBetweenABandCD(screenAngles[i], screenAngles[i + 1], gunPos, currentAmmoPos));
+
+        List<Vector2> interOnScreen = new List<Vector2>();
+        foreach (var intersection in intersections)
         {
-            Vector2 A = screenAngles[i];
-            Vector2 B = screenAngles[i + 1];
-
-            var a = (B.y - A.y) / (B.x - A.x);
-            var b = A.y - (a * A.x);
-
-            var c = (D.y - C.y) / (D.x - C.x);
-            var d = C.y - (c * C.x);
-
-            intersection.x = (b - d) * (1f / (c - a));
-            intersection.y = a * intersection.x + b;
-            print(a + "    " + b + "    " + c + "    " + d);
             // print(intersection);
-            intersections.Add(intersection);
-            // }
-            // foreach (var inter in intersections)
-            // {
-
+            if (IsOnScreen(intersection))
+            {
+                interOnScreen.Add(intersection);
+                // print("oui");
+            }
         }
+
+        print(interOnScreen.Count);
+        return Vector2.Distance(interOnScreen[0], currentAmmoPos) < Vector2.Distance(interOnScreen[1], currentAmmoPos) ? interOnScreen[0] : interOnScreen[1];
     }
 
     void OnDrawGizmos()
@@ -84,12 +74,15 @@ public class BallInterfacePosition : MonoBehaviour
         Gizmos.DrawWireSphere(URWP, 1F);
         Gizmos.DrawWireSphere(DRWP, 1F);
         Gizmos.color = Color.green;
-        foreach (var item in intersections)
-            Gizmos.DrawWireSphere(item, 3F);
+        foreach (var intersectionAmmo in intersectionAmmos)
+            Gizmos.DrawWireSphere(intersectionAmmo, 3F);
     }
 
     private bool IsOnScreen(Vector3 ammoPos)
     {
-        return ammoPos.x > DLWP.x && ammoPos.y > DLWP.y && ammoPos.x < URWP.x && ammoPos.y < URWP.y;
+        // print(ULWP + "    " + URWP);
+        // print(DLWP + "    " + DRWP);
+        // print(ammoPos);
+        return ammoPos.x >= DLWP.x && ammoPos.y >= DLWP.y && ammoPos.x <= URWP.x && ammoPos.y <= URWP.y;
     }
 }
