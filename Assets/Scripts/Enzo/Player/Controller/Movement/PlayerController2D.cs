@@ -1,36 +1,41 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using Unity.VisualScripting;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")] 
-    [SerializeField] private float speed = 5f;
+    [Header("Modifie les mouvements")]
+    [SerializeField] private float accelerationSpeed = 0.1f;
+    [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le saut")] 
+    [Header("Modifie le aircontrol")]
+    [SerializeField] private float accelerationAirControlSpeed = 0.1f;
+    [SerializeField] private float maxAirControlSpeed = 4f;
+
+    [Header("Modifie le saut")]
     [SerializeField] private float gravityFactor = 1f;
-    [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float jumpTime = 0f;
+    [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur saute après avoir quitté une plateforme")] [SerializeField]
-    private float hangTime = 0.1f;
+    [Header("Modifie le temps où le joueur saute après avoir quitté une plateforme")]
+    [SerializeField] private float hangTime = 0.1f;
 
-    [Header("Modifie le temps où l'input de saut a été enregistré")] [SerializeField]
-    private float jumpBufferLength = 0.1f;
-
-    [Header("Modifie la rapidité pour tomber du saut")] [SerializeField]
-    private float fallMultiplier = 2.5f;
-
+    [Header("Modifie la rapidité pour tomber du saut")]
+    [SerializeField] private float fallMultiplier = 2.5f;
     [SerializeField] private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")] 
+    [Header("Modifie les paramètres de la roulade")]
+    // //[SerializeField] private float speedRoll = 10f;
+    // [SerializeField] private float rollDistance = 2f;
+    // [SerializeField] private float timeToEnableCollider = 2f;
+    [SerializeField] private float distanceRoulade = 4f;
+    [SerializeField] private float speedRoulade = 15f;
+    [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
-    [SerializeField] private float speedRoll = 10f;
-    [SerializeField] private float rollDistance = 2f;
-    [SerializeField] private float timeToEnableCollider = 2f;
-    
-    [Header("Component à set up")] 
+
+    [Header("Component à set up")]
     [SerializeField] private Rigidbody2D playerRigidbody2D;
     [SerializeField] private Collider2D playerCollider2D;
 
@@ -38,42 +43,89 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Ne pas set up")]
     [SerializeField] private float timeToGetRoll;
-    //[SerializeField] private float jumpBufferCounter;
     [SerializeField] private float hangTimeCounter;
 
-    private bool onRoll;
-    private bool canJump => InputReader.instance.jump && hangTimeCounter >= 0; // j'ai rajouté le jump à changer avec jumpbuffer
+    private bool onRoll, canjump = true, canRoll = true;
+    public float LastDirection { get; set; } = 1f;
 
     private Vector2 playerVelocity;
+    private float velocityWhenJump;
 
     private void Update()
     {
+        if (onRoll)
+        {
+            if (DOTween.IsTweening("roll") && (!_raycastDetection.isGrounded || _raycastDetection.RaycastOnRoll(LastDirection)))
+            {
+                onRoll = false;
+                playerCollider2D.enabled = true;
+                DOTween.Kill("roll");
+                StopAllCoroutines();
+                StartCoroutine(RollCoolDown());
+            }
+            return;
+        }
         CoyoteTime();
-       // JumpBuffer();
     }
 
     private void FixedUpdate()
     {
-        ModularMovement();
+        if (onRoll) return;
+
         SetGravity();
         ComputeGravity();
-        //CanRoll();
-        if (canJump) Jump();
-
+        if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
+        {
+            canjump = false;
+            if ((Escalier.isOnEscalier || Plateforme.isOnPlateforme) && InputReader.instance.direction.y == -1) { }
+            else Jump();
+        }
+        else if (!InputReader.instance.jump)
+            canjump = true;
+        ModularMovement();
         playerRigidbody2D.velocity = playerVelocity;
     }
 
     private void ModularMovement()
     {
-        if (InputReader.instance.direction.x > 0 && !_raycastDetection.stopRight ||
-            InputReader.instance.direction.x < 0 && !_raycastDetection.stopLeft)
+        if (_raycastDetection.isGrounded)
         {
-            playerVelocity.x = InputReader.instance.direction.x * speed;
+            if (!InputReader.instance.jump)
+                velocityWhenJump = 0f;
+            playerVelocity.x += InputReader.instance.direction.x * accelerationSpeed;
+            playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
+            if (InputReader.instance.direction.x == 0)
+                playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
         }
         else
         {
+            if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
+            if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
+                playerVelocity.y = 0f;
+            playerVelocity.x = velocityWhenJump;
+            velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
+            velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
+        }
+
+        if (InputReader.instance.direction.x > 0 && _raycastDetection.stopRight ||
+            InputReader.instance.direction.x < 0 && _raycastDetection.stopLeft)
+        {
             playerVelocity.x = 0;
         }
+    }
+
+    public void SetVelocity() => velocityWhenJump = playerVelocity.x;
+
+    private void Jump()
+    {
+        hangTimeCounter = 0f;
+        playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
+    }
+
+    private void CoyoteTime()
+    {
+        if (_raycastDetection.isGrounded) hangTimeCounter = hangTime;
+        else hangTimeCounter -= Time.deltaTime;
     }
 
     private void SetGravity()
@@ -87,22 +139,6 @@ public class PlayerController2D : MonoBehaviour
             playerVelocity.y += Physics2D.gravity.y * Time.deltaTime * gravityFactor;
         }
     }
-
-    private void Jump()
-    { 
-        hangTimeCounter = 0f;
-      //  jumpBufferCounter = 0f;
-
-      StartCoroutine(WaitToJump());
-      playerVelocity.y = jumpForce;
-      StopCoroutine(WaitToJump());
-    }
-
-    IEnumerator WaitToJump()
-    {
-        yield return new WaitForSeconds(0.5f);
-        InputReader.instance.jump = false;
-    }
     private void ComputeGravity()
     {
         bool isFalling = playerVelocity.y < 0;
@@ -113,48 +149,58 @@ public class PlayerController2D : MonoBehaviour
             return;
         }
 
-        float factor = isFalling ? fallMultiplier : lowJumpMultiplier;
-        playerVelocity += Vector2.up * Physics2D.gravity.y * (factor - 1) * Time.deltaTime;
+        var factor = isFalling ? fallMultiplier : lowJumpMultiplier;
+        playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
     }
 
-    private void CoyoteTime()
+    // private void CanRoll()
+    // {
+    //     timeToGetRoll += Time.deltaTime;
+
+    //     if (timeToGetRoll >= coolDownToRoll && InputReader.instance.canRoll)
+    //     {
+    //         StartCoroutine(RollInvincibility());
+
+    //         transform.position += InputReader.instance.direction.x > 0 ? Vector3.right * rollDistance : Vector3.left * rollDistance;
+    //         StopCoroutine(RollInvincibility());
+    //         timeToGetRoll = 0;
+    //     }
+    // }
+
+    public void Roll()
     {
-        if (_raycastDetection.isGrounded) hangTimeCounter = hangTime;
-        else hangTimeCounter -= Time.deltaTime;
+        if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
+        transform.localScale += Vector3.down * 0.5f;
+        transform.position += Vector3.down * 0.5f;
+        playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * LastDirection, speedRoulade).SetId("roll").SetSpeedBased(true)
+        .OnComplete(() => transform.DOScaleY(1f, 0.2f))
+        .OnKill(() =>
+        {
+            if (_raycastDetection.RaycastOnRoll(LastDirection))
+            {
+                playerRigidbody2D.velocity = Vector2.zero;
+                playerRigidbody2D.AddForce(new Vector2(LastDirection, 1).normalized * forceBonk, ForceMode2D.Impulse);
+            }
+            transform.DOMoveY(transform.position.y + 0.5f, 0.1f);
+            transform.DOScaleY(1f, 0.1f);
+            StartCoroutine(RollCoolDown());
+        });
+        StartCoroutine(RollInvincibility());
     }
-
-   /* private void JumpBuffer()
-    {
-        if (InputReader.instance.jump)
-        {
-            jumpBufferCounter = jumpBufferLength; 
-            InputReader.instance.jump = false;
-        }
-        else jumpBufferCounter -= Time.deltaTime;
-    }*/
-
-   /* private void CanRoll()
-    {
-        timeToGetRoll += Time.deltaTime;
-
-        if (timeToGetRoll >= coolDownToRoll && InputReader.instance.canRoll)
-        {
-            StartCoroutine(RollInvincibility());
-            
-           transform.position += InputReader.instance.direction.x > 0 ? Vector3.right * rollDistance : Vector3.left * rollDistance;
-           StopCoroutine(RollInvincibility());
-           timeToGetRoll = 0;
-        }
-    }*/
 
     IEnumerator RollInvincibility()
     {
         playerCollider2D.enabled = false;
         onRoll = true;
-        Debug.Log("yo");
-        yield return new WaitForSeconds(timeToEnableCollider);
+        yield return new WaitUntil(() => !DOTween.IsTweening("roll"));
         onRoll = false;
         playerCollider2D.enabled = true;
-        Debug.Log("yo2");
+    }
+
+    IEnumerator RollCoolDown()
+    {
+        canRoll = false;
+        yield return new WaitForSeconds(coolDownToRoll);
+        canRoll = true;
     }
 }
