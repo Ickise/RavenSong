@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public abstract class Ammo : MonoBehaviour
 {
     [SerializeField] protected bool canPlayerRecover = true;
+    [SerializeField] private Sprite ammoSprite; public Sprite AmmoSprite => ammoSprite;
     [SerializeField] protected LayerMask layerBall;
     [SerializeField] private VisualEffect VFXImpactBall;
     public bool CanRecover { get; set; }

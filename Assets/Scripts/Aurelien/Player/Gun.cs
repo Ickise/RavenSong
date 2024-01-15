@@ -4,7 +4,6 @@ using Aurinaxtailer;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.VFX;
-using UnityEngine.PlayerLoop;
 
 public class Gun : MonoBehaviour
 {
@@ -17,8 +16,7 @@ public class Gun : MonoBehaviour
     [SerializeField] private TextMeshProUGUI UIammo;
     [SerializeField] private bool manette;
     private Vector3 manetteDirection;
-    private List<Ammo> currentAmmo = new List<Ammo>();
-    public List<Ammo> CurrentAmmos => currentAmmo;
+    private List<Ammo> currentAmmo = new List<Ammo>(); public List<Ammo> CurrentAmmos => currentAmmo;
 
     void Awake()
     {
