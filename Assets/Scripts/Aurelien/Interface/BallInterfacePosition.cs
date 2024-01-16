@@ -7,28 +7,9 @@ public class BallInterfacePosition : MonoBehaviour
     private Camera cam;
     private Vector3 DLWP, ULWP, DRWP, URWP;
     private List<Vector3> screenAngles = new List<Vector3>();
-    private List<Vector2> intersectionAmmosGizmos = new List<Vector2>();
-    [SerializeField] private GameObject ammoIndicatorPrefab;
-    private List<GameObject> ammoIndicators = new List<GameObject>();
-    private Dictionary<Ammo, GameObject> ammoSpritesDico = new Dictionary<Ammo, GameObject>();
-
-    // [System.Serializable]
-    // public struct BallIndicatorSprite
-    // {
-    //     public Ammo ammo;
-    //     public SpriteRenderer ammoSprite;
-    // }
-    // public BallIndicatorSprite[] ballIndicatorSprites;
 
     void Start()
     {
-        for (int i = 0; i < _gun.CurrentAmmos.Count; i++)
-        {
-            GameObject AIP = Instantiate(ammoIndicatorPrefab, Vector2.zero, Quaternion.identity);
-            if (_gun.CurrentAmmos[i] != null && _gun.CurrentAmmos[i].AmmoSprite)
-                AIP.GetComponent<SpriteRenderer>().sprite = _gun.CurrentAmmos[i].AmmoSprite;
-            ammoSpritesDico.Add(_gun.CurrentAmmos[i], AIP);
-        }
         cam = Camera.main;
         SetViewportToWorldPoints();
     }
@@ -41,24 +22,17 @@ public class BallInterfacePosition : MonoBehaviour
 
     private void Indicator()
     {
-        intersectionAmmosGizmos = new List<Vector2>();
-        foreach (var ammo in _gun.CurrentAmmos)
+        foreach (var ammoSprite in _gun.AmmoRefsDico)
         {
-            if (ammo == null || IsOnScreen(ammo.transform.position))
+            if (!IsOnScreen(ammoSprite.Key.transform.position))
             {
-                GameObject ammoSprite;
-                ammoSpritesDico.TryGetValue(ammo, out ammoSprite);
-                ammoSprite.gameObject.SetActive(false);
+                var intersectionAmmo = CalculeIntersectionSegments(ammoSprite.Key.transform.position);
+                ammoSprite.Value.gameObject.SetActive(true);
+                ammoSprite.Value.transform.position = intersectionAmmo;
+                ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
+                return;
             }
-            else
-            {
-                var intersectionAmmo = CalculeIntersectionSegments(ammo.transform.position);
-                GameObject ammoSprite;
-                ammoSpritesDico.TryGetValue(ammo, out ammoSprite);
-                if (ammoSprite.activeInHierarchy)
-                    ammoSprite.gameObject.SetActive(true);
-                ammoSprite.transform.position = intersectionAmmo;
-            }
+            ammoSprite.Value.gameObject.SetActive(false);
         }
     }
 
@@ -86,23 +60,8 @@ public class BallInterfacePosition : MonoBehaviour
         return Vector2.Distance(interOnScreen[0], currentAmmoPos) < Vector2.Distance(interOnScreen[1], currentAmmoPos) ? interOnScreen[0] : interOnScreen[1];
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(DLWP, 1F);
-        Gizmos.DrawWireSphere(ULWP, 1F);
-        Gizmos.DrawWireSphere(URWP, 1F);
-        Gizmos.DrawWireSphere(DRWP, 1F);
-        // Gizmos.color = Color.green;
-        // foreach (var intersectionAmmo in intersectionAmmosGizmos)
-        //     Gizmos.DrawWireSphere(intersectionAmmo, 3F);
-    }
-
     private bool IsOnScreen(Vector3 ammoPos)
     {
-        // print(ULWP + "    " + URWP);
-        // print(DLWP + "    " + DRWP);
-        // print(ammoPos);
         return ammoPos.x >= DLWP.x - 0.02f && ammoPos.y >= DLWP.y && ammoPos.x <= URWP.x + 0.02f && ammoPos.y <= URWP.y;
     }
 }
