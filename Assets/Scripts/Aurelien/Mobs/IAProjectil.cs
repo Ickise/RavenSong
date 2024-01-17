@@ -52,7 +52,7 @@ public class IAProjectil : IA
 
     private void IsRoaming()
     {
-        if (DetectPlayerYProjectil)
+        if (DetectPlayer || DetectPlayerYProjectil)
         {
             state = State.RushDistancePlayer;
             speedMovement = speedAttaquePlayer;
@@ -77,7 +77,7 @@ public class IAProjectil : IA
     {
         if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerYProjectil)
         {
-            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance) && (RaycastHitWall || !RaycastDetectNotVoid) && DetectPlayerYProjectil)
+            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance) && (RaycastHitWall || !RaycastDetectNotVoid) && (DetectPlayerYProjectil || DetectPlayer))
                 return;
             StopAllCoroutines();
             state = State.Roaming;
@@ -91,9 +91,4 @@ public class IAProjectil : IA
         Instantiate(projectil, transform.position, Quaternion.identity);
         StartCoroutine(Attack());
     }
-
-    // private IEnumerator Pause()
-    // {
-    //     // yield return new WaitForSeconds()
-    // }
 }

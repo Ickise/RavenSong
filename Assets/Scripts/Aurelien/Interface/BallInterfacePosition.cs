@@ -30,9 +30,9 @@ public class BallInterfacePosition : MonoBehaviour
                 ammoSprite.Value.gameObject.SetActive(true);
                 ammoSprite.Value.transform.position = intersectionAmmo;
                 ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
-                return;
             }
-            ammoSprite.Value.gameObject.SetActive(false);
+            else
+                ammoSprite.Value.gameObject.SetActive(false);
         }
     }
 

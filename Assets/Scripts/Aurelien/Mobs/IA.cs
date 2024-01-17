@@ -32,7 +32,7 @@ public abstract class IA : MonoBehaviour
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         speedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide");
+        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("IA");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb2D = GetComponent<Rigidbody2D>();
