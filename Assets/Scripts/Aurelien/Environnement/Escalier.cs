@@ -57,7 +57,6 @@ public class Escalier : MonoBehaviour
             IEnumerator OnplateformTrue()
             {
                 yield return new WaitForSeconds(0.3f);
-                // yield return new WaitUntil(() => InputReader.instance.GetComponentInChildren<RaycastDetection>().isGrounded);
                 canBeOnPlateform = true;
             }
         }
