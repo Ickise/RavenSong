@@ -48,7 +48,7 @@ public class PlayerController2D : MonoBehaviour
     private bool onRoll, canjump = true, canRoll = true;
     public float LastDirection { get; set; } = 1f;
 
-    private Vector2 playerVelocity;
+    private Vector2 playerVelocity; public Vector2 PlayerVelocity { get { return playerVelocity; } set { playerVelocity = value; } }
     private float velocityWhenJump;
 
     private void Update()

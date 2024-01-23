@@ -57,7 +57,7 @@ public class IAHorloger : IA
 
     private void IsChasePlayer()
     {
-        if (RaycastHitWall)
+        if (RaycastHitWall && !RaycastHitWall.transform.CompareTag("Tireur"))
         {
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);

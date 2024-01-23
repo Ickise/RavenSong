@@ -8,15 +8,16 @@ using UnityEngine.VFX;
 public class Gun : MonoBehaviour
 {
     [SerializeField] private List<GameObject> ammo;
-    [SerializeField] private Transform shootPosition;
-    private VisualEffect VFXExplosion;
-    public Transform ShootPosition { get { return shootPosition; } }
+    [SerializeField] private Transform shootPosition; public Transform ShootPosition => shootPosition;
+    [SerializeField] private GameObject ammoIndicatorPrefab;
     [SerializeField] private float distanceForRecoverAmmo;
     [Tooltip("ball at the start"), SerializeField] private int indexAmmo;
     [SerializeField] private TextMeshProUGUI UIammo;
     [SerializeField] private bool manette;
+    public Dictionary<Ammo, GameObject> AmmoRefsDico { get; set; } = new Dictionary<Ammo, GameObject>();
+    private VisualEffect VFXExplosion;
     private Vector3 manetteDirection;
-    private List<Ammo> currentAmmo = new List<Ammo>();
+    private List<Ammo> currentAmmo = new List<Ammo>(); public List<Ammo> CurrentAmmos => currentAmmo;
 
     void Awake()
     {
@@ -32,8 +33,13 @@ public class Gun : MonoBehaviour
         if (!context.started || currentAmmo[indexAmmo] != null) return;
         currentAmmo[indexAmmo] = Instantiate(ammo[indexAmmo], shootPosition.position, transform.rotation).GetComponent<Ammo>();
         currentAmmo[indexAmmo]._gun = this;
-        if (VFXExplosion == null) return;
-        VFXExplosion.Play();
+        GameObject AIP = Instantiate(ammoIndicatorPrefab, Vector2.zero, Quaternion.identity);
+        AIP.SetActive(false);
+        if (currentAmmo[indexAmmo].AmmoSprite)
+            AIP.GetComponent<SpriteRenderer>().sprite = currentAmmo[indexAmmo].AmmoSprite;
+        AmmoRefsDico.Add(currentAmmo[indexAmmo], AIP);
+        if (VFXExplosion != null)
+            VFXExplosion.Play();
     }
 
     public void AmmoRecover(InputAction.CallbackContext context)
@@ -55,7 +61,6 @@ public class Gun : MonoBehaviour
 
     public void ManetteDirection(InputAction.CallbackContext context)
     {
-
         manetteDirection = context.ReadValue<Vector2>();
     }
 

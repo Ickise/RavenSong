@@ -1,15 +1,17 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.VFX;
-using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public abstract class Ammo : MonoBehaviour
 {
     [SerializeField] protected bool canPlayerRecover = true;
+    [SerializeField] private Sprite ammoSprite; public Sprite AmmoSprite => ammoSprite;
     [SerializeField] protected LayerMask layerBall;
     [SerializeField] private VisualEffect VFXImpactBall;
     public bool CanRecover { get; set; }
     public bool IsRecover { get; protected set; }
+    public Image Image { get; set; }
     protected Rigidbody2D rb2D;
     protected Collider2D c2D;
     [SerializeField] protected float vitesseRecuperation = 200f, force = 200f, forceRecule = 15f, vitesseMinimumEffect = 75f;
@@ -39,18 +41,18 @@ public abstract class Ammo : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, _gun.transform.position, vitesseRecuperation * Time.deltaTime);
             if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
             {
+                _gun.AmmoRefsDico.Remove(this);
                 Destroy(gameObject);
                 return;
             }
         }
         if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
         {
+            _gun.AmmoRefsDico.Remove(this);
             Destroy(gameObject);
             return;
         }
-        // if (CanRecover || canPlayerRecover)
-        //     if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
-        //         Destroy(gameObject);
+
         ammoMagnitude = rb2D.velocity.magnitude;
         if (ammoMagnitude < vitesseMinimumEffect)
         {
