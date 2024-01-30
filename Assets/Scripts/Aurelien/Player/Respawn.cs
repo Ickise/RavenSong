@@ -1,18 +1,12 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] private Transform spawnPoint;
-    public Vector3 CurrentRespawnPoint { get; set; }
-
-    private void Awake()
-    {
-        if (spawnPoint != null)
-            CurrentRespawnPoint = spawnPoint.position;
-    }
-
+    [SerializeField] private string sceneName;
+    
     public void RespawnPlayer()
     {
-        transform.position = CurrentRespawnPoint;
+        SceneManager.LoadScene(sceneName);
     }
 }
