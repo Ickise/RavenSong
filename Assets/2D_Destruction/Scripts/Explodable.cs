@@ -42,6 +42,7 @@ public class Explodable : MonoBehaviour
             {
                 frag.transform.parent = null;
                 frag.SetActive(true);
+                frag.AddComponent<DestroyFragments>();
             }
         }
         //if fragments exist destroy the original
