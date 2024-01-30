@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -7240406257146566889}
   m_Layer: 10
   m_Name: BallElectric
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -128,9 +128,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canPlayerRecover: 0
+  ammoSprite: {fileID: 0}
   layerBall:
     serializedVersion: 2
     m_Bits: 2049
+  VFXImpactBall: {fileID: 0}
   vitesseRecuperation: 0
   force: 50
   forceRecule: 0
