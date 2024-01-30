@@ -6,7 +6,8 @@ public class AnimationController : MonoBehaviour
 {
     public static AnimationController instance;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
-    public bool GetDirection => skeletonAnimationDroite.gameObject.activeInHierarchy;
+    private MeshRenderer meshDroite, meshGauche;
+    public bool GetDirection => meshDroite.enabled;
 
     public enum AnimationState { idle, };
     private AnimationState currentAnimationState;
@@ -23,6 +24,8 @@ public class AnimationController : MonoBehaviour
     private void Start()
     {
         instance = this;
+        meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
+        meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
         stateAnimationRef = new Dictionary<AnimationState, Animations>()
         {{AnimationState.idle, animations[0]}};
         SetCharacterState(AnimationState.idle, true, 1f);
@@ -30,8 +33,8 @@ public class AnimationController : MonoBehaviour
 
     public void FlipAnimation(bool direction)
     {
-        skeletonAnimationDroite.gameObject.SetActive(direction);
-        skeletonAnimationGauche.gameObject.SetActive(!direction);
+        meshDroite.enabled = direction;
+        meshGauche.enabled = !direction;
     }
 
     public void SetAnimation(Animations animation, bool loop, float timeScale)
