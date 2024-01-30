@@ -27,11 +27,11 @@ public class InputReader : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         direction = context.ReadValue<Vector2>();
-
         if (context.performed)
-            _playerController2D.LastDirection = spriteRenderer.flipX ? -1f : 1f;
-        else if (context.started && direction.x != 0)
-            spriteRenderer.flipX = direction.x < 0;
+        {
+            AnimationController.instance.FlipAnimation(direction.x > 0);
+            _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
