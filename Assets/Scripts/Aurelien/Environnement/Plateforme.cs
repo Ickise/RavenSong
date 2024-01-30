@@ -11,7 +11,7 @@ public class Plateforme : MonoBehaviour
         if (isOnPlateforme && InputReader.instance.canDown)
         {
             plateformeCollider.SetActive(false);
-            isOnPlateforme = false;
+           // isOnPlateforme = false;
         }
     }
 
