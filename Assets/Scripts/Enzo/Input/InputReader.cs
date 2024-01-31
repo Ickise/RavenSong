@@ -12,6 +12,7 @@ public class InputReader : MonoBehaviour
     public bool canStun;
     public bool canDown;
     public bool canRoll;
+    public bool DontJump { private get; set; }
 
     public UnityEvent onInteractionEvent = new UnityEvent();
 
@@ -38,6 +39,7 @@ public class InputReader : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (DontJump) return;
         if (context.started)
         {
             jump = true;
@@ -59,7 +61,7 @@ public class InputReader : MonoBehaviour
     {
         if (context.started) _playerController2D.Roll();
     }
-    
+
     public void OnInteraction(InputAction.CallbackContext context)
     {
         if (context.performed)
