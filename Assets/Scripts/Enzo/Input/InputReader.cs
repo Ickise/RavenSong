@@ -1,10 +1,10 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")]
-    public Vector2 direction;
+    [Header("Ne pas set up")] public Vector2 direction;
 
     public bool jump;
     public bool leftClick;
@@ -13,11 +13,13 @@ public class InputReader : MonoBehaviour
     public bool canDown;
     public bool canRoll;
 
+    public UnityEvent onInteractionEvent = new UnityEvent();
+
     public static InputReader instance;
     private PlayerController2D _playerController2D;
     private SpriteRenderer spriteRenderer;
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
@@ -41,6 +43,7 @@ public class InputReader : MonoBehaviour
             jump = true;
             _playerController2D.SetVelocity();
         }
+
         if (context.canceled) jump = false;
     }
 
@@ -52,5 +55,16 @@ public class InputReader : MonoBehaviour
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
 
-    public void OnRoll(InputAction.CallbackContext context) { if (context.started) _playerController2D.Roll(); }
+    public void OnRoll(InputAction.CallbackContext context)
+    {
+        if (context.started) _playerController2D.Roll();
+    }
+    
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onInteractionEvent.Invoke();
+        }
+    }
 }
