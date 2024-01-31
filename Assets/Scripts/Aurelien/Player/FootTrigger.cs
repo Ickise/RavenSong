@@ -15,7 +15,7 @@ public class FootTrigger : MonoBehaviour
     {
         if (context.ReadValue<Vector2>() == Vector2.up)
             bc2D.enabled = true;
-        // else
+        else
             
     }
 }
