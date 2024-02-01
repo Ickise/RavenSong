@@ -8,6 +8,7 @@ public class AmmoDefault : Ammo
     {
         IsRecover = true;
     }
+
     protected override void Trigger(RaycastHit2D hit2D)
     {
         if (canPlayerRecover) CanRecover = true;
@@ -18,15 +19,27 @@ public class AmmoDefault : Ammo
             Rigidbody2D rbCurrentIA = hit2D.transform.GetComponent<Rigidbody2D>();
             rbCurrentIA.velocity = Vector2.zero;
             rb2D.velocity = Vector2.zero;
-            rbCurrentIA.AddForce((transform.position.x > currentIA.transform.position.x ? new Vector2(-1, 1).normalized : new Vector2(1, 1).normalized) * forceRecule, ForceMode2D.Impulse);
+            rbCurrentIA.AddForce(
+                (transform.position.x > currentIA.transform.position.x
+                    ? new Vector2(-1, 1).normalized
+                    : new Vector2(1, 1).normalized) * forceRecule, ForceMode2D.Impulse);
             currentIA.NbVie -= 1;
+            InstantiateEnemyCorpse _instantiateEnemyCorpse = currentIA.GetComponent<InstantiateEnemyCorpse>();
             if (currentIA.NbVie < 1)
             {
                 rbCurrentIA.constraints = RigidbodyConstraints2D.None;
                 rbCurrentIA.DORotate(transform.position.x > currentIA.transform.position.x ? -90f : 90f, 0.2f)
-                .OnComplete(() => { Destroy(currentIA.gameObject); StopAllCoroutines(); });
+                    
+                    .OnComplete(() =>
+                    {
+                        _instantiateEnemyCorpse.OnIaDeath();
+                        Destroy(currentIA.gameObject);
+                        StopAllCoroutines();
+                    });
             }
+
             StartCoroutine(EnableIA());
+
             IEnumerator EnableIA()
             {
                 yield return new WaitForSeconds(0.2f);
