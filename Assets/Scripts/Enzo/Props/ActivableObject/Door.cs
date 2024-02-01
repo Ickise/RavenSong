@@ -4,31 +4,26 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [SerializeField] private Lever _lever;
-    [SerializeField] private PreassurePlate _preassurePlate;
 
     [SerializeField] private Collider2D doorCollider;
 
     private void Update()
     {
-        OpenDoor(_preassurePlate, _preassurePlate?.isActive);
-        OpenDoor(_lever, _lever?.isActive);
+        OpenDoor(_lever, _lever.isActive);
     }
 
-    private void OpenDoor(Component component, bool? isActive)
+    private void OpenDoor(Component component, bool isActive)
     {
-        if (component == null || !isActive.HasValue)
+        if (component == null)
         {
             return;
         }
-
-        bool isActiveValue = isActive.Value;
-
-        if (isActiveValue)
+        
+        if (isActive)
         {
             doorCollider.isTrigger = true;
         }
-
-        if (!_preassurePlate.isActive && !_lever.isActive)
+        else
         {
             doorCollider.isTrigger = false;
         }

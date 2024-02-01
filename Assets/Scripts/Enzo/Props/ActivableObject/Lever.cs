@@ -29,7 +29,14 @@ public class Lever : MonoBehaviour
    {
       if (isPlayerInRange)
       {
-         isActive = true;
+         if (!isActive)
+         {
+            isActive = true;
+         }
+         else
+         {
+            isActive = false;
+         }
       }
    }
 }
