@@ -22,10 +22,13 @@ public class Door : MonoBehaviour
         if (isActive)
         {
             doorCollider.isTrigger = true;
+            //remplacer par une animation qui se lance et fait redescendre la porte ou bien un tween pour monter et descendre (cela permettra de prendre le collider ou
+            //bien set up dans l'animation le collider qui bouge aussi
         }
         else
         {
             doorCollider.isTrigger = false;
+            //pareil ici
         }
     }
 }

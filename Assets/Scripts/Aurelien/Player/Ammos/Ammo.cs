@@ -43,7 +43,7 @@ public abstract class Ammo : MonoBehaviour
             {
                 _gun.AmmoRefsDico.Remove(this);
                 Destroy(gameObject);
-                return;
+                return; 
             }
         }
         if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
