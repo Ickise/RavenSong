@@ -86,7 +86,7 @@ public class IAProjectil : IA
 
     private IEnumerator Attack()
     {
-        spriteRenderer.flipX = transform.position.x < player.position.x;
+        transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
         yield return new WaitForSeconds(timeAttack);
         Instantiate(projectil, transform.position, Quaternion.identity);
         StartCoroutine(Attack());
