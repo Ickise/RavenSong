@@ -10,11 +10,12 @@ public class FootTriggerEscalier : MonoBehaviour
     private void Start()
     {
         bc2D = GetComponent<BoxCollider2D>();
-    }
+    }    
 
     public void UpInput(InputAction.CallbackContext context)
     {
         direction = context.ReadValue<Vector2>();
+        // if (!context.started) return;
         if (direction.y > 0)
         {
             triggerActive = true;
