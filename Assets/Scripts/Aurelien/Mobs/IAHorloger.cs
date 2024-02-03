@@ -31,12 +31,13 @@ public class IAHorloger : IA
 
     private void IsWaitingPlayer()
     {
-        if (isReloading || DOTween.IsTweening(spriteRenderer)) return;
+        if (isReloading || DOTween.IsTweening("chargingTime")) return;
         if (DetectPlayer)
         {
             direction = transform.position.x < player.position.x;
-            spriteRenderer.DOColor(Color.red, chargeTime / 4f)
-            .SetLoops(chargeTime * 4, LoopType.Yoyo)
+            float a = 0;
+            DOTween.To(() => a, x => a = x, 1f, chargeTime).SetId("chargingTime")
+            // ;spriteRenderer.DOColor(Color.red, chargeTime / 4f)
             .OnComplete(() => { state = State.ChasePlayer; StartCoroutine(RunTime()); });
             IEnumerator RunTime()
             {
@@ -52,12 +53,12 @@ public class IAHorloger : IA
     private void ChasePlayer()
     {
         rb2D.velocity = new Vector2(direction ? speedAttaquePlayer : -speedAttaquePlayer, rb2D.velocity.y);
-        spriteRenderer.flipX = direction ? false : true;
+        transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
     }
 
     private void IsChasePlayer()
     {
-        if (RaycastHitWall && !RaycastHitWall.transform.CompareTag("Tireur"))
+        if (RaycastHitWall)
         {
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
