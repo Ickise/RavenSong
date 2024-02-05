@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -29,12 +30,17 @@ public class InputReader : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
+        if (context.started || context.ReadValue<Vector2>().x == direction.x) return;
         direction = context.ReadValue<Vector2>();
         if (context.performed)
         {
+        print(direction);
             AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
+            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
         }
+        else if (context.canceled)
+            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
     }
 
     public void OnJump(InputAction.CallbackContext context)

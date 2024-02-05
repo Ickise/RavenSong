@@ -41,7 +41,7 @@ public class AnimationController : MonoBehaviour
         meshGauche.enabled = !direction;
     }
 
-    public void SetAnimation(Animations animation, bool loop, float timeScale)
+    private void SetAnimation(Animations animation, bool loop, float timeScale)
     {
         skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
         skeletonAnimationDroite.state.SetAnimation(0, animation.droite, loop).TimeScale = timeScale;
