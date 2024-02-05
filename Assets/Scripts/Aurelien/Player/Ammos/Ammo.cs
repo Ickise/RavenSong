@@ -46,12 +46,12 @@ public abstract class Ammo : MonoBehaviour
                 return;
             }
         }
-        if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
-        {
-            _gun.AmmoRefsDico.Remove(this);
-            Destroy(gameObject);
-            return;
-        }
+        // if (Vector2.Distance(_gun.transform.position, transform.position) < 1.3f)
+        // {
+        //     _gun.AmmoRefsDico.Remove(this);
+        //     Destroy(gameObject);
+        //     return;
+        // }
 
         ammoMagnitude = rb2D.velocity.magnitude;
         if (ammoMagnitude < vitesseMinimumEffect)
