@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Door : MonoBehaviour
@@ -12,13 +11,13 @@ public class Door : MonoBehaviour
         OpenDoor(_lever, _lever.isActive);
     }
 
-    private void OpenDoor(Component component, bool isActive)
+    private void OpenDoor(Lever lever, bool isActive)
     {
-        if (component == null)
+        if (lever == null)
         {
             return;
         }
-        
+
         if (isActive)
         {
             doorCollider.isTrigger = true;

@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 6767543139585012366}
   - component: {fileID: 656035994262926872}
   - component: {fileID: 3179963013774182128}
+  - component: {fileID: 5724244232649877102}
   m_Layer: 11
   m_Name: IAProjectil
   m_TagString: Tireur
@@ -118,7 +119,7 @@ Transform:
   m_Children:
   - {fileID: 2537960068336896436}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8888719148359703479
 Rigidbody2D:
@@ -235,3 +236,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabIACorpse: {fileID: 242511868777815649, guid: 956246d7517186f4c8183925d1f6e53d, type: 3}
+  _onBulletHit: {fileID: 5724244232649877102}
+--- !u!114 &5724244232649877102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888719148359703477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71886f1b82aa36e489ac1cd61d55c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBulletHit:
+    m_PersistentCalls:
+      m_Calls: []

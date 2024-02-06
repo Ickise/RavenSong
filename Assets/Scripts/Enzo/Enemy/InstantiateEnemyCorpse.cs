@@ -5,17 +5,16 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 {
     [SerializeField] private GameObject prefabIACorpse;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    [SerializeField] private OnBulletHit _onBulletHit;
+
+    private void Start()
     {
-        if (other.CompareTag("Bullet"))
-        {
-            OnIaDeath();
-        }
+        _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
-    public void OnIaDeath()
+    private void OnBulletHit()
     {
-        //changer l'animation ici pour qu'elle se joue et ensuite instantiate un corps
         Instantiate(prefabIACorpse, transform.position, quaternion.identity);
+        Destroy(gameObject);
     }
 }

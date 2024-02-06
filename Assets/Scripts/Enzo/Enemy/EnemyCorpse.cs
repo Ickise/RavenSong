@@ -2,11 +2,27 @@ using UnityEngine;
 
 public class EnemyCorpse : MonoBehaviour
 {
-  [SerializeField] private GameObject bullet;
+    private GameObject bullet;
 
-  
-  private void Update()
-  {
-    bullet.transform.position = transform.position;
-  }
+    private void Awake()
+    {
+        bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
+    }
+
+    private void Update()
+    {
+        BulletMotionless();
+    }
+
+    private void BulletMotionless()
+    {
+        if (bullet != null && !InputReader.instance.canRecall)
+        {
+            bullet.transform.position = gameObject.transform.position;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 }

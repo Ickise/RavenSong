@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -13,13 +12,16 @@ public class InputReader : MonoBehaviour
     public bool canStun;
     public bool canDown;
     public bool canRoll;
+    public bool canRecall;
     public bool DontJump { private get; set; }
 
     public UnityEvent onInteractionEvent = new UnityEvent();
+    public UnityEvent onRecall = new UnityEvent();
 
     public static InputReader instance;
     private PlayerController2D _playerController2D;
     private SpriteRenderer spriteRenderer;
+    public Vector3 manetteDirection;
 
     private void Awake()
     {
@@ -34,7 +36,7 @@ public class InputReader : MonoBehaviour
         direction = context.ReadValue<Vector2>();
         if (context.performed)
         {
-        print(direction);
+            print(direction);
             AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
             AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
@@ -74,5 +76,23 @@ public class InputReader : MonoBehaviour
         {
             onInteractionEvent.Invoke();
         }
+    }
+
+    public void OnRecall(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onRecall.Invoke();
+            canRecall = true;
+        }
+        else
+        {
+            canRecall = false;
+        }
+    }
+
+    public void ManetteDirection(InputAction.CallbackContext context)
+    {
+        manetteDirection = context.ReadValue<Vector2>();
     }
 }

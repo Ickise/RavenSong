@@ -2,7 +2,14 @@ using UnityEngine;
 
 public class Chandelier : MonoBehaviour
 {
+    [SerializeField] private OnBulletHit onBulletHit;
+
     private string tagOfOther;
+
+    private void Start()
+    {
+        onBulletHit.onBulletHit.AddListener(OnBulletHit);
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -24,12 +31,14 @@ public class Chandelier : MonoBehaviour
             case "Untagged":
                 Destroy(gameObject);
                 break;
-            case "Bullet":
-                Destroy(gameObject);
-                break;
             case "Player":
                 Destroy(gameObject);
                 break;
         }
+    }
+
+    private void OnBulletHit()
+    {
+        Destroy(gameObject);
     }
 }

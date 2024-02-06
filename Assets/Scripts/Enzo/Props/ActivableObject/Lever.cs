@@ -4,67 +4,49 @@ public class Lever : MonoBehaviour
 {
     public bool isActive;
 
-    private bool isPlayerInRange;
-
     private GameObject bullet;
 
-    private Rigidbody2D bulletRigidbody;
+    private BulletCollisionDetection _bulletCollisionDetection;
+
+    [SerializeField] private OnBulletHit _onBulletHit;
 
     private void Start()
     {
-        InputReader.instance.onInteractionEvent.AddListener(OnClick);
+        _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
     private void Update()
     {
-        if (bullet != null)
+        BulletMotionless();
+    }
+
+    private void BulletMotionless()
+    {
+        if (bullet != null && !InputReader.instance.canRecall)
         {
             bullet.transform.position = gameObject.transform.position;
-            bulletRigidbody.velocity = Vector2.zero;
-            //si jamais change pas la balle, modifier le code pour que même si la balle est trop rapide, je la récupère
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnBulletHit()
     {
-        if (other.CompareTag("Player"))
-        {
-            isPlayerInRange = true;
-        }
-        
-        if (other.CompareTag("Bullet"))
-        {
-            bullet = other.gameObject;
-            bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-            
-            if (!isActive)
-            {
-                isActive = true;
-            }
-            else
-            {
-                isActive = false;
-            }
-        }
+        bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
+
+        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
+        _bulletCollisionDetection.enabled = false;
+
+        CanChangeBool();
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void CanChangeBool()
     {
-        isPlayerInRange = false;
-    }
-
-    private void OnClick()
-    {
-        if (isPlayerInRange)
+        if (!isActive)
         {
-            if (!isActive)
-            {
-                isActive = true;
-            }
-            else
-            {
-                isActive = false;
-            }
+            isActive = true;
+        }
+        else
+        {
+            isActive = false;
         }
     }
 }

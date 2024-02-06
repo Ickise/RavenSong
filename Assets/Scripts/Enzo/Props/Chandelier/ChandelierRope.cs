@@ -2,13 +2,22 @@ using UnityEngine;
 
 public class ChandelierRope : MonoBehaviour
 {
-    [SerializeField] private GameObject chandelier;
-    private void OnTriggerEnter2D(Collider2D other)
+    [SerializeField] private float gravitySpeed = 3f;
+
+    [SerializeField] private Rigidbody2D chandelierRigidbody2D;
+
+    [SerializeField] private OnBulletHit _onBulletHit;
+
+    private void Start()
     {
-        if (other.CompareTag("Bullet"))
-        {
-            chandelier.AddComponent<Rigidbody2D>();
-            Destroy(gameObject);
-        }
+        _onBulletHit.onBulletHit.AddListener(OnBulletHit);
+    }
+
+    private void OnBulletHit()
+    {
+        chandelierRigidbody2D.isKinematic = false;
+        chandelierRigidbody2D.gravityScale = gravitySpeed;
+
+        Destroy(gameObject);
     }
 }
