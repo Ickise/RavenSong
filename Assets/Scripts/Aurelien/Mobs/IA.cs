@@ -1,10 +1,11 @@
 using UnityEngine;
+using Spine.Unity;
 
 public abstract class IA : MonoBehaviour
 {
     protected Rigidbody2D rb2D;
     protected Transform player;
-    protected SpriteRenderer spriteRenderer;
+    protected SkeletonAnimation skeletonAnimation;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
@@ -32,17 +33,18 @@ public abstract class IA : MonoBehaviour
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         speedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("IA");
+        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb2D = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
     }
 
     protected virtual void Update()
     {
         if (!IsGrounded) return;
         StateManager();
+        if (!DetectPlayer) return;
         AtkPlayer();
     }
 
@@ -58,7 +60,7 @@ public abstract class IA : MonoBehaviour
     protected void RunToDirection()
     {
         rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);
-        spriteRenderer.flipX = direction ? true : false;
+        transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
     }
 
     void OnDrawGizmos()

@@ -9,14 +9,16 @@ public class AnimationController : MonoBehaviour
     private MeshRenderer meshDroite, meshGauche;
     public bool GetDirection => meshDroite.enabled;
 
-    public enum AnimationState { idle, };
+    public enum AnimationState { idleNoBall, idleBall, walkBall };
     private AnimationState currentAnimationState;
     [System.Serializable]
     public struct Animations
     {
         public string name;
         public AnimationReferenceAsset droite;
+        public SkeletonDataAsset skeletonDataAssetDroite;
         public AnimationReferenceAsset gauche;
+        public SkeletonDataAsset skeletonDataAssetGauche;
     }
     [SerializeField] private Animations[] animations;
     private Dictionary<AnimationState, Animations> stateAnimationRef;
@@ -27,8 +29,10 @@ public class AnimationController : MonoBehaviour
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
         stateAnimationRef = new Dictionary<AnimationState, Animations>()
-        {{AnimationState.idle, animations[0]}};
-        SetCharacterState(AnimationState.idle, true, 1f);
+        {{AnimationState.idleNoBall, animations[(int)AnimationState.idleNoBall]},
+        {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
+        {AnimationState.walkBall, animations[(int)AnimationState.walkBall]}};
+        SetCharacterState(AnimationState.idleBall, true, 1f);
     }
 
     public void FlipAnimation(bool direction)
@@ -37,9 +41,11 @@ public class AnimationController : MonoBehaviour
         meshGauche.enabled = !direction;
     }
 
-    public void SetAnimation(Animations animation, bool loop, float timeScale)
+    private void SetAnimation(Animations animation, bool loop, float timeScale)
     {
+        skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
         skeletonAnimationDroite.state.SetAnimation(0, animation.droite, loop).TimeScale = timeScale;
+        skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
         skeletonAnimationGauche.state.SetAnimation(0, animation.gauche, loop).TimeScale = timeScale;
     }
 

@@ -699,7 +699,7 @@ MonoBehaviour:
   distance: 1.5
   layerMask:
     serializedVersion: 2
-    m_Bits: 10241
+    m_Bits: 2049
   timeToCrossKick: 0
   timeToEnableRaycast: 0
   timeToStun: 0
@@ -796,18 +796,16 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 82ed07dedf951d440b1b0ca8fb40e540, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
-  - {fileID: 2100000, guid: e889fe70c5bf17b42a3eff41e6b3d9e7, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
-  - {fileID: 2100000, guid: e889fe70c5bf17b42a3eff41e6b3d9e7, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
-  - {fileID: 2100000, guid: 82ed07dedf951d440b1b0ca8fb40e540, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
-  - {fileID: 2100000, guid: e889fe70c5bf17b42a3eff41e6b3d9e7, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
-  - {fileID: 2100000, guid: e889fe70c5bf17b42a3eff41e6b3d9e7, type: 2}
-  - {fileID: 2100000, guid: 191265a9ad0306e478e4e0304aa15883, type: 2}
+  - {fileID: 2100000, guid: 331a6479cf4809a4191d10344b363126, type: 2}
+  - {fileID: 2100000, guid: c56d788bd417cae40a0d33822bbf2cc0, type: 2}
+  - {fileID: 2100000, guid: 7616cc8d05bd720439cbad40427f453e, type: 2}
+  - {fileID: 2100000, guid: 331a6479cf4809a4191d10344b363126, type: 2}
+  - {fileID: 2100000, guid: c56d788bd417cae40a0d33822bbf2cc0, type: 2}
+  - {fileID: 2100000, guid: 7616cc8d05bd720439cbad40427f453e, type: 2}
+  - {fileID: 2100000, guid: 331a6479cf4809a4191d10344b363126, type: 2}
+  - {fileID: 2100000, guid: 7616cc8d05bd720439cbad40427f453e, type: 2}
+  - {fileID: 2100000, guid: c56d788bd417cae40a0d33822bbf2cc0, type: 2}
+  - {fileID: 2100000, guid: 7616cc8d05bd720439cbad40427f453e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -841,7 +839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 16a1e71b3933c6144a8af5de36f64502, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1210,14 +1208,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammo:
-  - {fileID: 8612664303447618227, guid: baba3ffdd4e91f044a980997a35f60c6, type: 3}
-  - {fileID: 8612664303447618227, guid: 57dff4f2429a886418aa47256194f3c8, type: 3}
   - {fileID: 8612664303447618227, guid: 8a68675fb1081f84ebe6079228548e23, type: 3}
-  - {fileID: 8612664303447618227, guid: 04d7e127bea8adf409c5c78b2a54d9b6, type: 3}
   shootPosition: {fileID: 19318302601555160}
   ammoIndicatorPrefab: {fileID: 1777036502544303396, guid: 8aa805850fbc601409cb8b58d3abfc3e, type: 3}
   distanceForRecoverAmmo: 50
-  indexAmmo: 2
+  indexAmmo: 0
   UIammo: {fileID: 0}
   manette: 0
 --- !u!1 &6668070509189283223
@@ -1642,7 +1637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: e67deb3d69a4dc94eae6b110137136ae, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -1716,9 +1711,21 @@ MonoBehaviour:
   skeletonAnimationDroite: {fileID: 1591094647128962640}
   skeletonAnimationGauche: {fileID: 5245158571904818143}
   animations:
-  - name: idle
+  - name: idle no ball
     droite: {fileID: 11400000, guid: 8baa398e9a8639e4c967ecbdadea90ad, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: 16a1e71b3933c6144a8af5de36f64502, type: 2}
     gauche: {fileID: 11400000, guid: a5e8efca6043f7643a495d198799abd3, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: e67deb3d69a4dc94eae6b110137136ae, type: 2}
+  - name: idle ball
+    droite: {fileID: 11400000, guid: 5bb1435150f9408478494e3ccf39c14f, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
+    gauche: {fileID: 11400000, guid: 3af3fb586194b734eb288d68c06a57a2, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
+  - name: walk ball
+    droite: {fileID: 11400000, guid: bda7a3ac0e10f2a4db9eb339d92018c0, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
+    gauche: {fileID: 11400000, guid: f5065ef2185cc804f96fe2a6db91b85d, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
 --- !u!1 &8971842493604105234
 GameObject:
   m_ObjectHideFlags: 0
