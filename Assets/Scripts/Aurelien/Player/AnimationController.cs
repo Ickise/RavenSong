@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
 
+//gère les animations spine du player
+//en singleton
+//j'utilise 2 animations (droite et gauche), car le bras change de position quand on se retourne, donc j'active qu'un seul des 2 mesh a la fois mais je joue les animations sur les 2 mesh en même temps
+//pour utiliser ce système, il suffit simplement d'écrire cette ligne a l'endroit du code voulu :
+//AnimationController.instance.SetCharacterState(AnimationController.AnimationState.[NOM DE L'ANIMATION], [LOOP T-IL ?], [LA VITESSE DE L'ANIMATION VOULU]);
 public class AnimationController : MonoBehaviour
 {
     public static AnimationController instance;
@@ -9,6 +14,7 @@ public class AnimationController : MonoBehaviour
     private MeshRenderer meshDroite, meshGauche;
     public bool GetDirection => meshDroite.enabled;
 
+    //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
     public enum AnimationState { idleNoBall, idleBall, walkBall };
     private AnimationState currentAnimationState;
     [System.Serializable]
