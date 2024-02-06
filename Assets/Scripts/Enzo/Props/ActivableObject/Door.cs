@@ -4,7 +4,12 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private Lever _lever;
 
-    [SerializeField] private Collider2D doorCollider;
+    private Collider2D doorCollider;
+
+    private void Awake()
+    {
+        doorCollider = GetComponent<Collider2D>();
+    }
 
     private void Update()
     {

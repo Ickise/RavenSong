@@ -703,13 +703,10 @@ MonoBehaviour:
   stunDuration: 1.5
   crossKickCooldown: 2
   timeToDisableRaycast: 0.3
-  distance: 1.5
-  layerMask:
+  distanceToHit: 0.5
+  layerIa:
     serializedVersion: 2
-    m_Bits: 2049
-  timeToCrossKick: 0
-  timeToEnableRaycast: 0
-  timeToStun: 0
+    m_Bits: 2048
 --- !u!1 &3553593126216314965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,8 +1125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba30b84f5647e4f41af0e5a679e6e3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aimLine: {fileID: 7877427466545890290}
-  player: {fileID: 5070513739195827676}
+  aimLineRenderer: {fileID: 0}
+  playerTransform: {fileID: 0}
 --- !u!1 &5996619747820030045
 GameObject:
   m_ObjectHideFlags: 0

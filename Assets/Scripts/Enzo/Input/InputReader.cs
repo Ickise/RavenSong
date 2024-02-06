@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")] public Vector2 direction;
+    [Header("Ne pas set up")] 
+    public Vector2 direction;
 
     public bool jump;
     public bool leftClick;
@@ -25,6 +26,7 @@ public class InputReader : MonoBehaviour
 
     private void Awake()
     {
+        //get tous les components
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();

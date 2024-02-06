@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -5,7 +6,12 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 {
     [SerializeField] private GameObject prefabIACorpse;
 
-    [SerializeField] private OnBulletHit _onBulletHit;
+    private OnBulletHit _onBulletHit;
+
+    private void Awake()
+    {
+        _onBulletHit = GetComponent<OnBulletHit>();
+    }
 
     private void Start()
     {
@@ -14,6 +20,7 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 
     private void OnBulletHit()
     {
+        //lorsque la balle touche l'ennemi, cela fait appraître un cadavre et détruit l'ennemi
         Instantiate(prefabIACorpse, transform.position, quaternion.identity);
         Destroy(gameObject);
     }

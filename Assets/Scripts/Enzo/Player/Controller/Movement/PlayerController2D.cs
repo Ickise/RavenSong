@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
@@ -20,13 +21,14 @@ public class PlayerController2D : MonoBehaviour
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur saute après avoir quitté une plateforme")] [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber du saut")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [SerializeField] private float lowJumpMultiplier = 2f;
+    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
+    private float lowJumpMultiplier = 2f;
 
     [Header("Modifie les paramètres de la roulade")] [SerializeField]
     private float distanceRoulade = 4f;
@@ -35,14 +37,12 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
 
-    [Header("Component à set up")] [SerializeField]
     private Rigidbody2D playerRigidbody2D;
 
-    [SerializeField] private Collider2D playerCollider2D;
+    private Collider2D playerCollider2D;
 
-    [SerializeField] private RaycastDetection _raycastDetection;
+    private RaycastDetection _raycastDetection;
 
-    [Header("Ne pas set up")] [SerializeField]
     private float hangTimeCounter;
 
     private bool onRoll, canjump = true, canRoll = true;
@@ -57,6 +57,14 @@ public class PlayerController2D : MonoBehaviour
     }
 
     private float velocityWhenJump;
+
+    private void Awake()
+    {
+        playerRigidbody2D = GetComponent<Rigidbody2D>();
+        playerCollider2D = GetComponent<Collider2D>();
+
+        _raycastDetection = GetComponentInChildren<RaycastDetection>();
+    }
 
     private void Update()
     {
@@ -87,10 +95,6 @@ public class PlayerController2D : MonoBehaviour
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
             canjump = false;
-            // if ((Escalier.isOnEscalier || Plateforme.isOnPlateforme) && InputReader.instance.direction.y == -1)
-            // {
-            // }
-            // else 
             Jump();
         }
         else if (!InputReader.instance.jump)

@@ -1,14 +1,20 @@
+using System;
 using UnityEngine;
 
 public class Chandelier : MonoBehaviour
 {
-    [SerializeField] private OnBulletHit onBulletHit;
+    private OnBulletHit _onBulletHit;
 
     private string tagOfOther;
 
+    private void Awake()
+    {
+        _onBulletHit = GetComponent<OnBulletHit>();
+    }
+
     private void Start()
     {
-        onBulletHit.onBulletHit.AddListener(OnBulletHit);
+        _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

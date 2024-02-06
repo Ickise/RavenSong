@@ -3,10 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField] private string sceneName;
+    private Scene currentScene;
     
     public void RespawnPlayer()
     {
-        SceneManager.LoadScene(sceneName);
+        currentScene = SceneManager.GetActiveScene();
+        
+        SceneManager.LoadScene(currentScene.name);
     }
 }
