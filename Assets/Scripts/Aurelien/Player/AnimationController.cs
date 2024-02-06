@@ -17,6 +17,8 @@ public class AnimationController : MonoBehaviour
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
     public enum AnimationState { idleNoBall, idleBall, walkBall };
     private AnimationState currentAnimationState;
+
+    //le struct pour set toute les références des animations dans l'editor
     [System.Serializable]
     public struct Animations
     {
@@ -31,22 +33,29 @@ public class AnimationController : MonoBehaviour
 
     private void Start()
     {
+        //get les références
         instance = this;
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
+
+        //set le dictionnaire (car il n'est pas serializé dans unity)
         stateAnimationRef = new Dictionary<AnimationState, Animations>()
         {{AnimationState.idleNoBall, animations[(int)AnimationState.idleNoBall]},
         {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
         {AnimationState.walkBall, animations[(int)AnimationState.walkBall]}};
+
+        //lance l'animation par défaut du player
         SetCharacterState(AnimationState.idleBall, true, 1f);
     }
 
+    //permet de flip l'activation des mesh quand le joueur se retourne, est appelé lors des inputs
     public void FlipAnimation(bool direction)
     {
         meshDroite.enabled = direction;
         meshGauche.enabled = !direction;
     }
 
+    //set les animations sur les 2 mesh
     private void SetAnimation(Animations animation, bool loop, float timeScale)
     {
         skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
@@ -55,6 +64,7 @@ public class AnimationController : MonoBehaviour
         skeletonAnimationGauche.state.SetAnimation(0, animation.gauche, loop).TimeScale = timeScale;
     }
 
+    //la fonction qui est appelé sur lancer une animations
     public void SetCharacterState(AnimationState animationState, bool loop, float timeScale)
     {
         Animations animations;

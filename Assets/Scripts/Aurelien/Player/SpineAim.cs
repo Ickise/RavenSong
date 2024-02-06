@@ -24,8 +24,9 @@ public class SpineAim : MonoBehaviour
     private void Update()
     {
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
-        boneAim[0].SetLocalPosition(skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane))));
-        Vector3 localPos = skeletonAnimation[1].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
-        boneAim[1].SetLocalPosition(new Vector3(-localPos.x, localPos.y, localPos.z));
+        Vector3 localPosDroite = skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
+        boneAim[0].SetLocalPosition(new Vector3(Mathf.Clamp(localPosDroite.x, 1, Mathf.Infinity), localPosDroite.y, localPosDroite.z));
+        Vector3 localPosGauche = skeletonAnimation[1].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
+        boneAim[1].SetLocalPosition(new Vector3(-Mathf.Clamp(localPosGauche.x, Mathf.NegativeInfinity, -1), localPosGauche.y, localPosGauche.z));
     }
 }
