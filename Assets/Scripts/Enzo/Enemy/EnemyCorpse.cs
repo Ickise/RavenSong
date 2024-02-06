@@ -16,6 +16,7 @@ public class EnemyCorpse : MonoBehaviour
 
     private void BulletMotionless()
     {
+        //bloque la position de la balle dans le cadavre
         if (bullet != null && !InputReader.instance.canRecall)
         {
             bullet.transform.position = gameObject.transform.position;

@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class ExploseWall : MonoBehaviour
 {
-    [SerializeField] private OnBulletHit _onBulletHit;
+    private OnBulletHit _onBulletHit;
 
     private Explodable _explodable;
 
     private void Awake()
     {
+        _onBulletHit = GetComponent<OnBulletHit>();
         _explodable = GetComponent<Explodable>();
     }
 

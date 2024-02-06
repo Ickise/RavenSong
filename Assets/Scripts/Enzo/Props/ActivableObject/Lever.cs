@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Lever : MonoBehaviour
@@ -8,7 +9,12 @@ public class Lever : MonoBehaviour
 
     private BulletCollisionDetection _bulletCollisionDetection;
 
-    [SerializeField] private OnBulletHit _onBulletHit;
+    private OnBulletHit _onBulletHit;
+
+    private void Awake()
+    {
+        _onBulletHit = GetComponent<OnBulletHit>();
+    }
 
     private void Start()
     {

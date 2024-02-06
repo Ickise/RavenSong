@@ -2,14 +2,23 @@ using UnityEngine;
 
 public class BulletVelocity : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private Rigidbody2D baseBulletRigidbody2D;
+    [Header("À set up")]
 
     [SerializeField] private float xSpeedBullet = 15f;
 
-    [SerializeField] private BulletDirection _bulletDirection;
-    [SerializeField] private BulletCollisionDetection _bulletCollisionDetection;
+    private Rigidbody2D baseBulletRigidbody2D;
+    
+    private BulletDirection _bulletDirection;
+    private BulletCollisionDetection _bulletCollisionDetection;
 
     //[SerializeField] private AudioClip impactAudio;
+
+    private void Awake()
+    {
+        _bulletDirection = GetComponent<BulletDirection>();
+        _bulletCollisionDetection = GetComponent<BulletCollisionDetection>();
+        baseBulletRigidbody2D = GetComponent<Rigidbody2D>();
+    }
 
     private void OnEnable()
     {

@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class ShowAimLine : MonoBehaviour
 {
-    [SerializeField] private LineRenderer aimLine;
+    [Header("À set up")] 
+    [SerializeField] private LineRenderer aimLineRenderer;
 
-    [SerializeField] private Transform player;
+    [SerializeField] private Transform playerTransform;
 
     private void Update()
     {
@@ -15,21 +16,23 @@ public class ShowAimLine : MonoBehaviour
     {
         if (InputReader.instance.activateAim)
         {
+            //récupération de la position de la souris pour que le line renderer suive sa position
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            
-            aimLine.enabled = true;
-            aimLine.positionCount = 2;
-            aimLine.SetPosition(0, player.position);
-            aimLine.SetPosition(1, mousePosition);
+
+            //fait apparaître le line renderer, la première position est le point de départ du line et la seconde position est le point de fin du  line
+            aimLineRenderer.enabled = true;
+            aimLineRenderer.positionCount = 2;
+            aimLineRenderer.SetPosition(0, playerTransform.position);
+            aimLineRenderer.SetPosition(1, mousePosition);
         }
-        else 
+        else
         {
-            aimLine.enabled = false;
+            aimLineRenderer.enabled = false;
         }
-        
-        if(InputReader.instance.leftClick)
+
+        if (InputReader.instance.leftClick)
         {
-            aimLine.enabled = false;
+            //lorsque le joueur tire, le line disparaît
             InputReader.instance.activateAim = false;
         }
     }
