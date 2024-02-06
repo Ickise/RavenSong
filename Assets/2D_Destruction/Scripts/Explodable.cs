@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Explodable : MonoBehaviour
 {
+
     public System.Action<List<GameObject>> OnFragmentsGenerated;
 
     public bool allowRuntimeFragmentation = false;
@@ -21,13 +20,15 @@ public class Explodable : MonoBehaviour
         Triangle,
         Voronoi
     };
+
     public ShatterType shatterType;
     public List<GameObject> fragments = new List<GameObject>();
     private List<List<Vector2>> polygons = new List<List<Vector2>>();
-   
+
     /// <summary>
     /// Creates fragments if necessary and destroys original gameobject
     /// </summary>
+    ///
     public void explode()
     {
         //if fragments were not created before runtime then create them now
@@ -45,12 +46,14 @@ public class Explodable : MonoBehaviour
                 frag.AddComponent<DestroyFragments>();
             }
         }
+
         //if fragments exist destroy the original
         if (fragments.Count > 0)
         {
             Destroy(gameObject);
         }
     }
+
     /// <summary>
     /// Creates fragments and then disables them
     /// </summary>
@@ -60,6 +63,7 @@ public class Explodable : MonoBehaviour
         {
             deleteFragments();
         }
+
         generateFragments();
         setPolygonsForDrawing();
         foreach (GameObject frag in fragments)
@@ -68,6 +72,7 @@ public class Explodable : MonoBehaviour
             frag.SetActive(false);
         }
     }
+
     public void deleteFragments()
     {
         foreach (GameObject frag in fragments)
@@ -81,9 +86,11 @@ public class Explodable : MonoBehaviour
                 Destroy(frag);
             }
         }
+
         fragments.Clear();
         polygons.Clear();
     }
+
     /// <summary>
     /// Turns Gameobject into multiple fragments
     /// </summary>
@@ -102,6 +109,7 @@ public class Explodable : MonoBehaviour
                 Debug.Log("invalid choice");
                 break;
         }
+
         //sets additional aspects of the fragments
         foreach (GameObject p in fragments)
         {
@@ -121,6 +129,7 @@ public class Explodable : MonoBehaviour
             }
         }
     }
+
     private void setPolygonsForDrawing()
     {
         polygons.Clear();
@@ -131,14 +140,17 @@ public class Explodable : MonoBehaviour
             polygon = new List<Vector2>();
             foreach (Vector2 point in frag.GetComponent<PolygonCollider2D>().points)
             {
-                Vector2 offset = rotateAroundPivot((Vector2)frag.transform.position, (Vector2)transform.position, Quaternion.Inverse(transform.rotation)) - (Vector2)transform.position;
+                Vector2 offset = rotateAroundPivot((Vector2)frag.transform.position, (Vector2)transform.position,
+                    Quaternion.Inverse(transform.rotation)) - (Vector2)transform.position;
                 offset.x /= transform.localScale.x;
                 offset.y /= transform.localScale.y;
                 polygon.Add(point + offset);
             }
+
             polygons.Add(polygon);
         }
     }
+
     private Vector2 rotateAroundPivot(Vector2 point, Vector2 pivot, Quaternion angle)
     {
         Vector2 dir = point - pivot;
