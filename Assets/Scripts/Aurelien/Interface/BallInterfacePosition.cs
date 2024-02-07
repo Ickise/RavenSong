@@ -16,6 +16,7 @@ public class BallInterfacePosition : MonoBehaviour
 
     void Update()
     {
+        if (_gun == null) return;
         SetViewportToWorldPoints();
         Indicator();
     }

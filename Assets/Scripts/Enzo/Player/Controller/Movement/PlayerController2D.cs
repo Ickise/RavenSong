@@ -113,7 +113,7 @@ public class PlayerController2D : MonoBehaviour
 
     private void ModularMovement()
     {
-        if (_raycastDetection.isGrounded && canjump)
+        if (_raycastDetection.isGrounded)
         {
             if (!InputReader.instance.jump)
                 velocityWhenJump = 0f;
@@ -122,9 +122,11 @@ public class PlayerController2D : MonoBehaviour
             if (InputReader.instance.direction.x == 0)
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
+                if (!canjump) return;
                 AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
                 return;
             }
+            if (!canjump) return;
             AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
         }
         else
