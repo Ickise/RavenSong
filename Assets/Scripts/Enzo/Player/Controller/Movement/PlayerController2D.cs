@@ -115,8 +115,6 @@ public class PlayerController2D : MonoBehaviour
             if (InputReader.instance.direction.x == 0)
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
-                // if (AnimationController.instance.GetCurrentAnimation == AnimationController.AnimationState.jump)
-                //     return;
                 AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
                 return;
             }
