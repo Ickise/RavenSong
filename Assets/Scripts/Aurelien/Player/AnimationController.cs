@@ -15,8 +15,9 @@ public class AnimationController : MonoBehaviour
     public bool GetDirection => meshDroite.enabled;
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump };
     private AnimationState currentAnimationState;
+    public AnimationState GetCurrentAnimation => currentAnimationState;
 
     //le struct pour set toute les références des animations dans l'editor
     [System.Serializable]
@@ -42,7 +43,8 @@ public class AnimationController : MonoBehaviour
         stateAnimationRef = new Dictionary<AnimationState, Animations>()
         {{AnimationState.idleNoBall, animations[(int)AnimationState.idleNoBall]},
         {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
-        {AnimationState.walkBall, animations[(int)AnimationState.walkBall]}};
+        {AnimationState.walkBall, animations[(int)AnimationState.walkBall]},
+        {AnimationState.jump, animations[(int)AnimationState.jump]}};
 
         //lance l'animation par défaut du player
         SetCharacterState(AnimationState.idleBall, true, 1f);
@@ -67,6 +69,7 @@ public class AnimationController : MonoBehaviour
     //la fonction qui est appelé sur lancer une animations
     public void SetCharacterState(AnimationState animationState, bool loop, float timeScale)
     {
+        if (animationState == currentAnimationState) return;
         Animations animations;
         if (stateAnimationRef.TryGetValue(animationState, out animations))
         {

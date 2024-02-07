@@ -19,13 +19,13 @@ public class InputReader : MonoBehaviour
 
     public static InputReader instance;
     private PlayerController2D _playerController2D;
-    private SpriteRenderer spriteRenderer;
+    private RaycastDetection _raycastDetection;
 
     private void Awake()
     {
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _raycastDetection = GetComponentInChildren<RaycastDetection>();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -36,10 +36,7 @@ public class InputReader : MonoBehaviour
         {
             AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
-            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
         }
-        else if (context.canceled)
-            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
     }
 
     public void OnJump(InputAction.CallbackContext context)
