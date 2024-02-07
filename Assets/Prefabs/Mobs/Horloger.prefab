@@ -142,6 +142,8 @@ GameObject:
   - component: {fileID: 8888719148359703479}
   - component: {fileID: 5907231768164364102}
   - component: {fileID: -8660407494564947819}
+  - component: {fileID: 2117618549842726335}
+  - component: {fileID: 6375191612365375532}
   m_Layer: 11
   m_Name: Horloger
   m_TagString: Untagged
@@ -163,7 +165,7 @@ Transform:
   m_Children:
   - {fileID: 4937253757248389635}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8888719148359703479
 Rigidbody2D:
@@ -263,3 +265,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3, y: 0.8}
   m_EdgeRadius: 0
+--- !u!114 &2117618549842726335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888719148359703477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89a4d7736a8a73b4d84f24fa148571aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabIACorpse: {fileID: 242511868777815649, guid: aac165229b1004444bea796ff1f9e57f, type: 3}
+  _onBulletHit: {fileID: 6375191612365375532}
+--- !u!114 &6375191612365375532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8888719148359703477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71886f1b82aa36e489ac1cd61d55c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBulletHit:
+    m_PersistentCalls:
+      m_Calls: []

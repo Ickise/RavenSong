@@ -3,33 +3,56 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
-   public bool isActive;
+    public bool isActive;
 
-   private bool isPlayerInRange;
+    private GameObject bullet;
 
-   private void Start()
-   {
-      InputReader.instance.onInteractionEvent.AddListener(OnClick);
-   }
+    private BulletCollisionDetection _bulletCollisionDetection;
 
-   private void OnTriggerEnter2D(Collider2D other)
-   {
-      if (other.CompareTag("Player"))
-      {
-         isPlayerInRange = true;
-      }
-   }
+    private OnBulletHit _onBulletHit;
 
-   private void OnTriggerExit2D(Collider2D other)
-   {
-      isPlayerInRange = false;
-   }
+    private void Awake()
+    {
+        _onBulletHit = GetComponent<OnBulletHit>();
+    }
 
-   private void OnClick()
-   {
-      if (isPlayerInRange)
-      {
-         isActive = true;
-      }
-   }
+    private void Start()
+    {
+        _onBulletHit.onBulletHit.AddListener(OnBulletHit);
+    }
+
+    private void Update()
+    {
+        BulletMotionless();
+    }
+
+    private void BulletMotionless()
+    {
+        if (bullet != null && !InputReader.instance.canRecall)
+        {
+            bullet.transform.position = gameObject.transform.position;
+        }
+    }
+
+    private void OnBulletHit()
+    {
+        bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
+
+        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
+        _bulletCollisionDetection.enabled = false;
+
+        CanChangeBool();
+    }
+
+    private void CanChangeBool()
+    {
+        if (!isActive)
+        {
+            isActive = true;
+        }
+        else
+        {
+            isActive = false;
+        }
+    }
 }

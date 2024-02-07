@@ -1,11 +1,11 @@
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")] public Vector2 direction;
+    [Header("Ne pas set up")] 
+    public Vector2 direction;
 
     public bool jump;
     public bool leftClick;
@@ -13,19 +13,23 @@ public class InputReader : MonoBehaviour
     public bool canStun;
     public bool canDown;
     public bool canRoll;
+    public bool canRecall;
     public bool DontJump { private get; set; }
 
     public UnityEvent onInteractionEvent = new UnityEvent();
+    public UnityEvent onRecall = new UnityEvent();
 
     public static InputReader instance;
     private PlayerController2D _playerController2D;
-    private RaycastDetection _raycastDetection;
+    private SpriteRenderer spriteRenderer;
+    public Vector3 manetteDirection;
 
     private void Awake()
     {
+        //get tous les components
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
-        _raycastDetection = GetComponentInChildren<RaycastDetection>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -36,7 +40,10 @@ public class InputReader : MonoBehaviour
         {
             AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
+            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
         }
+        else if (context.canceled)
+            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -70,5 +77,23 @@ public class InputReader : MonoBehaviour
         {
             onInteractionEvent.Invoke();
         }
+    }
+
+    public void OnRecall(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            onRecall.Invoke();
+            canRecall = true;
+        }
+        else
+        {
+            canRecall = false;
+        }
+    }
+
+    public void ManetteDirection(InputAction.CallbackContext context)
+    {
+        manetteDirection = context.ReadValue<Vector2>();
     }
 }

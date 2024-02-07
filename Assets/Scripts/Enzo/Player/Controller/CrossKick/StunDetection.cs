@@ -2,18 +2,16 @@ using UnityEngine;
 
 public class StunDetection : MonoBehaviour
 {
-    [Header("À set up")]
-    [SerializeField] private float stunDuration = 1.5f;
+    [Header("À set up")] [SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableRaycast = 0.3f;
-    [SerializeField] private float distance = 0.5f;
+    [SerializeField] private float distanceToHit = 0.5f;
 
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask layerIa;
 
-    [Header("Ne pas set up")]
-    [SerializeField] private float timeToCrossKick;
-    [SerializeField] private float timeToEnableRaycast;
-    [SerializeField] private float timeToStun;
+    private float timeToCrossKick;
+    private float timeToEnableRaycast;
+    private float timeToStun;
 
     private IA _ia;
     private PlayerController2D _playerController2D;
@@ -27,6 +25,7 @@ public class StunDetection : MonoBehaviour
     {
         _playerController2D = GetComponentInParent<PlayerController2D>();
     }
+
     private void Update()
     {
         StunEnemy();
@@ -43,8 +42,9 @@ public class StunDetection : MonoBehaviour
             canLaunchTimeToStun = true;
             stopTimeToEnableRaycast = true;
 
-            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right * _playerController2D.LastDirection, distance, layerMask);
-            Debug.DrawRay(transform.position, Vector2.right * distance);
+            raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right * _playerController2D.LastDirection,
+                distanceToHit, layerIa);
+
             if (raycastHit2D)
             {
                 if (raycastHit2D.transform.GetComponent<IA>())
@@ -86,14 +86,6 @@ public class StunDetection : MonoBehaviour
                 timeToStun = 0;
                 canLaunchTimeToStun = false;
             }
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (stopTimeToEnableRaycast)
-        {
-            Gizmos.DrawLine(transform.position, transform.position + Vector3.right * distance);
         }
     }
 }
