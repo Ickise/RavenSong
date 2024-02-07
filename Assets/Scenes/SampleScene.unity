@@ -732,7 +732,7 @@ PrefabInstance:
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 2111068815}
+      objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -4226,7 +4226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eea0eb1b6815504e838fdc27d63abf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gun: {fileID: 2111068815}
+  _gun: {fileID: 1567548571}
+  sprite: {fileID: 1777036502544303396, guid: 8aa805850fbc601409cb8b58d3abfc3e, type: 3}
 --- !u!1 &312497038
 GameObject:
   m_ObjectHideFlags: 0
@@ -17391,6 +17392,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1567548571 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 264221829067840262, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 36637818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80ae8287306572247b07a5e18c0bf76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1570309987
 GameObject:
   m_ObjectHideFlags: 0
@@ -21096,17 +21108,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6304073365197006426, guid: 7577d3db4c89d894e8a97f8885294baa, type: 3}
   m_PrefabInstance: {fileID: 8238758091584800171}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2111068815 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7335652219000336131, guid: 22e077090d96080488a155c8050ba547, type: 3}
-  m_PrefabInstance: {fileID: 36637818}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6dd3ae8f6adff7549a78348f74416af5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!43 &2111188418
 Mesh:
   m_ObjectHideFlags: 0
