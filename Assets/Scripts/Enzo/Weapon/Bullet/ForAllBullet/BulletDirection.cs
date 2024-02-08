@@ -14,6 +14,6 @@ public class BulletDirection : MonoBehaviour
     public void Init()
     {
         mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        direction = transform.position - mousePosition;
+        direction = mousePosition - transform.position;
     }
 }
