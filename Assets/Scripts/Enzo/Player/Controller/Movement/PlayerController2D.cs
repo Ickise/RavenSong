@@ -69,12 +69,12 @@ public class PlayerController2D : MonoBehaviour
     {
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
-
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
     }
 
     private void Update()
     {
+        //stop la roulade si elle rencontre du vide ou un mur
         if (onRoll)
         {
             if (DOTween.IsTweening("roll") &&
@@ -84,7 +84,6 @@ public class PlayerController2D : MonoBehaviour
                 playerCollider2D.enabled = true;
                 DOTween.Kill("roll");
                 StopAllCoroutines();
-                StartCoroutine(RollCoolDown());
             }
 
             return;
@@ -111,6 +110,7 @@ public class PlayerController2D : MonoBehaviour
         playerRigidbody2D.velocity = playerVelocity;
     }
 
+    //gère les déplacements du player
     private void ModularMovement()
     {
         if (_raycastDetection.isGrounded)
@@ -123,14 +123,14 @@ public class PlayerController2D : MonoBehaviour
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true,AnimationController.instance.speedIdleBall);
                 return;
             }
             if (!canjump) return;
             if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, AnimationController.instance.speedWalkBall);
             else
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true, 1f);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true, AnimationController.instance.speedWalkBackWard);
         }
         else
         {
@@ -148,7 +148,7 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.jump, false, 1f);
+        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.jump, false, AnimationController.instance.speedJump);
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
 
@@ -187,11 +187,9 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
-        transform.localScale += Vector3.down * 0.5f;
-        transform.position += Vector3.down * 0.5f;
+        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.dash, false, AnimationController.instance.speedDash);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * LastDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
-            .OnComplete(() => transform.DOScaleY(1f, 0.2f))
             .OnKill(() =>
             {
                 if (_raycastDetection.RaycastOnRoll(LastDirection))
@@ -200,21 +198,14 @@ public class PlayerController2D : MonoBehaviour
                     playerRigidbody2D.AddForce(new Vector2(LastDirection, 1).normalized * forceBonk,
                         ForceMode2D.Impulse);
                 }
-
-                transform.DOMoveY(transform.position.y + 0.5f, 0.1f);
-                transform.DOScaleY(1f, 0.1f);
+                AnimationController.instance.DontAim = false;
+                onRoll = false;
+                playerCollider2D.enabled = true;
                 StartCoroutine(RollCoolDown());
             });
-        StartCoroutine(RollInvincibility());
-    }
-
-    IEnumerator RollInvincibility()
-    {
+        AnimationController.instance.DontAim = true;
         playerCollider2D.enabled = false;
         onRoll = true;
-        yield return new WaitUntil(() => !DOTween.IsTweening("roll"));
-        onRoll = false;
-        playerCollider2D.enabled = true;
     }
 
     IEnumerator RollCoolDown()
