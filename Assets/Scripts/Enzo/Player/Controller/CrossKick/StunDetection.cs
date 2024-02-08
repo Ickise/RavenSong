@@ -53,7 +53,7 @@ public class StunDetection : MonoBehaviour
                 {
                     Explodable explodableObj = raycastHit2D.transform.GetComponent<Explodable>();
                     explodableObj.explode();
-                    ExplosionForce ef = GameObject.FindObjectOfType<ExplosionForce>();
+                    ExplosionForce ef = FindObjectOfType<ExplosionForce>();
                     ef.doExplosion(transform.position);
                 }
             }
