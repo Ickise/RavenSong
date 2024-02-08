@@ -34,7 +34,7 @@ public class BulletVelocity : MonoBehaviour
     {
         //  AudioManager.instance.PlaySFX(impactAudio);
 
-        baseBulletRigidbody2D.velocity = _bulletDirection.direction.normalized * xSpeedBullet;
+        baseBulletRigidbody2D.velocity = _bulletDirection.direction * xSpeedBullet;
 
         if (_bulletCollisionDetection.hitGround || _bulletCollisionDetection.hitSomething ||
             InputReader.instance.canRecall)
