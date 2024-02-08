@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //gère les animations spine du player
 //en singleton
@@ -15,7 +16,7 @@ public class AnimationController : MonoBehaviour
     public bool GetDirection => meshDroite.enabled;
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, jump };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard };
     private AnimationState currentAnimationState;
     public AnimationState GetCurrentAnimation => currentAnimationState;
 
@@ -44,7 +45,8 @@ public class AnimationController : MonoBehaviour
         {{AnimationState.idleNoBall, animations[(int)AnimationState.idleNoBall]},
         {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
         {AnimationState.walkBall, animations[(int)AnimationState.walkBall]},
-        {AnimationState.jump, animations[(int)AnimationState.jump]}};
+        {AnimationState.jump, animations[(int)AnimationState.jump]},
+        {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]}};
 
         //lance l'animation par défaut du player
         SetCharacterState(AnimationState.idleBall, true, 1f);
@@ -76,5 +78,10 @@ public class AnimationController : MonoBehaviour
             currentAnimationState = animationState;
             SetAnimation(animations, loop, timeScale);
         }
+    }
+
+    private void Update()
+    {
+        FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.nearClipPlane)).x > transform.position.x);
     }
 }
