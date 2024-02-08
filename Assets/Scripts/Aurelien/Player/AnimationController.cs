@@ -15,7 +15,7 @@ public class AnimationController : MonoBehaviour
     public bool GetDirection => meshDroite.enabled;
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, jump };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard };
     private AnimationState currentAnimationState;
     public AnimationState GetCurrentAnimation => currentAnimationState;
 
@@ -44,7 +44,8 @@ public class AnimationController : MonoBehaviour
         {{AnimationState.idleNoBall, animations[(int)AnimationState.idleNoBall]},
         {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
         {AnimationState.walkBall, animations[(int)AnimationState.walkBall]},
-        {AnimationState.jump, animations[(int)AnimationState.jump]}};
+        {AnimationState.jump, animations[(int)AnimationState.jump]},
+        {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]}};
 
         //lance l'animation par défaut du player
         SetCharacterState(AnimationState.idleBall, true, 1f);

@@ -555,10 +555,6 @@ MonoBehaviour:
   speedRoulade: 15
   forceBonk: 10
   coolDownToRoll: 2
-  playerRigidbody2D: {fileID: 3775067873167366473}
-  playerCollider2D: {fileID: 747856985619423663}
-  _raycastDetection: {fileID: 7672566409580914129}
-  hangTimeCounter: 0
 --- !u!61 &747856985619423663
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -616,7 +612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89b3709eeda4a14dbcfdffb8886e462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: LDPrototypeCyril
 --- !u!231 &8217276307982103039
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -1630,6 +1625,11 @@ MonoBehaviour:
     droite: {fileID: 11400000, guid: bcbd8d36e2301794280f53a01d9ec066, type: 2}
     skeletonDataAssetDroite: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
     gauche: {fileID: 11400000, guid: ac4b7d39f94f0f14b8b9c7189a6db936, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
+  - name: walk backward
+    droite: {fileID: 11400000, guid: 906887cb94adda240be36fcb014984f3, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
+    gauche: {fileID: 11400000, guid: 7ec4079bb0c8f7d43aa5a3008856ba52, type: 2}
     skeletonDataAssetGauche: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
 --- !u!114 &987536328954242322
 MonoBehaviour:
