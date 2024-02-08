@@ -1,38 +1,32 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private Lever _lever;
+    [SerializeField] private Ease ease;
 
-    private Collider2D doorCollider;
+    [SerializeField] private float newYPosition;
+    [SerializeField] private float animationDuration = 1f;
+
+    private Vector3 originalPosition;
+    private Vector3 newPosition;
 
     private void Awake()
     {
-        doorCollider = GetComponent<Collider2D>();
+        originalPosition = transform.position;
+
+        newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
     }
 
-    private void Update()
+    public void OpenDoor(bool isActive)
     {
-        OpenDoor(_lever, _lever.isActive);
-    }
-
-    private void OpenDoor(Lever lever, bool isActive)
-    {
-        if (lever == null)
-        {
-            return;
-        }
-
         if (isActive)
         {
-            doorCollider.isTrigger = true;
-            //remplacer par une animation qui se lance et fait redescendre la porte ou bien un tween pour monter et descendre (cela permettra de prendre le collider ou
-            //bien set up dans l'animation le collider qui bouge aussi
+            transform.DOMove(newPosition, animationDuration).SetEase(ease);
         }
         else
         {
-            doorCollider.isTrigger = false;
-            //pareil ici
+            transform.DOMove(originalPosition, animationDuration).SetEase(ease);
         }
     }
 }

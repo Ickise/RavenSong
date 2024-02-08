@@ -1,8 +1,9 @@
-using System;
 using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
+    [SerializeField] private Door _door;
+
     public bool isActive;
 
     private GameObject bullet;
@@ -11,9 +12,12 @@ public class Lever : MonoBehaviour
 
     private OnBulletHit _onBulletHit;
 
+    private Animator leverAnimator;
+
     private void Awake()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
+        leverAnimator = GetComponent<Animator>();
     }
 
     private void Start()
@@ -34,6 +38,20 @@ public class Lever : MonoBehaviour
         }
     }
 
+    private void CanChangeBool()
+    {
+        if (!isActive)
+        {
+            isActive = true;
+            leverAnimator.SetInteger("State", 1);
+        }
+        else
+        {
+            isActive = false;
+            leverAnimator.SetInteger("State", 0);
+        }
+    }
+
     private void OnBulletHit()
     {
         bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
@@ -42,17 +60,6 @@ public class Lever : MonoBehaviour
         _bulletCollisionDetection.enabled = false;
 
         CanChangeBool();
-    }
-
-    private void CanChangeBool()
-    {
-        if (!isActive)
-        {
-            isActive = true;
-        }
-        else
-        {
-            isActive = false;
-        }
+        _door.OpenDoor(isActive);
     }
 }
