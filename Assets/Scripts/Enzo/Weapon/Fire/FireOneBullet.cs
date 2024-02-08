@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class FireOneBullet : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private GameObject bullet;
+    [Header("À set up")][SerializeField] private GameObject bullet;
+    public GameObject bulletRef { get; private set;}
 
     // [SerializeField] private AudioClip shotAudio;
 
@@ -10,7 +11,7 @@ public class FireOneBullet : MonoBehaviour
 
     private void Update()
     {
-      OnShot();
+        OnShot();
     }
 
     private void OnShot()
@@ -19,8 +20,8 @@ public class FireOneBullet : MonoBehaviour
         {
             //AudioManager.instance.PlaySFX(shotAudio);
 
-            Instantiate(bullet.gameObject, transform.position, Quaternion.identity);
+            bulletRef = Instantiate(bullet.gameObject, transform.position, Quaternion.identity);
             numberOfAmmo--;
-        } 
+        }
     }
 }
