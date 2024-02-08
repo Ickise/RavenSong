@@ -127,7 +127,10 @@ public class PlayerController2D : MonoBehaviour
                 return;
             }
             if (!canjump) return;
-            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
+            if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
+            else
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true, 1f);
         }
         else
         {

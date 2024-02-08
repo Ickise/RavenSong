@@ -36,7 +36,7 @@ public class InputReader : MonoBehaviour
         direction = context.ReadValue<Vector2>();
         if (context.performed)
         {
-            AnimationController.instance.FlipAnimation(direction.x > 0);
+            // AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
         }
     }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Spine.Unity;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 //gère les animations spine du player
 //en singleton
@@ -77,5 +78,10 @@ public class AnimationController : MonoBehaviour
             currentAnimationState = animationState;
             SetAnimation(animations, loop, timeScale);
         }
+    }
+
+    private void Update()
+    {
+        FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.nearClipPlane)).x > transform.position.x);
     }
 }
