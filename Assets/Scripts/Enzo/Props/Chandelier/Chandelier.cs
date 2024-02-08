@@ -18,12 +18,12 @@ public class Chandelier : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        SwitchTag(other.gameObject.tag);
-
         if (other.CompareTag("IA"))
         {
             Destroy(other.gameObject);
         }
+        
+        SwitchTag(other.gameObject.tag);
     }
 
     private void SwitchTag(string tag)

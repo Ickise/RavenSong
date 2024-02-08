@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5120202088657408753}
   m_Layer: 11
   m_Name: chargeur
-  m_TagString: Untagged
+  m_TagString: IA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6375191612365375532}
   m_Layer: 11
   m_Name: Horloger
-  m_TagString: Untagged
+  m_TagString: IA
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ Transform:
   m_Children:
   - {fileID: 4937253757248389635}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8888719148359703479
 Rigidbody2D:
@@ -278,7 +278,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabIACorpse: {fileID: 242511868777815649, guid: aac165229b1004444bea796ff1f9e57f, type: 3}
-  _onBulletHit: {fileID: 6375191612365375532}
 --- !u!114 &6375191612365375532
 MonoBehaviour:
   m_ObjectHideFlags: 0
