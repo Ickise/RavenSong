@@ -120,6 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031395344359949623}
+  - component: {fileID: 3692468665112738659}
   m_Layer: 0
   m_Name: CapsuleCast
   m_TagString: Untagged
@@ -135,13 +136,48 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2850263938986340433}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8404946919698269789}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &3692468665112738659
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850263938986340433}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 1}
+  m_Direction: 1
 --- !u!1 &8612664303447618227
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,12 +450,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   distanceToDetect: 0
   distanceToDetectGround: 0.12
-  capsuleSize: {x: 3, y: 0.5}
+  capsuleSize: {x: 2, y: 1}
   listOfLayer:
   - serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 10240
   - serializedVersion: 2
-    m_Bits: 192
+    m_Bits: 193
   - serializedVersion: 2
     m_Bits: 8
   capsuleCastTransform: {fileID: 2031395344359949623}

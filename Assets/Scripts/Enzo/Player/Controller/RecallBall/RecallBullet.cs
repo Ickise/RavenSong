@@ -13,10 +13,9 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private FireOneBullet _fireOneBullet;
 
     [SerializeField] private float destroyDistance = 0.6f;
-    [SerializeField] private float delayBeforeMove = 1.5f;
-    [SerializeField] private float speedToRecall = 2f;
-    [SerializeField] private float speedDelay = 0.5f;
-    [SerializeField] private float distanceToRecall = 3f;
+    [SerializeField] private float speedToRecall = 50f;
+    [SerializeField] private float speedDelay = 0.2f;
+    [SerializeField] private float distanceToRecall = 10f;
 
     private float distance;
 
@@ -27,11 +26,11 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        GetDelayBeforeMove();
-      
+        float delay = GetDelayBeforeMove();
+
         if (InputReader.instance.canRecall && transform.position.x < distanceToRecall)
         {
-            Invoke("RecallAmmo", delayBeforeMove);
+            Invoke("RecallAmmo", delay);
         }
         else
         {
@@ -39,19 +38,19 @@ public class RecallBullet : MonoBehaviour
         }
     }
 
-    private void GetDelayBeforeMove()
+    private float GetDelayBeforeMove()
     {
         if (bullet != null)
         {
             direction = transform.position - bullet.transform.position;
             distance = direction.magnitude;
-            
-            delayBeforeMove = distance * speedDelay;
 
-            Debug.Log(delayBeforeMove);
+            return distance * speedDelay;
         }
+
+        return 0;
     }
-    
+
     public void RecallAmmo()
     {
         if (bullet != null)

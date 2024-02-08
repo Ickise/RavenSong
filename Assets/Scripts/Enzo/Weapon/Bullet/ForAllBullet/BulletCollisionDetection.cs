@@ -32,7 +32,9 @@ public class BulletCollisionDetection : MonoBehaviour
             0f,
             direction, distanceToDetect, listOfLayer[0]);
 
-        hitGround = Physics2D.Raycast(transform.position, Vector2.down, distanceToDetectGround, listOfLayer[1]);
+        hitGround = Physics2D.CapsuleCast(capsuleCastTransform.position, capsuleSize, CapsuleDirection2D.Horizontal,
+            0f,
+            direction, distanceToDetect, listOfLayer[1]);
     }
 
     private void InvokeBulletHit()
