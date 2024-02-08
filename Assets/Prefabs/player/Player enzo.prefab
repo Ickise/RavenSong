@@ -555,10 +555,6 @@ MonoBehaviour:
   speedRoulade: 15
   forceBonk: 10
   coolDownToRoll: 2
-  playerRigidbody2D: {fileID: 3775067873167366473}
-  playerCollider2D: {fileID: 747856985619423663}
-  _raycastDetection: {fileID: 7672566409580914129}
-  hangTimeCounter: 0
 --- !u!61 &747856985619423663
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -616,7 +612,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89b3709eeda4a14dbcfdffb8886e462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: LDPrototypeCyril
 --- !u!231 &8217276307982103039
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -843,7 +838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
@@ -1536,7 +1531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -1571,6 +1566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2626320943292974470}
   - component: {fileID: 7205042697692475838}
+  - component: {fileID: 987536328954242322}
   m_Layer: 0
   m_Name: Spine Animation
   m_TagString: Untagged
@@ -1611,20 +1607,43 @@ MonoBehaviour:
   skeletonAnimationGauche: {fileID: 5245158571904818143}
   animations:
   - name: idle no ball
-    droite: {fileID: 11400000, guid: 8baa398e9a8639e4c967ecbdadea90ad, type: 2}
-    skeletonDataAssetDroite: {fileID: 11400000, guid: 16a1e71b3933c6144a8af5de36f64502, type: 2}
-    gauche: {fileID: 11400000, guid: a5e8efca6043f7643a495d198799abd3, type: 2}
-    skeletonDataAssetGauche: {fileID: 11400000, guid: e67deb3d69a4dc94eae6b110137136ae, type: 2}
+    droite: {fileID: 11400000, guid: 949733c9b429e404a915efa4cfa3873c, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: cfcc7bc6ec621f44196123f6c1cb7c61, type: 2}
+    gauche: {fileID: 11400000, guid: 62ee8dc305e66dd4c8757c713bc60f16, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: 16a1e71b3933c6144a8af5de36f64502, type: 2}
   - name: idle ball
     droite: {fileID: 11400000, guid: 5bb1435150f9408478494e3ccf39c14f, type: 2}
-    skeletonDataAssetDroite: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
     gauche: {fileID: 11400000, guid: 3af3fb586194b734eb288d68c06a57a2, type: 2}
-    skeletonDataAssetGauche: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
   - name: walk ball
     droite: {fileID: 11400000, guid: bda7a3ac0e10f2a4db9eb339d92018c0, type: 2}
-    skeletonDataAssetDroite: {fileID: 11400000, guid: d761293864c4ff144b379465397e82b5, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
     gauche: {fileID: 11400000, guid: f5065ef2185cc804f96fe2a6db91b85d, type: 2}
-    skeletonDataAssetGauche: {fileID: 11400000, guid: 15dae4b57d42dc74283f08d91dd1abcd, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
+  - name: jump
+    droite: {fileID: 11400000, guid: bcbd8d36e2301794280f53a01d9ec066, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
+    gauche: {fileID: 11400000, guid: ac4b7d39f94f0f14b8b9c7189a6db936, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
+  - name: walk backward
+    droite: {fileID: 11400000, guid: 7ec4079bb0c8f7d43aa5a3008856ba52, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
+    gauche: {fileID: 11400000, guid: 906887cb94adda240be36fcb014984f3, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
+--- !u!114 &987536328954242322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8463082628698612768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9d558112d3e5794eb12363f35a7052e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneAimName: Aim Target CI
 --- !u!1 &8971842493604105234
 GameObject:
   m_ObjectHideFlags: 0

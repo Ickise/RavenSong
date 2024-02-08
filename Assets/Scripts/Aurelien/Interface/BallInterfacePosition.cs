@@ -3,10 +3,11 @@ using System.Collections.Generic;
 
 public class BallInterfacePosition : MonoBehaviour
 {
-    [SerializeField] private Gun _gun;
+    [SerializeField] private FireOneBullet _gun;
     private Camera cam;
     private Vector3 DLWP, ULWP, DRWP, URWP;
     private List<Vector3> screenAngles = new List<Vector3>();
+    [SerializeField] private GameObject sprite;
 
     void Start()
     {
@@ -16,24 +17,35 @@ public class BallInterfacePosition : MonoBehaviour
 
     void Update()
     {
+        if (_gun == null || _gun.bulletRef == null) return;
         SetViewportToWorldPoints();
         Indicator();
     }
 
     private void Indicator()
     {
-        foreach (var ammoSprite in _gun.AmmoRefsDico)
+        // foreach (var ammoSprite in _gun.AmmoRefsDico)
+        // {
+        //     if (!IsOnScreen(ammoSprite.Key.transform.position))
+        //     {
+        //         var intersectionAmmo = CalculeIntersectionSegments(ammoSprite.Key.transform.position);
+        //         ammoSprite.Value.gameObject.SetActive(true);
+        //         ammoSprite.Value.transform.position = intersectionAmmo;
+        //         ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
+        //     }
+        //     else
+        //         ammoSprite.Value.gameObject.SetActive(false);
+        // }
+        Transform bullet = _gun.bulletRef.transform;
+        if (!IsOnScreen(bullet.position))
         {
-            if (!IsOnScreen(ammoSprite.Key.transform.position))
-            {
-                var intersectionAmmo = CalculeIntersectionSegments(ammoSprite.Key.transform.position);
-                ammoSprite.Value.gameObject.SetActive(true);
-                ammoSprite.Value.transform.position = intersectionAmmo;
-                ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
-            }
-            else
-                ammoSprite.Value.gameObject.SetActive(false);
+            var intersectionAmmo = CalculeIntersectionSegments(bullet.position);
+            sprite.transform.gameObject.SetActive(true);
+            sprite.transform.position = intersectionAmmo;
+            sprite.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, bullet.position) * Vector3.one;
         }
+        else
+            sprite.SetActive(false);
     }
 
     private void SetViewportToWorldPoints()

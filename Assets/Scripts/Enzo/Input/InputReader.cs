@@ -21,7 +21,6 @@ public class InputReader : MonoBehaviour
 
     public static InputReader instance;
     private PlayerController2D _playerController2D;
-    private SpriteRenderer spriteRenderer;
     public Vector3 manetteDirection;
 
     private void Awake()
@@ -29,7 +28,6 @@ public class InputReader : MonoBehaviour
         //get tous les components
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -38,13 +36,9 @@ public class InputReader : MonoBehaviour
         direction = context.ReadValue<Vector2>();
         if (context.performed)
         {
-            print(direction);
-            AnimationController.instance.FlipAnimation(direction.x > 0);
+            // AnimationController.instance.FlipAnimation(direction.x > 0);
             _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
-            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, 1f);
         }
-        else if (context.canceled)
-            AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, 1f);
     }
 
     public void OnJump(InputAction.CallbackContext context)
