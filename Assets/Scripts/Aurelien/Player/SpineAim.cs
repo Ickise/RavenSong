@@ -12,17 +12,23 @@ public class SpineAim : MonoBehaviour
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
 
-    private void Start()
+    //get toute les références
+    private void Awake()
     {
-        //get toute les références
+        cam = Camera.main;
         skeletonAnimation = GetComponentsInChildren<SkeletonAnimation>();
+    }
+
+    public void Start()
+    {
+        boneAim = new List<Bone>();
         for (int i = 0; i < skeletonAnimation.Length; i++)
             boneAim.Add(skeletonAnimation[i].skeleton.FindBone(boneAimName));
-        cam = Camera.main;
     }
 
     private void Update()
     {
+        if (AnimationController.instance.DontAim) return;
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
         Vector3 localPosDroite = skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
         boneAim[0].SetLocalPosition(new Vector3(Mathf.Clamp(localPosDroite.x, 0, Mathf.Infinity), localPosDroite.y, localPosDroite.z));

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Spine.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,12 +12,15 @@ using UnityEngine.InputSystem;
 public class AnimationController : MonoBehaviour
 {
     public static AnimationController instance;
+    private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
+    public float speedIdleNoBall = 1f, speedIdleBall = 1f, speedWalkBall = 1f, speedJump = 1f, speedWalkBackWard = 1f, speedDash = 1f;
     private MeshRenderer meshDroite, meshGauche;
     public bool GetDirection => meshDroite.enabled;
+    public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard, dash };
     private AnimationState currentAnimationState;
     public AnimationState GetCurrentAnimation => currentAnimationState;
 
@@ -37,6 +41,7 @@ public class AnimationController : MonoBehaviour
     {
         //get les références
         instance = this;
+        _spineAim = GetComponent<SpineAim>();
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
 
@@ -46,10 +51,11 @@ public class AnimationController : MonoBehaviour
         {AnimationState.idleBall, animations[(int)AnimationState.idleBall]},
         {AnimationState.walkBall, animations[(int)AnimationState.walkBall]},
         {AnimationState.jump, animations[(int)AnimationState.jump]},
-        {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]}};
+        {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]},
+        {AnimationState.dash, animations[(int)AnimationState.dash]}};
 
         //lance l'animation par défaut du player
-        SetCharacterState(AnimationState.idleBall, true, 1f);
+        SetCharacterState(AnimationState.idleBall, true, speedIdleBall);
     }
 
     //permet de flip l'activation des mesh quand le joueur se retourne, est appelé lors des inputs
@@ -63,9 +69,14 @@ public class AnimationController : MonoBehaviour
     private void SetAnimation(Animations animation, bool loop, float timeScale)
     {
         skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
+        skeletonAnimationDroite.Initialize(true);
         skeletonAnimationDroite.state.SetAnimation(0, animation.droite, loop).TimeScale = timeScale;
+
         skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
+        skeletonAnimationGauche.Initialize(true);
         skeletonAnimationGauche.state.SetAnimation(0, animation.gauche, loop).TimeScale = timeScale;
+
+        _spineAim.Start();
     }
 
     //la fonction qui est appelé sur lancer une animations
@@ -82,6 +93,8 @@ public class AnimationController : MonoBehaviour
 
     private void Update()
     {
+        if (DontAim) return;
+        //permet de flip l'animation en fonction de la ou le joueur vise
         FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.nearClipPlane)).x > transform.position.x);
     }
 }
