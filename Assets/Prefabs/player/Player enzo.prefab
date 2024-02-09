@@ -88,7 +88,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736661597819335962}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.358005, y: 0.6028762, z: 0}
+  m_LocalPosition: {x: 1.358005, y: 0.60287595, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -140,8 +140,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081539809428432178}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.358005, y: 0.6028762, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: -0.00000004371139}
+  m_LocalPosition: {x: -1.358005, y: 0.60287595, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -699,7 +699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ea5ee25f970306488780926959e0fa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireOneBullet: {fileID: 4911322787764592626}
+  rightHand: {fileID: 0}
+  leftHand: {fileID: 0}
   destroyDistance: 0.6
   speedToRecall: 50
   speedDelay: 0.2
@@ -1048,7 +1049,7 @@ GameObject:
   - component: {fileID: 6420413235010646048}
   - component: {fileID: 805886498523624002}
   m_Layer: 0
-  m_Name: ShootPositionLeft
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1101,7 +1102,7 @@ GameObject:
   - component: {fileID: 19318302601555160}
   - component: {fileID: 955728616262995297}
   m_Layer: 0
-  m_Name: shoot position
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
