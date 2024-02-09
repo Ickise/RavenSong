@@ -4,14 +4,18 @@ public class ChandelierRope : MonoBehaviour
 {
     [Header("Modifie la rapidité de chute du chandelier")] [SerializeField] private float gravitySpeed = 3f;
 
-    private Rigidbody2D chandelierRigidbody2D;
+    [SerializeField] private Rigidbody2D chandelierRigidbody2D;
 
     private OnBulletHit _onBulletHit;
+
+    private Animator parentAnimator;
 
     private void Awake()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
-        chandelierRigidbody2D = GetComponentInParent<Rigidbody2D>();
+       // chandelierRigidbody2D = GetComponentInChildren<Rigidbody2D>();
+
+       parentAnimator = GetComponentInParent<Animator>();
     }
     
     private void Start()
@@ -21,9 +25,9 @@ public class ChandelierRope : MonoBehaviour
 
     private void OnBulletHit()
     {
+        parentAnimator.enabled = false;
         chandelierRigidbody2D.isKinematic = false;
         chandelierRigidbody2D.gravityScale = gravitySpeed;
-
         Destroy(gameObject);
     }
 }
