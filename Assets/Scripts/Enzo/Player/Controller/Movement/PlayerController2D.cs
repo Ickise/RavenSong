@@ -57,6 +57,8 @@ public class PlayerController2D : MonoBehaviour
 
     private Vector2 playerVelocity;
 
+    public static PlayerController2D _instance;
+
     public Vector2 PlayerVelocity
     {
         get { return playerVelocity; }
@@ -67,6 +69,7 @@ public class PlayerController2D : MonoBehaviour
 
     private void Awake()
     {
+        _instance = this;
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
