@@ -53,7 +53,7 @@ public class PlayerController2D : MonoBehaviour
     private float hangTimeCounter;
 
     private bool onRoll, canjump = true, canRoll = true;
-    public float LastDirection { get; set; } = 1f;
+    public int CurrentDirection { get { return AnimationController.instance.GetDirection ? 1 : -1; } }
 
     private Vector2 playerVelocity;
 
@@ -78,7 +78,7 @@ public class PlayerController2D : MonoBehaviour
         if (onRoll)
         {
             if (DOTween.IsTweening("roll") &&
-                (!_raycastDetection.isGrounded || _raycastDetection.RaycastOnRoll(LastDirection)))
+                (!_raycastDetection.isGrounded || _raycastDetection.RaycastOnRoll(CurrentDirection)))
             {
                 onRoll = false;
                 playerCollider2D.enabled = true;
@@ -123,7 +123,7 @@ public class PlayerController2D : MonoBehaviour
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true,AnimationController.instance.speedIdleBall);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall);
                 return;
             }
             if (!canjump) return;
@@ -188,14 +188,14 @@ public class PlayerController2D : MonoBehaviour
     {
         if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
         AnimationController.instance.SetCharacterState(AnimationController.AnimationState.dash, false, AnimationController.instance.speedDash);
-        playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * LastDirection, speedRoulade).SetId("roll")
+        playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
             {
-                if (_raycastDetection.RaycastOnRoll(LastDirection))
+                if (_raycastDetection.RaycastOnRoll(CurrentDirection))
                 {
                     playerRigidbody2D.velocity = Vector2.zero;
-                    playerRigidbody2D.AddForce(new Vector2(LastDirection, 1).normalized * forceBonk,
+                    playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
                         ForceMode2D.Impulse);
                 }
                 AnimationController.instance.DontAim = false;
