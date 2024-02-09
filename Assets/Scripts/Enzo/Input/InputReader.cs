@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")] 
+    [Header("Ne pas set up")]
     public Vector2 direction;
 
     public bool jump;
@@ -15,12 +15,14 @@ public class InputReader : MonoBehaviour
     public bool canRoll;
     public bool canRecall;
     public bool DontJump { private get; set; }
+    public bool DontCrossKick { private get; set; }
 
     public UnityEvent onInteractionEvent = new UnityEvent();
     public UnityEvent onRecall = new UnityEvent();
 
     public static InputReader instance;
     private PlayerController2D _playerController2D;
+    private StunDetection _stunDetection;
     public Vector3 manetteDirection;
 
     private void Awake()
@@ -28,17 +30,13 @@ public class InputReader : MonoBehaviour
         //get tous les components
         instance = this;
         _playerController2D = GetComponent<PlayerController2D>();
+        _stunDetection = GetComponentInChildren<StunDetection>();
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
         if (context.started || context.ReadValue<Vector2>().x == direction.x) return;
         direction = context.ReadValue<Vector2>();
-        if (context.performed)
-        {
-            // AnimationController.instance.FlipAnimation(direction.x > 0);
-            _playerController2D.LastDirection = AnimationController.instance.GetDirection ? 1f : -1f;
-        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -57,7 +55,11 @@ public class InputReader : MonoBehaviour
 
     public void OnAim(InputAction.CallbackContext context) => activateAim = context.performed;
 
-    public void OnStun(InputAction.CallbackContext context) => canStun = context.performed;
+    public void OnStun(InputAction.CallbackContext context)
+    {
+        if (!context.started || DontCrossKick) return;
+        _stunDetection.CrossKick(_playerController2D.CurrentDirection);
+    }
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
 
