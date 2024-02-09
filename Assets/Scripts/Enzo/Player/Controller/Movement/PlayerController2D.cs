@@ -199,11 +199,13 @@ public class PlayerController2D : MonoBehaviour
                         ForceMode2D.Impulse);
                 }
                 AnimationController.instance.DontAim = false;
+                InputReader.instance.DontCrossKick = false;
                 onRoll = false;
                 playerCollider2D.enabled = true;
                 StartCoroutine(RollCoolDown());
             });
         AnimationController.instance.DontAim = true;
+        InputReader.instance.DontCrossKick = true;
         playerCollider2D.enabled = false;
         onRoll = true;
     }
