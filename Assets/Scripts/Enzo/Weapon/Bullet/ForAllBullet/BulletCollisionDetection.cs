@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BulletCollisionDetection : MonoBehaviour
@@ -10,7 +11,6 @@ public class BulletCollisionDetection : MonoBehaviour
     private OnBulletHit onBulletHit;
 
     [Header("À set up")] [SerializeField] private float distanceToDetect = 0f;
-    [SerializeField] private float distanceToDetectGround = 0.12f;
 
     [SerializeField] private Vector2 capsuleSize;
 
@@ -46,5 +46,14 @@ public class BulletCollisionDetection : MonoBehaviour
 
         onBulletHit = hitSomething.collider.gameObject.GetComponent<OnBulletHit>();
         onBulletHit.BulletHitSomething();
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("DestroyObject"))
+        {
+            onBulletHit = other.gameObject.GetComponent<OnBulletHit>();
+            onBulletHit.BulletHitSomething();
+        }
     }
 }

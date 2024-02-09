@@ -3,9 +3,7 @@ using UnityEngine;
 public class Chandelier : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
-
-    private string tagOfOther;
-
+    
     private void Awake()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
@@ -18,27 +16,14 @@ public class Chandelier : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("IA"))
+        if (other.CompareTag("DestroyObject"))
         {
             Destroy(other.gameObject);
         }
-        
-        SwitchTag(other.gameObject.tag);
-    }
 
-    private void SwitchTag(string tag)
-    {
-        switch (tag)
+        if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            case "IA":
-                Destroy(gameObject);
-                break;
-            case "Untagged":
-                Destroy(gameObject);
-                break;
-            case "Player":
-                Destroy(gameObject);
-                break;
+            Destroy(gameObject);
         }
     }
 
