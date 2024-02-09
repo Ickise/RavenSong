@@ -21,7 +21,8 @@ public class EnemyCorpse : MonoBehaviour
         {
             bullet.transform.position = gameObject.transform.position;
         }
-        else
+
+        if (bullet.transform.position != gameObject.transform.position)
         {
             Destroy(gameObject);
         }
