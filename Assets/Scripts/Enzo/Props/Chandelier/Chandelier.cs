@@ -23,12 +23,12 @@ public class Chandelier : MonoBehaviour
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
         }
     }
 
     private void OnBulletHit()
     {
-        Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
