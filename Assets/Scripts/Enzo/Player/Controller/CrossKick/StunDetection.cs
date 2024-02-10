@@ -63,6 +63,12 @@ public class StunDetection : MonoBehaviour
         }
 
         //tu peux rajouter d'autre condition ici
+
+        OnBulletHit interactedObject = other.GetComponent<OnBulletHit>();
+        if (interactedObject)
+        {
+            interactedObject.BulletHitSomething();
+        }
     }
 
     // private void StunEnemy()

@@ -55,7 +55,12 @@ public class Lever : MonoBehaviour
     private void OnBulletHit()
     {
         bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
-
+     
+        if (bullet == null)
+        {
+            return;
+        }
+        
         _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
         _bulletCollisionDetection.enabled = false;
 

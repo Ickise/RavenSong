@@ -33,7 +33,7 @@ public class BulletCollisionDetection : MonoBehaviour
 
         if (GetIntersection.collider.GetComponent<OnBulletHit>() != null)
         {
-            if (GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionCanMove") || GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionStopMove"))
+            if (GetIntersection.collider.gameObject.GetComponent<OnBulletHit>())
             {
                 onBulletHit = GetIntersection.collider.gameObject.GetComponent<OnBulletHit>();
                 onBulletHit.BulletHitSomething();
