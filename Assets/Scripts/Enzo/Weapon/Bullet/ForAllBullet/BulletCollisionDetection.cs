@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class BulletCollisionDetection : MonoBehaviour
 {
-    [Header("À set up")]
+    [Header("À set up")] [SerializeField] private LayerMask layerHasToStop;
 
-    [SerializeField] private LayerMask layerHasToStop;
-    
     private Vector2 direction;
 
     private OnBulletHit onBulletHit;
@@ -35,8 +33,11 @@ public class BulletCollisionDetection : MonoBehaviour
 
         if (GetIntersection.collider.GetComponent<OnBulletHit>() != null)
         {
-            onBulletHit = GetIntersection.collider.gameObject.GetComponent<OnBulletHit>();
-            onBulletHit.BulletHitSomething();
+            if (GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionCanMove") || GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionStopMove"))
+            {
+                onBulletHit = GetIntersection.collider.gameObject.GetComponent<OnBulletHit>();
+                onBulletHit.BulletHitSomething();
+            } 
         }
     }
 
@@ -52,7 +53,7 @@ public class BulletCollisionDetection : MonoBehaviour
     public bool HasToStop()
     {
         if (!GetIntersection) return false;
-
+        
         if ((layerHasToStop & 1 << GetIntersection.transform.gameObject.layer) ==
             1 << GetIntersection.transform.gameObject.layer)
             return true;
