@@ -21,7 +21,6 @@ public class InputReader : MonoBehaviour
     public UnityEvent onRecall = new UnityEvent();
 
     public static InputReader instance;
-    private PlayerController2D _playerController2D;
     private StunDetection _stunDetection;
     public Vector3 manetteDirection;
 
@@ -29,7 +28,6 @@ public class InputReader : MonoBehaviour
     {
         //get tous les components
         instance = this;
-        _playerController2D = GetComponent<PlayerController2D>();
         _stunDetection = GetComponentInChildren<StunDetection>();
     }
 
@@ -45,7 +43,7 @@ public class InputReader : MonoBehaviour
         if (context.started)
         {
             jump = true;
-            _playerController2D.SetVelocity();
+            PlayerController2D._instance.SetVelocity();
         }
 
         if (context.canceled) jump = false;
@@ -58,14 +56,14 @@ public class InputReader : MonoBehaviour
     public void OnStun(InputAction.CallbackContext context)
     {
         if (!context.started || DontCrossKick) return;
-        _stunDetection.CrossKick(_playerController2D.CurrentDirection);
+        _stunDetection.CrossKick(PlayerController2D._instance.CurrentDirection);
     }
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
 
     public void OnRoll(InputAction.CallbackContext context)
     {
-        if (context.started) _playerController2D.Roll();
+        if (context.started) PlayerController2D._instance.Roll();
     }
 
     public void OnInteraction(InputAction.CallbackContext context)

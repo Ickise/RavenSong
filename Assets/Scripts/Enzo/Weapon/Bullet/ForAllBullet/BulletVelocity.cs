@@ -4,7 +4,7 @@ public class BulletVelocity : MonoBehaviour
 {
     [Header("À set up")]
 
-    [SerializeField] private float xSpeedBullet = 15f;
+    [SerializeField] private float xSpeedBullet = 75f;
 
     private Rigidbody2D baseBulletRigidbody2D;
     
@@ -20,9 +20,9 @@ public class BulletVelocity : MonoBehaviour
         baseBulletRigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        _bulletDirection.Init();
+        baseBulletRigidbody2D.velocity = new Vector2(_bulletDirection.direction.x,_bulletDirection.direction.y).normalized * xSpeedBullet;
     }
 
     private void FixedUpdate()
@@ -33,11 +33,8 @@ public class BulletVelocity : MonoBehaviour
     private void Velocity()
     {
         //  AudioManager.instance.PlaySFX(impactAudio);
-
-        baseBulletRigidbody2D.velocity = new Vector2(_bulletDirection.direction.x,_bulletDirection.direction.y).normalized * xSpeedBullet;
         
-        if (_bulletCollisionDetection.hitGround || _bulletCollisionDetection.hitSomething ||
-            InputReader.instance.canRecall)
+        if (_bulletCollisionDetection.HasToStop())
         {
             baseBulletRigidbody2D.velocity = Vector2.zero;
         }

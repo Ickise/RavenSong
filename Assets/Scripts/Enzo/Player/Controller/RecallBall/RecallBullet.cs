@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class RecallBullet : MonoBehaviour
 {
+    [SerializeField] private Transform rightHand;
+    [SerializeField] private Transform leftHand;
+
     private GameObject bullet;
 
     private Rigidbody2D bulletRigidbody;
@@ -10,7 +13,7 @@ public class RecallBullet : MonoBehaviour
 
     private bool isMoving;
 
-    [SerializeField] private FireOneBullet _fireOneBullet;
+    private FireOneBullet _fireOneBullet;
 
     [SerializeField] private float destroyDistance = 0.6f;
     [SerializeField] private float speedToRecall = 50f;
@@ -18,6 +21,11 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private float distanceToRecall = 10f;
 
     private float distance;
+
+    private void Awake()
+    {
+        _fireOneBullet = GetComponentInChildren<FireOneBullet>();
+    }
 
     private void Start()
     {
@@ -42,7 +50,8 @@ public class RecallBullet : MonoBehaviour
     {
         if (bullet != null)
         {
-            direction = transform.position - bullet.transform.position;
+            direction = (PlayerController2D._instance.CurrentDirection > 0 ? rightHand.position : leftHand.position) -
+                        bullet.transform.position;
             distance = direction.magnitude;
 
             return distance * speedDelay;

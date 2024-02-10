@@ -1,51 +1,44 @@
-using System;
 using UnityEngine;
 
 public class BulletCollisionDetection : MonoBehaviour
 {
-    [Header("Ne pas set up")] public RaycastHit2D hitSomething;
-    public RaycastHit2D hitGround;
+    [Header("À set up")] [SerializeField] private LayerMask layerHasToStop;
 
     private Vector2 direction;
 
     private OnBulletHit onBulletHit;
 
-    [Header("À set up")] [SerializeField] private float distanceToDetect = 0f;
+    private Rigidbody2D rb2D;
 
-    [SerializeField] private Vector2 capsuleSize;
-
-    [SerializeField] private LayerMask[] listOfLayer;
-
-    [SerializeField] private Transform capsuleCastTransform;
-
-    private void Update()
+    private void Start()
     {
-        SetRaycast();
+        rb2D = GetComponent<Rigidbody2D>();
+    }
+
+    private void FixedUpdate()
+    {
         InvokeBulletHit();
     }
 
-    private void SetRaycast()
-    {
-        direction = transform.position.x > 0 ? Vector2.right : Vector2.left;
-
-        hitSomething = Physics2D.CapsuleCast(capsuleCastTransform.position, capsuleSize, CapsuleDirection2D.Horizontal,
-            0f,
-            direction, distanceToDetect, listOfLayer[0]);
-
-        hitGround = Physics2D.CapsuleCast(capsuleCastTransform.position, capsuleSize, CapsuleDirection2D.Horizontal,
-            0f,
-            direction, distanceToDetect, listOfLayer[1]);
-    }
+    private RaycastHit2D GetIntersection => Physics2D.CircleCast(transform.position, transform.localScale.x * 0.5f,
+        transform.up,
+        rb2D.velocity.magnitude * Time.fixedDeltaTime, layerHasToStop);
 
     private void InvokeBulletHit()
     {
-        if (hitSomething.collider == null)
+        if (GetIntersection.collider == null)
         {
             return;
         }
 
-        onBulletHit = hitSomething.collider.gameObject.GetComponent<OnBulletHit>();
-        onBulletHit.BulletHitSomething();
+        if (GetIntersection.collider.GetComponent<OnBulletHit>() != null)
+        {
+            if (GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionCanMove") || GetIntersection.collider.gameObject.layer == LayerMask.NameToLayer("BulletCollisionStopMove"))
+            {
+                onBulletHit = GetIntersection.collider.gameObject.GetComponent<OnBulletHit>();
+                onBulletHit.BulletHitSomething();
+            } 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -55,5 +48,22 @@ public class BulletCollisionDetection : MonoBehaviour
             onBulletHit = other.gameObject.GetComponent<OnBulletHit>();
             onBulletHit.BulletHitSomething();
         }
+    }
+
+    public bool HasToStop()
+    {
+        if (!GetIntersection) return false;
+        
+        if ((layerHasToStop & 1 << GetIntersection.transform.gameObject.layer) ==
+            1 << GetIntersection.transform.gameObject.layer)
+            return true;
+
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + Vector3.right * 100 * Time.fixedDeltaTime,
+            transform.localScale.x * 0.5f);
     }
 }
