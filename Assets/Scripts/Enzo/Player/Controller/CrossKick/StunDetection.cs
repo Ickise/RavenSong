@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class StunDetection : MonoBehaviour
@@ -17,6 +18,7 @@ public class StunDetection : MonoBehaviour
     public void CrossKick(int currentDirection)
     {
         if (!canCrossKick) return;
+        transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
         StartCoroutine(CoolDown());
