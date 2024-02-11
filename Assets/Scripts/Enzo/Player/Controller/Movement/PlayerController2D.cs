@@ -126,14 +126,14 @@ public class PlayerController2D : MonoBehaviour
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall);
+                // AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall, true);
                 return;
             }
             if (!canjump) return;
             if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, AnimationController.instance.speedWalkBall);
+                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBall, true, AnimationController.instance.speedWalkBall, true);
             else
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true, AnimationController.instance.speedWalkBackWard);
+                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBackWard, true, AnimationController.instance.speedWalkBackWard, true);
         }
         else
         {
@@ -151,7 +151,7 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.jump, false, AnimationController.instance.speedJump);
+        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.jump, false, AnimationController.instance.speedJump, true);
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
 
@@ -190,7 +190,7 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
-        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.dash, false, AnimationController.instance.speedDash);
+        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.dash, false, AnimationController.instance.speedDash, true);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
