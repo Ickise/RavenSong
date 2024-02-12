@@ -165,7 +165,7 @@ Transform:
   m_Children:
   - {fileID: 4937253757248389635}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8888719148359703479
 Rigidbody2D:
@@ -210,7 +210,7 @@ MonoBehaviour:
   speedBalader: 2
   speedAttaquePlayer: 8
   distancePlayerDetection: 13
-  hauteurPlayerDetection: 0.5
+  hauteurPlayerDetection: 2
   jumpForce: 10
   distanceAttaquePlayer: 0.7
   tailleMob: {x: 2, y: 1}
@@ -293,3 +293,4 @@ MonoBehaviour:
   onBulletHit:
     m_PersistentCalls:
       m_Calls: []
+  canGoThrough: 0
