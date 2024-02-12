@@ -5,39 +5,32 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")]
-    [SerializeField]
+    [Header("Modifie les mouvements")] [SerializeField]
     private float accelerationSpeed = 0.1f;
 
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le aircontrol")]
-    [SerializeField]
+    [Header("Modifie le aircontrol")] [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
 
-    [Header("Modifie le saut")]
-    [SerializeField]
+    [Header("Modifie le saut")] [SerializeField]
     private float gravityFactor = 1f;
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
-    [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")]
-    [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")]
-    [SerializeField]
+    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")]
-    [SerializeField]
+    [Header("Modifie les paramètres de la roulade")] [SerializeField]
     private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
@@ -52,8 +45,14 @@ public class PlayerController2D : MonoBehaviour
 
     private float hangTimeCounter;
 
-    private bool onRoll, canjump = true, canRoll = true;
-    public int CurrentDirection { get { return AnimationController.instance.GetDirection ? 1 : -1; } }
+    private bool canjump = true, canRoll = true;
+    
+    public bool onRoll;
+
+    public int CurrentDirection
+    {
+        get { return AnimationController.instance.GetDirection ? 1 : -1; }
+    }
 
     private Vector2 playerVelocity;
 
@@ -126,14 +125,18 @@ public class PlayerController2D : MonoBehaviour
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.idleBall, true,
+                    AnimationController.instance.speedIdleBall);
                 return;
             }
+
             if (!canjump) return;
             if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true, AnimationController.instance.speedWalkBall);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBall, true,
+                    AnimationController.instance.speedWalkBall);
             else
-                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true, AnimationController.instance.speedWalkBackWard);
+                AnimationController.instance.SetCharacterState(AnimationController.AnimationState.walkBackWard, true,
+                    AnimationController.instance.speedWalkBackWard);
         }
         else
         {
@@ -151,7 +154,8 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.jump, false, AnimationController.instance.speedJump);
+        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.jump, false,
+            AnimationController.instance.speedJump);
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
 
@@ -190,7 +194,8 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening(transform) || !_raycastDetection.isGrounded || !canRoll) return;
-        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.dash, false, AnimationController.instance.speedDash);
+        AnimationController.instance.SetCharacterState(AnimationController.AnimationState.dash, false,
+            AnimationController.instance.speedDash);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
@@ -201,6 +206,7 @@ public class PlayerController2D : MonoBehaviour
                     playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
                         ForceMode2D.Impulse);
                 }
+
                 AnimationController.instance.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;

@@ -12,12 +12,10 @@ public class InputReader : MonoBehaviour
     public bool activateAim = false;
     public bool canStun;
     public bool canDown;
-    public bool canRoll;
     public bool canRecall;
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
-    public UnityEvent onInteractionEvent = new UnityEvent();
     public UnityEvent onRecall = new UnityEvent();
 
     public static InputReader instance;
@@ -65,15 +63,7 @@ public class InputReader : MonoBehaviour
     {
         if (context.started) PlayerController2D._instance.Roll();
     }
-
-    public void OnInteraction(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            onInteractionEvent.Invoke();
-        }
-    }
-
+    
     public void OnRecall(InputAction.CallbackContext context)
     {
         if (context.performed)

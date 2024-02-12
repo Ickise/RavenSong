@@ -42,8 +42,12 @@ public class RecallBullet : MonoBehaviour
         {
             Invoke("RecallAmmo", delay);
         }
-        else
+
+        if (!InputReader.instance.canRecall || InputReader.instance.jump || PlayerController2D._instance.onRoll ||
+            InputReader.instance.canDown)
         {
+            //condition à modifier puisqu'elle est dégueu mais pour l'instant ça fera l'affaire
+            InputReader.instance.canRecall = false;
             CancelInvoke("RecallAmmo");
         }
     }
@@ -74,6 +78,7 @@ public class RecallBullet : MonoBehaviour
             {
                 Destroy(bullet);
                 _fireOneBullet.numberOfAmmo = 1;
+                InputReader.instance.canRecall = false;
             }
         }
     }
