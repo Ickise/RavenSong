@@ -4,7 +4,7 @@ public class BulletCollisionDetection : MonoBehaviour
 {
     [Header("À set up")] [SerializeField] private LayerMask bulletCollision;
 
-    [SerializeField] private float radius;
+    [SerializeField] private float radius = 0.25f;
 
     private OnBulletHit onBulletHit;
 
