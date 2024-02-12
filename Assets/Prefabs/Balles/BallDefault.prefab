@@ -111,6 +111,73 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &2850263938986340433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2031395344359949623}
+  - component: {fileID: 3692468665112738659}
+  m_Layer: 10
+  m_Name: CapsuleCast
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2031395344359949623
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850263938986340433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8404946919698269789}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!70 &3692468665112738659
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2850263938986340433}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 2, y: 1}
+  m_Direction: 1
 --- !u!1 &8612664303447618227
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,6 +193,7 @@ GameObject:
   - component: {fileID: 6096598899098874001}
   - component: {fileID: 1103240990309018067}
   - component: {fileID: 6248324593716102112}
+  - component: {fileID: -6676137512452390003}
   m_Layer: 10
   m_Name: BallDefault
   m_TagString: Bullet
@@ -147,6 +215,7 @@ Transform:
   m_Children:
   - {fileID: 1645244869785397375}
   - {fileID: 6531599102178338666}
+  - {fileID: 2031395344359949623}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -354,7 +423,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a5c439e294d3be4ba48c99acbf9b227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xSpeedBullet: 100
+  xSpeedBullet: 50
 --- !u!114 &1103240990309018067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,11 +449,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ba5b2abadcd9e44b35ffbff480d201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletCollision:
+  distanceToDetect: 0
+  capsuleSize: {x: 2, y: 1}
+  listOfLayer:
+  - serializedVersion: 2
+    m_Bits: 10240
+  - serializedVersion: 2
+    m_Bits: 193
+  - serializedVersion: 2
+    m_Bits: 8
+  capsuleCastTransform: {fileID: 2031395344359949623}
+--- !u!58 &-6676137512452390003
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612664303447618227}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 6337
-  radius: 0.25
-  hasToStop: 0
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1001 &5662694030274407400
 PrefabInstance:
   m_ObjectHideFlags: 0
