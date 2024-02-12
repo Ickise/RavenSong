@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 1316262360170052679}
   m_Layer: 0
   m_Name: Bloc Cassable
-  m_TagString: DestroyObject
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -789,6 +789,7 @@ MonoBehaviour:
   onBulletHit:
     m_PersistentCalls:
       m_Calls: []
+  canGoThrough: 1
 --- !u!114 &1316262360170052679
 MonoBehaviour:
   m_ObjectHideFlags: 0

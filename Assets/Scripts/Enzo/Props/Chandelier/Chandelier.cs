@@ -27,7 +27,7 @@ public class Chandelier : MonoBehaviour
         }
     }
 
-    private void OnBulletHit()
+    private void OnBulletHit(GameObject bullet)
     {
         Destroy(transform.parent.gameObject);
     }

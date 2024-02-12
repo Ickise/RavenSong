@@ -6,8 +6,6 @@ public class Lever : MonoBehaviour
 
     public bool isActive;
 
-    private GameObject bullet;
-
     private BulletCollisionDetection _bulletCollisionDetection;
 
     private OnBulletHit _onBulletHit;
@@ -25,19 +23,6 @@ public class Lever : MonoBehaviour
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
-    private void Update()
-    {
-        BulletMotionless();
-    }
-
-    private void BulletMotionless()
-    {
-        if (bullet != null && !InputReader.instance.canRecall)
-        {
-            bullet.transform.position = gameObject.transform.position;
-        }
-    }
-
     private void CanChangeBool()
     {
         if (!isActive)
@@ -52,18 +37,8 @@ public class Lever : MonoBehaviour
         }
     }
 
-    private void OnBulletHit()
+    private void OnBulletHit(GameObject bullet)
     {
-        bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
-     
-        if (bullet == null)
-        {
-            return;
-        }
-        
-        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
-        _bulletCollisionDetection.enabled = false;
-
         CanChangeBool();
         _door.OpenDoor(isActive);
     }

@@ -15,6 +15,8 @@ public class RecallBullet : MonoBehaviour
 
     private FireOneBullet _fireOneBullet;
 
+    private BulletCollisionDetection _bulletCollisionDetection;
+
     [SerializeField] private float destroyDistance = 0.6f;
     [SerializeField] private float speedToRecall = 50f;
     [SerializeField] private float speedDelay = 0.2f;
@@ -64,9 +66,9 @@ public class RecallBullet : MonoBehaviour
     {
         if (bullet != null)
         {
-            bulletRigidbody.velocity = Vector2.zero;
+            _bulletCollisionDetection.Recall();
 
-            bullet.transform.Translate(direction.normalized * (speedToRecall * Time.deltaTime));
+            bulletRigidbody.velocity = direction.normalized * speedToRecall;
 
             if (distance <= destroyDistance)
             {
@@ -78,12 +80,15 @@ public class RecallBullet : MonoBehaviour
 
     private void OnClick()
     {
-        bullet = FindObjectOfType<BulletCollisionDetection>().gameObject;
+        bullet = _fireOneBullet.bulletRef;
 
-        if (bullet != null)
+        if (bullet == null)
         {
-            bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
-            Destroy(bullet.GetComponent<BulletVelocity>());
+            return;
         }
+
+        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
+
+        bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
     }
 }

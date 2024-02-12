@@ -80,7 +80,7 @@ public abstract class Ammo : MonoBehaviour
                 if (hit2D.transform.CompareTag("DestroyObject"))
                 {
                     Explodable explodableObj = hit2D.transform.GetComponent<Explodable>();
-                    explodableObj.explode();
+                    explodableObj.explode(gameObject);
                     ExplosionForce ef = FindObjectOfType<ExplosionForce>();
                     ef.doExplosion(transform.position);
                 }

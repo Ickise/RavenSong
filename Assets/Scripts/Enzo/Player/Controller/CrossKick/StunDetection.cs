@@ -56,7 +56,7 @@ public class StunDetection : MonoBehaviour
         Explodable destructibleObject = other.GetComponent<Explodable>();
         if (destructibleObject)
         {
-            destructibleObject.explode();
+            destructibleObject.explode(gameObject);
             ExplosionForce ef = FindObjectOfType<ExplosionForce>();
             ef.doExplosion(transform.position);
             return;
@@ -67,7 +67,7 @@ public class StunDetection : MonoBehaviour
         OnBulletHit interactedObject = other.GetComponent<OnBulletHit>();
         if (interactedObject)
         {
-            interactedObject.BulletHitSomething();
+            interactedObject.BulletHitSomething(null);
         }
     }
 

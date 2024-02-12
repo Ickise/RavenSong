@@ -1,4 +1,3 @@
-using System;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -18,9 +17,11 @@ public class InstantiateEnemyCorpse : MonoBehaviour
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
-    private void OnBulletHit()
+    private void OnBulletHit(GameObject bullet)
     {
         //lorsque la balle touche l'ennemi, cela fait appraître un cadavre et détruit l'ennemi
+        if (bullet != null)
+            bullet.transform.parent = null;
         Instantiate(prefabIACorpse, transform.position, quaternion.identity);
         Destroy(gameObject);
     }

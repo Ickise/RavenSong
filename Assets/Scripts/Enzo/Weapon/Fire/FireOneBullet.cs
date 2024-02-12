@@ -20,7 +20,6 @@ public class FireOneBullet : MonoBehaviour
 
     private void OnShot()
     {
-        
         if (InputReader.instance.leftClick && numberOfAmmo == 1)
         {
             //AudioManager.instance.PlaySFX(shotAudio);
@@ -29,6 +28,7 @@ public class FireOneBullet : MonoBehaviour
                 transform.position = currentDirection ? rightShootPosition.position : leftShootPosition.position,
                 Quaternion.identity);
             numberOfAmmo--;
+           // Debug.Break();
         }
     }
 }

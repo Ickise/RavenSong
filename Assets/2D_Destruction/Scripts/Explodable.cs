@@ -29,7 +29,7 @@ public class Explodable : MonoBehaviour
     /// Creates fragments if necessary and destroys original gameobject
     /// </summary>
     ///
-    public void explode()
+    public void explode(GameObject bullet)
     {
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)

@@ -34,7 +34,7 @@ public class BulletVelocity : MonoBehaviour
     {
         //  AudioManager.instance.PlaySFX(impactAudio);
         
-        if (_bulletCollisionDetection.HasToStop())
+        if (_bulletCollisionDetection.hasToStop)
         {
             baseBulletRigidbody2D.velocity = Vector2.zero;
         }

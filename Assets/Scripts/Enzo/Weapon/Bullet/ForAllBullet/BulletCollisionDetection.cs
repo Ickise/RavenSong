@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class BulletCollisionDetection : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private LayerMask layerHasToStop;
+    [Header("À set up")] [SerializeField] private LayerMask bulletCollision;
 
-    private Vector2 direction;
+    [SerializeField] private float radius;
 
     private OnBulletHit onBulletHit;
 
     private Rigidbody2D rb2D;
+
+    private RaycastHit2D intersection;
+
+    public bool hasToStop;
 
     private void Start()
     {
@@ -17,53 +21,75 @@ public class BulletCollisionDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        InvokeBulletHit();
-    }
-
-    private RaycastHit2D GetIntersection => Physics2D.CircleCast(transform.position, transform.localScale.x * 0.5f,
-        transform.up,
-        rb2D.velocity.magnitude * Time.fixedDeltaTime, layerHasToStop);
-
-    private void InvokeBulletHit()
-    {
-        if (GetIntersection.collider == null)
+        if (hasToStop)
         {
             return;
         }
 
-        if (GetIntersection.collider.GetComponent<OnBulletHit>() != null)
+        RaycastHit2D hit2D = Physics2D.CircleCast(
+            transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) *
+            Time.fixedDeltaTime, radius, rb2D.velocity * Time.fixedDeltaTime,
+            rb2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
+
+        if (hit2D.collider == intersection.collider)
         {
-            if (GetIntersection.collider.gameObject.GetComponent<OnBulletHit>())
-            {
-                onBulletHit = GetIntersection.collider.gameObject.GetComponent<OnBulletHit>();
-                onBulletHit.BulletHitSomething();
-            } 
+            return;
         }
+
+        intersection = hit2D;
+        InvokeBulletHit();
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void InvokeBulletHit()
     {
-        if (other.CompareTag("DestroyObject"))
+        if (intersection.collider == null)
         {
-            onBulletHit = other.gameObject.GetComponent<OnBulletHit>();
-            onBulletHit.BulletHitSomething();
+            return;
         }
+
+        if (intersection.collider.TryGetComponent(out onBulletHit) == false)
+        {
+            hasToStop = true;
+            FixBulletOnObject();
+            return;
+        }
+
+        hasToStop = !onBulletHit.canGoThrough;
+
+        if (hasToStop)
+        {
+            FixBulletOnObject();
+        }
+
+        onBulletHit.BulletHitSomething(gameObject);
     }
 
-    public bool HasToStop()
+    private void FixBulletOnObject()
     {
-        if (!GetIntersection) return false;
+        transform.position = intersection.point;
+        transform.parent = intersection.collider.transform;
+    }
+
+
+    public void Recall()
+    {
+        transform.parent = null;
+        hasToStop = false;
+    }
+
+    //sur le rappel pour toucher faut que je mette hastostop en false
+    /*private void OnDrawGizmos()
+    {
+        if (intersection.collider)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(intersection.point, radius);
+        }
+        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        Gizmos.DrawSphere(transform.position, radius);
         
-        if ((layerHasToStop & 1 << GetIntersection.transform.gameObject.layer) ==
-            1 << GetIntersection.transform.gameObject.layer)
-            return true;
-
-        return false;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(transform.position + Vector3.right * 100 * Time.fixedDeltaTime,
-            transform.localScale.x * 0.5f);
-    }
+        Gizmos.DrawSphere(transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) * radius, radius);
+        
+        Debug.DrawRay(transform.position +  new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) * Time.fixedDeltaTime, rb2D.velocity);
+    }*/
 }
