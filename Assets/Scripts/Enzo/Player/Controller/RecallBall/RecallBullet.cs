@@ -31,7 +31,7 @@ public class RecallBullet : MonoBehaviour
 
     private void Start()
     {
-        InputReader.instance.onRecall.AddListener(OnClick);
+        InputReader.instance.onRecall.AddListener(OnClickToRecall);
     }
 
     private void Update()
@@ -66,7 +66,7 @@ public class RecallBullet : MonoBehaviour
         return 0;
     }
 
-    public void RecallAmmo()
+    private void RecallAmmo()
     {
         if (bullet != null)
         {
@@ -83,7 +83,7 @@ public class RecallBullet : MonoBehaviour
         }
     }
 
-    private void OnClick()
+    private void OnClickToRecall()
     {
         bullet = _fireOneBullet.bulletRef;
 
