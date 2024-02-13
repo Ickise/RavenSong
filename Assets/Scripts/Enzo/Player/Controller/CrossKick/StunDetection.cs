@@ -17,6 +17,7 @@ public class StunDetection : MonoBehaviour
     public void CrossKick(int currentDirection)
     {
         if (!canCrossKick) return;
+        // AnimationController.instance.SetCharacterState(1, AnimationController.AnimationState.jump, false, AnimationController.instance.speedCrossKick, false);
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
