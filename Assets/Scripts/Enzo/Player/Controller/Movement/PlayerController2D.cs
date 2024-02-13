@@ -126,7 +126,7 @@ public class PlayerController2D : MonoBehaviour
             {
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                // AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall, true);
+                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true, AnimationController.instance.speedIdleBall, true);
                 return;
             }
             if (!canjump) return;
