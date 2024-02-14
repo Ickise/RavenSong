@@ -1,7 +1,8 @@
-using System;
+using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -49,10 +50,11 @@ public class PlayerController2D : MonoBehaviour
     private Collider2D playerCollider2D;
 
     private RaycastDetection _raycastDetection;
+    [SerializeField] private VisualEffect VFXDustTrail;
 
     private float hangTimeCounter;
 
-    private bool canjump = true, canRoll = true;
+    private bool canjump = true, canRoll = true, isVFXDustTrailPlaying;
 
     public bool onRoll;
 
@@ -79,6 +81,7 @@ public class PlayerController2D : MonoBehaviour
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
+        VFXDustTrail.Stop();
     }
 
     private void Update()
@@ -132,8 +135,18 @@ public class PlayerController2D : MonoBehaviour
             playerVelocity.x += -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
             playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
+            if (!isVFXDustTrailPlaying)
+            {
+                VFXDustTrail.Play();
+                isVFXDustTrailPlaying = true;
+            }
             if (InputReader.instance.direction.x == 0)
             {
+                if (isVFXDustTrailPlaying)
+                {
+                    VFXDustTrail.Stop();
+                    isVFXDustTrailPlaying = false;
+                }
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
                 AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true,
@@ -151,6 +164,11 @@ public class PlayerController2D : MonoBehaviour
         }
         else
         {
+            if (isVFXDustTrailPlaying)
+            {
+                VFXDustTrail.Stop();
+                isVFXDustTrailPlaying = false;
+            }
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
