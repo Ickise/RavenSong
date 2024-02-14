@@ -74,7 +74,7 @@ public class AnimationController : MonoBehaviour
     {
         if (skeletonAnimationDroite.skeletonDataAsset != animation.skeletonDataAssetDroite)
         {
-            print("444444444");
+            // print("444444444");
             skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
         }
 
@@ -109,13 +109,13 @@ public class AnimationController : MonoBehaviour
     /// </summary>
     public void SetCharacterState(int trackEntry, AnimationState animationState, bool loop, float timeScale, bool overwriteIniTialize = true)
     {
-        print("111111");
+        // print("111111");
         if (animationState == currentAnimationState) return;
-        print("2222");
+        // print("2222");
         Animations animations;
         if (stateAnimationRef.TryGetValue(animationState, out animations))
         {
-            print("333333333");
+            // print("333333333");
             currentAnimationState = animationState;
             SetAnimation(trackEntry, animations, loop, timeScale, overwriteIniTialize);
         }
