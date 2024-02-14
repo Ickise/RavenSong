@@ -127,6 +127,8 @@ public class PlayerController2D : MonoBehaviour
             if (!InputReader.instance.jump)
                 velocityWhenJump = 0f;
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
+            if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
+                playerVelocity.x = 0;
             playerVelocity.x += -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
             playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
