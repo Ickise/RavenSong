@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class BulletCollisionDetection : MonoBehaviour
 {
@@ -11,12 +12,15 @@ public class BulletCollisionDetection : MonoBehaviour
     private Rigidbody2D rb2D;
 
     private RaycastHit2D intersection;
+    [SerializeField] private VisualEffect VFXRaisonnanceBall, VFXExplosionImpact;
 
     public bool hasToStop;
 
     private void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        VFXRaisonnanceBall.Stop();
+        VFXExplosionImpact.Stop();
     }
 
     private void FixedUpdate()
@@ -68,12 +72,15 @@ public class BulletCollisionDetection : MonoBehaviour
     {
         transform.position = intersection.point;
         transform.parent = intersection.collider.transform;
+        VFXRaisonnanceBall.Play();
+        VFXExplosionImpact.Play();
     }
 
 
     public void Recall()
     {
         transform.parent = null;
+        VFXRaisonnanceBall.Stop();
         hasToStop = false;
     }
 
