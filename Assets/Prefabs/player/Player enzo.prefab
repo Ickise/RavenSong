@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
         m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnFire
+        m_MethodName: OnShoot
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -552,11 +552,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
   jump: 0
-  leftClick: 0
   activateAim: 0
   canStun: 0
   canDown: 0
-  canRecall: 0
+  onShoot:
+    m_PersistentCalls:
+      m_Calls: []
   onRecall:
     m_PersistentCalls:
       m_Calls: []
@@ -574,7 +575,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accelerationSpeed: 0.5
+  slowSpeed: 0.1
   maxSpeed: 6.5
+  maxSpeedRecall: 0.5
   groundFriction: 0.3
   accelerationAirControlSpeed: 6
   maxAirControlSpeed: 4
@@ -681,6 +684,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rightHand: {fileID: 19318302601555160}
   leftHand: {fileID: 6420413235010646048}
+  doRecall: 0
   destroyDistance: 0.6
   speedToRecall: 50
   speedDelay: 0.2
