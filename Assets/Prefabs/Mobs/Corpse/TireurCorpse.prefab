@@ -12,7 +12,9 @@ GameObject:
   - component: {fileID: 3841276797126208155}
   - component: {fileID: 4161179954991067489}
   - component: {fileID: 3070958659562363394}
-  m_Layer: 8
+  - component: {fileID: 1694659130199288788}
+  - component: {fileID: 1495465970169586315}
+  m_Layer: 12
   m_Name: TireurCorpse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,3 +197,31 @@ PolygonCollider2D:
       - {x: 0.07, y: -0.58}
       - {x: 0.26999998, y: -0.59}
   m_UseDelaunayMesh: 0
+--- !u!114 &1694659130199288788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242511868777815649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b11d96138f81a54e8c93b6995c13917, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1495465970169586315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242511868777815649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71886f1b82aa36e489ac1cd61d55c7b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBulletHit:
+    m_PersistentCalls:
+      m_Calls: []
+  canGoThrough: 0
