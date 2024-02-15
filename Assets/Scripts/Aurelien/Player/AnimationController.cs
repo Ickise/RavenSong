@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Spine;
 using Spine.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,13 +15,13 @@ public class AnimationController : MonoBehaviour
     public static AnimationController instance;
     private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
-    public float speedIdleNoBall = 1f, speedIdleBall = 1f, speedWalkBall = 1f, speedJump = 1f, speedWalkBackWard = 1f, speedDash = 1f;
+    public float speedIdleNoBall = 1f, speedIdleBall = 1f, speedWalkBall = 1f, speedJump = 1f, speedWalkBackWard = 1f, speedDash = 1f, speedCrossKick = 1f;
     private MeshRenderer meshDroite, meshGauche;
     public bool GetDirection => meshDroite.enabled;
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard, dash };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard, dash, crossKick };
     private AnimationState currentAnimationState;
     public AnimationState GetCurrentAnimation => currentAnimationState;
 
@@ -52,10 +53,13 @@ public class AnimationController : MonoBehaviour
         {AnimationState.walkBall, animations[(int)AnimationState.walkBall]},
         {AnimationState.jump, animations[(int)AnimationState.jump]},
         {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]},
-        {AnimationState.dash, animations[(int)AnimationState.dash]}};
+        {AnimationState.dash, animations[(int)AnimationState.dash]},
+        {AnimationState.crossKick, animations[(int)AnimationState.crossKick]}};
 
         //lance l'animation par défaut du player
-        SetCharacterState(AnimationState.idleBall, true, speedIdleBall);
+        skeletonAnimationDroite.state.SetEmptyAnimations(0);
+        SetAnimation(0, animations[(int)AnimationState.idleBall], true, speedIdleBall, true);
+        currentAnimationState = AnimationState.idleBall;
     }
 
     //permet de flip l'activation des mesh quand le joueur se retourne, est appelé lors des inputs
@@ -66,28 +70,54 @@ public class AnimationController : MonoBehaviour
     }
 
     //set les animations sur les 2 mesh
-    private void SetAnimation(Animations animation, bool loop, float timeScale)
+    private void SetAnimation(int trackNum, Animations animation, bool loop, float timeScale, bool overwriteIniTialize)
     {
-        skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
-        skeletonAnimationDroite.Initialize(true);
-        skeletonAnimationDroite.state.SetAnimation(0, animation.droite, loop).TimeScale = timeScale;
+        if (skeletonAnimationDroite.skeletonDataAsset != animation.skeletonDataAssetDroite)
+        {
+            // print("444444444");
+            skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
+        }
+
+        // skeletonAnimationDroite.InitializeOnlyMesh();
+        skeletonAnimationDroite.Initialize(overwriteIniTialize);
+        // skeletonAnimationDroite.state.SetAnimation(trackNum, animation.droite, loop).TimeScale = timeScale;
+        // skeletonAnimationDroite.state.Apply(skeletonAnimationDroite.skeleton);
+        TrackEntry entryDroite = skeletonAnimationDroite.state.SetAnimation(trackNum, animation.droite, loop);
+        entryDroite.TimeScale = timeScale;
+        // skeletonAnimationDroite.skeleton.SetSlotAttachmentsToSetupPose();
+        // skeletonAnimationDroite.LateUpdate();
+        // skeletonAnimationDroite.fixDrawOrder = true;
+        // entry.MixTime = 0;
+        // entry.MixBlend = Spine.MixBlend.Replace;
+        // entry.HoldPrevious = true;
+        // skeletonAnimationDroite.state.SetAnimation(0, animations[(int)AnimationState.walkBall].droite, true);
 
         skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
-        skeletonAnimationGauche.Initialize(true);
-        skeletonAnimationGauche.state.SetAnimation(0, animation.gauche, loop).TimeScale = timeScale;
+        TrackEntry entryGauche = skeletonAnimationGauche.state.SetAnimation(trackNum, animation.gauche, loop);
+        entryGauche.TimeScale = timeScale;
 
         _spineAim.Start();
     }
 
-    //la fonction qui est appelé sur lancer une animations
-    public void SetCharacterState(AnimationState animationState, bool loop, float timeScale)
+    void LateUpdate()
     {
+        skeletonAnimationDroite.skeletonDataAsset.blendModeMaterials.ApplyMaterials(skeletonAnimationDroite.SkeletonDataAsset.GetSkeletonData(true));
+
+    }
+    /// <summary>
+    /// Set une animation désiré
+    /// </summary>
+    public void SetCharacterState(int trackEntry, AnimationState animationState, bool loop, float timeScale, bool overwriteIniTialize = true)
+    {
+        // print("111111");
         if (animationState == currentAnimationState) return;
+        // print("2222");
         Animations animations;
         if (stateAnimationRef.TryGetValue(animationState, out animations))
         {
+            // print("333333333");
             currentAnimationState = animationState;
-            SetAnimation(animations, loop, timeScale);
+            SetAnimation(trackEntry, animations, loop, timeScale, overwriteIniTialize);
         }
     }
 

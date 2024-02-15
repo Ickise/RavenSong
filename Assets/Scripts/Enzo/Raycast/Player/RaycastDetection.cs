@@ -17,31 +17,10 @@ public class RaycastDetection : MonoBehaviour
     [SerializeField] private float distanceToDetectWall = 0f;
     [SerializeField] private float capsuleAngle = 0f;
 
-    [Header("Ne pas set up")]
-    public bool isGrounded;
-    public bool stopRight;
-    public bool stopLeft;
-
-    // private RaycastHit2D capsuleCastHit;
-    // private RaycastHit2D capsuleCastLeftHit;
-    private RaycastHit2D capsuleCastGroundHit;
-    private void Update()
-    {
-        SetRaycast();
-        SetBool();
-    }
-
-    private void SetRaycast()
-    {
-        // capsuleCastRightHit = Physics2D.CapsuleCast(capsuleCastRight.position, capsuleSizeWall, CapsuleDirection2D.Vertical,
-        //     capsuleAngle, Vector2.right, distanceToDetectWall, layerWall);
-
-        // capsuleCastLeftHit = Physics2D.CapsuleCast(capsuleCastLeft.position, capsuleSizeWall, CapsuleDirection2D.Vertical,
-        //     capsuleAngle, Vector2.right, distanceToDetectWall, layerWall);
-
-        capsuleCastGroundHit = Physics2D.CapsuleCast(capsuleCastGround.position, capsuleSizeGround, CapsuleDirection2D.Horizontal,
+    public RaycastHit2D IsGrounded => Physics2D.CapsuleCast(capsuleCastGround.position, capsuleSizeGround, CapsuleDirection2D.Horizontal,
             capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
-    }
+    public RaycastHit2D RaycastJump => Physics2D.CapsuleCast(transform.position - capsuleCastGround.localPosition, capsuleSizeGround, CapsuleDirection2D.Horizontal,
+            capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
 
     public RaycastHit2D RaycastOnRoll(float directionX)
     {
@@ -49,20 +28,5 @@ public class RaycastDetection : MonoBehaviour
             capsuleAngle, Vector2.right * directionX, distanceToDetectWall, layerWall);
     }
 
-    public RaycastHit2D RaycastJump
-    {
-        get
-        {
-            return Physics2D.CapsuleCast(transform.position - capsuleCastGround.localPosition, capsuleSizeGround, CapsuleDirection2D.Horizontal,
-            capsuleAngle, Vector2.down, distanceToDetectFloor, layerGround);
-        }
-    }
 
-    private void SetBool()
-    {
-        isGrounded = capsuleCastGroundHit;
-
-        // stopLeft = capsuleCastLeftHit;
-        // stopRight = capsuleCastHit;
-    }
 }
