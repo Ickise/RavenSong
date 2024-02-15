@@ -30,10 +30,10 @@ public class ShowAimLine : MonoBehaviour
             aimLineRenderer.enabled = false;
         }
 
-        if (InputReader.instance.leftClick)
+        /*if (InputReader.instance.leftClick)
         {
             //lorsque le joueur tire, le line disparaît
             InputReader.instance.activateAim = false;
-        }
+        }*/
     }
 }
