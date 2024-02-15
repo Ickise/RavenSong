@@ -11,6 +11,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float slowSpeed = 0.1f;
 
     [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
     [Header("Modifie le aircontrol")]
@@ -132,11 +133,17 @@ public class PlayerController2D : MonoBehaviour
         {
             if (!InputReader.instance.jump)
                 velocityWhenJump = 0f;
+            //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
+
+            //sert a annuler le momentum quand le joueur se trouve sur une pente car cela pose des problèmes
+            //check si le joueur va dans la direction de son input en les multipliant entre eux, car si l'un des 2 est négatif ça sera inférieur a 0, 
+            //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
             if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
                 playerVelocity.x = 0;
+                
             playerVelocity.x += _recallBullet.doRecall ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
-            playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
+            playerVelocity.x = _recallBullet.doRecall ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall) : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
             if (!isVFXDustTrailPlaying)
             {
