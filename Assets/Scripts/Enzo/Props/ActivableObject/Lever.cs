@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Lever : MonoBehaviour
 {
-    [SerializeField] private Door _door;
+    [SerializeField] private Door[] _door;
 
     public bool isActive;
 
@@ -40,6 +40,9 @@ public class Lever : MonoBehaviour
     private void OnBulletHit(GameObject bullet)
     {
         CanChangeBool();
-        _door.OpenDoor(isActive);
+        foreach (var gameObject in _door)
+        {
+            gameObject.OpenDoor(isActive);
+        }
     }
 }
