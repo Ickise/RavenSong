@@ -2,13 +2,13 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class PlayerController2D : MonoBehaviour
 {
     [Header("Modifie les mouvements")]
     [SerializeField]
-    private float accelerationSpeed = 0.1f;
+    private float accelerationSpeed = 2f;
+    [SerializeField] private float slowSpeed = 0.1f;
 
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float groundFriction = 0.3f;
@@ -50,6 +50,8 @@ public class PlayerController2D : MonoBehaviour
     private Collider2D playerCollider2D;
 
     private RaycastDetection _raycastDetection;
+    private RecallBullet _recallBullet;
+
     [SerializeField] private VisualEffect VFXDustTrail;
 
     private float hangTimeCounter;
@@ -81,6 +83,7 @@ public class PlayerController2D : MonoBehaviour
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
+        _recallBullet = GetComponent<RecallBullet>();
         VFXDustTrail.Stop();
     }
 
@@ -132,7 +135,7 @@ public class PlayerController2D : MonoBehaviour
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
             if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
                 playerVelocity.x = 0;
-            playerVelocity.x += -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
+            playerVelocity.x += _recallBullet.doRecall ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
             playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
             if (!isVFXDustTrailPlaying)

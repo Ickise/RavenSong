@@ -11,7 +11,8 @@ public class RecallBullet : MonoBehaviour
 
     private Vector2 direction;
 
-    private bool canRecall;
+    private bool canRecall = false;
+    public bool doRecall;
 
     private FireOneBullet _fireOneBullet;
 
@@ -38,15 +39,24 @@ public class RecallBullet : MonoBehaviour
     {
         float delay = GetDelayBeforeMove();
 
-        if (canRecall && transform.position.x < distanceToRecall)
+        if (_bulletCollisionDetection != null)
+        {
+            if (_bulletCollisionDetection.hasToStop)
+            {
+                canRecall = true;
+            }
+        }
+        
+        if (canRecall && doRecall && transform.position.x < distanceToRecall)
         {
             Invoke("RecallAmmo", delay);
         }
         
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
-            InputReader.instance.canDown || InputReader.instance.canStun || !canRecall)
+            InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
         {
             //condition à modifier puisqu'elle est dégueu mais pour l'instant ça fera l'affaire
+            doRecall = false;
             CancelInvoke("RecallAmmo");
         }
     }
@@ -77,6 +87,8 @@ public class RecallBullet : MonoBehaviour
             {
                 Destroy(bullet);
                 _fireOneBullet.numberOfAmmo = 1;
+                canRecall = false;
+                doRecall = false;
             }
         }
     }
@@ -99,13 +111,13 @@ public class RecallBullet : MonoBehaviour
     {
         GetBulletComponent();
         
-        if (input)
+        if (input && _bulletCollisionDetection.hasToStop)
         {
-            canRecall = true;
+            doRecall = true;
         }
         else
         {
-            canRecall = false;
+            doRecall = false;
         }
     }
 }
