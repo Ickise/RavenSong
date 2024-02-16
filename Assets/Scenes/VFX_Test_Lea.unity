@@ -14579,6 +14579,11 @@ Transform:
   m_Father: {fileID: 707601375}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1493378418 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+  m_PrefabInstance: {fileID: 8835110112170289526}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1495727727
 GameObject:
   m_ObjectHideFlags: 0
@@ -14661,6 +14666,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1504244451}
+  - {fileID: 1493378418}
   m_Father: {fileID: 213134991}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -36652,11 +36658,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400102835896624532, guid: 4b28f285f17ab3d49907f1c703888e11, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4206009484717470470, guid: 4b28f285f17ab3d49907f1c703888e11, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4769817213668849174, guid: 4b28f285f17ab3d49907f1c703888e11, type: 3}
       propertyPath: m_RootOrder
@@ -37152,3 +37158,64 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+--- !u!1001 &8835110112170289526
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1495727729}
+    m_Modifications:
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.2757955
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.412835
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6218381304990354303, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681180381855056684, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
+      propertyPath: m_Name
+      value: "Magn\xE9tisme_Trail_RappelBalle"
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1f7fb04fcd828304dbc492dbc6cae40b, type: 3}
