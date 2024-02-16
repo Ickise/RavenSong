@@ -14,6 +14,12 @@ public class IAHorloger : IA
         ChasePlayer
     }
 
+    protected override void Start()
+    {
+        base.Start();
+        tailleMob.y += 0.2f;
+    }
+
     protected override void StateManager()
     {
         switch (state)
