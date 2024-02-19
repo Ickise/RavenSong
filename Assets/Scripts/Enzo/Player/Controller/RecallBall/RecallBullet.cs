@@ -46,12 +46,12 @@ public class RecallBullet : MonoBehaviour
                 canRecall = true;
             }
         }
-        
+
         if (canRecall && doRecall && transform.position.x < distanceToRecall)
         {
             Invoke("RecallAmmo", delay);
         }
-        
+
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
             InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
         {
@@ -83,7 +83,7 @@ public class RecallBullet : MonoBehaviour
 
             bulletRigidbody.velocity = direction.normalized * speedToRecall;
 
-            if (distance <= destroyDistance)
+            if (_bulletCollisionDetection.touchPlayer.collider != null)
             {
                 Destroy(bullet);
                 _fireOneBullet.numberOfAmmo = 1;
@@ -110,7 +110,7 @@ public class RecallBullet : MonoBehaviour
     private void OnClickToRecall(bool input)
     {
         GetBulletComponent();
-        
+
         if (input && _bulletCollisionDetection.hasToStop)
         {
             doRecall = true;

@@ -175,6 +175,9 @@ MonoBehaviour:
   bulletCollision:
     serializedVersion: 2
     m_Bits: 6593
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 8
   radius: 0.25
   VFXRaisonnanceBall: {fileID: 829088328486626942}
   VFXExplosionImpact: {fileID: 7759211451466953593}
@@ -381,10 +384,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8404946919698269789}
     m_Modifications:
-    - target: {fileID: 3828858499945262892, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -432,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 5729572525314229396, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_Name
       value: Balle_Trail_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 3828858499945262892, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
