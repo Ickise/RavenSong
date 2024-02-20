@@ -35,6 +35,7 @@ public class FootTriggerEscalier : MonoBehaviour
         {
             onPlatform = true;
             other.GetComponent<Escalier>().OnEscalier(transform.parent, true, transform.localPosition.y);
+            print("aaa");
         }
     }
 
