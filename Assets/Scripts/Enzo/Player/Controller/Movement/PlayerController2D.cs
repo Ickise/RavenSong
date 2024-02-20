@@ -2,6 +2,7 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -135,7 +136,7 @@ public class PlayerController2D : MonoBehaviour
                 velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
-
+            slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
             //sert a annuler le momentum quand le joueur se trouve sur une pente car cela pose des problèmes
             //check si le joueur va dans la direction de son input en les multipliant entre eux, car si l'un des 2 est négatif ça sera inférieur a 0, 
             //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
