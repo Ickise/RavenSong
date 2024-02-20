@@ -4,6 +4,7 @@ using UnityEngine.VFX;
 public class BulletCollisionDetection : MonoBehaviour
 {
     [Header("À set up")] [SerializeField] private LayerMask bulletCollision;
+    [SerializeField] private LayerMask layerPlayer;
 
     [SerializeField] private float radius = 0.25f;
 
@@ -11,7 +12,9 @@ public class BulletCollisionDetection : MonoBehaviour
 
     private Rigidbody2D rb2D;
 
-    private RaycastHit2D intersection;
+    RaycastHit2D intersection;
+    public RaycastHit2D touchPlayer;
+
     [SerializeField] private VisualEffect VFXRaisonnanceBall, VFXExplosionImpact;
 
     public bool hasToStop;
@@ -34,6 +37,11 @@ public class BulletCollisionDetection : MonoBehaviour
             transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, rb2D.velocity * Time.fixedDeltaTime,
             rb2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
+        
+        touchPlayer = Physics2D.CircleCast(
+            transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) *
+            Time.fixedDeltaTime, radius, rb2D.velocity * Time.fixedDeltaTime,
+            rb2D.velocity.magnitude * Time.fixedDeltaTime, layerPlayer);
 
         if (hit2D.collider == intersection.collider)
         {
@@ -41,6 +49,7 @@ public class BulletCollisionDetection : MonoBehaviour
         }
 
         intersection = hit2D;
+
         InvokeBulletHit();
     }
 

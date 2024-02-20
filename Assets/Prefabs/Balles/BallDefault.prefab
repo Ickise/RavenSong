@@ -101,7 +101,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2031395344359949623}
-  - {fileID: 9110521158366324497}
+  - {fileID: 1376670056395980290}
   - {fileID: 661278258236597778}
   - {fileID: 1662549283225860601}
   m_Father: {fileID: 0}
@@ -174,7 +174,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletCollision:
     serializedVersion: 2
-    m_Bits: 6337
+    m_Bits: 6593
+  layerPlayer:
+    serializedVersion: 2
+    m_Bits: 8
   radius: 0.25
   VFXRaisonnanceBall: {fileID: 829088328486626942}
   VFXExplosionImpact: {fileID: 7759211451466953593}
@@ -381,65 +384,65 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8404946919698269789}
     m_Modifications:
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_RootOrder
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+    - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729572525314229396, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
+      propertyPath: m_Name
+      value: Balle_Trail_02
       objectReference: {fileID: 0}
     - target: {fileID: 3828858499945262892, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8475933993052975404, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
-      propertyPath: m_Name
-      value: Balle_Trail_02
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
---- !u!4 &9110521158366324497 stripped
+  m_SourcePrefab: {fileID: 100100000, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
+--- !u!4 &1376670056395980290 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 2544365303831978646, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
+  m_CorrespondingSourceObject: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
   m_PrefabInstance: {fileID: 6710491512966284679}
   m_PrefabAsset: {fileID: 0}
