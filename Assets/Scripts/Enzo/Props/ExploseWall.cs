@@ -16,5 +16,4 @@ public class ExploseWall : MonoBehaviour
     {
         _onBulletHit.onBulletHit.AddListener(_explodable.explode);
     }
-
 }

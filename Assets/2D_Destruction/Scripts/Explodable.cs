@@ -43,6 +43,7 @@ public class Explodable : MonoBehaviour
             {
                 frag.transform.parent = null;
                 frag.SetActive(true);
+                frag.AddComponent<OnBulletHit>();
                 frag.AddComponent<DestroyFragments>();
             }
         }

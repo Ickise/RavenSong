@@ -20,7 +20,10 @@ public class InstantiateEnemyCorpse : MonoBehaviour
     {
         //lorsque la balle touche l'ennemi, cela fait appraître un cadavre et détruit l'ennemi
         if (bullet != null)
+        {
             bullet.transform.parent = null;
+        }
+
         Instantiate(prefabIACorpse, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
