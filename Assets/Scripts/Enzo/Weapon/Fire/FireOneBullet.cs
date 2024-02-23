@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class FireOneBullet : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class FireOneBullet : MonoBehaviour
     [SerializeField] private Transform leftShootPosition;
     public GameObject bulletRef { get; private set; }
 
-    [SerializeField] private AudioClip shootAudio;
+    [SerializeField] private SoundData shootAudio;
 
     public int numberOfAmmo = 1;
 

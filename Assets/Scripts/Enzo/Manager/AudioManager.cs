@@ -1,65 +1,4 @@
 using UnityEngine;
-using DG.Tweening;
-
-public class AudioManager : MonoBehaviour
-{
-    public static AudioManager instance { get; private set; }
-
-    [SerializeField] private float timeFadeChangeMusic, volume = 0.5f;
-    private AudioSource audioSource;
-
-    void Awake()
-    {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
-        DontDestroyOnLoad(gameObject);
-        audioSource = GetComponent<AudioSource>();
-    }
-
-    public void PlaySound(AudioClip audioClip)
-    {
-        if (audioClip == null)
-            return;
-            
-        audioSource.PlayOneShot(audioClip);
-    }
-
-    public void PlayRandomSound(AudioClip[] listOfSoundData)
-    {
-        AudioClip randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
-
-        PlaySound(randomClip);
-    }
-
-    public void PlayMusic(AudioClip audioClip)
-    {
-        if (audioClip == null)
-            return;
-        if (audioSource.isPlaying && audioSource.clip == audioClip)
-            return;
-        audioSource
-            .DOFade(0, timeFadeChangeMusic)
-            .OnComplete(() =>
-            {
-                audioSource.clip = audioClip;
-                audioSource.Play();
-                audioSource.DOFade(volume, timeFadeChangeMusic);
-            });
-    }
-
-    public void StopMusic()
-    {
-        audioSource.clip = null;
-    }
-}
-
-
-
-/*using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
@@ -69,11 +8,17 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        
         instance = this;
         mainAudioSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySFX(SoundData data)
+    public void PlaySound(SoundData data)
     {
         //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
         mainAudioSource.volume = data.Volume;
@@ -81,11 +26,64 @@ public class AudioManager : MonoBehaviour
         mainAudioSource.outputAudioMixerGroup = data.AudioMixerGroup;
         mainAudioSource.PlayOneShot(data.AudioToPlay);
     }
-    
+
     public void PlayRandomSound(SoundData[] listOfSoundData)
     {
         SoundData randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
 
-        PlaySFX(randomClip);
+        PlaySound(randomClip);
     }
+}
+/*public static AudioManager instance { get; private set; }
+
+[SerializeField] private float timeFadeChangeMusic, volume = 0.5f;
+private AudioSource audioSource;
+
+void Awake()
+{
+    if (instance != null && instance != this)
+    {
+        Destroy(gameObject);
+        return;
+    }
+    instance = this;
+    DontDestroyOnLoad(gameObject);
+    audioSource = GetComponent<AudioSource>();
+}
+
+public void PlaySound(AudioClip audioClip)
+{
+    if (audioClip == null)
+        return;
+        
+    audioSource.PlayOneShot(audioClip);
+}
+
+public void PlayRandomSound(AudioClip[] listOfSoundData)
+{
+    AudioClip randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
+
+    PlaySound(randomClip);
+}
+
+public void PlayMusic(AudioClip audioClip)
+{
+    if (audioClip == null)
+        return;
+    if (audioSource.isPlaying && audioSource.clip == audioClip)
+        return;
+    audioSource
+        .DOFade(0, timeFadeChangeMusic)
+        .OnComplete(() =>
+        {
+            audioSource.clip = audioClip;
+            audioSource.Play();
+            audioSource.DOFade(volume, timeFadeChangeMusic);
+        });
+}
+
+public void StopMusic()
+{
+    audioSource.clip = null;
+}
 }*/
