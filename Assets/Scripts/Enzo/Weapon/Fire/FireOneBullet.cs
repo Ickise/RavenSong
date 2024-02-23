@@ -9,7 +9,7 @@ public class FireOneBullet : MonoBehaviour
     [SerializeField] private Transform leftShootPosition;
     public GameObject bulletRef { get; private set; }
 
-    [SerializeField] private SoundData shootAudio;
+    [SerializeField] private AudioClip shootAudio;
 
     public int numberOfAmmo = 1;
 
@@ -24,7 +24,7 @@ public class FireOneBullet : MonoBehaviour
         {
             bool currentDirection = PlayerController2D._instance.CurrentDirection > 0;
 
-            AudioManager.instance.PlaySFX(shootAudio);
+            AudioManager.instance.PlaySound(shootAudio);
 
             bulletRef = Instantiate(bullet.gameObject,
                 transform.position = currentDirection ? rightShootPosition.position : leftShootPosition.position,
