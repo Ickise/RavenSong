@@ -124,9 +124,9 @@ public class AnimationController : MonoBehaviour
     {
         if (DontAim) return;
         //permet de flip l'animation en fonction de la ou le joueur vise
-        if (WeaponRotation.manette && InputReader.instance.manetteDirection != Vector3.zero)
+        if (SpineAim.manette && InputReader.instance.manetteDirection != Vector3.zero)
             FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
-        else if (!WeaponRotation.manette)
+        else if (!SpineAim.manette)
             FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.nearClipPlane)).x > transform.position.x);
     }
 }
