@@ -20,4 +20,11 @@ public class AudioManager : MonoBehaviour
         mainAudioSource.outputAudioMixerGroup = data.AudioMixerGroup;
         mainAudioSource.PlayOneShot(data.AudioToPlay);
     }
+    
+    public void PlayRandomSound(SoundData[] listOfSoundData)
+    {
+        SoundData randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
+
+        PlaySFX(randomClip);
+    }
 }
