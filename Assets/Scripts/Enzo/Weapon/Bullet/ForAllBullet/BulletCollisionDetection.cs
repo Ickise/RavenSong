@@ -37,7 +37,7 @@ public class BulletCollisionDetection : MonoBehaviour
             transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, rb2D.velocity * Time.fixedDeltaTime,
             rb2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
-        
+
         touchPlayer = Physics2D.CircleCast(
             transform.position + new Vector3(rb2D.velocity.normalized.x, rb2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, rb2D.velocity * Time.fixedDeltaTime,
@@ -91,9 +91,9 @@ public class BulletCollisionDetection : MonoBehaviour
         transform.parent = null;
         VFXRaisonnanceBall.Stop();
         hasToStop = false;
+        //hasToStop en false sur le rappel permet de toucher les objets sur le retour.
     }
 
-    //sur le rappel pour toucher faut que je mette hastostop en false
     /*private void OnDrawGizmos()
     {
         if (intersection.collider)
