@@ -3,8 +3,14 @@ using Aurinaxtailer;
 public class WeaponRotation : MonoBehaviour
 {
     [Header("À set up")]
-    [SerializeField] private float speedRotation = 10;
-    [SerializeField] private bool manette;
+    [SerializeField] private bool isManette;
+    public static bool manette;
+
+    private void Start()
+    {
+        manette = isManette;
+    }
+
     void Update()
     {
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
