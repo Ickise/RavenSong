@@ -47,7 +47,6 @@ public abstract class IA : MonoBehaviour
     protected virtual void Update()
     {
         if (!IsGrounded) return;
-        print("aaaaa");
         StateManager();
         if (!DetectPlayer) return;
         AtkPlayer();
