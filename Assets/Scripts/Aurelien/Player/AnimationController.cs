@@ -72,12 +72,9 @@ public class AnimationController : MonoBehaviour
     private void SetAnimation(int trackNum, Animations animation, bool loop, float timeScale, bool overwriteIniTialize)
     {
         if (skeletonAnimationDroite.skeletonDataAsset != animation.skeletonDataAssetDroite)
-        {
-            // print("444444444");
             skeletonAnimationDroite.skeletonDataAsset = animation.skeletonDataAssetDroite;
-        }
 
-        // skeletonAnimationDroite.InitializeOnlyMesh();
+
         skeletonAnimationDroite.Initialize(overwriteIniTialize);
         // skeletonAnimationDroite.state.SetAnimation(trackNum, animation.droite, loop).TimeScale = timeScale;
         // skeletonAnimationDroite.state.Apply(skeletonAnimationDroite.skeleton);
@@ -91,18 +88,16 @@ public class AnimationController : MonoBehaviour
         // entry.HoldPrevious = true;
         // skeletonAnimationDroite.state.SetAnimation(0, animations[(int)AnimationState.walkBall].droite, true);
 
-        skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
+        if (skeletonAnimationGauche.skeletonDataAsset != animation.skeletonDataAssetGauche)
+            skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
+            
+        skeletonAnimationGauche.Initialize(overwriteIniTialize);
         TrackEntry entryGauche = skeletonAnimationGauche.state.SetAnimation(trackNum, animation.gauche, loop);
         entryGauche.TimeScale = timeScale;
 
         _spineAim.Start();
     }
 
-    void LateUpdate()
-    {
-        skeletonAnimationDroite.skeletonDataAsset.blendModeMaterials.ApplyMaterials(skeletonAnimationDroite.SkeletonDataAsset.GetSkeletonData(true));
-
-    }
     /// <summary>
     /// Set une animation désiré
     /// </summary>

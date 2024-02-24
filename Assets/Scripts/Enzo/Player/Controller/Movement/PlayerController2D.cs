@@ -96,12 +96,7 @@ public class PlayerController2D : MonoBehaviour
         {
             if (DOTween.IsTweening("roll") &&
                 (!_raycastDetection.IsGrounded || _raycastDetection.RaycastOnRoll(CurrentDirection)))
-            {
-                onRoll = false;
-                playerCollider2D.enabled = true;
                 DOTween.Kill("roll");
-                StopAllCoroutines();
-            }
 
             return;
         }
@@ -142,7 +137,7 @@ public class PlayerController2D : MonoBehaviour
             //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
             if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
                 playerVelocity.x = 0;
-                
+
             playerVelocity.x += _recallBullet.doRecall ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
             playerVelocity.x = _recallBullet.doRecall ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall) : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
@@ -245,7 +240,7 @@ public class PlayerController2D : MonoBehaviour
 
     public void Roll()
     {
-        if (DOTween.IsTweening(transform) || !_raycastDetection.IsGrounded || !canRoll) return;
+        if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
         AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.dash, false,
             AnimationController.instance.speedDash);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
@@ -255,8 +250,8 @@ public class PlayerController2D : MonoBehaviour
                 if (_raycastDetection.RaycastOnRoll(CurrentDirection))
                 {
                     playerRigidbody2D.velocity = Vector2.zero;
-                    playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
-                        ForceMode2D.Impulse);
+                    // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
+                    //     ForceMode2D.Impulse);
                 }
 
                 AnimationController.instance.DontAim = false;
