@@ -206,7 +206,7 @@ public class PlayerController2D : MonoBehaviour
     /// <param name="slopNormalPerp"></param>
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
-        if (!canjump) return playerVelocity.y;
+        if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.75f) return playerVelocity.y;
         if (InputReader.instance.direction.x == 0)
             return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
         return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
