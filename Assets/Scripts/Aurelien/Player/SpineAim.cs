@@ -12,6 +12,7 @@ public class SpineAim : MonoBehaviour
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
     [SerializeField] private bool isManette;
+    Vector3 localPosDroite, localPosGauche;
     public static bool manette;
 
     //get toute les références
@@ -33,12 +34,10 @@ public class SpineAim : MonoBehaviour
     {
         if (AnimationController.instance.DontAim || boneAim[0] == null) return;
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
-        Vector3 localPosDroite = Vector2.zero;
-        Vector3 localPosGauche = Vector2.zero;
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
         {
-            localPosDroite = InputReader.instance.manetteDirection;
-            localPosGauche = InputReader.instance.manetteDirection;
+            localPosDroite = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
+            localPosGauche = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
         }
         else if (!manette)
         {
@@ -48,4 +47,9 @@ public class SpineAim : MonoBehaviour
         boneAim[0].SetLocalPosition(new Vector3(Mathf.Clamp(localPosDroite.x, 0, Mathf.Infinity), localPosDroite.y, localPosDroite.z));
         boneAim[1].SetLocalPosition(new Vector3(-Mathf.Clamp(localPosGauche.x, Mathf.NegativeInfinity, 0), localPosGauche.y, localPosGauche.z));
     }
+
+    // private void OnDrawGizmos()
+    // {
+    //     Gizmos.DrawWireSphere(transform.position + (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 2f, 0.2f);
+    // }
 }

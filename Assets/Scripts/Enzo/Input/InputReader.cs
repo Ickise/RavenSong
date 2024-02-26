@@ -74,6 +74,6 @@ public class InputReader : MonoBehaviour
 
     public void ManetteDirection(InputAction.CallbackContext context)
     {
-        manetteDirection = context.ReadValue<Vector2>();
+        manetteDirection = context.ReadValue<Vector2>().normalized;
     }
 }
