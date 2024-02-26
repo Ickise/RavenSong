@@ -4,14 +4,14 @@ using UnityEngine.InputSystem;
 public class FootTriggerPlatform : MonoBehaviour
 {
     private Vector2 direction;
-    private BoxCollider2D otherBC2D;
+    private Collider2D otherC2D;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Platforme"))
         {
-            otherBC2D = other.GetComponent<BoxCollider2D>();
-            otherBC2D.isTrigger = false;
+            otherC2D = other.GetComponent<Collider2D>();
+            otherC2D.isTrigger = false;
             gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
@@ -20,7 +20,7 @@ public class FootTriggerPlatform : MonoBehaviour
     {
         if (other.CompareTag("Platforme"))
         {
-            otherBC2D.isTrigger = true;
+            otherC2D.isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
@@ -28,9 +28,9 @@ public class FootTriggerPlatform : MonoBehaviour
     public void IsJumping(InputAction.CallbackContext context)
     {
         if (!context.started) return;
-        if (direction.y < 0 && otherBC2D != null)
+        if (direction.y < 0 && otherC2D != null)
         {
-            otherBC2D.isTrigger = true;
+            otherC2D.isTrigger = true;
             gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }

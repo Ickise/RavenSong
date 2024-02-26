@@ -20,7 +20,7 @@ public class AnimationController : MonoBehaviour
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard, dash, crossKick };
+    public enum AnimationState { idleNoBall, idleBall, walkBall, jump, walkBackWard, dash, crossKick, recall };
     private AnimationState currentAnimationState;
     public AnimationState GetCurrentAnimation => currentAnimationState;
 
@@ -53,7 +53,8 @@ public class AnimationController : MonoBehaviour
         {AnimationState.jump, animations[(int)AnimationState.jump]},
         {AnimationState.walkBackWard, animations[(int)AnimationState.walkBackWard]},
         {AnimationState.dash, animations[(int)AnimationState.dash]},
-        {AnimationState.crossKick, animations[(int)AnimationState.crossKick]}};
+        {AnimationState.crossKick, animations[(int)AnimationState.crossKick]},
+        {AnimationState.recall, animations[(int)AnimationState.recall]}};
 
         //lance l'animation par défaut du player
         skeletonAnimationDroite.state.SetEmptyAnimations(0);
@@ -90,7 +91,7 @@ public class AnimationController : MonoBehaviour
 
         if (skeletonAnimationGauche.skeletonDataAsset != animation.skeletonDataAssetGauche)
             skeletonAnimationGauche.skeletonDataAsset = animation.skeletonDataAssetGauche;
-            
+
         skeletonAnimationGauche.Initialize(overwriteIniTialize);
         TrackEntry entryGauche = skeletonAnimationGauche.state.SetAnimation(trackNum, animation.gauche, loop);
         entryGauche.TimeScale = timeScale;

@@ -1331,6 +1331,7 @@ MonoBehaviour:
   bullet: {fileID: 8612664303447618227, guid: 8a68675fb1081f84ebe6079228548e23, type: 3}
   rightShootPosition: {fileID: 19318302601555160}
   leftShootPosition: {fileID: 6420413235010646048}
+  shootAudio: {fileID: 0}
   numberOfAmmo: 1
 --- !u!1 &6668070509189283223
 GameObject:
@@ -1740,10 +1741,15 @@ MonoBehaviour:
     skeletonDataAssetDroite: {fileID: 11400000, guid: cfcc7bc6ec621f44196123f6c1cb7c61, type: 2}
     gauche: {fileID: 11400000, guid: b1ef22a14b1e6674b81daeb8f170db82, type: 2}
     skeletonDataAssetGauche: {fileID: 11400000, guid: 16a1e71b3933c6144a8af5de36f64502, type: 2}
-  - name: cross kick
+  - name: crosskick
     droite: {fileID: 11400000, guid: 16f1995429792474a85457602cac1036, type: 2}
     skeletonDataAssetDroite: {fileID: 11400000, guid: cb735e798538fc3489658ca1600d2952, type: 2}
-    gauche: {fileID: 11400000, guid: 1bd1a65e78549574eb1830fca784fd12, type: 2}
+    gauche: {fileID: 11400000, guid: 16f1995429792474a85457602cac1036, type: 2}
+    skeletonDataAssetGauche: {fileID: 11400000, guid: 0f2e3907efc57ca40bc1b904236b3975, type: 2}
+  - name: recall
+    droite: {fileID: 11400000, guid: e499d084fbe72f94c9745bd935ae9429, type: 2}
+    skeletonDataAssetDroite: {fileID: 11400000, guid: cb735e798538fc3489658ca1600d2952, type: 2}
+    gauche: {fileID: 11400000, guid: 083b0a233b71e4e4eb112abdef54efa6, type: 2}
     skeletonDataAssetGauche: {fileID: 11400000, guid: 0f2e3907efc57ca40bc1b904236b3975, type: 2}
 --- !u!114 &987536328954242322
 MonoBehaviour:
@@ -1758,6 +1764,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boneAimName: Aim Target CI
+  isManette: 0
 --- !u!1 &8509863438687662080
 GameObject:
   m_ObjectHideFlags: 0
