@@ -40,7 +40,6 @@ public abstract class IA : MonoBehaviour
         public int trackNum;
         public bool loop;
         public bool overrideSkeleton;
-
         public AnimationReferenceAsset animationReferenceAsset;
     }
     [SerializeField] private AnimationReference[] animations;
@@ -60,9 +59,9 @@ public abstract class IA : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
         AnimationState[] animationStateRefArray = Enum.GetValues(typeof(AnimationState)).Cast<AnimationState>().ToArray();
-        if (animationStateRefArray.Length != animations.Length)
+        if (animationStateRefArray.Length < animations.Length)
         {
-            Debug.LogWarning("un état ou une référence d'animation n'est pas set sur " + name);
+            Debug.LogWarning("un état n'est pas enuméré sur " + name);
             return;
         }
         for (int i = 0; i < animations.Length; i++)
@@ -107,7 +106,7 @@ public abstract class IA : MonoBehaviour
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
             currentAnimationState = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop,animationRefAsset.overrideSkeleton));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
         }
     }
 

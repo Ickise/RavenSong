@@ -613,10 +613,6 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 9.696347
       objectReference: {fileID: 0}
-    - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
-      propertyPath: isManette
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1211734008349176980, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -797,6 +793,38 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[0].animationReferenceAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5bb1435150f9408478494e3ccf39c14f, type: 2}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[0].skeletonAnimationDroite
+      value: 
+      objectReference: {fileID: 133811844}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[0].skeletonAnimationGauche
+      value: 
+      objectReference: {fileID: 1420242009}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[1].animationReferenceAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bda7a3ac0e10f2a4db9eb339d92018c0, type: 2}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[1].skeletonAnimationDroite
+      value: 
+      objectReference: {fileID: 133811844}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[2].animationReferenceAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 906887cb94adda240be36fcb014984f3, type: 2}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[3].animationReferenceAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bcbd8d36e2301794280f53a01d9ec066, type: 2}
+    - target: {fileID: 7205042697692475838, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: animations.Array.data[4].animationReferenceAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: bcbd8d36e2301794280f53a01d9ec066, type: 2}
     - target: {fileID: 7335652219000336131, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: UIammo
       value: 
@@ -2641,6 +2669,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 124050854}
   m_CullTransparentMesh: 1
+--- !u!114 &133811844 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1591094647128962640, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 36637818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &138540660
 Mesh:
   m_ObjectHideFlags: 0
@@ -12357,7 +12396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonRenderer: {fileID: 245472291}
+  skeletonRenderer: {fileID: 913561289}
   boneName: 
   followXYPosition: 1
   followZPosition: 1
@@ -16111,6 +16150,17 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!114 &1420242009 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5245158571904818143, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 36637818}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1445109828
 GameObject:
   m_ObjectHideFlags: 0

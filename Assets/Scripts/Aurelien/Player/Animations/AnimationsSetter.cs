@@ -13,7 +13,6 @@ public class AnimationsSetter : MonoBehaviour
             Destroy(this);
             return;
         }
-
         instance = this;
     }
 
@@ -22,6 +21,9 @@ public class AnimationsSetter : MonoBehaviour
     /// </summary>
     public void SetState(AnimationStructConstructor animation)
     {
+        if (animation.skeletonAnimation.skeletonDataAsset != animation.animationReferenceAsset.SkeletonDataAsset)
+            animation.skeletonAnimation.skeletonDataAsset = animation.animationReferenceAsset.SkeletonDataAsset;
+            
         animation.skeletonAnimation.Initialize(animation.overwriteIniTialize);
         TrackEntry entry = animation.skeletonAnimation.state.SetAnimation(animation.trackNum, animation.animationReferenceAsset, animation.loop);
         entry.TimeScale = animation.speed;
