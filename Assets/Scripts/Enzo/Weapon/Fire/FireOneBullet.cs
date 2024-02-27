@@ -6,6 +6,8 @@ public class FireOneBullet : MonoBehaviour
 
     [SerializeField] private Transform rightShootPosition;
     [SerializeField] private Transform leftShootPosition;
+    public Transform rightAimPosition;
+    public Transform leftAimPosition;
     public GameObject bulletRef { get; private set; }
 
     [SerializeField] private SoundData shootAudio;
