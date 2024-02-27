@@ -465,6 +465,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 9.696347
       objectReference: {fileID: 0}
+    - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: isManette
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1211734008349176980, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -529,6 +533,14 @@ PrefabInstance:
       propertyPath: shotAudio
       value: 
       objectReference: {fileID: 11400000, guid: 72d40c880a46e3946a065f304e10f3c5, type: 2}
+    - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: leftAimPosition
+      value: 
+      objectReference: {fileID: 398307120}
+    - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: rightAimPosition
+      value: 
+      objectReference: {fileID: 398576803}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -5094,6 +5106,16 @@ Transform:
   m_Father: {fileID: 333700718}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &398307120 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6595171560773712303, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 36637818}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &398576803 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3161145761624493340, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 36637818}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &402651282
 GameObject:
   m_ObjectHideFlags: 0
