@@ -9,9 +9,9 @@ using UnityEngine.InputSystem;
 //j'utilise 2 animations (droite et gauche), car le bras change de position quand on se retourne, donc j'active qu'un seul des 2 mesh a la fois mais je joue les animations sur les 2 mesh en même temps
 //pour utiliser ce système, il suffit simplement d'écrire cette ligne a l'endroit du code voulu :
 //AnimationController.instance.SetCharacterState(AnimationController.AnimationState.[NOM DE L'ANIMATION], [LOOP T-IL ?], [LA VITESSE DE L'ANIMATION VOULU]);
-public class AnimationController : MonoBehaviour
+public class PlayerAnimation : MonoBehaviour
 {
-    public static AnimationController instance;
+    public static PlayerAnimation instance;
     private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
     public float speedIdleNoBall = 1f, speedIdleBall = 1f, speedWalkBall = 1f, speedJump = 1f, speedWalkBackWard = 1f, speedDash = 1f, speedCrossKick = 1f;

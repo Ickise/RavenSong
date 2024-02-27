@@ -64,7 +64,7 @@ public class PlayerController2D : MonoBehaviour
 
     public int CurrentDirection
     {
-        get { return AnimationController.instance.GetDirection ? 1 : -1; }
+        get { return PlayerAnimation.instance.GetDirection ? 1 : -1; }
     }
 
     private Vector2 playerVelocity;
@@ -155,18 +155,18 @@ public class PlayerController2D : MonoBehaviour
                 }
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true,
-                    AnimationController.instance.speedIdleBall);
+                PlayerAnimation.instance.SetCharacterState(0, PlayerAnimation.AnimationState.idleBall, true,
+                    PlayerAnimation.instance.speedIdleBall);
                 return;
             }
 
             if (!canjump) return;
-            if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBall, true,
-                    AnimationController.instance.speedWalkBall);
+            if (PlayerAnimation.instance.GetDirection == InputReader.instance.direction.x > 0)
+                PlayerAnimation.instance.SetCharacterState(0, PlayerAnimation.AnimationState.walkBall, true,
+                    PlayerAnimation.instance.speedWalkBall);
             else
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBackWard, true,
-                    AnimationController.instance.speedWalkBackWard);
+                PlayerAnimation.instance.SetCharacterState(0, PlayerAnimation.AnimationState.walkBackWard, true,
+                    PlayerAnimation.instance.speedWalkBackWard);
         }
         else
         {
@@ -189,8 +189,8 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.jump, false,
-            AnimationController.instance.speedJump);
+        PlayerAnimation.instance.SetCharacterState(0, PlayerAnimation.AnimationState.jump, false,
+            PlayerAnimation.instance.speedJump);
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
 
@@ -241,8 +241,8 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
-        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.dash, false,
-            AnimationController.instance.speedDash);
+        PlayerAnimation.instance.SetCharacterState(0, PlayerAnimation.AnimationState.dash, false,
+            PlayerAnimation.instance.speedDash);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
@@ -254,13 +254,13 @@ public class PlayerController2D : MonoBehaviour
                     //     ForceMode2D.Impulse);
                 }
 
-                AnimationController.instance.DontAim = false;
+                PlayerAnimation.instance.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;
                 playerCollider2D.enabled = true;
                 StartCoroutine(RollCoolDown());
             });
-        AnimationController.instance.DontAim = true;
+        PlayerAnimation.instance.DontAim = true;
         InputReader.instance.DontCrossKick = true;
         playerCollider2D.enabled = false;
         onRoll = true;

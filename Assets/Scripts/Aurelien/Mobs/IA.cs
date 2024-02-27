@@ -1,12 +1,13 @@
 using UnityEngine;
 using Spine.Unity;
-using Unity.IO.LowLevel.Unsafe;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 public abstract class IA : MonoBehaviour
 {
     protected Rigidbody2D rb2D;
     protected Transform player;
-    protected SkeletonAnimation skeletonAnimation;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
@@ -29,6 +30,22 @@ public abstract class IA : MonoBehaviour
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
+    public enum AnimationState { moveForward, moveBackward, shoot }
+    private SkeletonAnimation skeletonAnimation;
+    [Serializable]
+    public struct AnimationReference
+    {
+        public AnimationState name;
+        public float speed;
+        public int trackNum;
+        public bool loop;
+        public bool overrideSkeleton;
+
+        public AnimationReferenceAsset animationReferenceAsset;
+    }
+    [SerializeField] private AnimationReference[] animations;
+    private Dictionary<AnimationState, AnimationReference> animationStateRef = new Dictionary<AnimationState, AnimationReference>();
+    private AnimationState currentAnimationState;
 
     protected virtual void Start()
     {
@@ -42,6 +59,15 @@ public abstract class IA : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
+        AnimationState[] animationStateRefArray = Enum.GetValues(typeof(AnimationState)).Cast<AnimationState>().ToArray();
+        if (animationStateRefArray.Length != animations.Length)
+        {
+            Debug.LogWarning("un état ou une référence d'animation n'est pas set sur " + name);
+            return;
+        }
+        for (int i = 0; i < animations.Length; i++)
+            animationStateRef.Add(animationStateRefArray[i], animations[i]);
+        currentAnimationState = AnimationState.moveBackward;
     }
 
     protected virtual void Update()
@@ -63,9 +89,26 @@ public abstract class IA : MonoBehaviour
 
     protected void RunToDirection()
     {
+        SetAnimation(AnimationState.moveForward);
         Vector2 slopNormalPerp = Vector2.Perpendicular(IsGrounded.normal).normalized;
         rb2D.velocity = new Vector2(-(direction ? speedMovement : -speedMovement) * slopNormalPerp.x, -(direction ? speedMovement : -speedMovement) * slopNormalPerp.y);
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
+    }
+
+    protected void SetAnimation(AnimationState animationState)
+    {
+        if (currentAnimationState == animationState) return;
+        if (AnimationsSetter.instance == null)
+        {
+            Debug.LogWarning("mettre le prefab AnimationController dans la scène");
+            return;
+        }
+        AnimationReference animationRefAsset;
+        if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
+        {
+            currentAnimationState = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop,animationRefAsset.overrideSkeleton));
+        }
     }
 
     void OnDrawGizmos()

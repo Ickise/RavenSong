@@ -68,6 +68,7 @@ public class IAProjectil : IA
             state = State.Attack;
             rb2D.velocity = Vector2.zero;
             StartCoroutine(Attack());
+            SetAnimation(AnimationState.shoot);
             return;
         }
         RunToDirection();
