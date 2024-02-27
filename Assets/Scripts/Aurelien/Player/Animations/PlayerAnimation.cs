@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Spine;
 using Spine.Unity;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -13,7 +12,6 @@ using UnityEngine.InputSystem;
 //AnimationController.instance.SetCharacterState(AnimationController.AnimationState.[NOM DE L'ANIMATION], [LOOP T-IL ?], [LA VITESSE DE L'ANIMATION VOULU]);
 public class PlayerAnimation : MonoBehaviour
 {
-    public static PlayerAnimation instance;
     private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
     private MeshRenderer meshDroite, meshGauche;
@@ -43,7 +41,6 @@ public class PlayerAnimation : MonoBehaviour
     private void Start()
     {
         //get les références
-        instance = this;
         _spineAim = GetComponent<SpineAim>();
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();

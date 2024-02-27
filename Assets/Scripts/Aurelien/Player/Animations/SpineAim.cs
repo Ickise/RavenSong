@@ -7,6 +7,7 @@ using System.Collections.Generic;
 //modifie la position du bone "aim" sur les deux meshs (voir animationController) pour créer une animation de visée
 public class SpineAim : MonoBehaviour
 {
+    private PlayerAnimation _playerAnimation;
     [SerializeField] private string boneAimName;
     private List<Bone> boneAim = new List<Bone>();
     private SkeletonAnimation[] skeletonAnimation;
@@ -18,6 +19,7 @@ public class SpineAim : MonoBehaviour
     //get toute les références
     private void Awake()
     {
+        _playerAnimation = GetComponent<PlayerAnimation>();
         cam = Camera.main;
         skeletonAnimation = GetComponentsInChildren<SkeletonAnimation>();
     }
@@ -32,7 +34,7 @@ public class SpineAim : MonoBehaviour
 
     private void Update()
     {
-        if (PlayerAnimation.instance.DontAim || boneAim[0] == null) return;
+        if (_playerAnimation.DontAim || boneAim[0] == null) return;
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
         {

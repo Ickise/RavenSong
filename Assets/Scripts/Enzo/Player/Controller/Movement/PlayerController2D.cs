@@ -53,6 +53,7 @@ public class PlayerController2D : MonoBehaviour
 
     private RaycastDetection _raycastDetection;
     private RecallBullet _recallBullet;
+    private PlayerAnimation _playerAnimation;
 
     [SerializeField] private VisualEffect VFXDustTrail;
 
@@ -64,7 +65,7 @@ public class PlayerController2D : MonoBehaviour
 
     public int CurrentDirection
     {
-        get { return PlayerAnimation.instance.GetDirection ? 1 : -1; }
+        get { return _playerAnimation.GetDirection ? 1 : -1; }
     }
 
     private Vector2 playerVelocity;
@@ -82,6 +83,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
@@ -155,15 +157,15 @@ public class PlayerController2D : MonoBehaviour
                 }
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
-                PlayerAnimation.instance.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
                 return;
             }
 
             if (!canjump) return;
-            if (PlayerAnimation.instance.GetDirection == InputReader.instance.direction.x > 0)
-                PlayerAnimation.instance.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+            if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
             else
-                PlayerAnimation.instance.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
         }
         else
         {
@@ -186,7 +188,7 @@ public class PlayerController2D : MonoBehaviour
     private void Jump()
     {
         hangTimeCounter = 0f;
-        PlayerAnimation.instance.SetAnimation(PlayerAnimation.AnimationState.jump);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
         playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
     }
 
@@ -237,7 +239,7 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
-        PlayerAnimation.instance.SetAnimation(PlayerAnimation.AnimationState.dash);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
         playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
@@ -249,13 +251,13 @@ public class PlayerController2D : MonoBehaviour
                     //     ForceMode2D.Impulse);
                 }
 
-                PlayerAnimation.instance.DontAim = false;
+                _playerAnimation.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;
                 playerCollider2D.enabled = true;
                 StartCoroutine(RollCoolDown());
             });
-        PlayerAnimation.instance.DontAim = true;
+        _playerAnimation.DontAim = true;
         InputReader.instance.DontCrossKick = true;
         playerCollider2D.enabled = false;
         onRoll = true;

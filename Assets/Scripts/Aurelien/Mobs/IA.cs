@@ -59,13 +59,13 @@ public abstract class IA : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
         AnimationState[] animationStateRefArray = Enum.GetValues(typeof(AnimationState)).Cast<AnimationState>().ToArray();
-        if (animationStateRefArray.Length < animations.Length)
-        {
-            Debug.LogWarning("un état n'est pas enuméré sur " + name);
-            return;
-        }
-        for (int i = 0; i < animations.Length; i++)
-            animationStateRef.Add(animationStateRefArray[i], animations[i]);
+        for (int i = 0; i < animationStateRefArray.Length; i++)
+            for (int y = 0; y < animations.Length; y++)
+                if (animations[y].name == animationStateRefArray[i])
+                {
+                    animationStateRef.Add(animationStateRefArray[i], animations[y]);
+                    break;
+                }
         currentAnimationState = AnimationState.moveBackward;
     }
 
