@@ -10,6 +10,7 @@ public class RecallBullet : MonoBehaviour
     private Rigidbody2D bulletRigidbody;
 
     private Vector2 direction;
+    private Vector2 distanceAmmoPlayer;
 
     private bool canRecall = false;
     public bool doRecall;
@@ -18,10 +19,9 @@ public class RecallBullet : MonoBehaviour
 
     private BulletCollisionDetection _bulletCollisionDetection;
 
-    [SerializeField] private float destroyDistance = 0.6f;
     [SerializeField] private float speedToRecall = 50f;
     [SerializeField] private float speedDelay = 0.2f;
-    [SerializeField] private float distanceToRecall = 10f;
+    [SerializeField] private float distanceToRecall;
 
     private float distance;
 
@@ -39,15 +39,18 @@ public class RecallBullet : MonoBehaviour
     {
         float delay = GetDelayBeforeMove();
 
+
         if (_bulletCollisionDetection != null)
         {
+            distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
+            
             if (_bulletCollisionDetection.hasToStop)
             {
                 canRecall = true;
             }
         }
 
-        if (canRecall && doRecall && transform.position.x < distanceToRecall)
+        if (canRecall && doRecall && distanceAmmoPlayer.magnitude < distanceToRecall)
         {
             Invoke("RecallAmmo", delay);
         }
