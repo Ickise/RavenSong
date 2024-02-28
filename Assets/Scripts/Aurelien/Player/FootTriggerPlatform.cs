@@ -12,7 +12,7 @@ public class FootTriggerPlatform : MonoBehaviour
         {
             otherC2D = other.GetComponent<Collider2D>();
             otherC2D.isTrigger = false;
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            otherC2D.gameObject.layer = LayerMask.NameToLayer("Default");
         }
     }
 
@@ -21,7 +21,7 @@ public class FootTriggerPlatform : MonoBehaviour
         if (other.CompareTag("Platforme"))
         {
             otherC2D.isTrigger = true;
-            gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+            otherC2D.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
         }
     }
 
