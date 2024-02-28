@@ -6,41 +6,35 @@ using System;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")]
-    [SerializeField]
+    [Header("Modifie les mouvements")] [SerializeField]
     private float accelerationSpeed = 2f;
+
     [SerializeField] private float slowSpeed = 0.1f;
 
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le aircontrol")]
-    [SerializeField]
+    [Header("Modifie le aircontrol")] [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
 
-    [Header("Modifie le saut")]
-    [SerializeField]
+    [Header("Modifie le saut")] [SerializeField]
     private float gravityFactor = 1f;
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
-    [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")]
-    [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")]
-    [SerializeField]
+    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")]
-    [SerializeField]
+    [Header("Modifie les paramètres de la roulade")] [SerializeField]
     private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
@@ -111,6 +105,7 @@ public class PlayerController2D : MonoBehaviour
         if (onRoll) return;
 
         SetGravity();
+        SetAirControl();
         ComputeGravity();
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
@@ -140,14 +135,19 @@ public class PlayerController2D : MonoBehaviour
             if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
                 playerVelocity.x = 0;
 
-            playerVelocity.x += _recallBullet.doRecall ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
-            playerVelocity.x = _recallBullet.doRecall ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall) : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
+            playerVelocity.x += _recallBullet.doRecall
+                ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed
+                : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
+            playerVelocity.x = _recallBullet.doRecall
+                ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall)
+                : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
             if (!isVFXDustTrailPlaying)
             {
                 VFXDustTrail.Play();
                 isVFXDustTrailPlaying = true;
             }
+
             if (InputReader.instance.direction.x == 0)
             {
                 if (isVFXDustTrailPlaying)
@@ -155,6 +155,7 @@ public class PlayerController2D : MonoBehaviour
                     VFXDustTrail.Stop();
                     isVFXDustTrailPlaying = false;
                 }
+
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (!canjump) return;
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
@@ -174,12 +175,10 @@ public class PlayerController2D : MonoBehaviour
                 VFXDustTrail.Stop();
                 isVFXDustTrailPlaying = false;
             }
+
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
-            playerVelocity.x = velocityWhenJump;
-            velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
-            velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
     }
 
@@ -219,6 +218,16 @@ public class PlayerController2D : MonoBehaviour
         else
         {
             playerVelocity.y += Physics2D.gravity.y * Time.deltaTime * gravityFactor;
+        }
+    }
+
+    private void SetAirControl()
+    {
+        if (!_raycastDetection.IsGrounded)
+        {
+            playerVelocity.x = velocityWhenJump;
+            velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
+            velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
     }
 
