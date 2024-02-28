@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class RecallBullet : MonoBehaviour
@@ -39,12 +40,10 @@ public class RecallBullet : MonoBehaviour
     {
         float delay = GetDelayBeforeMove();
 
-
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
-            
-            
+
             if (_bulletCollisionDetection.hasToStop)
             {
                 canRecall = true;
@@ -123,5 +122,10 @@ public class RecallBullet : MonoBehaviour
         {
             doRecall = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, distanceToRecall);
     }
 }
