@@ -15,5 +15,14 @@ public class ExploseWall : MonoBehaviour
     private void Start()
     {
         _onBulletHit.onBulletHit.AddListener(_explodable.explode);
+       // _onBulletHit.onBulletHit.AddListener(OnBulletHit);
+    }
+
+    private void OnBulletHit(GameObject bullet)
+    {
+        if (bullet != null)
+        {
+            bullet.transform.parent = null;
+        }
     }
 }
