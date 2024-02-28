@@ -10,7 +10,7 @@ public abstract class IA : MonoBehaviour
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
+    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaqueMelee = 1f;
     [SerializeField] protected Vector2 tailleMob;
     [SerializeField] private bool drawCirclesEditor;
     [SerializeField] private int nombreVie = 1;
@@ -81,7 +81,7 @@ public abstract class IA : MonoBehaviour
 
     protected void AtkPlayer()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaquePlayer, layerDetectPlayer);
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaqueMelee, layerDetectPlayer);
         if (hit2D && hit2D.transform.CompareTag("Player"))
             player.GetComponent<Respawn>().RespawnPlayer();
     }
@@ -94,7 +94,7 @@ public abstract class IA : MonoBehaviour
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
     }
 
-    protected void SetAnimation(AnimationState animationState)
+    public void SetAnimation(AnimationState animationState)
     {
         if (currentAnimationState == animationState) return;
         if (AnimationsSetter.instance == null)

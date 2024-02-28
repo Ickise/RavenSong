@@ -46,6 +46,7 @@ public class StunDetection : MonoBehaviour
             StartCoroutine(TimeUnstun());
             IEnumerator TimeUnstun()
             {
+                iA.SetAnimation(IA.AnimationState.shoot);
                 yield return new WaitForSeconds(timeToDisableHitBox);
                 iA.enabled = true;
             }
