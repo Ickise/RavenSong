@@ -22,6 +22,11 @@ public class Chandelier : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
+        
+        if (other.CompareTag("Platforme"))
+        {
+            Destroy(transform.parent.gameObject);
+        }
 
         if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
         {
