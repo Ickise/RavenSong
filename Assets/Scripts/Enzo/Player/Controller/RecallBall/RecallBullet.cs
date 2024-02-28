@@ -44,6 +44,7 @@ public class RecallBullet : MonoBehaviour
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
             
+            
             if (_bulletCollisionDetection.hasToStop)
             {
                 canRecall = true;
