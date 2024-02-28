@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,6 +6,15 @@ public class FootTriggerPlatform : MonoBehaviour
 {
     private Vector2 direction;
     private Collider2D otherC2D;
+
+
+    private void Update()
+    {
+        if (InputReader.instance.canDown)
+        {
+            otherC2D.gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
