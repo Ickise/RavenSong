@@ -2,9 +2,6 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using System;
-using Unity.VisualScripting;
-using Unity.Mathematics;
 
 public class PlayerController2D : MonoBehaviour
 {
