@@ -202087,6 +202087,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Niveau_Partie1_Anthony
       objectReference: {fileID: 0}
+    - target: {fileID: 3105954095894905124, guid: 0605dbac6b4f53b479b5069ebe70efb4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3782837108019007997, guid: 0605dbac6b4f53b479b5069ebe70efb4, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -255813,11 +255817,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8602837508565851344, guid: be3ada9f613dd4c42a36e53651ddad34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 100.625
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8602837508565851344, guid: be3ada9f613dd4c42a36e53651ddad34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.125
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8602837508565851344, guid: be3ada9f613dd4c42a36e53651ddad34, type: 3}
       propertyPath: m_LocalPosition.z
@@ -303133,11 +303137,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 19318302601555160, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.53806305
+      value: 0.5380616
       objectReference: {fileID: 0}
     - target: {fileID: 19318302601555160, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5698105
+      value: 0.5698104
       objectReference: {fileID: 0}
     - target: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -303217,11 +303221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3161145761624493340, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3580017
+      value: 1.358005
       objectReference: {fileID: 0}
     - target: {fileID: 3161145761624493340, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.60287607
+      value: 0.6028762
       objectReference: {fileID: 0}
     - target: {fileID: 4059556839220347113, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Mesh
@@ -303257,11 +303261,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 100.625
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.375
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.z
@@ -303305,7 +303309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6420413235010646048, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.25700378
+      value: 0.25700188
       objectReference: {fileID: 0}
     - target: {fileID: 6420413235010646048, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
@@ -303321,11 +303325,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6595171560773712303, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.3580017
+      value: -1.358005
       objectReference: {fileID: 0}
     - target: {fileID: 6595171560773712303, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.60287607
+      value: 0.6028762
       objectReference: {fileID: 0}
     - target: {fileID: 6595171560773712303, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalRotation.w
@@ -333959,6 +333963,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &113877240828327625
 Transform:
   m_ObjectHideFlags: 0
@@ -335764,7 +335769,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -336359,7 +336364,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -340705,6 +340710,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &391602213475804057
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -345543,6 +345549,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &573287424335685734
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -345668,7 +345675,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -347886,6 +347893,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!61 &678085422669381601
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -348337,7 +348345,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -349750,6 +349758,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!114 &750524051398018751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -349766,6 +349776,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!61 &750779176728630749
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -350613,6 +350624,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!4 &776356100182201920
 Transform:
   m_ObjectHideFlags: 0
@@ -351350,9 +351363,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 35
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 3231803036523539641}
@@ -352495,6 +352508,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &859773533751462987
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -353481,7 +353495,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -356105,6 +356119,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &1024633850267619803
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -357823,6 +357838,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!1 &1086699933610372984
 GameObject:
   m_ObjectHideFlags: 0
@@ -358095,6 +358112,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &1090117841994540474
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -360667,6 +360685,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!1 &1187957216222079730
 GameObject:
   m_ObjectHideFlags: 0
@@ -362440,7 +362459,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -362743,6 +362762,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &1254293007529935058
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -363349,6 +363369,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!50 &1279062420904455413
 Rigidbody2D:
   serializedVersion: 4
@@ -364683,7 +364704,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -367672,6 +367693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!60 &1438853458860351172
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -369143,6 +369166,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &1475993620772414210
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -371007,6 +371031,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &1536805963314745345
 GameObject:
   m_ObjectHideFlags: 0
@@ -371109,7 +371134,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -372458,6 +372483,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!61 &1588472540079445056
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -373125,7 +373151,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -373623,6 +373649,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &1636672587570001737
 Transform:
   m_ObjectHideFlags: 0
@@ -373959,6 +373986,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!212 &1656149597080541948
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -374291,6 +374320,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!60 &1666613739207101102
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -376961,6 +376991,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &1790958682175624173
 Transform:
   m_ObjectHideFlags: 0
@@ -378241,6 +378272,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!1 &1852084594436840079
 GameObject:
   m_ObjectHideFlags: 0
@@ -379620,6 +379652,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &1898459005457612141
 Transform:
   m_ObjectHideFlags: 0
@@ -380848,6 +380881,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!60 &1948672969530594496
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -381200,6 +381234,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &1971203011495042795
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -382235,6 +382270,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &2011802784421196155
 Transform:
   m_ObjectHideFlags: 0
@@ -382362,6 +382398,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &2017940570413680534
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -386715,6 +386752,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!50 &2175026531944273397
 Rigidbody2D:
   serializedVersion: 4
@@ -387195,9 +387233,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 2799656550407951563}
@@ -387755,7 +387793,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -388240,9 +388278,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 2404483292560253363}
@@ -389253,7 +389291,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -389938,6 +389976,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &2298944148492759917
 Transform:
   m_ObjectHideFlags: 0
@@ -390933,6 +390972,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &2349462609455862115
 Transform:
   m_ObjectHideFlags: 0
@@ -391325,6 +391365,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &2359206458496934587
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -392556,6 +392597,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!4 &2408677687758594682
 Transform:
   m_ObjectHideFlags: 0
@@ -393225,6 +393268,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!60 &2435746393896926014
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -394984,7 +395029,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -395862,7 +395907,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -396297,6 +396342,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!50 &2546380915802895550
 Rigidbody2D:
   serializedVersion: 4
@@ -400400,7 +400446,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -401341,6 +401387,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &2748853727488613195
 Transform:
   m_ObjectHideFlags: 0
@@ -402452,7 +402499,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -406197,7 +406244,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -406304,6 +406351,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &2965600170506709775
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -406415,7 +406463,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -407366,6 +407414,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &3011541160687859728
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -407389,9 +407438,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 2351494018115126028}
@@ -409239,6 +409288,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &3068359231789152592
 Transform:
   m_ObjectHideFlags: 0
@@ -409489,6 +409539,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &3082509321779768229
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -409586,7 +409637,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -410494,6 +410545,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!60 &3116263339768146717
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -411824,6 +411876,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &3188244025912959049
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -412000,6 +412053,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &3193957198073124630
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -412731,9 +412785,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 1600497421948812933}
@@ -412821,6 +412875,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &3227462800027212791
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -418393,6 +418448,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!60 &3408659325716429674
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -420030,9 +420086,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 100
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 3458961089479550626}
@@ -420399,6 +420455,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &3484687989286228291
 Transform:
   m_ObjectHideFlags: 0
@@ -421413,6 +421470,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &3527954773872584781
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -422224,7 +422282,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -423235,6 +423293,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &3618018133110057811
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -424431,6 +424490,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!61 &3674768980225011218
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -426577,6 +426637,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!23 &3751197523276554204
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -428772,6 +428834,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &3836776120271095517
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -428984,9 +429047,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 8284301529377138779}
@@ -430214,9 +430277,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 1310645318483132658}
@@ -430446,6 +430509,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!61 &3891048406970345673
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -432634,6 +432698,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &3981783889773019342
 Transform:
   m_ObjectHideFlags: 0
@@ -433101,6 +433166,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &3998578205433062467
 Transform:
   m_ObjectHideFlags: 0
@@ -434354,6 +434420,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!61 &4046037793357084864
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -436260,6 +436327,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!212 &4119568298005556213
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -446370,7 +446438,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -452652,7 +452720,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -455437,6 +455505,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!61 &4932984697129598640
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -457254,6 +457323,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &4996988628168022462
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -462027,6 +462097,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!23 &5214601949671528876
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -463457,9 +463529,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 1055199955334835755}
@@ -463959,6 +464031,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &5291136994741026989
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -464429,9 +464502,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 7954283162852722306}
@@ -464639,6 +464712,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &5309504824432014674
 GameObject:
   m_ObjectHideFlags: 0
@@ -467426,6 +467500,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &5417512785124172339
 Transform:
   m_ObjectHideFlags: 0
@@ -467925,6 +468000,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &5438336664925141746
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -469070,6 +469146,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &5479055788526454976
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -469678,9 +469755,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 100
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 5499915858229715154}
@@ -470402,6 +470479,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &5526032778658216844
 GameObject:
   m_ObjectHideFlags: 0
@@ -472369,7 +472447,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -473163,6 +473241,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &5657343649596020551
 Transform:
   m_ObjectHideFlags: 0
@@ -473279,6 +473358,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!61 &5669034087414622306
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -475955,6 +476035,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!50 &5766427010860847050
 Rigidbody2D:
   serializedVersion: 4
@@ -476611,6 +476692,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &5795562697396315705
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -476849,9 +476931,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 7666544323435804917}
@@ -477055,6 +477137,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &5811149296255648526
 GameObject:
   m_ObjectHideFlags: 0
@@ -482138,6 +482221,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!60 &5989487360472268058
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -482265,6 +482349,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!33 &5997438391529392127
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -485989,7 +486075,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -486139,7 +486225,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -486321,6 +486407,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &6160646190531266641
 Transform:
   m_ObjectHideFlags: 0
@@ -486671,6 +486758,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &6167135614512826693
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -486770,9 +486858,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 6697202034228528508}
@@ -488637,7 +488725,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -488743,6 +488831,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &6238707560808000981
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -489136,6 +489225,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!50 &6252308168119613007
 Rigidbody2D:
   serializedVersion: 4
@@ -489715,7 +489805,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &6293093072071471454
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -489861,6 +489951,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &6300431106341962156
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -494726,7 +494817,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -495700,6 +495791,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &6518663021927456059
 Transform:
   m_ObjectHideFlags: 0
@@ -496032,7 +496124,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -498535,6 +498627,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &6635896226411585727
 Transform:
   m_ObjectHideFlags: 0
@@ -499538,6 +499631,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!23 &6687543371874850344
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -499714,6 +499808,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &6696438523954078923
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -500580,6 +500675,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!33 &6718651835772728061
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -501400,6 +501497,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!50 &6749700782732998038
 Rigidbody2D:
   serializedVersion: 4
@@ -503779,7 +503878,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -503903,6 +504002,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!50 &6847051904715961038
 Rigidbody2D:
   serializedVersion: 4
@@ -504373,7 +504473,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -509539,9 +509639,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 6523871228014039739}
@@ -510541,6 +510641,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!212 &7097646007944275043
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -510958,9 +511059,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 6705123503871895491}
@@ -511183,7 +511284,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -512473,6 +512574,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!1 &7174962399788192423
 GameObject:
   m_ObjectHideFlags: 0
@@ -512917,7 +513019,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -514288,6 +514390,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &7250272727146272787
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -516766,6 +516869,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &7352943299549162150
 GameObject:
   m_ObjectHideFlags: 0
@@ -518462,6 +518566,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!212 &7425773565990663639
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -519017,6 +519122,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!61 &7451219691934554805
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -519345,6 +519451,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!23 &7462656520291961146
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -519556,6 +519663,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &7473804278513235723
 Transform:
   m_ObjectHideFlags: 0
@@ -520488,6 +520596,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &7505489560363836786
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -522974,7 +523083,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -524648,7 +524757,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -525116,6 +525225,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!1 &7662663687382627775
 GameObject:
   m_ObjectHideFlags: 0
@@ -525735,6 +525845,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!60 &7686295440114226425
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -526053,6 +526165,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &7701980608763905390
 GameObject:
   m_ObjectHideFlags: 0
@@ -526700,6 +526813,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &7733005794886012655
 Transform:
   m_ObjectHideFlags: 0
@@ -527955,9 +528069,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 100
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 214597044}
@@ -528248,6 +528362,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &7795124564990798407
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -530425,7 +530540,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -530577,6 +530692,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!33 &7868676780396111641
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -531757,6 +531873,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!4 &7922174965132597173
 Transform:
   m_ObjectHideFlags: 0
@@ -532043,7 +532160,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -535295,6 +535412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!60 &8046396836130112608
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -537184,7 +537303,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -540045,6 +540164,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!23 &8244729255645714347
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -541620,6 +541740,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!60 &8309124820827744914
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -541819,6 +541940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!33 &8313531588401975447
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -544000,7 +544123,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -545196,6 +545319,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!4 &8446033619110652854
 Transform:
   m_ObjectHideFlags: 0
@@ -546280,7 +546404,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -547114,6 +547238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!114 &8518971254444982479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -547130,6 +547256,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!50 &8519738671986277524
 Rigidbody2D:
   serializedVersion: 4
@@ -547762,6 +547889,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!50 &8545546743018024663
 Rigidbody2D:
   serializedVersion: 4
@@ -549218,9 +549347,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 35
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 5803654619829758665}
@@ -549841,6 +549970,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &8631494429145056646
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -552273,6 +552403,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 1
+  dontDestroyBullet: 0
 --- !u!1 &8738453474250092285
 GameObject:
   m_ObjectHideFlags: 0
@@ -556792,6 +556923,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!33 &8910278943412088342
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -561406,6 +561538,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
+  dontDestroyBullet: 0
 --- !u!23 &9070546490139483958
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -561994,7 +562127,7 @@ MonoBehaviour:
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
   jumpForce: 10
-  distanceAttaquePlayer: 0.7
+  distanceAttaqueMelee: 1
   tailleMob: {x: 2, y: 1}
   drawCirclesEditor: 0
   nombreVie: 0
@@ -562908,7 +563041,7 @@ MonoBehaviour:
   distancePlayerDetection: 25
   hauteurPlayerDetection: 10
   jumpForce: 10
-  distanceAttaquePlayer: 1
+  distanceAttaqueMelee: 1
   tailleMob: {x: 1, y: 2}
   drawCirclesEditor: 0
   nombreVie: 0
