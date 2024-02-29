@@ -670,9 +670,9 @@ MonoBehaviour:
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
+  orderInLayer: 0
   fragmentLayer: IADontCollide
   sortingLayerName: Default
-  orderInLayer: 0
   shatterType: 1
   fragments:
   - {fileID: 1534903723564932428}
@@ -789,7 +789,8 @@ MonoBehaviour:
   onBulletHit:
     m_PersistentCalls:
       m_Calls: []
-  canGoThrough: 1
+  canGoThrough: 0
+  dontDestroyBullet: 1
 --- !u!114 &1316262360170052679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -802,6 +803,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyFragments: 0
+  timeToDestroyFragments: 0
 --- !u!1 &610868914357734791
 GameObject:
   m_ObjectHideFlags: 0

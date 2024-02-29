@@ -13,17 +13,12 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 
     private void Start()
     {
+        _onBulletHit.onBulletHit.AddListener(_onBulletHit.DontDestroyBullet);
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
     private void OnBulletHit(GameObject bullet)
     {
-        //lorsque la balle touche l'ennemi, cela fait appraître un cadavre et détruit l'ennemi
-        if (bullet != null)
-        {
-            bullet.transform.parent = null;
-        }
-
         Instantiate(prefabIACorpse, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
