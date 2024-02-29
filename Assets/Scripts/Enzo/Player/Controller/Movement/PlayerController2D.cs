@@ -157,12 +157,12 @@ public class PlayerController2D : MonoBehaviour
                 }
 
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
-                if (!canjump) return;
+                if (hangTimeCounter < hangTime) return;
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
                 return;
             }
 
-            if (!canjump) return;
+            if (hangTimeCounter < hangTime) return;
             if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
             else
