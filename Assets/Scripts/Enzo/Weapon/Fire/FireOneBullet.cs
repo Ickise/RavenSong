@@ -23,7 +23,7 @@ public class FireOneBullet : MonoBehaviour
     {
         if (numberOfAmmo == 1)
         {
-            bool currentDirection = PlayerController2D._instance.CurrentDirection > 0;
+            bool currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
 
             AudioManager.instance.PlaySound(shootAudio);
 

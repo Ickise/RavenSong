@@ -6,28 +6,29 @@ public class Projectil : MonoBehaviour
 {
     [SerializeField] private float timeToRushPlayer = 2f, maxHeight = 8f;
     [SerializeField] private LayerMask layerDestroyProjectil;
-    private Rigidbody2D rb2D;
-    private Vector2 directionEndTween;
+    public Vector2 playerPos { get; set; }
+    private Vector2 directionEndTween, velocity, lastPosition;
+    private bool rushEnd;
 
     private void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        lastPosition = transform.position;
         Vector2 startPos = transform.position;
-        Vector2 playerPos = GameObject.FindGameObjectWithTag("Player").transform.position;
-        transform.DOJump(playerPos, maxHeight, 1, timeToRushPlayer).SetEase(Ease.Linear);
-        StartCoroutine(SetAngleRB());
-        IEnumerator SetAngleRB()
+        transform.DOJump(playerPos, maxHeight, 1, timeToRushPlayer)
+        .SetEase(Ease.Linear)
+        .OnComplete(() => rushEnd = true);
+        Destroy(gameObject, 10);
+    }
+
+    private void FixedUpdate()
+    {
+        if (!rushEnd)
         {
-            yield return new WaitForSeconds(timeToRushPlayer - timeToRushPlayer / 20f);
-            Vector2 pos1 = transform.position;
-            yield return 0;
-            Vector2 pos2 = transform.position;
-            rb2D.velocity = Vector2.zero;
-            directionEndTween = pos2 - pos1;
-            transform.DOBlendableMoveBy(directionEndTween * 10000f, 1f / timeToRushPlayer * (40f + Vector2.Distance(startPos, transform.position) / 2f))
-            .SetSpeedBased(true)
-            .SetEase(Ease.Linear);
+            velocity = (Vector2)transform.position - lastPosition;
+            lastPosition = transform.position;
         }
+        else
+            transform.Translate(velocity);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -36,7 +37,6 @@ public class Projectil : MonoBehaviour
         {
             if (other.CompareTag("Player"))
                 other.GetComponent<Respawn>().RespawnPlayer();
-            StopAllCoroutines();
             Destroy(gameObject);
         }
     }

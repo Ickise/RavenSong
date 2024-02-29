@@ -66,7 +66,7 @@ public class InputReader : MonoBehaviour
     public void OnStun(InputAction.CallbackContext context)
     {
         if (!context.started || DontCrossKick) return;
-        _stunDetection.CrossKick(PlayerController2D._instance.CurrentDirection);
+        _stunDetection.CrossKick(PlayerController2D._instance.CurrentDirectionAim);
     }
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
