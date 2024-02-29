@@ -66,10 +66,9 @@ public class PlayerController2D : MonoBehaviour
 
     public bool onRoll;
 
-    public int CurrentDirection
-    {
-        get { return _playerAnimation.GetDirection ? 1 : -1; }
-    }
+    public int CurrentDirectionAim { get { return _playerAnimation.GetDirection ? 1 : -1; } }
+
+    public int LastDirection { get; set; } = 1;
 
     private Vector2 playerVelocity;
 
@@ -100,7 +99,7 @@ public class PlayerController2D : MonoBehaviour
         if (onRoll)
         {
             if (DOTween.IsTweening("roll") &&
-                (!_raycastDetection.IsGrounded || _raycastDetection.RaycastOnRoll(CurrentDirection)))
+                (!_raycastDetection.IsGrounded || _raycastDetection.RaycastOnRoll(CurrentDirectionAim)))
                 DOTween.Kill("roll");
 
             return;
@@ -127,6 +126,11 @@ public class PlayerController2D : MonoBehaviour
         ModularMovement();
         playerRigidbody2D.velocity = playerVelocity;
         Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
+
+        if (InputReader.instance.direction.x == 0)
+            LastDirection = CurrentDirectionAim;
+        else
+            LastDirection = (int)InputReader.instance.direction.x;
     }
 
     //gère les déplacements du player
@@ -180,7 +184,6 @@ public class PlayerController2D : MonoBehaviour
         }
         else
         {
-            print("jeeeeeee");
             if (isVFXDustTrailPlaying)
             {
                 VFXDustTrail.Stop();
@@ -262,11 +265,11 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x * CurrentDirection, -slopNormalPerp.y) * distanceRoulade, speedRoulade).SetId("roll")
+        playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x * LastDirection, -slopNormalPerp.y) * distanceRoulade, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
             {
-                if (_raycastDetection.RaycastOnRoll(CurrentDirection))
+                if (_raycastDetection.RaycastOnRoll(CurrentDirectionAim))
                 {
                     playerRigidbody2D.velocity = Vector2.zero;
                     // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,

@@ -20,7 +20,7 @@ public class BulletDirection : MonoBehaviour
         Transform leftAimPosition =
             PlayerController2D._instance.GetComponentInChildren<FireOneBullet>().leftAimPosition;
 
-        Vector3 currentDirection = PlayerController2D._instance.CurrentDirection > 0
+        Vector3 currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0
             ? rightAimPosition.position
             : leftAimPosition.position;
 

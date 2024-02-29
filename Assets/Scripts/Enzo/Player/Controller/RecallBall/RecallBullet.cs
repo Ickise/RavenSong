@@ -68,7 +68,7 @@ public class RecallBullet : MonoBehaviour
     {
         if (bullet != null)
         {
-            direction = (PlayerController2D._instance.CurrentDirection > 0 ? rightHand.position : leftHand.position) -
+            direction = (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
                         bullet.transform.position;
             distance = direction.magnitude;
 
