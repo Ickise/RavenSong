@@ -6,7 +6,8 @@ using System;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")] [SerializeField]
+    [Header("Modifie les mouvements")]
+    [SerializeField]
     private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -15,26 +16,32 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le aircontrol")] [SerializeField]
+    [Header("Modifie le aircontrol")]
+    [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
 
-    [Header("Modifie le saut")] [SerializeField]
+    [Header("Modifie le saut")]
+    [SerializeField]
     private float gravityFactor = 1f;
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
+    [SerializeField]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")]
+    [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après le saut minimum")]
+    [SerializeField]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")] [SerializeField]
+    [Header("Modifie les paramètres de la roulade")]
+    [SerializeField]
     private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
@@ -117,6 +124,7 @@ public class PlayerController2D : MonoBehaviour
 
         ModularMovement();
         playerRigidbody2D.velocity = playerVelocity;
+        Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
     }
 
     //gère les déplacements du player
@@ -170,6 +178,7 @@ public class PlayerController2D : MonoBehaviour
         }
         else
         {
+            print("jeeeeeee");
             if (isVFXDustTrailPlaying)
             {
                 VFXDustTrail.Stop();
@@ -249,7 +258,9 @@ public class PlayerController2D : MonoBehaviour
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
-        playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
+        Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
+        slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
+        playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x * CurrentDirection, -slopNormalPerp.y) * distanceRoulade, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
             {
