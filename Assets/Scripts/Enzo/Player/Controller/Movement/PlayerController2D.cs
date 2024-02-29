@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using Unity.VisualScripting;
+using Unity.Mathematics;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -214,8 +216,8 @@ public class PlayerController2D : MonoBehaviour
     {
         if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.75f) return playerVelocity.y;
         if (InputReader.instance.direction.x == 0)
-            return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
-        return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
+            return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
+        return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
     }
 
     private void SetGravity()
