@@ -28,6 +28,7 @@ public class BulletCollisionDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Debug.Log(hasToStop);
         if (hasToStop)
         {
             return;
