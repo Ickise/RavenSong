@@ -197,9 +197,12 @@ public class PlayerController2D : MonoBehaviour
 
     private void Jump()
     {
-        hangTimeCounter = 0f;
-        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
-        playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
+        if (!InputReader.instance.canDown)
+        {
+            hangTimeCounter = 0f;
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
+            playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
+        }
     }
 
     private void CoyoteTime()
