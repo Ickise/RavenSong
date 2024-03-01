@@ -5828,6 +5828,42 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.60287595
       objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 666609005}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 666609004}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ChangeOtherCollider
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: FootTriggerPlatform, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: onTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4059556839220347113, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -12317,6 +12353,22 @@ Transform:
   m_Father: {fileID: 333700718}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &666609004 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6668070509189283223, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 299936771}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &666609005 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3505662670509427222, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 299936771}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666609004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 843ab3d0fcaf0ec40a30e8883299112b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &667412284
 Mesh:
   m_ObjectHideFlags: 0
@@ -37570,7 +37622,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7600313171512532409, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.17
+      value: -1.39
       objectReference: {fileID: 0}
     - target: {fileID: 7600313171512532409, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
       propertyPath: m_LocalPosition.y
@@ -38122,6 +38174,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1776238304827097829, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705068558094618318, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4705068558094618318, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7600313171512532409, guid: 3036ec82f95e4b94eb83c8c012e66a73, type: 3}
