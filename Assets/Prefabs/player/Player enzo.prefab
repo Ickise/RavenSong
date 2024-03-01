@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
         m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -454,19 +454,7 @@ MonoBehaviour:
     m_ActionId: 51542f6f-8ae6-4a10-8f9e-36f5ab761a37
     m_ActionName: Player/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6482090840447388875}
-        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnRecall
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 2848ae8d-85a9-4d0d-934d-beade4ad9e22
     m_ActionName: Player/BallRecover[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -505,7 +493,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
         m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnStun
+        m_MethodName: OnCrossKick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -555,10 +543,7 @@ MonoBehaviour:
   activateAim: 0
   canStun: 0
   canDown: 0
-  onShoot:
-    m_PersistentCalls:
-      m_Calls: []
-  onRecall:
+  onFire:
     m_PersistentCalls:
       m_Calls: []
   manetteDirection: {x: 0, y: 0, z: 0}
