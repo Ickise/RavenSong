@@ -42,10 +42,10 @@ namespace Aurinaxtailer
     {
         public static Vector2 GetIntersectionBetweenABandCD(Vector2 A, Vector2 B, Vector2 C, Vector2 D)
         {
-            var a = (B.y - A.y) / (B.x - A.x);
+            var a = (B.y - A.y) / (B.x - A.x == 0 ? 0.01f : B.x - A.x);
             var b = A.y - (a * A.x);
 
-            var c = (D.y - C.y) / (D.x - C.x);
+            var c = (D.y - C.y) / (D.x - C.x == 0 ? 0.01f : D.x - C.x);
             var d = C.y - (c * C.x);
 
             Vector2 intersection;
