@@ -6,8 +6,6 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private Transform rightHand;
     [SerializeField] private Transform leftHand;
 
-    private GameObject bullet;
-
     private Rigidbody2D bulletRigidbody;
 
     private Vector2 direction;
@@ -65,11 +63,11 @@ public class RecallBullet : MonoBehaviour
 
     private float GetDelayBeforeMove()
     {
-        if (bullet != null)
+        if (_fireOneBullet.bulletRef != null)
         {
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
-                bullet.transform.position;
+                _fireOneBullet.bulletRef.transform.position;
             distance = direction.magnitude;
 
             return distance * speedDelay;
@@ -80,7 +78,7 @@ public class RecallBullet : MonoBehaviour
 
     private void RecallAmmo()
     {
-        if (bullet != null)
+        if (_fireOneBullet.bulletRef != null)
         {
             _bulletCollisionDetection.Recall();
 
@@ -88,7 +86,7 @@ public class RecallBullet : MonoBehaviour
 
             if (_bulletCollisionDetection.touchPlayer.collider != null)
             {
-                Destroy(bullet);
+                Destroy(_fireOneBullet.bulletRef);
                 _fireOneBullet.numberOfAmmo = 1;
                 CancellRecall();
             }
@@ -97,16 +95,14 @@ public class RecallBullet : MonoBehaviour
 
     private void GetBulletComponent()
     {
-        bullet = _fireOneBullet.bulletRef;
-        
-        if (bullet == null)
+        if (_fireOneBullet.bulletRef == null)
         {
             return;
         }
 
-        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
+        _bulletCollisionDetection = _fireOneBullet.bulletRef.GetComponent<BulletCollisionDetection>();
 
-        bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        bulletRigidbody = _fireOneBullet.bulletRef.GetComponent<Rigidbody2D>();
     }
 
     private void OnClickToRecall(InputAction.CallbackContext context)
