@@ -218,7 +218,7 @@ public class PlayerController2D : MonoBehaviour
     /// <param name="slopNormalPerp"></param>
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
-        if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.75f) return playerVelocity.y;
+        if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.8f) return playerVelocity.y;
         // if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
         //     return -0.1f;
         if (InputReader.instance.direction.x == 0)
@@ -248,7 +248,7 @@ public class PlayerController2D : MonoBehaviour
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
         else
-            velocityWhenJump = playerVelocity.x;;
+            velocityWhenJump = playerVelocity.x;
     }
 
     private void ComputeGravity()
