@@ -11,7 +11,6 @@ public class DestroyEnemyCorpse : MonoBehaviour
 
     private void Start()
     {
-        _onBulletHit.onBulletHit.AddListener(_onBulletHit.DontDestroyBullet);
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 

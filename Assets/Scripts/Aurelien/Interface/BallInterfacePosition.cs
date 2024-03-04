@@ -7,7 +7,7 @@ public class BallInterfacePosition : MonoBehaviour
     private Camera cam;
     private Vector3 DLWP, ULWP, DRWP, URWP;
     private List<Vector3> screenAngles = new List<Vector3>();
-    [SerializeField] private GameObject sprite;
+    [SerializeField] private GameObject indicator;
 
     void Start()
     {
@@ -15,9 +15,13 @@ public class BallInterfacePosition : MonoBehaviour
         SetViewportToWorldPoints();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (_gun == null || _gun.bulletRef == null) return;
+        if (_gun == null || _gun.bulletRef == null)
+        {
+            indicator.SetActive(false);
+            return;
+        }
         SetViewportToWorldPoints();
         Indicator();
     }
@@ -40,12 +44,13 @@ public class BallInterfacePosition : MonoBehaviour
         if (!IsOnScreen(bullet.position))
         {
             var intersectionAmmo = CalculeIntersectionSegments(bullet.position);
-            sprite.transform.gameObject.SetActive(true);
-            sprite.transform.position = intersectionAmmo;
-            sprite.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, bullet.position) * Vector3.one;
+            indicator.transform.gameObject.SetActive(true);
+            indicator.transform.position = intersectionAmmo;
+            indicator.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, bullet.position) * Vector3.one;
+            indicator.transform.localScale = Vector3.one * Mathf.Clamp(indicator.transform.localScale.x, Mathf.Infinity, 0.01f);
         }
         else
-            sprite.SetActive(false);
+            indicator.SetActive(false);
     }
 
     private void SetViewportToWorldPoints()

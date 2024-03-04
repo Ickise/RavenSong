@@ -89,7 +89,7 @@ public class IAProjectil : IA
     {
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
         yield return new WaitForSeconds(timeAttack);
-        Instantiate(projectil, transform.position, Quaternion.identity);
+        Instantiate(projectil, transform.position, Quaternion.identity).GetComponent<Projectil>().playerPos = player.position;
         StartCoroutine(Attack());
     }
 }

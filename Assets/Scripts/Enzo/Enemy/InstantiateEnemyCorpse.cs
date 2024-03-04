@@ -13,7 +13,6 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 
     private void Start()
     {
-        _onBulletHit.onBulletHit.AddListener(_onBulletHit.DontDestroyBullet);
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 

@@ -28,7 +28,6 @@ public class BulletCollisionDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(hasToStop);
         if (hasToStop)
         {
             return;
@@ -84,6 +83,11 @@ public class BulletCollisionDetection : MonoBehaviour
         transform.parent = intersection.collider.transform;
         VFXRaisonnanceBall.Play();
         VFXExplosionImpact.Play();
+
+        if (onBulletHit != null && onBulletHit.dontPutBulletInChildren)
+        {
+            gameObject.transform.parent = null;
+        }
     }
 
 

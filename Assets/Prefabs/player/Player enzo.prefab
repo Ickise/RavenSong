@@ -441,7 +441,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
         m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnShoot
+        m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -454,19 +454,7 @@ MonoBehaviour:
     m_ActionId: 51542f6f-8ae6-4a10-8f9e-36f5ab761a37
     m_ActionName: Player/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6482090840447388875}
-        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnRecall
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: 2848ae8d-85a9-4d0d-934d-beade4ad9e22
     m_ActionName: Player/BallRecover[/Mouse/leftButton]
   - m_PersistentCalls:
@@ -505,7 +493,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
         m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
-        m_MethodName: OnStun
+        m_MethodName: OnCrossKick
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -555,10 +543,7 @@ MonoBehaviour:
   activateAim: 0
   canStun: 0
   canDown: 0
-  onShoot:
-    m_PersistentCalls:
-      m_Calls: []
-  onRecall:
+  onFire:
     m_PersistentCalls:
       m_Calls: []
   manetteDirection: {x: 0, y: 0, z: 0}
@@ -635,7 +620,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9, y: 1.85}
+  m_Size: {x: 0.85, y: 1.85}
   m_EdgeRadius: 0.05
 --- !u!114 &3873875208504716918
 MonoBehaviour:
@@ -920,7 +905,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &1591094647128962640
 MonoBehaviour:
@@ -1616,7 +1601,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5245158571904818143
 MonoBehaviour:
@@ -1821,7 +1806,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8971842493604105234}
-  m_LocalRotation: {x: -0, y: -0, z: 0.00008726013, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1863,7 +1848,7 @@ Camera:
   near clip plane: 9.7
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 9.696347
   m_Depth: -1
   m_CullingMask:
