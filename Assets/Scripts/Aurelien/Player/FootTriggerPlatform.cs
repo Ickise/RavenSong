@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 public class FootTriggerPlatform : MonoBehaviour
 {
     private Collider2D otherC2D;
-    private bool canFallOfPlatform;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

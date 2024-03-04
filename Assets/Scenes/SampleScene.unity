@@ -517,7 +517,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 11928337}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 11.79, y: -3.18, z: -10}
+  m_LocalPosition: {x: -31, y: -2.6, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -957,6 +957,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 756886742165661508, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: near clip plane
+      value: 9.7
+      objectReference: {fileID: 0}
     - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: isManette
       value: 0
@@ -1015,11 +1019,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.79
+      value: -31
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.18
+      value: -2.6
       objectReference: {fileID: 0}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2186,7 +2190,7 @@ GameObject:
   - component: {fileID: 152805816}
   - component: {fileID: 152805815}
   - component: {fileID: 152805817}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: slope
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17054,7 +17058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703477, guid: d803f8ced542fee4a87703e90ab45c48, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -17696,7 +17700,7 @@ GameObject:
   - component: {fileID: 1715815232}
   - component: {fileID: 1715815231}
   - component: {fileID: 1715815230}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: slope (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
