@@ -47,8 +47,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c54d9f78b86979e459e52fe9afef2a75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  capsuleCastRight: {fileID: 9042907321866558037}
-  capsuleCastLeft: {fileID: 4259184368002415169}
   capsuleCastGround: {fileID: 6694783965226400782}
   capsuleSizeGround: {x: 1, y: 0.1}
   layerGround:
@@ -60,6 +58,7 @@ MonoBehaviour:
   distanceToDetectFloor: 0
   distanceToDetectWall: 0.6
   capsuleAngle: 0
+  groundGizmos: 0
 --- !u!1 &1736661597819335962
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,8 +565,8 @@ MonoBehaviour:
   groundFriction: 0.3
   accelerationAirControlSpeed: 6
   maxAirControlSpeed: 4
-  gravityFactor: 2
-  maxHeight: 3
+  gravityFactor: 0.2
+  jumpForce: 20
   hangTime: 0.1
   fallMultiplier: 3
   lowJumpMultiplier: 2

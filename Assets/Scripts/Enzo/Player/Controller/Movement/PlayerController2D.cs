@@ -24,8 +24,9 @@ public class PlayerController2D : MonoBehaviour
     [Header("Modifie le saut")]
     [SerializeField]
     private float gravityFactor = 1f;
+    private float currentGravity;
 
-    [SerializeField] private float maxHeight = 3f;
+    [SerializeField] private float jumpForce = 3f;
 
     [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
     [SerializeField]
@@ -135,8 +136,8 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            if (!InputReader.instance.jump)
-                velocityWhenJump = 0f;
+            // if (!InputReader.instance.jump)
+            //     velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
             slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
@@ -201,7 +202,7 @@ public class PlayerController2D : MonoBehaviour
         {
             hangTimeCounter = 0f;
             _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
-            playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
+            playerVelocity.y = Mathf.Sqrt(-2 * jumpForce * Physics2D.gravity.y * gravityFactor);
         }
     }
 
@@ -218,6 +219,8 @@ public class PlayerController2D : MonoBehaviour
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
         if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.75f) return playerVelocity.y;
+        // if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
+        //     return -0.1f;
         if (InputReader.instance.direction.x == 0)
             return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
         return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
@@ -227,12 +230,13 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            playerVelocity.y = 0;
+            currentGravity = -0.1f;
         }
         else
         {
-            playerVelocity.y += Physics2D.gravity.y * Time.deltaTime * gravityFactor;
+            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
         }
+        playerVelocity.y += currentGravity;
     }
 
     private void SetAirControl()
@@ -243,6 +247,8 @@ public class PlayerController2D : MonoBehaviour
             velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
+        else
+            velocityWhenJump = playerVelocity.x;;
     }
 
     private void ComputeGravity()
