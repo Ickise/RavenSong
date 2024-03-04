@@ -12,7 +12,7 @@ public abstract class IA : MonoBehaviour
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaqueMelee = 1f;
     [SerializeField] protected Vector2 tailleMob;
-    [SerializeField] private bool drawCirclesEditor;
+    [SerializeField] private bool drawCirclesEditor, groundGizmos;
     [SerializeField] private int nombreVie = 1;
     private BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
@@ -53,8 +53,8 @@ public abstract class IA : MonoBehaviour
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         speedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
-        layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
+        layerDefault = LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
+        layerDetectPlayer = LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
@@ -112,9 +112,12 @@ public abstract class IA : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        if (cd2D == null)
-            cd2D = GetComponent<BoxCollider2D>();
-        Gizmos.DrawWireCube(transform.position + new Vector3(cd2D.offset.x, cd2D.offset.y, 0) + Vector3.down * (cd2D.size.y / 2f), new Vector2(cd2D.size.x, 0.1f));
+        if (groundGizmos)
+        {
+            if (cd2D == null)
+                cd2D = GetComponent<BoxCollider2D>();
+            Gizmos.DrawWireCube(transform.position + new Vector3(cd2D.offset.x, cd2D.offset.y, 0) + Vector3.down * (cd2D.size.y / 2f), new Vector2(cd2D.size.x, 0.1f));
+        }
         if (!drawCirclesEditor) return;
         Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
     }
