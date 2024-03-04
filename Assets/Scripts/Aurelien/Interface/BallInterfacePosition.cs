@@ -47,7 +47,7 @@ public class BallInterfacePosition : MonoBehaviour
             indicator.transform.gameObject.SetActive(true);
             indicator.transform.position = intersectionAmmo;
             indicator.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, bullet.position) * Vector3.one;
-            indicator.transform.localScale = Vector3.one * Mathf.Clamp(indicator.transform.localScale.x, Mathf.Infinity, 0.01f);
+            indicator.transform.localScale = Vector3.one * Mathf.Clamp(indicator.transform.localScale.x, 0.4f, Mathf.Infinity);
         }
         else
             indicator.SetActive(false);
