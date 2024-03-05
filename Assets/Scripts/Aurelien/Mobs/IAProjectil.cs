@@ -1,10 +1,12 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class IAProjectil : IA
 {
     [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3, minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
-    [SerializeField] private GameObject projectil;
+    [SerializeField] private GameObject projectil, VFXTir;
+    [SerializeField] private Transform posVFXTir;
     private RaycastHit2D RaycastDetectPlayerProjectil
     {
         get
@@ -90,6 +92,8 @@ public class IAProjectil : IA
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
         yield return new WaitForSeconds(timeAttack);
         Instantiate(projectil, transform.position, Quaternion.identity).GetComponent<Projectil>().playerPos = player.position;
+        GameObject currentVFXTir = Instantiate(VFXTir, posVFXTir.position, Quaternion.identity);
+        Destroy(currentVFXTir, 3);
         StartCoroutine(Attack());
     }
 }

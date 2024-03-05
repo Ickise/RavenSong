@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class StunDetection : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class StunDetection : MonoBehaviour
     [Header("À set up")][SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
+    [SerializeField] private GameObject VFXAuraCoup;
+    [SerializeField] private VisualEffect VFXCoupDeCross;
     private bool canCrossKick = true;
 
     private void Start()
@@ -42,13 +45,18 @@ public class StunDetection : MonoBehaviour
         IA iA = other.GetComponent<IA>();
         if (iA)
         {
+            VFXCoupDeCross.Play();
+            iA.VFXStun.Play();
+            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iA.transform);
+            Destroy(currentVFXAuraCoup, 3);
             iA.enabled = false;
             StartCoroutine(TimeUnstun());
             IEnumerator TimeUnstun()
             {
                 iA.SetAnimation(IA.AnimationState.shoot);
-                yield return new WaitForSeconds(timeToDisableHitBox);
+                yield return new WaitForSeconds(stunDuration);
                 iA.enabled = true;
+                iA.VFXStun.Stop();
             }
             return;
         }
