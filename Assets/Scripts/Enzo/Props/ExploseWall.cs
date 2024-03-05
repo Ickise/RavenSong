@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ExploseWall : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class ExploseWall : MonoBehaviour
 
     private Explodable _explodable;
 
-    public bool destroyFragments = false;
+    [Tooltip("À mettre sur true si vous voulez détruire les fragments après X secondes")] public bool destroyFragmentsAfterSeconds = false;
 
     public float timeToDestroyFragments;
 

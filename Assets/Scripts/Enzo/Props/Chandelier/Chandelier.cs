@@ -28,7 +28,7 @@ public class Chandelier : MonoBehaviour
             Destroy(transform.parent.gameObject);
         }
 
-        if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             if (other.TryGetComponent(out _explodable))
             {

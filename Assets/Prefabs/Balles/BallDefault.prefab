@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2850263938986340433
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2031395344359949623}
-  m_Layer: 10
-  m_Name: CapsuleCast
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2031395344359949623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2850263938986340433}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 8404946919698269789}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8612664303447618227
 GameObject:
   m_ObjectHideFlags: 0
@@ -45,7 +14,8 @@ GameObject:
   - component: {fileID: 1103240990309018067}
   - component: {fileID: 6248324593716102112}
   - component: {fileID: 2312934796079164846}
-  m_Layer: 10
+  - component: {fileID: 5994509492013302292}
+  m_Layer: 12
   m_Name: BallDefault
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -64,7 +34,6 @@ Transform:
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 2031395344359949623}
   - {fileID: 1376670056395980290}
   - {fileID: 661278258236597778}
   - {fileID: 1662549283225860601}
@@ -86,7 +55,7 @@ Rigidbody2D:
   m_Mass: 0.5
   m_LinearDrag: 0.2
   m_AngularDrag: 5
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: 7219790d4c7b9a24db6d30b3414517ba, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
@@ -111,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xSpeedBullet: 50
+  forceToFall: 10
 --- !u!114 &1103240990309018067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -138,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletCollision:
     serializedVersion: 2
-    m_Bits: 6593
+    m_Bits: 6209
   layerPlayer:
     serializedVersion: 2
     m_Bits: 8
@@ -198,6 +168,90 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &5994509492013302292
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8612664303447618227}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.15111111, y: 0.0775}
+    newSize: {x: 0.15111111, y: 0.0775}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.07027778, y: -0.00125}
+      - {x: 0.07055556, y: -0.00097222225}
+      - {x: 0.07055556, y: 0.00097222225}
+      - {x: 0.07027778, y: 0.00125}
+      - {x: 0.07027778, y: 0.028194444}
+      - {x: 0.068611115, y: 0.030416667}
+      - {x: 0.064166665, y: 0.03152778}
+      - {x: -0.0055555557, y: 0.03152778}
+      - {x: -0.0130555555, y: 0.029027779}
+      - {x: -0.019722223, y: 0.029583335}
+      - {x: -0.02388889, y: 0.02875}
+      - {x: -0.0275, y: 0.027916668}
+      - {x: -0.036111113, y: 0.025694445}
+      - {x: -0.043333333, y: 0.023194445}
+      - {x: -0.04777778, y: 0.021805556}
+      - {x: -0.0575, y: 0.016805556}
+      - {x: -0.060000002, y: 0.01513889}
+      - {x: -0.06638889, y: 0.009305555}
+      - {x: -0.068055555, y: 0.0070833336}
+      - {x: -0.06972222, y: 0.002638889}
+      - {x: -0.06972222, y: -0.0018055555}
+      - {x: -0.068055555, y: -0.00625}
+      - {x: -0.06666667, y: -0.008194445}
+      - {x: -0.060833335, y: -0.013472223}
+      - {x: -0.05527778, y: -0.017083334}
+      - {x: -0.046944447, y: -0.020972222}
+      - {x: -0.041944444, y: -0.022916667}
+      - {x: -0.040555555, y: -0.023472223}
+      - {x: -0.036944445, y: -0.024583334}
+      - {x: -0.031111112, y: -0.02652778}
+      - {x: -0.02, y: -0.029027779}
+      - {x: -0.018055556, y: -0.02875}
+      - {x: -0.013333334, y: -0.028194444}
+      - {x: -0.009722223, y: -0.02875}
+      - {x: -0.0058333334, y: -0.030694446}
+      - {x: 0.06055556, y: -0.030694446}
+      - {x: 0.064722225, y: -0.03013889}
+      - {x: 0.0675, y: -0.029583335}
+      - {x: 0.07027778, y: -0.026805555}
+  m_UseDelaunayMesh: 0
 --- !u!1001 &3878830027410122260
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -254,6 +308,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Raisonnance_Balle_VFX
       objectReference: {fileID: 0}
+    - target: {fileID: 7173311849416679904, guid: c5e19544624366940822caa45d38aea5, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -280,6 +338,10 @@ PrefabInstance:
     - target: {fileID: 5843046250951497202, guid: a8ca4659343990d4fae85942ea2d2dd9, type: 3}
       propertyPath: m_Name
       value: VFX_Arme_Explosion_Impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 5843046250951497202, guid: a8ca4659343990d4fae85942ea2d2dd9, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6347637972995588588, guid: a8ca4659343990d4fae85942ea2d2dd9, type: 3}
       propertyPath: m_RootOrder
@@ -348,6 +410,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8404946919698269789}
     m_Modifications:
+    - target: {fileID: 58275347824941394, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 5636992041960815493, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_RootOrder
       value: -1
@@ -395,6 +461,10 @@ PrefabInstance:
     - target: {fileID: 5729572525314229396, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
       propertyPath: m_Name
       value: Balle_Trail_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 5729572525314229396, guid: 2187a3d0c1f5d454e9ecf4bd8443492f, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3828858499945262892, guid: 03511292a1cb1e54387ea2f31abece42, type: 3}
       propertyPath: m_Enabled
