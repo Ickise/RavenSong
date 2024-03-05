@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class ChandelierRope : MonoBehaviour
 {
-    [Header("Modifie la rapidité de chute du chandelier")] [SerializeField] private float gravitySpeed = 3f;
+    [Tooltip("Modifie la rapidité de chute du chandelier")] [SerializeField] private float gravitySpeed = 3f;
 
     [SerializeField] private Rigidbody2D chandelierRigidbody2D;
 

@@ -21,9 +21,8 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private float speedDelay = 0.2f;
     [SerializeField] private float distanceToRecall;
 
-    private float distance;
-
     private float timer;
+    private float delay;
 
     private void Awake()
     {
@@ -37,17 +36,9 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        float delay = GetDelayBeforeMove();
+        delay = GetDelayBeforeMove();
 
-        if (doRecall)
-        {
-            timer += Time.deltaTime;
-
-            if (timer > delay)
-            {
-                RecallAmmo();
-            }
-        }
+        LaunchRecall();
 
         if (_bulletCollisionDetection != null)
         {
@@ -61,6 +52,19 @@ public class RecallBullet : MonoBehaviour
         }
     }
 
+    private void LaunchRecall()
+    {
+        if (doRecall)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > delay)
+            {
+                RecallAmmo();
+            }
+        }
+    }
+
     private float GetDelayBeforeMove()
     {
         if (_fireOneBullet.bulletRef != null)
@@ -68,7 +72,7 @@ public class RecallBullet : MonoBehaviour
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
                 _fireOneBullet.bulletRef.transform.position;
-            distance = direction.magnitude;
+            float distance = direction.magnitude;
 
             return distance * speedDelay;
         }
@@ -110,7 +114,7 @@ public class RecallBullet : MonoBehaviour
         GetBulletComponent();
 
         if (_bulletCollisionDetection == null) return;
-        
+
         if (context.started && distanceAmmoPlayer.magnitude < distanceToRecall && _bulletCollisionDetection.hasToStop)
         {
             timer = 0;

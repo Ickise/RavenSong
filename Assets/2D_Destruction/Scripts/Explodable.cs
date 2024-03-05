@@ -49,7 +49,7 @@ public class Explodable : MonoBehaviour
                 frag.AddComponent<OnBulletHit>();
                 frag.AddComponent<DestroyFragments>();
                 
-                if (_exploseWall.destroyFragments)
+                if (_exploseWall.destroyFragmentsAfterSeconds)
                 {
                     frag.GetComponent<DestroyFragments>().waitToDestroy = true;
                     frag.GetComponent<DestroyFragments>().timeToDestroy = _exploseWall.timeToDestroyFragments;

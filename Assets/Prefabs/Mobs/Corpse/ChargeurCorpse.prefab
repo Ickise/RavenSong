@@ -143,7 +143,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
-  dontPutBulletInChildren: 1
+  bulletFalling: 0
+  putBulletInChildren: 0
 --- !u!61 &321905962110704175
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,7 +177,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.031270146, y: 0.30644727}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -187,5 +188,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.2557163, y: 2.0895615}
+  m_Size: {x: 2.842306, y: 1.4766667}
   m_EdgeRadius: 0
