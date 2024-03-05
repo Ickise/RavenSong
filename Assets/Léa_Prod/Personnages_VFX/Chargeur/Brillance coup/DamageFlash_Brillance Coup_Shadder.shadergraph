@@ -11,6 +11,12 @@
         },
         {
             "m_Id": "bcbfb5aa04f149da8390bd56edfa55c0"
+        },
+        {
+            "m_Id": "7abb943e41444b008ad5c984515b8834"
+        },
+        {
+            "m_Id": "7668d4d9c4764fa2aaee4a1174e784ff"
         }
     ],
     "m_Keywords": [],
@@ -499,10 +505,10 @@
     "m_Guid": {
         "m_GuidSerialized": "b4375cc8-9e84-463e-97d4-7c40f368e2f9"
     },
-    "m_Name": "FlashColor",
+    "m_Name": "Flash Fatigue Color",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "FlashColor",
-    "m_DefaultReferenceName": "_FlashColor",
+    "m_RefNameGeneratedByDisplayName": "Flash Fatigue Color",
+    "m_DefaultReferenceName": "_Flash_Fatigue_Color",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -527,7 +533,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "516746f334344e3ebc6822e008c542b2",
     "m_Id": 0,
-    "m_DisplayName": "FlashColor",
+    "m_DisplayName": "Flash Fatigue Color",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -595,6 +601,12 @@
         },
         {
             "m_Id": "bcbfb5aa04f149da8390bd56edfa55c0"
+        },
+        {
+            "m_Id": "7668d4d9c4764fa2aaee4a1174e784ff"
+        },
+        {
+            "m_Id": "7abb943e41444b008ad5c984515b8834"
         }
     ]
 }
@@ -707,6 +719,36 @@
 }
 
 {
+    "m_SGVersion": 3,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
+    "m_ObjectId": "7668d4d9c4764fa2aaee4a1174e784ff",
+    "m_Guid": {
+        "m_GuidSerialized": "20da6660-626b-4038-b3b7-3d00a8b07eff"
+    },
+    "m_Name": "Chargement",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "Chargement",
+    "m_DefaultReferenceName": "_Chargement",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 0.0,
+        "a": 0.0
+    },
+    "isMainColor": false,
+    "m_ColorMode": 1
+}
+
+{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "76cfcb7ce9c8460bb19e538784e37fde",
@@ -738,6 +780,34 @@
         "m_SerializableColors": []
     },
     "m_SerializedDescriptor": "VertexDescription.Tangent"
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.ShaderGraph.Internal.Vector1ShaderProperty",
+    "m_ObjectId": "7abb943e41444b008ad5c984515b8834",
+    "m_Guid": {
+        "m_GuidSerialized": "116d567d-c5ec-4e8b-a6e7-82198074a0f9"
+    },
+    "m_Name": "FlashAmount (1)",
+    "m_DefaultRefNameVersion": 1,
+    "m_RefNameGeneratedByDisplayName": "FlashAmount (1)",
+    "m_DefaultReferenceName": "_FlashAmount_1",
+    "m_OverrideReferenceName": "",
+    "m_GeneratePropertyBlock": true,
+    "m_UseCustomSlotLabel": false,
+    "m_CustomSlotLabel": "",
+    "m_DismissedVersion": 0,
+    "m_Precision": 0,
+    "overrideHLSLDeclaration": false,
+    "hlslDeclarationOverride": 0,
+    "m_Hidden": false,
+    "m_Value": 1.0,
+    "m_FloatType": 1,
+    "m_RangeValues": {
+        "x": 0.0,
+        "y": 1.0
+    }
 }
 
 {
