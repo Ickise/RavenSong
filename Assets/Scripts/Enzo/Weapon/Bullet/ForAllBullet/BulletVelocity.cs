@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class BulletVelocity : MonoBehaviour
 {
-    [Header("À set up")]
-
-    [SerializeField] private float xSpeedBullet = 75f;
+    [Header("À set up")] [SerializeField] private float xSpeedBullet = 75f;
+    [SerializeField] private float forceToFall = 0.5f;
 
     private Rigidbody2D baseBulletRigidbody2D;
-    
+
     private BulletDirection _bulletDirection;
     private BulletCollisionDetection _bulletCollisionDetection;
 
@@ -22,19 +21,20 @@ public class BulletVelocity : MonoBehaviour
 
     private void Start()
     {
-        baseBulletRigidbody2D.velocity = new Vector2(_bulletDirection.direction.x,_bulletDirection.direction.y).normalized * xSpeedBullet;
+        baseBulletRigidbody2D.velocity =
+            new Vector2(_bulletDirection.direction.x, _bulletDirection.direction.y).normalized * xSpeedBullet;
     }
 
-    private void FixedUpdate()
-    {
-        Velocity();
-    }
-
-    private void Velocity()
+    public void SetVelocityOnHit()
     {
         //  AudioManager.instance.PlaySFX(impactAudio);
-        
+
         if (_bulletCollisionDetection.hasToStop)
+        {
+            baseBulletRigidbody2D.velocity = Vector2.down * forceToFall;
+        }
+
+        if (_bulletCollisionDetection.onBulletHit != null && !_bulletCollisionDetection.onBulletHit.bulletFalling)
         {
             baseBulletRigidbody2D.velocity = Vector2.zero;
         }

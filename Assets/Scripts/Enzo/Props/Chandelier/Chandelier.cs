@@ -3,7 +3,9 @@ using UnityEngine;
 public class Chandelier : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
-    
+
+    private Explodable _explodable;
+
     private void Awake()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
@@ -20,10 +22,23 @@ public class Chandelier : MonoBehaviour
         {
             Destroy(other.gameObject);
         }
-
-        if (other.gameObject.layer == LayerMask.NameToLayer("Default"))
+        
+        if (other.CompareTag("Platforme"))
         {
             Destroy(transform.parent.gameObject);
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        {
+            if (other.TryGetComponent(out _explodable))
+            {
+                Debug.Log(_explodable);
+                _explodable.explode(gameObject);
+            }
+            else
+            {
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Explodable : MonoBehaviour
 {
-
     public System.Action<List<GameObject>> OnFragmentsGenerated;
 
     public bool allowRuntimeFragmentation = false;
+
     public int extraPoints = 0;
     public int subshatterSteps = 0;
+    public int orderInLayer = 0;
 
     public string fragmentLayer = "Default";
     public string sortingLayerName = "Default";
-    public int orderInLayer = 0;
 
     public enum ShatterType
     {
@@ -25,12 +25,15 @@ public class Explodable : MonoBehaviour
     public List<GameObject> fragments = new List<GameObject>();
     private List<List<Vector2>> polygons = new List<List<Vector2>>();
 
+    private ExploseWall _exploseWall;
+
     /// <summary>
     /// Creates fragments if necessary and destroys original gameobject
     /// </summary>
     ///
     public void explode(GameObject bullet)
     {
+        _exploseWall = GetComponent<ExploseWall>();
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)
         {
@@ -43,7 +46,14 @@ public class Explodable : MonoBehaviour
             {
                 frag.transform.parent = null;
                 frag.SetActive(true);
+                frag.AddComponent<OnBulletHit>();
                 frag.AddComponent<DestroyFragments>();
+                
+                if (_exploseWall.destroyFragmentsAfterSeconds)
+                {
+                    frag.GetComponent<DestroyFragments>().waitToDestroy = true;
+                    frag.GetComponent<DestroyFragments>().timeToDestroy = _exploseWall.timeToDestroyFragments;
+                }
             }
         }
 

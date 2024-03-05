@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class StunDetection : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class StunDetection : MonoBehaviour
     [Header("À set up")][SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
+    [SerializeField] private GameObject VFXAuraCoup;
+    [SerializeField] private VisualEffect VFXCoupDeCross;
     private bool canCrossKick = true;
 
     private void Start()
@@ -17,7 +20,7 @@ public class StunDetection : MonoBehaviour
     public void CrossKick(int currentDirection)
     {
         if (!canCrossKick) return;
-        // AnimationController.instance.SetCharacterState(1, AnimationController.AnimationState.jump, false, AnimationController.instance.speedCrossKick, false);
+        // AnimationController.instance.SetCharacterState(1, AnimationController.AnimationState.recall, false, AnimationController.instance.speedCrossKick, false);
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
@@ -42,12 +45,18 @@ public class StunDetection : MonoBehaviour
         IA iA = other.GetComponent<IA>();
         if (iA)
         {
+            VFXCoupDeCross.Play();
+            iA.VFXStun.Play();
+            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iA.transform);
+            Destroy(currentVFXAuraCoup, 3);
             iA.enabled = false;
             StartCoroutine(TimeUnstun());
             IEnumerator TimeUnstun()
             {
-                yield return new WaitForSeconds(timeToDisableHitBox);
+                iA.SetAnimation(IA.AnimationState.shoot);
+                yield return new WaitForSeconds(stunDuration);
                 iA.enabled = true;
+                iA.VFXStun.Stop();
             }
             return;
         }

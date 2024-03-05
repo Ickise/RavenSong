@@ -6,7 +6,13 @@ public class Door : MonoBehaviour
     [SerializeField] private Ease ease;
 
     [SerializeField] private float newYPosition;
+    [SerializeField] private float newXPosition;
     [SerializeField] private float animationDuration = 1f;
+
+    [Tooltip(
+        "Si ce bool est en true, il ne faut changer que newYPosition, s'il est false, il ne faut changer que newXPosition")]
+    [SerializeField]
+    private bool changeYorXPosition;
 
     private Vector3 originalPosition;
     private Vector3 newPosition;
@@ -15,7 +21,9 @@ public class Door : MonoBehaviour
     {
         originalPosition = transform.position;
 
-        newPosition = new Vector3(transform.position.x, newYPosition, transform.position.z);
+        newPosition = changeYorXPosition
+            ? new Vector3(transform.position.x, newYPosition, transform.position.z)
+            : new Vector3(newXPosition, transform.position.y, transform.position.z);
     }
 
     public void OpenDoor(bool isActive)

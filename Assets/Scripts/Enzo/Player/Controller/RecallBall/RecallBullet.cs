@@ -1,28 +1,28 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class RecallBullet : MonoBehaviour
 {
     [SerializeField] private Transform rightHand;
     [SerializeField] private Transform leftHand;
 
-    private GameObject bullet;
-
     private Rigidbody2D bulletRigidbody;
 
     private Vector2 direction;
+    private Vector2 distanceAmmoPlayer;
 
-    private bool isMoving;
+    public bool doRecall;
 
     private FireOneBullet _fireOneBullet;
 
     private BulletCollisionDetection _bulletCollisionDetection;
 
-    [SerializeField] private float destroyDistance = 0.6f;
     [SerializeField] private float speedToRecall = 50f;
     [SerializeField] private float speedDelay = 0.2f;
-    [SerializeField] private float distanceToRecall = 10f;
+    [SerializeField] private float distanceToRecall;
 
-    private float distance;
+    private float timer;
+    private float delay;
 
     private void Awake()
     {
@@ -31,34 +31,48 @@ public class RecallBullet : MonoBehaviour
 
     private void Start()
     {
-        InputReader.instance.onRecall.AddListener(OnClickToRecall);
+        InputReader.instance.onFire.AddListener(OnClickToRecall);
     }
 
     private void Update()
     {
-        float delay = GetDelayBeforeMove();
+        delay = GetDelayBeforeMove();
 
-        if (InputReader.instance.canRecall && transform.position.x < distanceToRecall)
+        LaunchRecall();
+
+        if (_bulletCollisionDetection != null)
         {
-            Invoke("RecallAmmo", delay);
+            distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
         }
 
-        if (!InputReader.instance.canRecall || InputReader.instance.jump || PlayerController2D._instance.onRoll ||
-            InputReader.instance.canDown)
+        if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
+            InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
         {
-            //condition à modifier puisqu'elle est dégueu mais pour l'instant ça fera l'affaire
-            InputReader.instance.canRecall = false;
-            CancelInvoke("RecallAmmo");
+            CancellRecall();
+        }
+    }
+
+    private void LaunchRecall()
+    {
+        if (doRecall)
+        {
+            timer += Time.deltaTime;
+
+            if (timer > delay)
+            {
+                RecallAmmo();
+            }
         }
     }
 
     private float GetDelayBeforeMove()
     {
-        if (bullet != null)
+        if (_fireOneBullet.bulletRef != null)
         {
-            direction = (PlayerController2D._instance.CurrentDirection > 0 ? rightHand.position : leftHand.position) -
-                        bullet.transform.position;
-            distance = direction.magnitude;
+            direction =
+                (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
+                _fireOneBullet.bulletRef.transform.position;
+            float distance = direction.magnitude;
 
             return distance * speedDelay;
         }
@@ -68,32 +82,60 @@ public class RecallBullet : MonoBehaviour
 
     private void RecallAmmo()
     {
-        if (bullet != null)
+        if (_fireOneBullet.bulletRef != null)
         {
             _bulletCollisionDetection.Recall();
 
             bulletRigidbody.velocity = direction.normalized * speedToRecall;
 
-            if (distance <= destroyDistance)
+            if (_bulletCollisionDetection.touchPlayer.collider != null)
             {
-                Destroy(bullet);
+                Destroy(_fireOneBullet.bulletRef);
                 _fireOneBullet.numberOfAmmo = 1;
-                InputReader.instance.canRecall = false;
+                CancellRecall();
             }
         }
     }
 
-    private void OnClickToRecall()
+    private void GetBulletComponent()
     {
-        bullet = _fireOneBullet.bulletRef;
-
-        if (bullet == null)
+        if (_fireOneBullet.bulletRef == null)
         {
             return;
         }
 
-        _bulletCollisionDetection = bullet.GetComponent<BulletCollisionDetection>();
+        _bulletCollisionDetection = _fireOneBullet.bulletRef.GetComponent<BulletCollisionDetection>();
 
-        bulletRigidbody = bullet.GetComponent<Rigidbody2D>();
+        bulletRigidbody = _fireOneBullet.bulletRef.GetComponent<Rigidbody2D>();
+    }
+
+    private void OnClickToRecall(InputAction.CallbackContext context)
+    {
+        GetBulletComponent();
+
+        if (_bulletCollisionDetection == null) return;
+
+        if (context.started && distanceAmmoPlayer.magnitude < distanceToRecall && _bulletCollisionDetection.hasToStop)
+        {
+            timer = 0;
+            doRecall = true;
+            //tous les feedbacks qui montrent qu'on att le recall, en faire une fonction
+        }
+
+        if (context.canceled)
+        {
+            CancellRecall();
+        }
+    }
+
+    public void CancellRecall()
+    {
+        doRecall = false;
+        //tous les feedbacks de l'annulation
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, distanceToRecall);
     }
 }

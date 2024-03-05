@@ -1,10 +1,15 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ExploseWall : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
 
     private Explodable _explodable;
+
+    [Tooltip("À mettre sur true si vous voulez détruire les fragments après X secondes")] public bool destroyFragmentsAfterSeconds = false;
+
+    public float timeToDestroyFragments;
 
     private void Awake()
     {
@@ -16,5 +21,4 @@ public class ExploseWall : MonoBehaviour
     {
         _onBulletHit.onBulletHit.AddListener(_explodable.explode);
     }
-
 }

@@ -2,15 +2,17 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
 
 public class PlayerController2D : MonoBehaviour
 {
     [Header("Modifie les mouvements")]
     [SerializeField]
-    private float accelerationSpeed = 0.1f;
+    private float accelerationSpeed = 2f;
+
+    [SerializeField] private float slowSpeed = 0.1f;
 
     [SerializeField] private float maxSpeed = 5f;
+    [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
     [Header("Modifie le aircontrol")]
@@ -22,8 +24,9 @@ public class PlayerController2D : MonoBehaviour
     [Header("Modifie le saut")]
     [SerializeField]
     private float gravityFactor = 1f;
+    private float currentGravity;
 
-    [SerializeField] private float maxHeight = 3f;
+    [SerializeField] private float jumpForce = 3f;
 
     [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
     [SerializeField]
@@ -50,7 +53,10 @@ public class PlayerController2D : MonoBehaviour
     private Collider2D playerCollider2D;
 
     private RaycastDetection _raycastDetection;
-    [SerializeField] private VisualEffect VFXDustTrail;
+    private RecallBullet _recallBullet;
+    private PlayerAnimation _playerAnimation;
+
+    [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
 
     private float hangTimeCounter;
 
@@ -58,12 +64,12 @@ public class PlayerController2D : MonoBehaviour
 
     public bool onRoll;
 
-    public int CurrentDirection
-    {
-        get { return AnimationController.instance.GetDirection ? 1 : -1; }
-    }
+    public int CurrentDirectionAim { get { return _playerAnimation.GetDirection ? 1 : -1; } }
+
+    public int LastDirection { get; set; } = 1;
 
     private Vector2 playerVelocity;
+    private Vector2 rollDirection;
 
     public static PlayerController2D _instance;
 
@@ -78,9 +84,11 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
+        _recallBullet = GetComponent<RecallBullet>();
         VFXDustTrail.Stop();
     }
 
@@ -90,14 +98,8 @@ public class PlayerController2D : MonoBehaviour
         if (onRoll)
         {
             if (DOTween.IsTweening("roll") &&
-                (!_raycastDetection.IsGrounded || _raycastDetection.RaycastOnRoll(CurrentDirection)))
-            {
-                onRoll = false;
-                playerCollider2D.enabled = true;
+                (!_raycastDetection.IsGrounded || _raycastDetection.RaycastOnRoll(rollDirection)))
                 DOTween.Kill("roll");
-                StopAllCoroutines();
-            }
-
             return;
         }
 
@@ -109,6 +111,7 @@ public class PlayerController2D : MonoBehaviour
         if (onRoll) return;
 
         SetGravity();
+        SetAirControl();
         ComputeGravity();
         if (canjump && InputReader.instance.jump && hangTimeCounter >= 0)
         {
@@ -120,6 +123,12 @@ public class PlayerController2D : MonoBehaviour
 
         ModularMovement();
         playerRigidbody2D.velocity = playerVelocity;
+        Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
+
+        if (InputReader.instance.direction.x == 0)
+            LastDirection = CurrentDirectionAim;
+        else
+            LastDirection = (int)InputReader.instance.direction.x;
     }
 
     //gère les déplacements du player
@@ -127,19 +136,30 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            if (!InputReader.instance.jump)
-                velocityWhenJump = 0f;
+            // if (!InputReader.instance.jump)
+            //     velocityWhenJump = 0f;
+            //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
+            slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
+            //sert a annuler le momentum quand le joueur se trouve sur une pente car cela pose des problèmes
+            //check si le joueur va dans la direction de son input en les multipliant entre eux, car si l'un des 2 est négatif ça sera inférieur a 0, 
+            //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
             if (playerVelocity.x * InputReader.instance.direction.x < 0 && slopNormalPerp.y != 0)
                 playerVelocity.x = 0;
-            playerVelocity.x += -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
-            playerVelocity.x = Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
+
+            playerVelocity.x += _recallBullet.doRecall
+                ? -InputReader.instance.direction.x * slopNormalPerp.x * slowSpeed
+                : -InputReader.instance.direction.x * slopNormalPerp.x * accelerationSpeed;
+            playerVelocity.x = _recallBullet.doRecall
+                ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall)
+                : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
             if (!isVFXDustTrailPlaying)
             {
                 VFXDustTrail.Play();
                 isVFXDustTrailPlaying = true;
             }
+
             if (InputReader.instance.direction.x == 0)
             {
                 if (isVFXDustTrailPlaying)
@@ -147,20 +167,18 @@ public class PlayerController2D : MonoBehaviour
                     VFXDustTrail.Stop();
                     isVFXDustTrailPlaying = false;
                 }
+
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
-                if (!canjump) return;
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.idleBall, true,
-                    AnimationController.instance.speedIdleBall);
+                if (hangTimeCounter < hangTime) return;
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
                 return;
             }
 
-            if (!canjump) return;
-            if (AnimationController.instance.GetDirection == InputReader.instance.direction.x > 0)
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBall, true,
-                    AnimationController.instance.speedWalkBall);
+            if (hangTimeCounter < hangTime) return;
+            if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
             else
-                AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.walkBackWard, true,
-                    AnimationController.instance.speedWalkBackWard);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
         }
         else
         {
@@ -169,12 +187,10 @@ public class PlayerController2D : MonoBehaviour
                 VFXDustTrail.Stop();
                 isVFXDustTrailPlaying = false;
             }
+
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
-            playerVelocity.x = velocityWhenJump;
-            velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
-            velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
     }
 
@@ -182,10 +198,12 @@ public class PlayerController2D : MonoBehaviour
 
     private void Jump()
     {
-        hangTimeCounter = 0f;
-        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.jump, false,
-            AnimationController.instance.speedJump);
-        playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
+        if (!InputReader.instance.canDown)
+        {
+            hangTimeCounter = 0f;
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
+            playerVelocity.y = Mathf.Sqrt(-2 * jumpForce * Physics2D.gravity.y * gravityFactor);
+        }
     }
 
     private void CoyoteTime()
@@ -200,22 +218,37 @@ public class PlayerController2D : MonoBehaviour
     /// <param name="slopNormalPerp"></param>
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
-        if (!canjump) return playerVelocity.y;
+        if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.8f) return playerVelocity.y;
+        // if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
+        //     return -0.1f;
         if (InputReader.instance.direction.x == 0)
-            return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
-        return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x);
+            return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
+        return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
     }
 
     private void SetGravity()
     {
         if (_raycastDetection.IsGrounded)
         {
-            playerVelocity.y = 0;
+            currentGravity = -0.1f;
         }
         else
         {
-            playerVelocity.y += Physics2D.gravity.y * Time.deltaTime * gravityFactor;
+            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
         }
+        playerVelocity.y += currentGravity;
+    }
+
+    private void SetAirControl()
+    {
+        if (!_raycastDetection.IsGrounded)
+        {
+            playerVelocity.x = velocityWhenJump;
+            velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
+            velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
+        }
+        else
+            velocityWhenJump = playerVelocity.x;
     }
 
     private void ComputeGravity()
@@ -234,27 +267,32 @@ public class PlayerController2D : MonoBehaviour
 
     public void Roll()
     {
-        if (DOTween.IsTweening(transform) || !_raycastDetection.IsGrounded || !canRoll) return;
-        AnimationController.instance.SetCharacterState(0, AnimationController.AnimationState.dash, false,
-            AnimationController.instance.speedDash);
-        playerRigidbody2D.DOMoveX(transform.position.x + distanceRoulade * CurrentDirection, speedRoulade).SetId("roll")
+        if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
+        Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
+        slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
+        VFXRoulade.gameObject.transform.localScale = new Vector2(VFXRoulade.gameObject.transform.localScale.x * LastDirection, VFXRoulade.gameObject.transform.localScale.y);
+        
+        VFXRoulade.Play();
+        rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
+        playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
             {
-                if (_raycastDetection.RaycastOnRoll(CurrentDirection))
+                if (_raycastDetection.RaycastOnRoll(rollDirection))
                 {
                     playerRigidbody2D.velocity = Vector2.zero;
-                    playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
-                        ForceMode2D.Impulse);
+                    // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
+                    //     ForceMode2D.Impulse);
                 }
 
-                AnimationController.instance.DontAim = false;
+                _playerAnimation.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;
                 playerCollider2D.enabled = true;
                 StartCoroutine(RollCoolDown());
             });
-        AnimationController.instance.DontAim = true;
+        _playerAnimation.DontAim = true;
         InputReader.instance.DontCrossKick = true;
         playerCollider2D.enabled = false;
         onRoll = true;

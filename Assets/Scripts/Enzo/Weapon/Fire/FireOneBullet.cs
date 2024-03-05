@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FireOneBullet : MonoBehaviour
 {
@@ -6,29 +7,33 @@ public class FireOneBullet : MonoBehaviour
 
     [SerializeField] private Transform rightShootPosition;
     [SerializeField] private Transform leftShootPosition;
+    public Transform rightAimPosition;
+    public Transform leftAimPosition;
+    public GameObject bulletRef { get; set; }
 
-    public GameObject bulletRef { get; private set; }
-
-    // [SerializeField] private AudioClip shotAudio;
+    [SerializeField] private SoundData shootAudio;
 
     public int numberOfAmmo = 1;
 
-    private void Update()
+    private void Start()
     {
-        OnShot();
+        InputReader.instance.onFire.AddListener(OnClickToShoot);
     }
 
-    private void OnShot()
+    private void OnClickToShoot(InputAction.CallbackContext context)
     {
-        if (InputReader.instance.leftClick && numberOfAmmo == 1)
+        if (!context.performed) return;
+        
+        if (numberOfAmmo == 1)
         {
-            //AudioManager.instance.PlaySFX(shotAudio);
-            bool currentDirection = PlayerController2D._instance.CurrentDirection > 0;
+            bool currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
+
+            AudioManager.instance.PlaySound(shootAudio);
+
             bulletRef = Instantiate(bullet.gameObject,
                 transform.position = currentDirection ? rightShootPosition.position : leftShootPosition.position,
                 Quaternion.identity);
             numberOfAmmo--;
-           // Debug.Break();
         }
     }
 }

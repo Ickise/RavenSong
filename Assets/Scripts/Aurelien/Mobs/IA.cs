@@ -1,17 +1,22 @@
 using UnityEngine;
 using Spine.Unity;
+using System.Collections.Generic;
+using System;
+using System.Linq;
+using UnityEngine.VFX;
 
 public abstract class IA : MonoBehaviour
 {
     protected Rigidbody2D rb2D;
     protected Transform player;
-    protected SkeletonAnimation skeletonAnimation;
     protected LayerMask layerDefault, layerDetectPlayer;
     [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaquePlayer = 1f;
-    [SerializeField] protected Vector2 tailleMob = new Vector2(1f, 2f);
-    [SerializeField] private bool drawCirclesEditor;
+    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaqueMelee = 1f;
+    [SerializeField] protected Vector2 tailleMob;
+    [SerializeField] private bool drawCirclesEditor, groundGizmos;
     [SerializeField] private int nombreVie = 1;
+    public VisualEffect VFXStun;
+    private BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float speedMovement;
     protected bool canJump = true;
@@ -23,21 +28,48 @@ public abstract class IA : MonoBehaviour
             return Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + (direction ? Vector2.right : Vector2.left) * tailleMob.x, Vector2.down, tailleMob.y * 1.5f, layerDefault);
         }
     }
-    protected RaycastHit2D IsGrounded { get { return Physics2D.Raycast(transform.position, Vector2.down, tailleMob.y, layerDefault); } }
-    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.1f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
+    protected RaycastHit2D IsGrounded { get { return Physics2D.BoxCast(transform.position + new Vector3(cd2D.offset.x, cd2D.offset.y, 0) + Vector3.down * (cd2D.size.y / 2f), new Vector2(cd2D.size.x, 0.1f), transform.eulerAngles.z, Vector2.down, 0, layerDefault); } }
+    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
-
-    void Start()
+    public enum AnimationState { moveForward, moveBackward, shoot }
+    private SkeletonAnimation skeletonAnimation;
+    [Serializable]
+    public struct AnimationReference
     {
+        public AnimationState name;
+        public float speed;
+        public int trackNum;
+        public bool loop;
+        public bool overrideSkeleton;
+        public AnimationReferenceAsset animationReferenceAsset;
+    }
+    [SerializeField] private AnimationReference[] animations;
+    private Dictionary<AnimationState, AnimationReference> animationStateRef = new Dictionary<AnimationState, AnimationReference>();
+    private AnimationState currentAnimationState;
+
+    protected virtual void Start()
+    {
+        cd2D = GetComponent<BoxCollider2D>();
+        tailleMob = cd2D.size;
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         speedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("IADontCollide");
-        layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
+        layerDefault = LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
+        layerDetectPlayer = LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        VFXStun.Stop();
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
+        AnimationState[] animationStateRefArray = Enum.GetValues(typeof(AnimationState)).Cast<AnimationState>().ToArray();
+        for (int i = 0; i < animationStateRefArray.Length; i++)
+            for (int y = 0; y < animations.Length; y++)
+                if (animations[y].name == animationStateRefArray[i])
+                {
+                    animationStateRef.Add(animationStateRefArray[i], animations[y]);
+                    break;
+                }
+        currentAnimationState = AnimationState.moveBackward;
     }
 
     protected virtual void Update()
@@ -52,19 +84,43 @@ public abstract class IA : MonoBehaviour
 
     protected void AtkPlayer()
     {
-        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaquePlayer, layerDetectPlayer);
+        RaycastHit2D hit2D = Physics2D.Raycast(transform.position, player.position - transform.position, distanceAttaqueMelee, layerDetectPlayer);
         if (hit2D && hit2D.transform.CompareTag("Player"))
             player.GetComponent<Respawn>().RespawnPlayer();
     }
 
     protected void RunToDirection()
     {
-        rb2D.velocity = new Vector2(direction ? speedMovement : -speedMovement, rb2D.velocity.y);
+        SetAnimation(AnimationState.moveForward);
+        Vector2 slopNormalPerp = Vector2.Perpendicular(IsGrounded.normal).normalized;
+        rb2D.velocity = new Vector2(-(direction ? speedMovement : -speedMovement) * slopNormalPerp.x, -(direction ? speedMovement : -speedMovement) * slopNormalPerp.y);
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
+    }
+
+    public void SetAnimation(AnimationState animationState)
+    {
+        if (currentAnimationState == animationState) return;
+        if (AnimationsSetter.instance == null)
+        {
+            Debug.LogWarning("mettre le prefab AnimationController dans la scène");
+            return;
+        }
+        AnimationReference animationRefAsset;
+        if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
+        {
+            currentAnimationState = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
+        }
     }
 
     void OnDrawGizmos()
     {
+        if (groundGizmos)
+        {
+            if (cd2D == null)
+                cd2D = GetComponent<BoxCollider2D>();
+            Gizmos.DrawWireCube(transform.position + new Vector3(cd2D.offset.x, cd2D.offset.y, 0) + Vector3.down * (cd2D.size.y / 2f), new Vector2(cd2D.size.x, 0.1f));
+        }
         if (!drawCirclesEditor) return;
         Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
     }
