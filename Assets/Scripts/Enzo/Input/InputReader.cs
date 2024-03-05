@@ -28,7 +28,7 @@ public class InputReader : MonoBehaviour
 
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (context.started || context.ReadValue<Vector2>().x == direction.x) return;
+        if (context.started || context.ReadValue<Vector2>() == direction) return;
         direction = context.ReadValue<Vector2>();
     }
 

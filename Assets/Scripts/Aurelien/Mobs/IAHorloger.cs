@@ -6,6 +6,7 @@ public class IAHorloger : IA
 {
     [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
     [SerializeField] private int chargeTime = 1;
+    [SerializeField] private Collider2D cd2Datk;
     private bool isReloading;
     private State state;
     private enum State
@@ -51,6 +52,7 @@ public class IAHorloger : IA
                 DOTween.To(() => rb2D.velocity, x => rb2D.velocity = x, Vector2.zero, decelerationTime);
                 isReloading = true;
                 StartCoroutine(StartReload());
+                cd2Datk.enabled = false;
                 state = State.WaitPlayer;
             }
         }
@@ -58,6 +60,7 @@ public class IAHorloger : IA
 
     private void ChasePlayer()
     {
+        cd2Datk.enabled = true;
         rb2D.velocity = new Vector2(direction ? speedAttaquePlayer : -speedAttaquePlayer, rb2D.velocity.y);
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
     }
@@ -66,6 +69,7 @@ public class IAHorloger : IA
     {
         if (RaycastHitWall)
         {
+            cd2Datk.enabled = false;
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
             state = State.WaitPlayer;

@@ -51,10 +51,10 @@ MonoBehaviour:
   capsuleSizeGround: {x: 1, y: 0.1}
   layerGround:
     serializedVersion: 2
-    m_Bits: 577
+    m_Bits: 576
   layerWall:
     serializedVersion: 2
-    m_Bits: 193
+    m_Bits: 1
   distanceToDetectFloor: 0
   distanceToDetectWall: 0.6
   capsuleAngle: 0
@@ -382,18 +382,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 3505662670509427222}
-        m_TargetAssemblyTypeName: FootTriggerPlatform, Assembly-CSharp
-        m_MethodName: UpInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
     m_ActionId: 262bcf95-7054-4ba8-968e-a4fad0ae877a
     m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
@@ -452,10 +440,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 51542f6f-8ae6-4a10-8f9e-36f5ab761a37
     m_ActionName: Player/Shoot[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2848ae8d-85a9-4d0d-934d-beade4ad9e22
-    m_ActionName: Player/BallRecover[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6482090840447388875}
