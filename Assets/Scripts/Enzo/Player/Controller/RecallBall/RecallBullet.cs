@@ -12,6 +12,7 @@ public class RecallBullet : MonoBehaviour
     private Vector2 distanceAmmoPlayer;
 
     public bool doRecall;
+    public bool onRecall;
 
     private FireOneBullet _fireOneBullet;
 
@@ -43,6 +44,13 @@ public class RecallBullet : MonoBehaviour
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
+        }
+
+        if (onRecall && bulletRigidbody != null)
+        {
+            bulletRigidbody.velocity = direction.normalized * speedToRecall;
+
+            GetBulletToReload();
         }
 
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
@@ -86,23 +94,26 @@ public class RecallBullet : MonoBehaviour
         {
             _bulletCollisionDetection.Recall();
 
-            bulletRigidbody.velocity = direction.normalized * speedToRecall;
+            onRecall = true;
 
-            if (_bulletCollisionDetection.touchPlayer.collider != null)
-            {
-                Destroy(_fireOneBullet.bulletRef);
-                _fireOneBullet.numberOfAmmo = 1;
-                CancellRecall();
-            }
+            GetBulletToReload();
+        }
+    }
+
+    private void GetBulletToReload()
+    {
+        if (_bulletCollisionDetection.touchPlayer.collider != null)
+        {
+            Destroy(_fireOneBullet.bulletRef);
+            _fireOneBullet.numberOfAmmo = 1;
+            onRecall = false;
+            CancellRecall();
         }
     }
 
     private void GetBulletComponent()
     {
-        if (_fireOneBullet.bulletRef == null)
-        {
-            return;
-        }
+        if (_fireOneBullet.bulletRef == null) return;
 
         _bulletCollisionDetection = _fireOneBullet.bulletRef.GetComponent<BulletCollisionDetection>();
 
