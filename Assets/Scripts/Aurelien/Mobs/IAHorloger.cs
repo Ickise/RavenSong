@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.VFX;
 
 public class IAHorloger : IA
 {
     [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
     [SerializeField] private int chargeTime = 1;
     [SerializeField] private Collider2D cd2Datk;
-    private bool isReloading;
+    [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
+    [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
+        private bool isReloading;
     private State state;
     private enum State
     {
@@ -45,7 +48,17 @@ public class IAHorloger : IA
             float a = 0;
             DOTween.To(() => a, x => a = x, 1f, chargeTime).SetId("chargingTime")
             // ;spriteRenderer.DOColor(Color.red, chargeTime / 4f)
-            .OnComplete(() => { state = State.ChasePlayer; StartCoroutine(RunTime()); });
+            .OnComplete(() =>
+            {
+                GameObject currentVFXCourse = Instantiate(VFXCourse, posVFXCourse.position, Quaternion.identity);
+                GameObject currentVFXCourseEtincel = Instantiate(VFXCourseEtincel, posVFXCourseEtincel.position, Quaternion.identity);
+                currentVFXCourse.transform.localScale = posVFXCourse.localScale;
+                currentVFXCourseEtincel.transform.localScale = posVFXCourseEtincel.localScale;
+                Destroy(currentVFXCourse, 3);
+                Destroy(currentVFXCourseEtincel, 3);
+                state = State.ChasePlayer;
+                StartCoroutine(RunTime());
+            });
             IEnumerator RunTime()
             {
                 yield return new WaitForSeconds(runTime);
@@ -72,6 +85,8 @@ public class IAHorloger : IA
             cd2Datk.enabled = false;
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
+            GameObject currentVFXBonk = Instantiate(VFXBonk, posVFXBonk.position, Quaternion.identity);
+            Destroy(currentVFXBonk, 3);
             state = State.WaitPlayer;
             isReloading = true;
             StopAllCoroutines();
