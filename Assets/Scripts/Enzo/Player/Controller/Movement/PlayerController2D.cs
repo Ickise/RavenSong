@@ -56,7 +56,7 @@ public class PlayerController2D : MonoBehaviour
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
 
-    [SerializeField] private VisualEffect VFXDustTrail;
+    [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
 
     private float hangTimeCounter;
 
@@ -271,7 +271,10 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        rollDirection = new Vector3(-slopNormalPerp.x * LastDirection, -slopNormalPerp.y);
+        VFXRoulade.gameObject.transform.localScale = new Vector2(VFXRoulade.gameObject.transform.localScale.x * LastDirection, VFXRoulade.gameObject.transform.localScale.y);
+        
+        VFXRoulade.Play();
+        rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
         playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade).SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>

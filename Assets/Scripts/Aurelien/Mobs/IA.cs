@@ -3,6 +3,7 @@ using Spine.Unity;
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using UnityEngine.VFX;
 
 public abstract class IA : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public abstract class IA : MonoBehaviour
     [SerializeField] protected Vector2 tailleMob;
     [SerializeField] private bool drawCirclesEditor, groundGizmos;
     [SerializeField] private int nombreVie = 1;
+    public VisualEffect VFXStun;
     private BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float speedMovement;
@@ -56,6 +58,7 @@ public abstract class IA : MonoBehaviour
         layerDefault = LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
         layerDetectPlayer = LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        VFXStun.Stop();
         rb2D = GetComponent<Rigidbody2D>();
         skeletonAnimation = GetComponentInChildren<SkeletonAnimation>();
         AnimationState[] animationStateRefArray = Enum.GetValues(typeof(AnimationState)).Cast<AnimationState>().ToArray();
