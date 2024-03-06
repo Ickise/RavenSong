@@ -201,7 +201,7 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             hangTimeCounter = 0f;
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
             playerVelocity.y = Mathf.Sqrt(-2 * jumpForce * Physics2D.gravity.y * gravityFactor);
         }
     }

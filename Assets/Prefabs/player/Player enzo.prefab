@@ -685,6 +685,7 @@ MonoBehaviour:
   rightHand: {fileID: 19318302601555160}
   leftHand: {fileID: 6420413235010646048}
   doRecall: 0
+  onRecall: 0
   speedToRecall: 50
   speedDelay: 0.2
   distanceToRecall: 10
@@ -937,12 +938,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 992eb188ab0fdc143855caa0a730757d, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: e64407dd05588ce46b92c6fd94430c5c, type: 2}
   initialSkinName: 
   initialFlipX: 0
   initialFlipY: 0
   updateWhenInvisible: 3
-  separatorSlotNames: []
+  separatorSlotNames:
+  - Bassin
   zSpacing: 0
   useClipping: 1
   immutableTriangles: 0
@@ -1633,7 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: e319e2e9f3b8573428d0745942ab034d, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: d38c341475fe3194c852dc2dd5935502, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -1714,8 +1716,8 @@ MonoBehaviour:
     trackNum: 0
     loop: 1
     overrideSkeleton: 1
-    animationReferenceAssetDroite: {fileID: 11400000, guid: 5bb1435150f9408478494e3ccf39c14f, type: 2}
-    animationReferenceAssetGauche: {fileID: 11400000, guid: 3af3fb586194b734eb288d68c06a57a2, type: 2}
+    animationReferenceAssetDroite: {fileID: 11400000, guid: c07bde23a20ee234998b8b2256f45b8c, type: 2}
+    animationReferenceAssetGauche: {fileID: 11400000, guid: 679a516d02e81134d8d8ce6a0a704535, type: 2}
   - name: 0
     speed: 1
     trackNum: 0
@@ -1728,22 +1730,22 @@ MonoBehaviour:
     trackNum: 0
     loop: 1
     overrideSkeleton: 1
-    animationReferenceAssetDroite: {fileID: 11400000, guid: bda7a3ac0e10f2a4db9eb339d92018c0, type: 2}
-    animationReferenceAssetGauche: {fileID: 11400000, guid: f5065ef2185cc804f96fe2a6db91b85d, type: 2}
+    animationReferenceAssetDroite: {fileID: 11400000, guid: c34e37bef7efd864c9dba69fdc46f1bc, type: 2}
+    animationReferenceAssetGauche: {fileID: 11400000, guid: 907381cdf65ed6f45a9af745a162e35f, type: 2}
   - name: 3
     speed: 1
     trackNum: 0
     loop: 1
     overrideSkeleton: 1
-    animationReferenceAssetDroite: {fileID: 11400000, guid: 906887cb94adda240be36fcb014984f3, type: 2}
-    animationReferenceAssetGauche: {fileID: 11400000, guid: 7ec4079bb0c8f7d43aa5a3008856ba52, type: 2}
+    animationReferenceAssetDroite: {fileID: 11400000, guid: 41d4b45fc22353c4d9e601747fabc8a8, type: 2}
+    animationReferenceAssetGauche: {fileID: 11400000, guid: d1c4ef5ca753aa04cae6086ec47cc828, type: 2}
   - name: 4
     speed: 1
     trackNum: 0
     loop: 0
     overrideSkeleton: 1
-    animationReferenceAssetDroite: {fileID: 11400000, guid: bcbd8d36e2301794280f53a01d9ec066, type: 2}
-    animationReferenceAssetGauche: {fileID: 11400000, guid: ac4b7d39f94f0f14b8b9c7189a6db936, type: 2}
+    animationReferenceAssetDroite: {fileID: 11400000, guid: 2707d1b2263f5814d8e022e2502ee7a1, type: 2}
+    animationReferenceAssetGauche: {fileID: 11400000, guid: 2bffae92f2025d546a5f00497ad3057d, type: 2}
   - name: 5
     speed: 2
     trackNum: 0
@@ -1763,7 +1765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d558112d3e5794eb12363f35a7052e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boneAimName: Aim Target CI
+  boneAimName: Aim Target - CI
   isManette: 0
 --- !u!1 &8509863438687662080
 GameObject:
