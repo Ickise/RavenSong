@@ -12,7 +12,8 @@ public class CameraActions : MonoBehaviour
 
     private void SmoothCameraSlideMovement()
     {
-        if (true ) //dans la condition, il faut regarder où se déplace le PJ, s'il va à gauche ou à droite et faire le déplacement de la caméra, voir la vidéo Youtube.
+        if (true) //dans la condition, il faut regarder où se déplace le PJ, s'il va à gauche ou à droite et faire le déplacement de la caméra, voir la vidéo Youtube.
+        //s'il regarde plus d'une seconde il faut que la caméra change de place
         {
             //la caméra va à droite 
         }
