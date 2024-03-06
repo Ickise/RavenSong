@@ -20,9 +20,9 @@ public class PlayerAnimation : MonoBehaviour
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, JumpNoBallBas, JumpNoBallHaut, WalkNoBallBas, WalkNoBallHaut, IdleNoBall};
-    private AnimationState currentAnimationState;
-    public AnimationState GetCurrentAnimation => currentAnimationState;
+    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, JumpNoBallBas, JumpNoBallHaut, WalkNoBallBas, WalkNoBallHaut, IdleNoBall };
+    private List<AnimationState> currentAnimationStateOnTrack = new List<AnimationState>();
+    public List<AnimationState> GetCurrentAnimationOnEachTrack => currentAnimationStateOnTrack;
 
     //le struct pour set toute les références des animations dans l'editor
     [Serializable]
@@ -61,7 +61,8 @@ public class PlayerAnimation : MonoBehaviour
                     animationStateRef.Add(animationStateRefArray[i], animations[y]);
                     break;
                 }
-        currentAnimationState = AnimationState.idleBall;
+        for (int i = 0; i < 10; i++)
+            currentAnimationStateOnTrack.Add(AnimationState.none);
     }
 
     /// <summary>
@@ -74,9 +75,12 @@ public class PlayerAnimation : MonoBehaviour
         meshGauche.enabled = !direction;
     }
 
+    /// <summary>
+    /// Set une animation sur le joueur
+    /// </summary>
+    /// <param name="animationState"></param>
     public void SetAnimation(AnimationState animationState)
     {
-        if (currentAnimationState == animationState) return;
         if (AnimationsSetter.instance == null)
         {
             Debug.LogWarning("mettre le prefab AnimationController dans la scène");
@@ -85,7 +89,9 @@ public class PlayerAnimation : MonoBehaviour
         AnimationReference animationRefAsset;
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
-            currentAnimationState = animationState;
+            if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
+                return;
+            currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
             _spineAim.Start();

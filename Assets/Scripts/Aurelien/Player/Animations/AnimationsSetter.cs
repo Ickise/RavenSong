@@ -16,9 +16,6 @@ public class AnimationsSetter : MonoBehaviour
         instance = this;
     }
 
-    /// <summary>
-    /// Set une animation désiré
-    /// </summary>
     public void SetState(AnimationStructConstructor animation)
     {
         if (animation.skeletonAnimation.skeletonDataAsset != animation.animationReferenceAsset.SkeletonDataAsset)

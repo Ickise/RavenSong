@@ -10,17 +10,19 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup;
     [SerializeField] private VisualEffect VFXCoupDeCross;
+    private PlayerAnimation _playerAnimation;
     private bool canCrossKick = true;
 
     private void Start()
     {
         c2D = GetComponent<Collider2D>();
+        _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
     public void CrossKick(int currentDirection)
     {
         if (!canCrossKick) return;
-        // AnimationController.instance.SetCharacterState(1, AnimationController.AnimationState.recall, false, AnimationController.instance.speedCrossKick, false);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;

@@ -55,6 +55,7 @@ public class PlayerController2D : MonoBehaviour
     private RaycastDetection _raycastDetection;
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
+    private FireOneBullet _fireOneBullet;
 
     [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
 
@@ -84,6 +85,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _fireOneBullet = GetComponentInChildren<FireOneBullet>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
@@ -170,15 +172,27 @@ public class PlayerController2D : MonoBehaviour
 
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (hangTimeCounter < hangTime) return;
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                if (_fireOneBullet.bulletRef == null)
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                else
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.IdleNoBall);
                 return;
             }
 
             if (hangTimeCounter < hangTime) return;
-            if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+            if (_fireOneBullet.bulletRef == null)
+            {
+                if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+
+                else
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+            }
             else
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallBas);
+                // _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallHaut);
+            }
         }
         else
         {
@@ -272,7 +286,7 @@ public class PlayerController2D : MonoBehaviour
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
         VFXRoulade.gameObject.transform.localScale = new Vector2(VFXRoulade.gameObject.transform.localScale.x * LastDirection, VFXRoulade.gameObject.transform.localScale.y);
-        
+
         VFXRoulade.Play();
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
         playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade).SetId("roll")
