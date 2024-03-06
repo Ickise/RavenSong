@@ -10,7 +10,7 @@ public class IAHorloger : IA
     [SerializeField] private Collider2D cd2Datk;
     [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
-        private bool isReloading;
+    private bool isReloading;
     private State state;
     private enum State
     {
@@ -50,12 +50,8 @@ public class IAHorloger : IA
             // ;spriteRenderer.DOColor(Color.red, chargeTime / 4f)
             .OnComplete(() =>
             {
-                GameObject currentVFXCourse = Instantiate(VFXCourse, posVFXCourse.position, Quaternion.identity);
-                GameObject currentVFXCourseEtincel = Instantiate(VFXCourseEtincel, posVFXCourseEtincel.position, Quaternion.identity);
-                currentVFXCourse.transform.localScale = posVFXCourse.localScale;
-                currentVFXCourseEtincel.transform.localScale = posVFXCourseEtincel.localScale;
-                Destroy(currentVFXCourse, 3);
-                Destroy(currentVFXCourseEtincel, 3);
+                VFXInstantieur.instance.PlayerVFXInWorld(VFXCourse, posVFXCourse, 3f);
+                VFXInstantieur.instance.PlayerVFXInWorld(VFXCourseEtincel, posVFXCourse, 3f);
                 state = State.ChasePlayer;
                 StartCoroutine(RunTime());
             });
@@ -85,8 +81,7 @@ public class IAHorloger : IA
             cd2Datk.enabled = false;
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
-            GameObject currentVFXBonk = Instantiate(VFXBonk, posVFXBonk.position, Quaternion.identity);
-            Destroy(currentVFXBonk, 3);
+            VFXInstantieur.instance.PlayerVFXInWorld(VFXBonk, posVFXBonk, 3);
             state = State.WaitPlayer;
             isReloading = true;
             StopAllCoroutines();
