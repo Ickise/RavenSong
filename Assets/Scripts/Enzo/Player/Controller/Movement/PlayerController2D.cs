@@ -191,7 +191,7 @@ public class PlayerController2D : MonoBehaviour
             else
             {
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallBas);
-                // _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallHaut);
             }
         }
         else

@@ -32,7 +32,6 @@ public class PlayerAnimation : MonoBehaviour
         public float speed;
         public int trackNum;
         public bool loop;
-        public bool overrideSkeleton;
         public AnimationReferenceAsset animationReferenceAssetDroite;
         public AnimationReferenceAsset animationReferenceAssetGauche;
     }
@@ -89,11 +88,49 @@ public class PlayerAnimation : MonoBehaviour
         AnimationReference animationRefAsset;
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
-            if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
+            bool overwriteIniTialize = false;
+            if (skeletonAnimationDroite.skeletonDataAsset != animationRefAsset.animationReferenceAssetDroite.SkeletonDataAsset)
+            {
+                overwriteIniTialize = true;
+                for (int i = 0; i < currentAnimationStateOnTrack.Count; i++)
+                    currentAnimationStateOnTrack[i] = AnimationState.none;
+            }
+            else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
                 return;
             currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            _spineAim.Start();
+        }
+    }
+
+    /// <summary>
+    /// Set une animation sur le joueur et applique une fonction à sa fin
+    /// </summary>
+    /// <param name="animationState"></param>
+    /// <param name="function"></param>
+    public void SetAnimation(AnimationState animationState, Spine.AnimationState.TrackEntryDelegate function)
+    {
+        if (AnimationsSetter.instance == null)
+        {
+            Debug.LogWarning("mettre le prefab AnimationController dans la scène");
+            return;
+        }
+        AnimationReference animationRefAsset;
+        if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
+        {
+            bool overrideSkeleton = false;
+            if (skeletonAnimationDroite != animationRefAsset.animationReferenceAssetDroite.SkeletonDataAsset)
+            {
+                overrideSkeleton = true;
+                for (int i = 0; i < currentAnimationStateOnTrack.Count; i++)
+                    currentAnimationStateOnTrack[i] = AnimationState.none;
+            }
+            else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
+                return;
+            currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overrideSkeleton));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overrideSkeleton));
             _spineAim.Start();
         }
     }
