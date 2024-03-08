@@ -222,7 +222,10 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             hangTimeCounter = 0f;
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            if (_fireOneBullet.bulletRef == null)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            else
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
             playerVelocity.y = Mathf.Sqrt(-2 * jumpForce * Physics2D.gravity.y * gravityFactor);
         }
     }

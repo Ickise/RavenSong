@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, JumpNoBallBas, JumpNoBallHaut, walkNoBallBas, walkNoBallHaut, idleNoBall };
+    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, jumpNoBallBas, JumpNoBallHaut, walkNoBallBas, walkNoBallHaut, idleNoBall };
     private List<AnimationState> currentAnimationStateOnTrack = new List<AnimationState>();
     public List<AnimationState> GetCurrentAnimationOnEachTrack => currentAnimationStateOnTrack;
 
