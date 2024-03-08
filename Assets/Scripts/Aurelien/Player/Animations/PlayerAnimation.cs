@@ -20,7 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, JumpNoBallBas, JumpNoBallHaut, WalkNoBallBas, WalkNoBallHaut, IdleNoBall };
+    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, JumpNoBallBas, JumpNoBallHaut, walkNoBallBas, walkNoBallHaut, idleNoBall };
     private List<AnimationState> currentAnimationStateOnTrack = new List<AnimationState>();
     public List<AnimationState> GetCurrentAnimationOnEachTrack => currentAnimationStateOnTrack;
 
@@ -78,12 +78,18 @@ public class PlayerAnimation : MonoBehaviour
     /// Set une animation sur le joueur
     /// </summary>
     /// <param name="animationState"></param>
-    public void SetAnimation(AnimationState animationState)
+    public void SetAnimation(AnimationState animationState, int clearTrackIndex = -1)
     {
         if (AnimationsSetter.instance == null)
         {
             Debug.LogWarning("mettre le prefab AnimationController dans la scène");
             return;
+        }
+        if (clearTrackIndex > -1)
+        {
+            skeletonAnimationDroite.state.SetEmptyAnimation(clearTrackIndex, 0);
+            skeletonAnimationGauche.state.SetEmptyAnimation(clearTrackIndex, 0);
+            currentAnimationStateOnTrack[clearTrackIndex] = animationState;
         }
         AnimationReference animationRefAsset;
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))

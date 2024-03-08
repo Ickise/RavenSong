@@ -56,6 +56,7 @@ public class PlayerController2D : MonoBehaviour
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
     private FireOneBullet _fireOneBullet;
+    private StunDetection _stunDetection;
 
     [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
 
@@ -85,6 +86,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _stunDetection = GetComponentInChildren<StunDetection>();
         _fireOneBullet = GetComponentInChildren<FireOneBullet>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
@@ -174,8 +176,13 @@ public class PlayerController2D : MonoBehaviour
                 if (hangTimeCounter < hangTime) return;
                 if (_fireOneBullet.bulletRef == null)
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                else if (_stunDetection.IsC2DActive)
+                {
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 1);
+                }
                 else
-                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.IdleNoBall);
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleNoBall);
                 return;
             }
 
@@ -190,8 +197,8 @@ public class PlayerController2D : MonoBehaviour
             }
             else
             {
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallBas);
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
             }
         }
         else
