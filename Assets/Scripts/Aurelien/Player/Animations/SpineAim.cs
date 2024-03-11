@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class SpineAim : MonoBehaviour
 {
     private PlayerAnimation _playerAnimation;
-    [SerializeField] private string boneAimName;
+    private string boneAimName = "Aim Target - CI";
     private List<Bone> boneAim = new List<Bone>();
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;

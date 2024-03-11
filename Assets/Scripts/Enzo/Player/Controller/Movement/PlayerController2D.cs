@@ -22,20 +22,20 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Modifie le saut")] [SerializeField]
     private float gravityFactor = 1f;
-    //  private float currentGravity;
+    // private float currentGravity;
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Tooltip("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
     private float hangTime = 0.1f;
 
-    [Tooltip("Modifie la rapidité pour tomber après un saut")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [Tooltip("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
     private float lowJumpMultiplier = 2f;
 
-    [Tooltip("Modifie les paramètres de la roulade")] [SerializeField]
+    [Header("Modifie les paramètres de la roulade")] [SerializeField]
     private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
@@ -50,6 +50,7 @@ public class PlayerController2D : MonoBehaviour
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
     private FireOneBullet _fireOneBullet;
+    private StunDetection _stunDetection;
 
     [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
 
@@ -82,6 +83,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _stunDetection = GetComponentInChildren<StunDetection>();
         _fireOneBullet = GetComponentInChildren<FireOneBullet>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
@@ -135,8 +137,8 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            if (!InputReader.instance.jump)
-                velocityWhenJump = 0f;
+            // if (!InputReader.instance.jump)
+            //     velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
             slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
@@ -171,8 +173,14 @@ public class PlayerController2D : MonoBehaviour
                 if (hangTimeCounter < hangTime) return;
                 if (_fireOneBullet.bulletRef == null)
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                else if (_stunDetection.IsC2DActive)
+                {
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 1);
+                }
                 else
-                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.IdleNoBall);
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleNoBall);
+
                 return;
             }
 
@@ -187,8 +195,8 @@ public class PlayerController2D : MonoBehaviour
             }
             else
             {
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallBas);
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.WalkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
             }
         }
         else
@@ -212,7 +220,10 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             hangTimeCounter = 0f;
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            if (_fireOneBullet.bulletRef == null)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            else
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }
@@ -230,8 +241,8 @@ public class PlayerController2D : MonoBehaviour
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
         if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.8f) return playerVelocity.y;
-        if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
-            return -0.1f;
+        // if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
+        //     return -0.1f;
         if (InputReader.instance.direction.x == 0)
             return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
         return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
@@ -241,7 +252,6 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            //cela permet de ne pas faire un double jump sur la plateforme
             playerVelocity.y = 0;
             //  currentGravity = -0.1f;
         }
@@ -261,8 +271,8 @@ public class PlayerController2D : MonoBehaviour
             velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
         }
-        //else
-        //  velocityWhenJump = playerVelocity.x;
+        else
+            velocityWhenJump = playerVelocity.x;
     }
 
     private void ComputeGravity()
