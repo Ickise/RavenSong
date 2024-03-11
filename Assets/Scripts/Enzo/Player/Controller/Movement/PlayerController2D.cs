@@ -22,7 +22,6 @@ public class PlayerController2D : MonoBehaviour
     [Header("Modifie le saut")] [SerializeField]
     private float gravityFactor = 1f;
     [Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")] [SerializeField] private float maxFallSpeed = -20f;
-    // private float currentGravity;
 
     [SerializeField] private float maxHeight = 3f;
 
@@ -95,7 +94,6 @@ public class PlayerController2D : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(playerVelocity.y);
         //stop la roulade si elle rencontre du vide ou un mur
         if (onRoll)
         {
