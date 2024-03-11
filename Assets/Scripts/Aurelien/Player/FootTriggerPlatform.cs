@@ -5,12 +5,14 @@ public class FootTriggerPlatform : MonoBehaviour
 {
     private Collider2D otherC2D;
 
+    [SerializeField] private RaycastDetection _raycastDetection;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Platforme"))
         {
             otherC2D = other.GetComponent<Collider2D>();
-            ChangeOtherCollider(false,"Ground" );
+            ChangeOtherCollider(false, "Ground");
         }
     }
 
@@ -18,7 +20,7 @@ public class FootTriggerPlatform : MonoBehaviour
     {
         if (other.CompareTag("Platforme"))
         {
-            ChangeOtherCollider(true,"Ignore Raycast" );
+            ChangeOtherCollider(true, "Ignore Raycast");
             otherC2D = null;
         }
     }
@@ -28,10 +30,10 @@ public class FootTriggerPlatform : MonoBehaviour
         if (!context.started) return;
         if (InputReader.instance.direction.y < 0 && otherC2D != null)
         {
-            ChangeOtherCollider(true,"Ignore Raycast" );
+            ChangeOtherCollider(true, "Ignore Raycast");
         }
     }
-    
+
     private void ChangeOtherCollider(bool isTrigger, string nameOfLayer)
     {
         otherC2D.isTrigger = isTrigger;

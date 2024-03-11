@@ -1,4 +1,5 @@
 using System.Collections;
+using Spine;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -10,17 +11,19 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup;
     [SerializeField] private VisualEffect VFXCoupDeCross;
+    private PlayerAnimation _playerAnimation;
     private bool canCrossKick = true;
 
     private void Start()
     {
         c2D = GetComponent<Collider2D>();
+        _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
     public void CrossKick(int currentDirection)
     {
         if (!canCrossKick) return;
-        // AnimationController.instance.SetCharacterState(1, AnimationController.AnimationState.recall, false, AnimationController.instance.speedCrossKick, false);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
@@ -79,62 +82,8 @@ public class StunDetection : MonoBehaviour
             interactedObject.BulletHitSomething(null);
         }
     }
-
-    // private void StunEnemy()
-    // {
-    //     timeToCrossKick += Time.deltaTime;
-
-    //     if (InputReader.instance.canStun && timeToCrossKick >= crossKickCooldown)
-    //     {
-    //         timeToCrossKick = 0;
-
-    //         canLaunchTimeToStun = true;
-    //         stopTimeToEnableRaycast = true;
-
-    //         raycastHit2D = Physics2D.Raycast(transform.position, Vector2.right * _playerController2D.LastDirection,
-    //             distanceToHit, layerIa);
-
-    //         if (raycastHit2D)
-    //         {
-    //             if (raycastHit2D.transform.GetComponent<IA>())
-    //                 _ia = raycastHit2D.transform.GetComponent<IA>();
-    //             else if (raycastHit2D.transform.CompareTag("DestroyObject"))
-    //             {
-    //                 Explodable explodableObj = raycastHit2D.transform.GetComponent<Explodable>();
-    //                 explodableObj.explode();
-    //                 ExplosionForce ef = FindObjectOfType<ExplosionForce>();
-    //                 ef.doExplosion(transform.position);
-    //             }
-    //         }
-    //     }
-
-    //     if (canLaunchTimeToStun)
-    //     {
-    //         if (stopTimeToEnableRaycast) timeToEnableRaycast += Time.deltaTime;
-
-    //         timeToStun += Time.deltaTime;
-
-    //         if (_ia != null) _ia.enabled = false;
-
-    //         if (timeToEnableRaycast >= timeToDisableRaycast)
-    //         {
-    //             raycastHit2D = new RaycastHit2D();
-
-    //             timeToEnableRaycast = 0;
-    //             stopTimeToEnableRaycast = false;
-    //         }
-
-    //         if (timeToStun >= stunDuration)
-    //         {
-    //             if (_ia != null)
-    //             {
-    //                 _ia.enabled = true;
-    //                 _ia = null;
-    //             }
-
-    //             timeToStun = 0;
-    //             canLaunchTimeToStun = false;
-    //         }
-    //     }
-    // }
+    public void Function(TrackEntry trackEntry)
+    {
+        // trackEntry.
+    }
 }
