@@ -5,8 +5,7 @@ using UnityEngine.VFX;
 
 public class IAHorloger : IA
 {
-    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
-    [SerializeField] private int chargeTime = 1;
+    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f, chargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
     [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
