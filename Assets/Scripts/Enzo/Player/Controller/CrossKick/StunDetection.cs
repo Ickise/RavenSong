@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 public class StunDetection : MonoBehaviour
 {
     private Collider2D c2D;
+    public bool IsC2DActive => c2D.enabled;
     [Header("À set up")][SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
