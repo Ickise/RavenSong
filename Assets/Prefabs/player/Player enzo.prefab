@@ -581,7 +581,7 @@ MonoBehaviour:
   accelerationAirControlSpeed: 6
   maxAirControlSpeed: 4
   gravityFactor: 0.2
-  jumpForce: 20
+  maxHeight: 3
   hangTime: 0.1
   fallMultiplier: 3
   lowJumpMultiplier: 2
@@ -1429,6 +1429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 843ab3d0fcaf0ec40a30e8883299112b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _raycastDetection: {fileID: 0}
 --- !u!1 &8335044014015760339
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1733,7 @@ MonoBehaviour:
   - name: 4
     speed: 1
     trackNum: 0
-    loop: 1
+    loop: 0
     animationReferenceAssetDroite: {fileID: 11400000, guid: 2707d1b2263f5814d8e022e2502ee7a1, type: 2}
     animationReferenceAssetGauche: {fileID: 11400000, guid: 2bffae92f2025d546a5f00497ad3057d, type: 2}
   - name: 12
@@ -1765,6 +1766,12 @@ MonoBehaviour:
     loop: 0
     animationReferenceAssetDroite: {fileID: 11400000, guid: 25295ab240aebf442b595a855ada5ac0, type: 2}
     animationReferenceAssetGauche: {fileID: 11400000, guid: c869ff128262b2843bfbccefd426a987, type: 2}
+  - name: 9
+    speed: 1
+    trackNum: 1
+    loop: 0
+    animationReferenceAssetDroite: {fileID: 11400000, guid: 1ede7072f1c81344f95d9d17f14a1b4f, type: 2}
+    animationReferenceAssetGauche: {fileID: 11400000, guid: a51085d4c0166ef459dbcec5a136d2bd, type: 2}
 --- !u!114 &987536328954242322
 MonoBehaviour:
   m_ObjectHideFlags: 0

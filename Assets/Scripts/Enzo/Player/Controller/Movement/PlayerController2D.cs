@@ -173,7 +173,7 @@ public class PlayerController2D : MonoBehaviour
                 if (hangTimeCounter < hangTime) return;
                 if (_fireOneBullet.bulletRef == null)
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
-                else if (_stunDetection.IsC2DActive)
+                else if (_stunDetection.IsC2DActive || _recallBullet.doRecall)
                 {
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 1);
@@ -223,7 +223,10 @@ public class PlayerController2D : MonoBehaviour
             if (_fireOneBullet.bulletRef == null)
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
             else
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
+            }
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }

@@ -15,6 +15,7 @@ public class RecallBullet : MonoBehaviour
     public bool onRecall;
 
     private FireOneBullet _fireOneBullet;
+    private PlayerAnimation _playerAnimation;
 
     private BulletCollisionDetection _bulletCollisionDetection;
 
@@ -27,6 +28,7 @@ public class RecallBullet : MonoBehaviour
 
     private void Awake()
     {
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _fireOneBullet = GetComponentInChildren<FireOneBullet>();
     }
 
@@ -130,6 +132,7 @@ public class RecallBullet : MonoBehaviour
         {
             timer = 0;
             doRecall = true;
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut);
             //tous les feedbacks qui montrent qu'on att le recall, en faire une fonction
         }
 
