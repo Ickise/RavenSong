@@ -6,7 +6,8 @@ using UnityEngine.Serialization;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")] [SerializeField]
+    [Header("Modifie les mouvements")]
+    [SerializeField]
     private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -15,27 +16,33 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le aircontrol")] [SerializeField]
+    [Header("Modifie le aircontrol")]
+    [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
 
-    [Header("Modifie le saut")] [SerializeField]
+    [Header("Modifie le saut")]
+    [SerializeField]
     private float gravityFactor = 1f;
     // private float currentGravity;
 
     [SerializeField] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")] [SerializeField]
+    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
+    [SerializeField]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après un saut")]
+    [SerializeField]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")] [SerializeField]
+    [Header("Modifie la rapidité pour tomber après le saut minimum")]
+    [SerializeField]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")] [SerializeField]
+    [Header("Modifie les paramètres de la roulade")]
+    [SerializeField]
     private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
@@ -171,7 +178,7 @@ public class PlayerController2D : MonoBehaviour
 
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (hangTimeCounter < hangTime) return;
-                if (_fireOneBullet.bulletRef == null)
+                if (_fireOneBullet.bulletRef == null && !_stunDetection.IsC2DActive)
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
                 else if (_stunDetection.IsC2DActive || _recallBullet.doRecall)
                 {
@@ -185,18 +192,21 @@ public class PlayerController2D : MonoBehaviour
             }
 
             if (hangTimeCounter < hangTime) return;
-            if (_fireOneBullet.bulletRef == null)
-            {
-                if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
-                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
-
-                else
-                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
-            }
-            else
+            if (_fireOneBullet.bulletRef != null || _stunDetection.IsC2DActive)
             {
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
+            }
+            else
+            {
+                if (!_stunDetection.IsC2DActive)
+                {
+                    if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
+                        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+
+                    else
+                        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+                }
             }
         }
         else
@@ -220,7 +230,7 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             hangTimeCounter = 0f;
-            if (_fireOneBullet.bulletRef == null)
+            if (_fireOneBullet.bulletRef == null && !_stunDetection.IsC2DActive)
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
             else
             {
@@ -261,7 +271,7 @@ public class PlayerController2D : MonoBehaviour
         else
         {
             playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
-//            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            //            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
         }
         //      playerVelocity.y += currentGravity;
     }
