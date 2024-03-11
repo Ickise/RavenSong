@@ -254,13 +254,16 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            currentGravity = -0.1f;
+            //cela permet de ne pas faire un double jump sur la plateforme
+            playerVelocity.y = 0;
+            //  currentGravity = -0.1f;
         }
         else
         {
-            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+//            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
         }
-        playerVelocity.y += currentGravity;
+        //      playerVelocity.y += currentGravity;
     }
 
     private void SetAirControl()
