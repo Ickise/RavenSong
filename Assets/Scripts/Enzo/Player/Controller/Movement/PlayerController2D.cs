@@ -21,6 +21,7 @@ public class PlayerController2D : MonoBehaviour
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
+    [Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")] [SerializeField] private float maxFallSpeed = -20f;
 
     [Header("Modifie le saut")]
     [SerializeField]
@@ -102,6 +103,7 @@ public class PlayerController2D : MonoBehaviour
 
     private void Update()
     {
+        // Debug.Log(playerVelocity.y);
         //stop la roulade si elle rencontre du vide ou un mur
         if (onRoll)
         {
@@ -272,6 +274,10 @@ public class PlayerController2D : MonoBehaviour
         {
             playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
             //            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            if (playerVelocity.y < maxFallSpeed)
+            {
+                playerVelocity.y = maxFallSpeed;
+            }
         }
         //      playerVelocity.y += currentGravity;
     }
@@ -299,7 +305,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         var factor = isFalling ? fallMultiplier : lowJumpMultiplier;
-        playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
+        playerVelocity.y += Vector2.up.y * (Physics2D.gravity.y * (factor - 1) * Time.fixedDeltaTime);
     }
 
     public void Roll()
