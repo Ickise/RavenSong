@@ -2,7 +2,6 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -22,6 +21,7 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Modifie le saut")] [SerializeField]
     private float gravityFactor = 1f;
+    [Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")] [SerializeField] private float maxFallSpeed = -20f;
     // private float currentGravity;
 
     [SerializeField] private float maxHeight = 3f;
@@ -95,6 +95,7 @@ public class PlayerController2D : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(playerVelocity.y);
         //stop la roulade si elle rencontre du vide ou un mur
         if (onRoll)
         {
@@ -256,14 +257,16 @@ public class PlayerController2D : MonoBehaviour
         if (_raycastDetection.IsGrounded)
         {
             playerVelocity.y = 0;
-            //  currentGravity = -0.1f;
         }
         else
         {
             playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
-//            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            
+            if (playerVelocity.y < maxFallSpeed)
+            {
+                playerVelocity.y = maxFallSpeed;
+            }
         }
-        //      playerVelocity.y += currentGravity;
     }
 
     private void SetAirControl()
@@ -289,7 +292,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         var factor = isFalling ? fallMultiplier : lowJumpMultiplier;
-        playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
+        playerVelocity.y += Vector2.up.y * (Physics2D.gravity.y * (factor - 1) * Time.fixedDeltaTime);
     }
 
     public void Roll()
