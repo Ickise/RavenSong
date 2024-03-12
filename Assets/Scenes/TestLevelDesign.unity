@@ -208427,7 +208427,7 @@ PrefabInstance:
       objectReference: {fileID: 580111812}
     - target: {fileID: 7938636242915427903, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
       propertyPath: m_Lens.NearClipPlane
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -244227,12 +244227,16 @@ PrefabInstance:
       value: 1.85
       objectReference: {fileID: 0}
     - target: {fileID: 756886742165661508, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756886742165661508, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: far clip plane
       value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 756886742165661508, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: near clip plane
-      value: 0.01
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 756886742165661508, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: orthographic size
@@ -268215,7 +268219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7374410876302370375, guid: d42364e94b0ea7046a6eff5bd2a1755a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
