@@ -32,7 +32,7 @@ public abstract class IA : MonoBehaviour
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
-    public enum AnimationState { moveForward, moveBackward, shoot }
+    public enum AnimationState { moveForward, moveBackward, shoot, shootBackWard, idle, mort, stun, stunStart, stunEnd,  }
     private SkeletonAnimation skeletonAnimation;
     [Serializable]
     public struct AnimationReference
@@ -41,7 +41,6 @@ public abstract class IA : MonoBehaviour
         public float speed;
         public int trackNum;
         public bool loop;
-        public bool overrideSkeleton;
         public AnimationReferenceAsset animationReferenceAsset;
     }
     [SerializeField] private AnimationReference[] animations;
@@ -109,7 +108,7 @@ public abstract class IA : MonoBehaviour
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
             currentAnimationState = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, false));
         }
     }
 

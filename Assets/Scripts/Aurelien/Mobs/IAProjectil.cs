@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class IAProjectil : IA
 {
-    [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3, minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
+    [SerializeField] private float minDistanceToAttack = 5f, maxDistanceToAttack = 20f, timeBetweenAttack = 3f;
+    private float minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
     [SerializeField] private GameObject projectil, VFXTir;
     [SerializeField] private Transform posVFXTir;
     private RaycastHit2D RaycastDetectPlayerProjectil
@@ -17,7 +17,6 @@ public class IAProjectil : IA
         }
     }
     private bool DetectPlayerYProjectil { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayerProjectil && RaycastDetectPlayerProjectil.transform.CompareTag("Player"); } }
-
     private State state;
     private enum State
     {
@@ -63,14 +62,13 @@ public class IAProjectil : IA
 
     private void RushDistancePlayer()
     {
-        float posATK = player.position.x + (transform.position.x > player.position.x ? Mathf.Lerp(minDistance, maxDistance, 0.5f) : -Mathf.Lerp(minDistance, maxDistance, 0.5f));
+        float posATK = player.position.x + (transform.position.x > player.position.x ? Mathf.Lerp(minDistanceToAttack, maxDistanceToAttack, 0.5f) : -Mathf.Lerp(minDistanceToAttack, maxDistanceToAttack, 0.5f));
         direction = transform.position.x < posATK;
         if ((Mathf.Abs(posATK - transform.position.x) < 0.2f) || RaycastHitWall || !RaycastDetectNotVoid)
         {
             state = State.Attack;
             rb2D.velocity = Vector2.zero;
             StartCoroutine(Attack());
-            SetAnimation(AnimationState.shoot);
             return;
         }
         RunToDirection();
@@ -78,9 +76,9 @@ public class IAProjectil : IA
 
     private void IsAttacking()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerYProjectil)
+        if (Mathf.Abs(transform.position.x - player.position.x) < minDistanceToAttack || Mathf.Abs(transform.position.x - player.position.x) > maxDistanceToAttack || !DetectPlayerYProjectil)
         {
-            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance) && (RaycastHitWall || !RaycastDetectNotVoid) && (DetectPlayerYProjectil || DetectPlayer))
+            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistanceToAttack || Mathf.Abs(transform.position.x - player.position.x) > maxDistanceToAttack) && (RaycastHitWall || !RaycastDetectNotVoid) && (DetectPlayerYProjectil || DetectPlayer))
                 return;
             StopAllCoroutines();
             state = State.Roaming;
@@ -90,7 +88,9 @@ public class IAProjectil : IA
     private IEnumerator Attack()
     {
         transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
-        yield return new WaitForSeconds(timeAttack);
+        SetAnimation(AnimationState.idle);
+        yield return new WaitForSeconds(timeBetweenAttack);
+        SetAnimation(AnimationState.shoot);
         Instantiate(projectil, transform.position, Quaternion.identity).GetComponent<Projectil>().playerPos = player.position;
         GameObject currentVFXTir = Instantiate(VFXTir, posVFXTir.position, Quaternion.identity);
         Destroy(currentVFXTir, 3);
