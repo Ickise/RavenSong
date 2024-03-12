@@ -25,8 +25,10 @@ public class BulletDirection : MonoBehaviour
             : leftAimPosition.position;
 
         Vector3 positionToLook = mainCamera.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x,
-            Mouse.current.position.ReadValue().y, 0));
+            Mouse.current.position.ReadValue().y, 1));
 
-        direction = SpineAim.manette ? (currentDirection - transform.position).normalized : (positionToLook - transform.position).normalized;
+        direction = SpineAim.manette ? (currentDirection - PlayerController2D._instance.transform.position).normalized : (positionToLook - PlayerController2D._instance.transform.position).normalized;
+        
+        Debug.Log(currentDirection);
     }
 }
