@@ -28,7 +28,5 @@ public class BulletDirection : MonoBehaviour
             Mouse.current.position.ReadValue().y, 1));
 
         direction = SpineAim.manette ? (currentDirection - PlayerController2D._instance.transform.position).normalized : (positionToLook - PlayerController2D._instance.transform.position).normalized;
-        
-        Debug.Log(currentDirection);
     }
 }
