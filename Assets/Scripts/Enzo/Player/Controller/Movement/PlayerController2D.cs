@@ -165,7 +165,6 @@ public class PlayerController2D : MonoBehaviour
             playerVelocity.x = _recallBullet.doRecall
                 ? Mathf.Clamp(playerVelocity.x, -maxSpeedRecall, maxSpeedRecall)
                 : Mathf.Clamp(playerVelocity.x, -maxSpeed, maxSpeed);
-            print(SetNormalDirectionY(slopNormalPerp));
             playerVelocity.y = SetNormalDirectionY(slopNormalPerp);
             if (!isVFXDustTrailPlaying)
             {

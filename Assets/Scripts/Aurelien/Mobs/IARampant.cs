@@ -48,7 +48,7 @@ public class IARampant : IA
         {
             state = State.ChasePlayer;
             direction = transform.position.x < player.position.x;
-            speedMovement = speedAttaquePlayer;
+            currentSpeedMovement = speedAttaquePlayer;
         }
     }
 
@@ -68,9 +68,9 @@ public class IARampant : IA
             StartCoroutine(StunTime());
             IEnumerator StunTime()
             {
-                speedMovement = 0f;
+                currentSpeedMovement = 0f;
                 yield return new WaitForSeconds(IaStunTime);
-                speedMovement = speedAttaquePlayer;
+                currentSpeedMovement = speedAttaquePlayer;
             }
         }
         else if (!DetectPlayer)

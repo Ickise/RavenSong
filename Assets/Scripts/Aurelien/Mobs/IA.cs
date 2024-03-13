@@ -4,21 +4,35 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using UnityEngine.VFX;
+using Spine;
+using System.Collections;
 
 public abstract class IA : MonoBehaviour
 {
     protected Rigidbody2D rb2D;
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
-    [Tooltip("direction au start"), SerializeField] protected bool direction; //left = false, right = true
-    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f, distancePlayerDetection = 10f, hauteurPlayerDetection = 2f, jumpForce = 10f, distanceAttaqueMelee = 1f;
-    [SerializeField] protected Vector2 tailleMob;
-    [SerializeField] private bool drawCirclesEditor, groundGizmos;
-    [SerializeField] private int nombreVie = 1;
+    [SerializeField, Tooltip("direction au start")] protected bool direction; //left = false, right = true
+    [Header("les statistiques du mob")]
+    [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f;
+    [SerializeField, Tooltip("la distance horizontal ou le mob peut voir le joueur")]
+    protected float distancePlayerDetection = 10f;
+    [SerializeField, Tooltip("la hauteur ou le mob peut voir le joueur")]
+    protected float hauteurPlayerDetection = 2f;
+    [SerializeField, Tooltip("la distance ou le mob peut attaquer le joueur en melee (le chargeur a aussi une hitbox physique)")]
+    protected float distanceAttaqueMelee = 1f;
+    [SerializeField, Tooltip("le temps ou le mob va rester en stun time")]
+    protected float stunTime = 3f;
+    protected float jumpForce = 10f;
+    protected Vector2 tailleMob;
+    [Header("les gizmos")]
+    [SerializeField] private bool drawCirclesDetectioninEditor;
+    [SerializeField] private bool groundGizmos;
+    private int nombreVie = 1;
     public VisualEffect VFXStun;
     private BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
-    protected float speedMovement;
+    protected float currentSpeedMovement;
     protected bool canJump = true;
     protected RaycastHit2D RaycastDetectNotVoid
     {
@@ -32,7 +46,7 @@ public abstract class IA : MonoBehaviour
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
-    public enum AnimationState { moveForward, moveBackward, shoot, shootBackWard, idle, mort, stun, stunStart, stunEnd,  }
+    public enum AnimationState {none, moveForward, moveBackward, shoot, shootWalk, idle, mort, stun, stunStart, stunEnd, }
     private SkeletonAnimation skeletonAnimation;
     [Serializable]
     public struct AnimationReference
@@ -53,7 +67,7 @@ public abstract class IA : MonoBehaviour
         tailleMob = cd2D.size;
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
-        speedMovement = speedBalader;
+        currentSpeedMovement = speedBalader;
         layerDefault = LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
         layerDetectPlayer = LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -88,12 +102,15 @@ public abstract class IA : MonoBehaviour
             player.GetComponent<Respawn>().RespawnPlayer();
     }
 
-    protected void RunToDirection()
+    protected void RunToDirection(AnimationState animationState = AnimationState.moveForward, bool inverseDirection = false)
     {
-        SetAnimation(AnimationState.moveForward);
+        SetAnimation(animationState);
         Vector2 slopNormalPerp = Vector2.Perpendicular(IsGrounded.normal).normalized;
-        rb2D.velocity = new Vector2(-(direction ? speedMovement : -speedMovement) * slopNormalPerp.x, -(direction ? speedMovement : -speedMovement) * slopNormalPerp.y);
-        transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
+        rb2D.velocity = new Vector2(-(direction ? currentSpeedMovement : -currentSpeedMovement) * slopNormalPerp.x, -(direction ? currentSpeedMovement : -currentSpeedMovement) * slopNormalPerp.y);
+        if (!inverseDirection)
+            transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
+        else
+            transform.localScale = !direction ? Vector2.one : new Vector2(-1, 1);
     }
 
     public void SetAnimation(AnimationState animationState)
@@ -112,6 +129,44 @@ public abstract class IA : MonoBehaviour
         }
     }
 
+    public void SetAnimation(AnimationState animationState, Spine.AnimationState.TrackEntryDelegate function)
+    {
+        if (currentAnimationState == animationState) return;
+        if (AnimationsSetter.instance == null)
+        {
+            Debug.LogWarning("mettre le prefab AnimationController dans la scène");
+            return;
+        }
+        AnimationReference animationRefAsset;
+        if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
+        {
+            currentAnimationState = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, false), function);
+        }
+    }
+
+    public void Stunning(TrackEntry trackEntry)
+    {
+        SetAnimation(AnimationState.stun);
+        StartCoroutine(TimeStun());
+        IEnumerator TimeStun()
+        {
+            yield return new WaitForSeconds(stunTime);
+            SetAnimation(AnimationState.stunEnd, EndStun);
+        }
+    }
+
+    public void ClearAnimations()
+    {
+        skeletonAnimation.ClearState();
+    }
+
+    private void EndStun(TrackEntry trackEntry)
+    {
+        enabled = true;
+        VFXStun.Stop();
+    }
+
     void OnDrawGizmos()
     {
         if (groundGizmos)
@@ -120,7 +175,7 @@ public abstract class IA : MonoBehaviour
                 cd2D = GetComponent<BoxCollider2D>();
             Gizmos.DrawWireCube(transform.position + new Vector3(cd2D.offset.x, cd2D.offset.y, 0) + Vector3.down * (cd2D.size.y / 2f), new Vector2(cd2D.size.x, 0.1f));
         }
-        if (!drawCirclesEditor) return;
+        if (!drawCirclesDetectioninEditor) return;
         Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
     }
 
