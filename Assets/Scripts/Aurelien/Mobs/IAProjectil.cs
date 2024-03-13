@@ -1,10 +1,10 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class IAProjectil : IA
 {
-    [SerializeField] private float minDistance = 5f, maxDistance = 20f, timeAttack = 3, minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
+    [SerializeField] private float minDistanceToAttack = 5f, maxDistanceToAttack = 20f, timeBetweenAttack = 3f;
+    private float minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
     [SerializeField] private GameObject projectil, VFXTir;
     [SerializeField] private Transform posVFXTir;
     private RaycastHit2D RaycastDetectPlayerProjectil
@@ -17,7 +17,6 @@ public class IAProjectil : IA
         }
     }
     private bool DetectPlayerYProjectil { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayerProjectil && RaycastDetectPlayerProjectil.transform.CompareTag("Player"); } }
-
     private State state;
     private enum State
     {
@@ -46,7 +45,7 @@ public class IAProjectil : IA
 
     private void Roaming()
     {
-        speedMovement = speedBalader;
+        currentSpeedMovement = speedBalader;
         if (RaycastHitWall || !RaycastDetectNotVoid)
             direction = !direction;
         RunToDirection();
@@ -57,20 +56,27 @@ public class IAProjectil : IA
         if (DetectPlayer || DetectPlayerYProjectil)
         {
             state = State.RushDistancePlayer;
-            speedMovement = speedAttaquePlayer;
+            currentSpeedMovement = speedAttaquePlayer;
         }
     }
 
     private void RushDistancePlayer()
     {
-        float posATK = player.position.x + (transform.position.x > player.position.x ? Mathf.Lerp(minDistance, maxDistance, 0.5f) : -Mathf.Lerp(minDistance, maxDistance, 0.5f));
+        float posATK = player.position.x + (transform.position.x > player.position.x ? (minDistanceToAttack + maxDistanceToAttack) / 2f : -((minDistanceToAttack + maxDistanceToAttack) / 2f));
         direction = transform.position.x < posATK;
-        if ((Mathf.Abs(posATK - transform.position.x) < 0.2f) || RaycastHitWall || !RaycastDetectNotVoid)
+        if (Mathf.Abs(posATK - transform.position.x) < (minDistanceToAttack + maxDistanceToAttack) / 2f)
         {
             state = State.Attack;
-            rb2D.velocity = Vector2.zero;
             StartCoroutine(Attack());
-            SetAnimation(AnimationState.shoot);
+        }
+        else if (RaycastHitWall || !RaycastDetectNotVoid)
+        {
+            if (!DetectPlayer && !DetectPlayerYProjectil)
+            {
+                state = State.Roaming;
+                return;
+            }
+            rb2D.velocity = Vector2.zero;
             return;
         }
         RunToDirection();
@@ -78,19 +84,47 @@ public class IAProjectil : IA
 
     private void IsAttacking()
     {
-        if (Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance || !DetectPlayerYProjectil)
+        float posATK = player.position.x + (transform.position.x > player.position.x ? (minDistanceToAttack + maxDistanceToAttack) / 2f : -((minDistanceToAttack + maxDistanceToAttack) / 2f));
+        direction = transform.position.x < posATK;
+        if (Mathf.Abs(transform.position.x - player.position.x) < minDistanceToAttack || Mathf.Abs(transform.position.x - player.position.x) > maxDistanceToAttack || (!DetectPlayer && !DetectPlayerYProjectil))
         {
-            if ((Mathf.Abs(transform.position.x - player.position.x) < minDistance || Mathf.Abs(transform.position.x - player.position.x) > maxDistance) && (RaycastHitWall || !RaycastDetectNotVoid) && (DetectPlayerYProjectil || DetectPlayer))
+            if ((RaycastHitWall || !RaycastDetectNotVoid) && Mathf.Abs(transform.position.x - player.position.x) < minDistanceToAttack && (DetectPlayerYProjectil || DetectPlayer))
+            {
+                rb2D.velocity = Vector2.zero;
                 return;
+            }
             StopAllCoroutines();
             state = State.Roaming;
+            return;
+        }
+        if (Mathf.Abs(posATK - transform.position.x) < 0.2f)
+        {
+            SetAnimation(AnimationState.idle);
+            rb2D.velocity = Vector2.zero;
+            return;
+        }
+
+        if (transform.position.x > player.position.x)
+        {
+            if (direction)
+                RunToDirection(AnimationState.moveBackward, true);
+            else
+                RunToDirection();
+        }
+        else
+        {
+            if (!direction)
+                RunToDirection(AnimationState.moveBackward, true);
+            else
+                RunToDirection();
         }
     }
 
     private IEnumerator Attack()
     {
-        transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);
-        yield return new WaitForSeconds(timeAttack);
+        transform.localScale = transform.position.x < player.position.x ? Vector2.one : new Vector2(-1, 1);
+        yield return new WaitForSeconds(timeBetweenAttack);
+        SetAnimation(rb2D.velocity == Vector2.zero ? AnimationState.shoot : AnimationState.shootWalk);
         Instantiate(projectil, transform.position, Quaternion.identity).GetComponent<Projectil>().playerPos = player.position;
         GameObject currentVFXTir = Instantiate(VFXTir, posVFXTir.position, Quaternion.identity);
         Destroy(currentVFXTir, 3);
