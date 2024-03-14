@@ -25,6 +25,7 @@ public class StunDetection : MonoBehaviour
     {
         if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+        _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
@@ -35,6 +36,7 @@ public class StunDetection : MonoBehaviour
         IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
+            _playerAnimation.DontAim = false;
             canCrossKick = true;
         }
     }
@@ -42,16 +44,16 @@ public class StunDetection : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         //pour les IA
-        IA iA = other.GetComponent<IA>();
-        if (iA)
+        IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
+        if (iAprojectil)
         {
             VFXCoupDeCross.Play();
-            iA.VFXStun.Play();
-            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iA.transform);
+            iAprojectil.VFXStun.Play();
+            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iAprojectil.transform);
             Destroy(currentVFXAuraCoup, 3);
-            iA.ClearAnimations();
-            iA.enabled = false;
-            iA.SetAnimation(IA.AnimationState.stunStart, iA.Stunning);
+            iAprojectil.ClearAnimations();
+            iAprojectil.enabled = false;
+            iAprojectil.SetAnimation(IA.AnimationState.stunStart, iAprojectil.Stunning);
             return;
         }
 
