@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7183278342941699945}
   - component: {fileID: 843535173440656884}
-  m_Layer: 11
+  m_Layer: 2
   m_Name: collider atk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160974533899358674}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -64,7 +64,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.24, y: 0.21}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -75,7 +75,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.8, y: 0.82}
+  m_Size: {x: 2.7, y: 1.23}
   m_EdgeRadius: 0
 --- !u!1 &1255228123557514334
 GameObject:
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: 6e85068234e851d48b12669f3c7c7bd7, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: 674a1473809594e49935e37ad63a27aa, type: 2}
   initialSkinName: 
   initialFlipX: 1
   initialFlipY: 0
@@ -386,18 +386,51 @@ MonoBehaviour:
   speedAttaquePlayer: 8
   distancePlayerDetection: 13
   hauteurPlayerDetection: 2
-  jumpForce: 10
   distanceAttaqueMelee: 0
-  tailleMob: {x: 2, y: 1}
-  drawCirclesEditor: 0
+  stunTime: 3
+  drawCirclesDetectioninEditor: 0
   groundGizmos: 0
-  nombreVie: 0
   VFXStun: {fileID: 8737694926524846800}
-  animations: []
+  animations:
+  - name: 1
+    speed: 1
+    trackNum: 0
+    loop: 1
+    animationReferenceAsset: {fileID: 11400000, guid: 56547c38c3852ea4784431752eeb412d, type: 2}
+  - name: 5
+    speed: 1
+    trackNum: 0
+    loop: 1
+    animationReferenceAsset: {fileID: 11400000, guid: 78cfdcec7d85de34098faefc854e65a3, type: 2}
+  - name: 6
+    speed: 1
+    trackNum: 0
+    loop: 0
+    animationReferenceAsset: {fileID: 11400000, guid: d6fbc560e5a575c46a3c74a866ed5743, type: 2}
+  - name: 8
+    speed: 1
+    trackNum: 0
+    loop: 0
+    animationReferenceAsset: {fileID: 11400000, guid: bf53642722d5c1f4089459f54df4b506, type: 2}
+  - name: 7
+    speed: 1
+    trackNum: 0
+    loop: 1
+    animationReferenceAsset: {fileID: 11400000, guid: e5aefbaf6a0730944afeb95edb31e09b, type: 2}
+  - name: 9
+    speed: 1
+    trackNum: 0
+    loop: 0
+    animationReferenceAsset: {fileID: 11400000, guid: 5033f3df2db860f48ab843af6301cf0e, type: 2}
+  - name: 10
+    speed: 1
+    trackNum: 0
+    loop: 0
+    animationReferenceAsset: {fileID: 11400000, guid: 3a5d603f1b7e4de469f7e38f850a5383, type: 2}
   reloadTime: 5
   runTime: 5
   decelerationTime: 1
-  chargeTime: 1
+  beforeChargeTime: 1
   cd2Datk: {fileID: 843535173440656884}
   VFXBonk: {fileID: 5010377046930350073, guid: 0d37d5928e198014897c52648bbf9fb5, type: 3}
   VFXCourse: {fileID: 7612893444115532493, guid: 22bb900b20950a14f83be5fc9f087092, type: 3}
@@ -437,7 +470,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.6}
+  m_Offset: {x: 0, y: -0.4}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -448,7 +481,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3, y: 0.8}
+  m_Size: {x: 1.95, y: 1.2}
   m_EdgeRadius: 0
 --- !u!114 &2117618549842726335
 MonoBehaviour:

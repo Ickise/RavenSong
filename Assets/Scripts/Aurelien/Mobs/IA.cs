@@ -26,8 +26,8 @@ public abstract class IA : MonoBehaviour
     protected float jumpForce = 10f;
     protected Vector2 tailleMob;
     [Header("les gizmos")]
-    [SerializeField] private bool drawCirclesDetectioninEditor;
-    [SerializeField] private bool groundGizmos;
+    [SerializeField] private bool drawCirclesDetectioninEditor, groundGizmos;
+    protected bool overwriteIniTialize = false; 
     private int nombreVie = 1;
     public VisualEffect VFXStun;
     private BoxCollider2D cd2D;
@@ -46,7 +46,7 @@ public abstract class IA : MonoBehaviour
     protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
-    public enum AnimationState {none, moveForward, moveBackward, shoot, shootWalk, idle, mort, stun, stunStart, stunEnd, }
+    public enum AnimationState { none, moveForward, moveBackward, shoot, shootWalk, idle, mort, stun, stunStart, stunEnd, bonk }
     private SkeletonAnimation skeletonAnimation;
     [Serializable]
     public struct AnimationReference
@@ -58,7 +58,7 @@ public abstract class IA : MonoBehaviour
         public AnimationReferenceAsset animationReferenceAsset;
     }
     [SerializeField] private AnimationReference[] animations;
-    private Dictionary<AnimationState, AnimationReference> animationStateRef = new Dictionary<AnimationState, AnimationReference>();
+    protected Dictionary<AnimationState, AnimationReference> animationStateRef = new Dictionary<AnimationState, AnimationReference>();
     private AnimationState currentAnimationState;
 
     protected virtual void Start()
@@ -125,7 +125,7 @@ public abstract class IA : MonoBehaviour
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
             currentAnimationState = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, false));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
         }
     }
 
@@ -141,7 +141,7 @@ public abstract class IA : MonoBehaviour
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
             currentAnimationState = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, false), function);
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimation, animationRefAsset.animationReferenceAsset, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize), function);
         }
     }
 
@@ -151,20 +151,19 @@ public abstract class IA : MonoBehaviour
         StartCoroutine(TimeStun());
         IEnumerator TimeStun()
         {
-            yield return new WaitForSeconds(stunTime);
-            SetAnimation(AnimationState.stunEnd, EndStun);
+            AnimationReference animationRefAsset;
+            animationStateRef.TryGetValue(AnimationState.stunEnd, out animationRefAsset);
+            yield return new WaitForSeconds(stunTime - animationRefAsset.speed);
+            SetAnimation(AnimationState.stunEnd);
+            yield return new WaitForSeconds(animationRefAsset.speed);
+            enabled = true;
+            VFXStun.Stop();
         }
     }
 
     public void ClearAnimations()
     {
         skeletonAnimation.ClearState();
-    }
-
-    private void EndStun(TrackEntry trackEntry)
-    {
-        enabled = true;
-        VFXStun.Stop();
     }
 
     void OnDrawGizmos()
