@@ -25,6 +25,7 @@ public class StunDetection : MonoBehaviour
     {
         if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+        _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
@@ -35,6 +36,7 @@ public class StunDetection : MonoBehaviour
         IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
+            _playerAnimation.DontAim = false;
             canCrossKick = true;
         }
     }
