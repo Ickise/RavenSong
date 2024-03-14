@@ -9,7 +9,7 @@ public class IALaBrute : IA
     private void Walking()
     {
         if (RaycastHitWall || !RaycastDetectNotVoid)
-            if (speedMovement == speedBalader)
+            if (currentSpeedMovement == speedBalader)
                 direction = !direction;
             else
                 return;
@@ -21,9 +21,9 @@ public class IALaBrute : IA
         if (DetectPlayer)
         {
             direction = transform.position.x < player.position.x;
-            speedMovement = speedAttaquePlayer;
+            currentSpeedMovement = speedAttaquePlayer;
         }
         else
-            speedMovement = speedBalader;
+            currentSpeedMovement = speedBalader;
     }
 }

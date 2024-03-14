@@ -21,25 +21,21 @@ public class StunDetection : MonoBehaviour
         _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
-    public void CrossKick(int currentDirection)
+    public IEnumerator CrossKick(int currentDirection)
     {
-        if (!canCrossKick) return;
+        if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
-        StartCoroutine(CoolDown());
-        IEnumerator CoolDown()
+        c2D.enabled = true;
+        yield return new WaitForSeconds(stunDuration);
+        c2D.enabled = false;
+        StartCoroutine(CrossKickCoolDown());
+        IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
             canCrossKick = true;
-        }
-        c2D.enabled = true;
-        StartCoroutine(TimeHitBox());
-        IEnumerator TimeHitBox()
-        {
-            yield return new WaitForSeconds(stunDuration);
-            c2D.enabled = false;
         }
     }
 
@@ -53,15 +49,9 @@ public class StunDetection : MonoBehaviour
             iA.VFXStun.Play();
             GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iA.transform);
             Destroy(currentVFXAuraCoup, 3);
+            iA.ClearAnimations();
             iA.enabled = false;
-            StartCoroutine(TimeUnstun());
-            IEnumerator TimeUnstun()
-            {
-                iA.SetAnimation(IA.AnimationState.shoot);
-                yield return new WaitForSeconds(stunDuration);
-                iA.enabled = true;
-                iA.VFXStun.Stop();
-            }
+            iA.SetAnimation(IA.AnimationState.stunStart, iA.Stunning);
             return;
         }
 
@@ -82,9 +72,5 @@ public class StunDetection : MonoBehaviour
         {
             interactedObject.BulletHitSomething(null);
         }
-    }
-    public void Function(TrackEntry trackEntry)
-    {
-        // trackEntry.
     }
 }
