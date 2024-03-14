@@ -22,7 +22,6 @@ public class IAHorloger : IA
     {
         base.Start();
         tailleMob.y += 0.2f;
-        SetAnimation(AnimationState.idle);
         overwriteIniTialize = true;
     }
 

@@ -27,7 +27,7 @@ public abstract class IA : MonoBehaviour
     protected Vector2 tailleMob;
     [Header("les gizmos")]
     [SerializeField] private bool drawCirclesDetectioninEditor, groundGizmos;
-    protected bool overwriteIniTialize = false; 
+    protected bool overwriteIniTialize = false;
     private int nombreVie = 1;
     public VisualEffect VFXStun;
     private BoxCollider2D cd2D;
@@ -83,6 +83,12 @@ public abstract class IA : MonoBehaviour
                     break;
                 }
         currentAnimationState = AnimationState.moveBackward;
+        StartCoroutine(SetIdle());
+        IEnumerator SetIdle()
+        {
+            yield return 0;
+            SetAnimation(AnimationState.idle);
+        }
     }
 
     protected virtual void Update()
