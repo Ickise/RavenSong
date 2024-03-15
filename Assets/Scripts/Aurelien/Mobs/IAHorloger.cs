@@ -1,11 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.VFX;
+using Spine;
 
 public class IAHorloger : IA
 {
-    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f, chargeTime = 1f;
+    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
+    [SerializeField, Tooltip("le temps entre le moment ou il voit le joueur et il commence à le charger")] private float beforeChargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
     [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
@@ -21,6 +22,7 @@ public class IAHorloger : IA
     {
         base.Start();
         tailleMob.y += 0.2f;
+        overwriteIniTialize = true;
     }
 
     protected override void StateManager()
@@ -45,13 +47,14 @@ public class IAHorloger : IA
         {
             direction = transform.position.x < player.position.x;
             float a = 0;
-            DOTween.To(() => a, x => a = x, 1f, chargeTime).SetId("chargingTime")
+            DOTween.To(() => a, x => a = x, 1f, beforeChargeTime).SetId("chargingTime")
             // ;spriteRenderer.DOColor(Color.red, chargeTime / 4f)
             .OnComplete(() =>
             {
                 VFXInstantieur.instance.PlayerVFXInWorld(VFXCourse, posVFXCourse, 3f);
                 VFXInstantieur.instance.PlayerVFXInWorld(VFXCourseEtincel, posVFXCourse, 3f);
                 state = State.ChasePlayer;
+                SetAnimation(AnimationState.moveForward);
                 StartCoroutine(RunTime());
             });
             IEnumerator RunTime()
@@ -80,6 +83,7 @@ public class IAHorloger : IA
             cd2Datk.enabled = false;
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
+            SetAnimation(AnimationState.bonk);
             VFXInstantieur.instance.PlayerVFXInWorld(VFXBonk, posVFXBonk, 3);
             state = State.WaitPlayer;
             isReloading = true;
@@ -88,9 +92,26 @@ public class IAHorloger : IA
         }
     }
 
-    IEnumerator StartReload()
+    private IEnumerator StartReload()
     {
-        yield return new WaitForSeconds(reloadTime);
+        SetAnimation(AnimationState.stunStart, Reloading);
+        AnimationReference animationRefAsset;
+        animationStateRef.TryGetValue(AnimationState.stunEnd, out animationRefAsset);
+        yield return new WaitForSeconds(reloadTime - animationRefAsset.speed);
+        SetAnimation(AnimationState.stunEnd);
+        yield return new WaitForSeconds(animationRefAsset.speed);
         isReloading = false;
+        SetAnimation(AnimationState.idle);
+    }
+
+    private void Reloading(TrackEntry trackEntry)
+    {
+        SetAnimation(AnimationState.stun);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+            player.GetComponent<Respawn>().RespawnPlayer();
     }
 }

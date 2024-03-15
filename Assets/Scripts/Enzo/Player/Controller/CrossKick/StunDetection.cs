@@ -21,47 +21,39 @@ public class StunDetection : MonoBehaviour
         _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
 
-    public void CrossKick(int currentDirection)
+    public IEnumerator CrossKick(int currentDirection)
     {
-        if (!canCrossKick) return;
+        if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+        _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
         canCrossKick = false;
-        StartCoroutine(CoolDown());
-        IEnumerator CoolDown()
+        c2D.enabled = true;
+        yield return new WaitForSeconds(stunDuration);
+        c2D.enabled = false;
+        StartCoroutine(CrossKickCoolDown());
+        IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
+            _playerAnimation.DontAim = false;
             canCrossKick = true;
-        }
-        c2D.enabled = true;
-        StartCoroutine(TimeHitBox());
-        IEnumerator TimeHitBox()
-        {
-            yield return new WaitForSeconds(stunDuration);
-            c2D.enabled = false;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         //pour les IA
-        IA iA = other.GetComponent<IA>();
-        if (iA)
+        IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
+        if (iAprojectil)
         {
             VFXCoupDeCross.Play();
-            iA.VFXStun.Play();
-            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iA.transform);
+            iAprojectil.VFXStun.Play();
+            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iAprojectil.transform);
             Destroy(currentVFXAuraCoup, 3);
-            iA.enabled = false;
-            StartCoroutine(TimeUnstun());
-            IEnumerator TimeUnstun()
-            {
-                iA.SetAnimation(IA.AnimationState.shoot);
-                yield return new WaitForSeconds(stunDuration);
-                iA.enabled = true;
-                iA.VFXStun.Stop();
-            }
+            iAprojectil.ClearAnimations();
+            iAprojectil.enabled = false;
+            iAprojectil.SetAnimation(IA.AnimationState.stunStart, iAprojectil.Stunning);
             return;
         }
 
@@ -82,9 +74,5 @@ public class StunDetection : MonoBehaviour
         {
             interactedObject.BulletHitSomething(null);
         }
-    }
-    public void Function(TrackEntry trackEntry)
-    {
-        // trackEntry.
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Spine;
 using Spine.Unity;
@@ -30,16 +29,14 @@ public class AnimationsSetter : MonoBehaviour
 
         TrackEntry entry = animation.skeletonAnimation.state.SetAnimation(animation.trackNum, animation.animationReferenceAsset, animation.loop);
         entry.TimeScale = animation.speed;
-        // if (!animation.loop)
-        //     StartCoroutine(ClearAnimationOnTrack(entry));
     }
 
     public void SetState(AnimationStructConstructor animation, Spine.AnimationState.TrackEntryDelegate function)
     {
-        if (animation.skeletonAnimation.skeletonDataAsset != animation.animationReferenceAsset.SkeletonDataAsset)
+        if (animation.overwriteIniTialize)
         {
             animation.skeletonAnimation.skeletonDataAsset = animation.animationReferenceAsset.SkeletonDataAsset;
-            animation.skeletonAnimation.Initialize(animation.overwriteIniTialize);
+            animation.skeletonAnimation.Initialize(true);
         }
 
         TrackEntry entry = animation.skeletonAnimation.state.SetAnimation(animation.trackNum, animation.animationReferenceAsset, animation.loop);
