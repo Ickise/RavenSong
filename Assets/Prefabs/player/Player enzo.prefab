@@ -578,8 +578,10 @@ MonoBehaviour:
   maxSpeed: 6.5
   maxSpeedRecall: 0.5
   groundFriction: 0.3
+  maxAngleSlop: 72
   accelerationAirControlSpeed: 6
   maxAirControlSpeed: 4
+  maxFallSpeed: -20
   gravityFactor: 0.2
   maxHeight: 3
   hangTime: 0.1
@@ -590,7 +592,8 @@ MonoBehaviour:
   forceBonk: 10
   coolDownToRoll: 2
   VFXDustTrail: {fileID: 4020801391066012145}
-  VFXRoulade: {fileID: 2037828591311287340}
+  VFXRoulade: {fileID: 8712445652773728253, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
+  posVFXRoulade: {fileID: 8040546702331545299}
   onRoll: 0
 --- !u!61 &747856985619423663
 BoxCollider2D:
@@ -2129,11 +2132,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
---- !u!2083052967 &2037828591311287340 stripped
-VisualEffect:
-  m_CorrespondingSourceObject: {fileID: 6600136079069830243, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
-  m_PrefabInstance: {fileID: 5179058782806485071}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4442488793189768208 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8825175657885922399, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
@@ -2150,6 +2148,10 @@ PrefabInstance:
     - target: {fileID: 1682125194026709538, guid: b335aa2f92e373c48a2c7da0bdeed527, type: 3}
       propertyPath: m_RootOrder
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1682125194026709538, guid: b335aa2f92e373c48a2c7da0bdeed527, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1682125194026709538, guid: b335aa2f92e373c48a2c7da0bdeed527, type: 3}
       propertyPath: m_LocalPosition.x

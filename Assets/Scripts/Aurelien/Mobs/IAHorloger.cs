@@ -51,8 +51,8 @@ public class IAHorloger : IA
             // ;spriteRenderer.DOColor(Color.red, chargeTime / 4f)
             .OnComplete(() =>
             {
-                VFXInstantieur.instance.PlayerVFXInWorld(VFXCourse, posVFXCourse, 3f);
-                VFXInstantieur.instance.PlayerVFXInWorld(VFXCourseEtincel, posVFXCourse, 3f);
+                VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
+                VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
                 state = State.ChasePlayer;
                 SetAnimation(AnimationState.moveForward);
                 StartCoroutine(RunTime());
@@ -84,7 +84,7 @@ public class IAHorloger : IA
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
             SetAnimation(AnimationState.bonk);
-            VFXInstantieur.instance.PlayerVFXInWorld(VFXBonk, posVFXBonk, 3);
+            VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
             state = State.WaitPlayer;
             isReloading = true;
             StopAllCoroutines();
