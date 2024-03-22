@@ -22,6 +22,7 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private float speedToRecall = 50f;
     [SerializeField] private float speedDelay = 0.2f;
     [SerializeField] private float distanceToRecall;
+    [SerializeField] private float distanceToGetAmmo = 0.5f;
 
     private float timer;
     private float delay;
@@ -104,7 +105,7 @@ public class RecallBullet : MonoBehaviour
 
     private void GetBulletToReload()
     {
-        if (_bulletCollisionDetection.touchPlayer.collider != null)
+        if (distanceAmmoPlayer.magnitude < distanceToGetAmmo)
         {
             Destroy(_fireOneBullet.bulletRef);
             _fireOneBullet.numberOfAmmo = 1;
