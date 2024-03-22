@@ -20,10 +20,17 @@ public class VFXInstantieur : MonoBehaviour
     /// <param name="vfxGameobject"></param>
     /// <param name="position"></param>
     /// <param name="timeDestroy"></param>
-    public void PlayerVFXInWorld(GameObject vfxGameobject, Transform position, float timeDestroy)
+    public void PlayVFXInWorld(GameObject vfxGameobject, Transform position, float timeDestroy = 3)
     {
-        GameObject currentVFX = Instantiate(vfxGameobject, position.position, Quaternion.identity);
+        GameObject currentVFX = Instantiate(vfxGameobject, position.position, position.rotation);
         currentVFX.transform.localScale = position.localScale;
+        Destroy(currentVFX, timeDestroy);
+    }
+
+    public void PlayVFXInWorld(GameObject vfxGameobject, Vector3 position, Vector3 localScale, Quaternion rotation, float timeDestroy = 3)
+    {
+        GameObject currentVFX = Instantiate(vfxGameobject, position, rotation);
+        currentVFX.transform.localScale = localScale;
         Destroy(currentVFX, timeDestroy);
     }
 }

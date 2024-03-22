@@ -62,13 +62,17 @@ public class PlayerController2D : MonoBehaviour
     private FireOneBullet _fireOneBullet;
     private StunDetection _stunDetection;
 
-    [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
+    // VFX
+    [SerializeField] private VisualEffect VFXDustTrail;
+    [SerializeField] private GameObject VFXRoulade;
+    [SerializeField] private Transform posVFXRoulade;
+    //
 
     private float hangTimeCounter;
 
     private bool canjump = true, canRoll = true, isVFXDustTrailPlaying;
 
-    public bool onRoll;
+    [HideInInspector] public bool onRoll;
 
     public int CurrentDirectionAim
     {
@@ -314,10 +318,8 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        VFXRoulade.gameObject.transform.localScale = new Vector2(
-            VFXRoulade.gameObject.transform.localScale.x * LastDirection, VFXRoulade.gameObject.transform.localScale.y);
 
-        VFXRoulade.Play();
+        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position, new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y, posVFXRoulade.localScale.z), Quaternion.identity);
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
         playerRigidbody2D
             .DOMove(

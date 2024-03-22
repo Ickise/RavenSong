@@ -39,9 +39,8 @@ public class SpineAim : MonoBehaviour
 
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
-        {
             localPosDroite = localPosGauche = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
-        }
+
         else if (!manette)
         {
             localPosDroite = skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -cam.transform.position.z)));
