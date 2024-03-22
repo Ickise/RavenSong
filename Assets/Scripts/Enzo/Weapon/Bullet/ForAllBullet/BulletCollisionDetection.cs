@@ -3,8 +3,8 @@ using UnityEngine.VFX;
 
 public class BulletCollisionDetection : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private LayerMask bulletCollision;
-  //  [SerializeField] private LayerMask layerPlayer;
+    [Header("À set up")][SerializeField] private LayerMask bulletCollision;
+    //  [SerializeField] private LayerMask layerPlayer;
 
     [SerializeField] private float radius = 0.08f;
 
@@ -16,7 +16,7 @@ public class BulletCollisionDetection : MonoBehaviour
     private Collider2D bulletCollider;
 
     RaycastHit2D intersection;
-  //  public RaycastHit2D touchPlayer;
+    //  public RaycastHit2D touchPlayer;
 
     [SerializeField] private VisualEffect VFXRaisonnanceBall, VFXExplosionImpact;
 
@@ -37,12 +37,12 @@ public class BulletCollisionDetection : MonoBehaviour
             Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
             bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
 
-     /*   touchPlayer = Physics2D.CircleCast(
-            transform.position + new Vector3(bulletRigidbody2D.velocity.normalized.x,
-                bulletRigidbody2D.velocity.normalized.y, 0) *
-            Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
-            bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, layerPlayer);*/
-        
+        /*   touchPlayer = Physics2D.CircleCast(
+               transform.position + new Vector3(bulletRigidbody2D.velocity.normalized.x,
+                   bulletRigidbody2D.velocity.normalized.y, 0) *
+               Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
+               bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, layerPlayer);*/
+
         if (hit2D.collider == intersection.collider) return;
 
         intersection = hit2D;
@@ -55,14 +55,14 @@ public class BulletCollisionDetection : MonoBehaviour
         if (intersection.collider == null) return;
 
         onBulletHit = intersection.collider.GetComponentInParent<OnBulletHit>();
-        
+
         if (onBulletHit == null)
         {
             if (intersection.collider.TryGetComponent(out onBulletHit) == false)
             {
                 hasToStop = true;
                 FixBulletOnObject();
-                return;  
+                return;
             }
         }
 
@@ -73,6 +73,10 @@ public class BulletCollisionDetection : MonoBehaviour
             FixBulletOnObject();
         }
 
+        IAHorloger _iAChargeur = onBulletHit.GetComponent<IA>() as IAHorloger;
+        if (_iAChargeur && _iAChargeur.IsAttacking)
+            if (_iAChargeur.GetDirection ? transform.position.x > _iAChargeur.transform.position.x : transform.position.x < _iAChargeur.transform.position.x)
+                return;
         onBulletHit.BulletHitSomething(gameObject);
     }
 
