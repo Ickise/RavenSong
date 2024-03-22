@@ -28037,13 +28037,17 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7822226428985032877, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 81.61
+      value: 90.48
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -28092,7 +28096,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 160974533899358674, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 308535025}
   m_SourcePrefab: {fileID: 100100000, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
 --- !u!43 &278757542
 Mesh:
@@ -30400,6 +30407,23 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &308535022 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 160974533899358674, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
+  m_PrefabInstance: {fileID: 278329816}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &308535025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 308535022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 420c6348fac93fc4b8e0aceec32c5944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &313142890
 GameObject:
   m_ObjectHideFlags: 0
@@ -93178,6 +93202,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 1037418433282939668, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1627705598825823751, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: NaN
@@ -93269,6 +93297,10 @@ PrefabInstance:
     - target: {fileID: 5243910912416799071, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6390879100971792107, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6707277387763615165, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
       propertyPath: _gun
@@ -213603,7 +213635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: isManette
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2284602886649936191, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y

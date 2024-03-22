@@ -23,7 +23,6 @@ public class FireOneBullet : MonoBehaviour
     private void OnClickToShoot(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        
         if (numberOfAmmo == 1)
         {
             bool currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
@@ -31,9 +30,11 @@ public class FireOneBullet : MonoBehaviour
             AudioManager.instance.PlaySound(shootAudio);
 
             bulletRef = Instantiate(bullet.gameObject,
-                transform.position = currentDirection ? rightShootPosition.position : leftShootPosition.position,
+                bullet.transform.position = currentDirection ? rightShootPosition.position : leftShootPosition.position,
                 Quaternion.identity);
             numberOfAmmo--;
+
+            //Debug.Break();
         }
     }
 }
