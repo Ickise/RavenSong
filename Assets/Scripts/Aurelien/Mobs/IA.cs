@@ -13,6 +13,7 @@ public abstract class IA : MonoBehaviour
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
     [SerializeField, Tooltip("direction au start")] protected bool direction; //left = false, right = true
+    public bool GetDirection => direction;
     [Header("les statistiques du mob")]
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f;
     [SerializeField, Tooltip("la distance horizontal ou le mob peut voir le joueur")]
@@ -68,7 +69,7 @@ public abstract class IA : MonoBehaviour
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         currentSpeedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
+        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         VFXStun.Stop();

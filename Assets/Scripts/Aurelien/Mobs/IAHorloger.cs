@@ -2,14 +2,17 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Spine;
+using UnityEngine.InputSystem.iOS;
 
 public class IAHorloger : IA
 {
     [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
     [SerializeField, Tooltip("le temps entre le moment ou il voit le joueur et il commence à le charger")] private float beforeChargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
+    public bool IsAttacking => cd2Datk.enabled;
     [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
+    private OnBulletHit _onBulletHit;
     private bool isReloading;
     private State state;
     private enum State
@@ -21,6 +24,7 @@ public class IAHorloger : IA
     protected override void Start()
     {
         base.Start();
+        _onBulletHit = GetComponent<OnBulletHit>();
         tailleMob.y += 0.2f;
         overwriteIniTialize = true;
     }
@@ -54,6 +58,7 @@ public class IAHorloger : IA
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
                 state = State.ChasePlayer;
+                _onBulletHit.bulletFalling = true;
                 SetAnimation(AnimationState.moveForward);
                 StartCoroutine(RunTime());
             });
@@ -65,6 +70,7 @@ public class IAHorloger : IA
                 StartCoroutine(StartReload());
                 cd2Datk.enabled = false;
                 state = State.WaitPlayer;
+                _onBulletHit.bulletFalling = false;
             }
         }
     }
@@ -86,6 +92,7 @@ public class IAHorloger : IA
             SetAnimation(AnimationState.bonk);
             VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
             state = State.WaitPlayer;
+            _onBulletHit.bulletFalling = false;
             isReloading = true;
             StopAllCoroutines();
             StartCoroutine(StartReload());
