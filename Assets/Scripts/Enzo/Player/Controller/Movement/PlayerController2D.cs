@@ -11,7 +11,7 @@ public class PlayerController2D : MonoBehaviour
     private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
-
+    
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
