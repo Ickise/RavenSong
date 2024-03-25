@@ -13,6 +13,7 @@ public abstract class IA : MonoBehaviour
     protected Transform player;
     protected LayerMask layerDefault, layerDetectPlayer;
     [SerializeField, Tooltip("direction au start")] protected bool direction; //left = false, right = true
+    public bool GetDirection => direction;
     [Header("les statistiques du mob")]
     [SerializeField] protected float speedBalader = 2f, speedAttaquePlayer = 3f;
     [SerializeField, Tooltip("la distance horizontal ou le mob peut voir le joueur")]
