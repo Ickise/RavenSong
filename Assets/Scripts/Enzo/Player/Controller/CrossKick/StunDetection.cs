@@ -51,6 +51,8 @@ public class StunDetection : MonoBehaviour
             iAprojectil.VFXStun.Play();
             GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iAprojectil.transform);
             Destroy(currentVFXAuraCoup, 3);
+            if (!iAprojectil.enabled)
+                return;
             iAprojectil.ClearAnimations();
             iAprojectil.enabled = false;
             iAprojectil.SetAnimation(IA.AnimationState.stunStart, iAprojectil.Stunning);
