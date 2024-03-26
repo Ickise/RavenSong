@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(OnBulletHit))]
 public class DestroyEnemyCorpse : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;

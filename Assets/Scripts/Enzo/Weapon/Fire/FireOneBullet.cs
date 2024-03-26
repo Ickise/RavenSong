@@ -3,17 +3,20 @@ using UnityEngine.InputSystem;
 
 public class FireOneBullet : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private GameObject bullet;
+    [SerializeField, Header("BulletReference")]
+    private GameObject bullet;
 
-    [SerializeField] private Transform rightShootPosition;
+    [SerializeField, Header("PlayerShootPositions")]
+    private Transform rightShootPosition;
+
     [SerializeField] private Transform leftShootPosition;
-    public Transform rightAimPosition;
-    public Transform leftAimPosition;
-    public GameObject bulletRef { get; set; }
 
-    [SerializeField] private SoundData shootAudio;
+    [SerializeField, Header("ShootData")] private SoundData shootAudio;
 
+    [Header("NumberOfAmmo"), Range(0f, 1f)]
     public int numberOfAmmo = 1;
+
+    public GameObject bulletRef { get; set; }
 
     private void Start()
     {

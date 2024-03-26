@@ -1,10 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(OnBulletHit))]
 public class Lever : MonoBehaviour
 {
-    [SerializeField] private Door[] _door;
+    [SerializeField, Header("Door"), Tooltip("Vous pouvez set plusieurs portes pour qu'un levier en ouvre plusieurs")] private Door[] _door;
 
-    public bool isActive;
+    [HideInInspector] public bool isActive;
 
     private BulletCollisionDetection _bulletCollisionDetection;
 

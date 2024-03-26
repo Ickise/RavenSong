@@ -24,6 +24,8 @@ public abstract class IA : MonoBehaviour
     protected float distanceAttaqueMelee = 1f;
     [SerializeField, Tooltip("le temps ou le mob va rester en stun time")]
     protected float stunTime = 3f;
+    [SerializeField, Tooltip("En degrés")] 
+    private float maxAngleSlop = 72f;
     protected float jumpForce = 10f;
     protected Vector2 tailleMob;
     [Header("les gizmos")]
@@ -113,6 +115,9 @@ public abstract class IA : MonoBehaviour
     {
         SetAnimation(animationState);
         Vector2 slopNormalPerp = Vector2.Perpendicular(IsGrounded.normal).normalized;
+        slopNormalPerp = Mathf.Abs(slopNormalPerp.y) > maxAngleSlop / 90f
+                ? Vector2.left
+                : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
         rb2D.velocity = new Vector2(-(direction ? currentSpeedMovement : -currentSpeedMovement) * slopNormalPerp.x, -(direction ? currentSpeedMovement : -currentSpeedMovement) * slopNormalPerp.y);
         if (!inverseDirection)
             transform.localScale = direction ? Vector2.one : new Vector2(-1, 1);

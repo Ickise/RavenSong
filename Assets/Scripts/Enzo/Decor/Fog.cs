@@ -3,6 +3,7 @@ using UnityEngine.Events;
 
 public class Fog : MonoBehaviour
 {
+    [Tooltip("Mettre Animator.enabled en true dans l'Event et désactiver le component avant de lancer")]
     public UnityEvent onTriggerEvent = new UnityEvent();
 
     private void OnTriggerEnter2D(Collider2D other)
