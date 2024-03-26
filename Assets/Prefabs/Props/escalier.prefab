@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 6149613190913338584}
   - component: {fileID: 1507220008980376053}
   - component: {fileID: 3114915973632036505}
+  - component: {fileID: 6761638178280648050}
   m_Layer: 2
   m_Name: escalier
   m_TagString: Escalier
@@ -231,16 +232,8 @@ MonoBehaviour:
     m_ActionName: Player/Shoot[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 2848ae8d-85a9-4d0d-934d-beade4ad9e22
-    m_ActionName: Player/BallRecover[/Mouse/rightButton]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: d1eb84b9-17f2-4c5a-933c-9b6dc14055c9
     m_ActionName: Player/Roll[/Keyboard/r]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0f36a637-c1e3-407e-a786-10d13bd8b7b3
-    m_ActionName: Player/ChangeAmmo[/Mouse/scroll/y]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: b0f0c051-220a-4b87-a5bb-8c592dff09fa
@@ -253,10 +246,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 5c4f7a19-8d4b-44be-a3a9-c1843ae8ae35
     m_ActionName: Player/manette direction
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 951a6960-3fe9-4b7c-88a6-01c4785a1948
-    m_ActionName: Player/Interaction[/Keyboard/g]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -306,6 +295,18 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &6761638178280648050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8370245402194362130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1491a2a2e1131c941aa615be33bbaeb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8751089980357843873
 GameObject:
   m_ObjectHideFlags: 0

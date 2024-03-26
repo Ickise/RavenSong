@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BulletVelocity : MonoBehaviour
 {
-    [Header("À set up")] [SerializeField] private float xSpeedBullet = 75f;
-    [SerializeField] private float forceToFall = 0.5f;
+    [SerializeField,Header("Speed bullet"), Range(1f, 100f)] private float xSpeedBullet = 50f;
+    [SerializeField, Header("Fall speed bullet"), Range(1f, 20f)] private float forceToFall = 0.5f;
+    
+    //[SerializeField] private AudioClip impactAudio;
 
     private Rigidbody2D bulletRigidbody2D;
 
     private BulletDirection _bulletDirection;
     private BulletCollisionDetection _bulletCollisionDetection;
-
-    //[SerializeField] private AudioClip impactAudio;
 
     private void Awake()
     {
