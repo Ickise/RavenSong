@@ -95,6 +95,10 @@ public class PlayerController2D : MonoBehaviour
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
         _recallBullet = GetComponent<RecallBullet>();
+    }
+
+    private void Start()
+    {
         VFXDustTrail.Stop();
         transform.position = Respawn.spawnPosition;
     }
