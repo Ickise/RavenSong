@@ -2,51 +2,43 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using UnityEngine.Serialization;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")]
-    [SerializeField]
-    private float accelerationSpeed = 2f;
+    [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
-    
+
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
     [SerializeField, Tooltip("En degrés")] private float maxAngleSlop = 72f;
 
-    [Header("Modifie le aircontrol")]
-    [SerializeField]
+    [Header("Aircontrol")] [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
-    [Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")][SerializeField] private float maxFallSpeed = -20f;
 
-    [Header("Modifie le saut")]
-    [SerializeField]
-    private float gravityFactor = 1f;
+    [SerializeField,
+     Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")]
+    private float maxFallSpeed = -20f;
+
+    [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
-    [SerializeField] private float maxHeight = 3f;
+    [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
-    [SerializeField]
+    [Header("CoyoteTime")] [SerializeField, Range(0.1f, 0.5f)]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")]
-    [SerializeField]
+    [Header("FallSpeed")] [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")]
-    [SerializeField]
+    [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")]
-    [SerializeField]
-    private float distanceRoulade = 4f;
+    [Header("Rool")] [SerializeField] private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
     [SerializeField] private float forceBonk = 10f;
@@ -62,11 +54,10 @@ public class PlayerController2D : MonoBehaviour
     private FireOneBullet _fireOneBullet;
     private StunDetection _stunDetection;
 
-    // VFX
-    [SerializeField] private VisualEffect VFXDustTrail;
+    [Header("VFX")] [SerializeField] private VisualEffect VFXDustTrail;
     [SerializeField] private GameObject VFXRoulade;
+
     [SerializeField] private Transform posVFXRoulade;
-    //
 
     private float hangTimeCounter;
 
@@ -157,7 +148,9 @@ public class PlayerController2D : MonoBehaviour
             //     velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
-            slopNormalPerp = Mathf.Abs(slopNormalPerp.y) > maxAngleSlop / 90f ? Vector2.left : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
+            slopNormalPerp = Mathf.Abs(slopNormalPerp.y) > maxAngleSlop / 90f
+                ? Vector2.left
+                : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
             //sert a annuler le momentum quand le joueur se trouve sur une pente car cela pose des problèmes
             //check si le joueur va dans la direction de son input en les multipliant entre eux, car si l'un des 2 est négatif ça sera inférieur a 0, 
             //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
@@ -246,6 +239,7 @@ public class PlayerController2D : MonoBehaviour
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
             }
+
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }
@@ -320,7 +314,9 @@ public class PlayerController2D : MonoBehaviour
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
 
-        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position, new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y, posVFXRoulade.localScale.z), Quaternion.identity);
+        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
+            new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
+                posVFXRoulade.localScale.z), Quaternion.identity);
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
         playerRigidbody2D
             .DOMove(

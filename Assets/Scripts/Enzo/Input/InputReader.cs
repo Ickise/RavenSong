@@ -4,12 +4,12 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")] public Vector2 direction;
+    [HideInInspector] public Vector2 direction;
 
-    public bool jump;
-    public bool activateAim = false;
-    public bool canStun;
-    public bool canDown;
+    [HideInInspector] public bool jump;
+    [HideInInspector] public bool activateAim = false;
+    [HideInInspector] public bool canStun;
+    [HideInInspector] public bool canDown;
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
@@ -17,7 +17,7 @@ public class InputReader : MonoBehaviour
 
     public static InputReader instance;
     private StunDetection _stunDetection;
-    public Vector3 manetteDirection;
+    [HideInInspector] public Vector3 manetteDirection;
 
     private void Awake()
     {

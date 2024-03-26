@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(OnBulletHit))]
 public class Chandelier : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;

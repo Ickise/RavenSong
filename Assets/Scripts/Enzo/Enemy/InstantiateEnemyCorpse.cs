@@ -1,8 +1,10 @@
 using UnityEngine;
 
+[RequireComponent(typeof(OnBulletHit))]
 public class InstantiateEnemyCorpse : MonoBehaviour
 {
-    [SerializeField] private GameObject prefabIACorpse;
+    [SerializeField, Header("IaCorpsePrefab")]
+    private GameObject iaCorpsePrefab;
 
     private OnBulletHit _onBulletHit;
 
@@ -18,7 +20,7 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 
     private void OnBulletHit(GameObject bullet)
     {
-        Instantiate(prefabIACorpse, transform.position, Quaternion.identity);
+        Instantiate(iaCorpsePrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }

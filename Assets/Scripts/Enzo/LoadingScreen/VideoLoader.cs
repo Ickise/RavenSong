@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.Video;
 
+[RequireComponent(typeof(VideoPlayer), typeof(LoadingVideoOnTrigger))]
 public class VideoLoader : MonoBehaviour
 {
-    [SerializeField] private GameObject[] listToDisable;
+    [SerializeField, Header("GameObjectList")] private GameObject[] listToDisable;
     [SerializeField] private GameObject[] listToEnable;
 
-    [SerializeField] private VideoPlayer videoPlayer;
+    [SerializeField, Header("VideoPlayer")] private VideoPlayer videoPlayer;
 
     private void Update()
     {
