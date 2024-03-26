@@ -11,7 +11,6 @@ public class Respawn : MonoBehaviour
 
     private void Awake()
     {
-        StartCoroutine(setCheckpoint());
         if (Time.realtimeSinceStartup < 8)
             spawnPosition = startPosition;
     }
@@ -20,45 +19,5 @@ public class Respawn : MonoBehaviour
     {
         currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    private IEnumerator setCheckpoint()
-    {
-        yield return new WaitForSeconds(2);
-        EditorApplication.Beep();
-        StartCoroutine(setCheckpoint());
     }
 }
