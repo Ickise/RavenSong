@@ -11,7 +11,7 @@ public class PlayerController2D : MonoBehaviour
     private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
-    
+
     [SerializeField] private float maxSpeed = 5f;
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
@@ -104,6 +104,10 @@ public class PlayerController2D : MonoBehaviour
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
         _recallBullet = GetComponent<RecallBullet>();
+    }
+
+    private void Start()
+    {
         VFXDustTrail.Stop();
         transform.position = Respawn.spawnPosition;
     }
