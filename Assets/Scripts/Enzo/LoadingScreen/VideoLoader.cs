@@ -27,7 +27,7 @@ public class VideoLoader : MonoBehaviour
 
     private void UnloadVideo()
     {
-        if (!videoPlayer.isPlaying)
+       /* if (!videoPlayer.isPlaying)
         {
             foreach (var gameObject in listToEnable)
             {
@@ -36,6 +36,6 @@ public class VideoLoader : MonoBehaviour
 
             videoPlayer.Stop();
             videoPlayer.clip = null;
-        }
+        }*/
     }
 }
