@@ -14,7 +14,6 @@ public class RecallBullet : MonoBehaviour
     public bool doRecall;
     public bool onRecall;
 
-    private FireOneBullet _fireOneBullet;
     private PlayerAnimation _playerAnimation;
 
     private BulletCollisionDetection _bulletCollisionDetection;
@@ -30,7 +29,6 @@ public class RecallBullet : MonoBehaviour
     private void Awake()
     {
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
-        _fireOneBullet = GetComponentInChildren<FireOneBullet>();
     }
 
     private void Start()
@@ -78,11 +76,11 @@ public class RecallBullet : MonoBehaviour
 
     private float GetDelayBeforeMove()
     {
-        if (_fireOneBullet.bulletRef != null)
+        if (FireOneBullet.instance.bulletRef != null)
         {
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
-                _fireOneBullet.bulletRef.transform.position;
+                FireOneBullet.instance.bulletRef.transform.position;
             float distance = direction.magnitude;
 
             return distance * speedDelay;
@@ -93,7 +91,7 @@ public class RecallBullet : MonoBehaviour
 
     private void RecallAmmo()
     {
-        if (_fireOneBullet.bulletRef != null)
+        if (FireOneBullet.instance.bulletRef != null)
         {
             _bulletCollisionDetection.Recall();
 
@@ -107,8 +105,8 @@ public class RecallBullet : MonoBehaviour
     {
         if (distanceAmmoPlayer.magnitude < distanceToGetAmmo)
         {
-            Destroy(_fireOneBullet.bulletRef);
-            _fireOneBullet.numberOfAmmo = 1;
+            Destroy(FireOneBullet.instance.bulletRef);
+            FireOneBullet.instance.numberOfAmmo = 1;
             onRecall = false;
             CancellRecall();
         }
@@ -116,11 +114,11 @@ public class RecallBullet : MonoBehaviour
 
     private void GetBulletComponent()
     {
-        if (_fireOneBullet.bulletRef == null) return;
+        if (FireOneBullet.instance.bulletRef == null) return;
 
-        _bulletCollisionDetection = _fireOneBullet.bulletRef.GetComponent<BulletCollisionDetection>();
+        _bulletCollisionDetection = FireOneBullet.instance.bulletRef.GetComponent<BulletCollisionDetection>();
 
-        bulletRigidbody = _fireOneBullet.bulletRef.GetComponent<Rigidbody2D>();
+        bulletRigidbody = FireOneBullet.instance.bulletRef.GetComponent<Rigidbody2D>();
     }
 
     private void OnClickToRecall(InputAction.CallbackContext context)

@@ -12,7 +12,7 @@ public class Respawn : MonoBehaviour
     private void Awake()
     {
         if (Time.realtimeSinceStartup < 8)
-            spawnPosition = startPosition;
+            spawnPosition = startPosition;  
     }
 
     public void RespawnPlayer()

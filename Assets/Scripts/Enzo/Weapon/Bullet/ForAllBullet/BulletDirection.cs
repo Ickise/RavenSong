@@ -8,6 +8,8 @@ public class BulletDirection : MonoBehaviour
     [SerializeField, Header("PositionToLook.z"), Range(0.1f, 20f),
      Tooltip("Mettre la même valeur que la caméra distance dans la section body de la caméra")]
     private float cameraDistance = 10f;
+    
+    private Vector3 previousManetteDirection;
 
     private void Awake()
     {
@@ -17,17 +19,26 @@ public class BulletDirection : MonoBehaviour
     private void Init()
     {
         Camera mainCamera = Camera.main;
-
+        
         if (mainCamera != null)
         {
             Vector3 positionToLook = mainCamera.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x,
                 Mouse.current.position.ReadValue().y, cameraDistance));
-
-            //    Debug.Log(positionToLook);
-
+            
             direction = SpineAim.manette
                 ? InputReader.instance.manetteDirection
-                : (positionToLook - PlayerController2D._instance.transform.position).normalized;
+                : (positionToLook - FireOneBullet.instance.ShootPosition.position).normalized;
+
+            previousManetteDirection = InputReader.instance.manetteDirection;
+            
+            /*if (InputReader.instance.manetteDirection != Vector3.zero)
+            {
+               
+            }
+            else
+            {
+                direction = previousManetteDirection;
+            }*/
         }
     }
 }
