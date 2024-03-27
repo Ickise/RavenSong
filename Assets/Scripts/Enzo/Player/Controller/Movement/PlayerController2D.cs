@@ -51,7 +51,6 @@ public class PlayerController2D : MonoBehaviour
     private RaycastDetection _raycastDetection;
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
-    private FireOneBullet _fireOneBullet;
     private StunDetection _stunDetection;
 
     [Header("VFX")] [SerializeField] private VisualEffect VFXDustTrail;
@@ -89,7 +88,6 @@ public class PlayerController2D : MonoBehaviour
     {
         _instance = this;
         _stunDetection = GetComponentInChildren<StunDetection>();
-        _fireOneBullet = GetComponentInChildren<FireOneBullet>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
@@ -184,7 +182,7 @@ public class PlayerController2D : MonoBehaviour
 
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (hangTimeCounter < hangTime) return;
-                if (_fireOneBullet.bulletRef == null && !_stunDetection.IsC2DActive)
+                if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
                     _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
                 else if (_stunDetection.IsC2DActive || _recallBullet.doRecall)
                 {
@@ -198,7 +196,7 @@ public class PlayerController2D : MonoBehaviour
             }
 
             if (hangTimeCounter < hangTime) return;
-            if (_fireOneBullet.bulletRef != null || _stunDetection.IsC2DActive)
+            if (FireOneBullet.instance.bulletRef != null || _stunDetection.IsC2DActive)
             {
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
@@ -236,7 +234,7 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             hangTimeCounter = 0f;
-            if (_fireOneBullet.bulletRef == null && !_stunDetection.IsC2DActive)
+            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
             else
             {
