@@ -62,14 +62,14 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: 810ed76466a95294bb18255462c36ff1, type: 2}
+  - {fileID: 2100000, guid: a2d1b546a50d9fa4ca4a1cceda1723cc, type: 2}
+  - {fileID: 2100000, guid: 810ed76466a95294bb18255462c36ff1, type: 2}
+  - {fileID: 2100000, guid: 175b37e32d111ad4dbf6589f994fdb3b, type: 2}
+  - {fileID: 2100000, guid: 810ed76466a95294bb18255462c36ff1, type: 2}
+  - {fileID: 2100000, guid: 175b37e32d111ad4dbf6589f994fdb3b, type: 2}
+  - {fileID: 2100000, guid: 810ed76466a95294bb18255462c36ff1, type: 2}
+  - {fileID: 2100000, guid: 175b37e32d111ad4dbf6589f994fdb3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -214,6 +214,7 @@ MonoBehaviour:
   hauteurPlayerDetection: 5
   distanceAttaqueMelee: 0
   stunTime: 3
+  maxAngleSlop: 72
   drawCirclesDetectioninEditor: 1
   groundGizmos: 1
   VFXStun: {fileID: 1802488448484692729}
@@ -326,7 +327,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a4d7736a8a73b4d84f24fa148571aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabIACorpse: {fileID: 242511868777815649, guid: 956246d7517186f4c8183925d1f6e53d, type: 3}
+  iaCorpsePrefab: {fileID: 242511868777815649, guid: 956246d7517186f4c8183925d1f6e53d, type: 3}
 --- !u!114 &5724244232649877102
 MonoBehaviour:
   m_ObjectHideFlags: 0
