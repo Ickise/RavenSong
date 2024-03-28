@@ -252,7 +252,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &5120202088657408753
 MonoBehaviour:
@@ -382,7 +382,7 @@ MonoBehaviour:
   stunTime: 3
   maxAngleSlop: 72
   drawCirclesDetectioninEditor: 0
-  groundGizmos: 0
+  groundGizmos: 1
   VFXStun: {fileID: 8737694926524846800}
   animations:
   - name: 1
@@ -474,8 +474,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.95, y: 1.2}
-  m_EdgeRadius: 0
+  m_Size: {x: 1.85, y: 1.1}
+  m_EdgeRadius: 0.05
 --- !u!114 &2117618549842726335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -488,7 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a4d7736a8a73b4d84f24fa148571aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iaCorpsePrefab: {fileID: 242511868777815649, guid: aac165229b1004444bea796ff1f9e57f, type: 3}
+  iaCorpsePrefab: {fileID: 0}
 --- !u!114 &6375191612365375532
 MonoBehaviour:
   m_ObjectHideFlags: 0
