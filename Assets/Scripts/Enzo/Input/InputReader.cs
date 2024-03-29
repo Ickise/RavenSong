@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -46,6 +47,8 @@ public class InputReader : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (_stunDetection.IsC2DActive || DOTween.IsTweening("roll"))
+            return;
         onFire.Invoke(context);
     }
 
