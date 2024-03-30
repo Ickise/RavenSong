@@ -72,7 +72,8 @@ public class StunDetection : MonoBehaviour
         //tu peux rajouter d'autre condition ici
 
         OnBulletHit interactedObject = other.GetComponent<OnBulletHit>();
-        if (interactedObject)
+        IAHorloger iAHorloger = other.GetComponent<IAHorloger>();
+        if (interactedObject && !iAHorloger)
         {
             interactedObject.BulletHitSomething(null);
         }
