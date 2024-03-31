@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject _animationSetter;
+    private RecallBullet _recallBullet;
     private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
     private MeshRenderer meshDroite, meshGauche;
@@ -44,6 +45,7 @@ public class PlayerAnimation : MonoBehaviour
             Instantiate(_animationSetter);
         //get les références
         _spineAim = GetComponent<SpineAim>();
+        _recallBullet = GetComponentInParent<RecallBullet>();
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
 
@@ -149,7 +151,7 @@ public class PlayerAnimation : MonoBehaviour
 
     private void Update()
     {
-        if (DontAim) return;
+        if (DontAim || _recallBullet.doRecall) return;
         //permet de flip l'animation en fonction de la ou le joueur vise
         if (SpineAim.manette && InputReader.instance.manetteDirection != Vector3.zero)
             FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
