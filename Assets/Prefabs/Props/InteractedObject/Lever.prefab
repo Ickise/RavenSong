@@ -148,6 +148,7 @@ MonoBehaviour:
   _door:
   - {fileID: 0}
   isActive: 0
+  vfxActiveLever: {fileID: 8250091928702868315, guid: 7edb052f398eae84bb3e95bb63f05d7f, type: 3}
 --- !u!114 &1314930058910270343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,7 +165,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   canGoThrough: 0
-  dontPutBulletInChildren: 0
+  bulletFalling: 0
+  putBulletInChildren: 1
 --- !u!95 &6645798568015322630
 Animator:
   serializedVersion: 5

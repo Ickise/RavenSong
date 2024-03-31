@@ -10,6 +10,7 @@ public class Lever : MonoBehaviour
     private BulletCollisionDetection _bulletCollisionDetection;
 
     private OnBulletHit _onBulletHit;
+    [SerializeField] private GameObject vfxActiveLever;
 
     private Animator leverAnimator;
 
@@ -41,6 +42,7 @@ public class Lever : MonoBehaviour
     private void OnBulletHit(GameObject bullet)
     {
         CanChangeBool();
+        VFXInstantieur.instance.PlayVFXInWorld(vfxActiveLever, transform);
         foreach (var gameObject in _door)
         {
             gameObject.OpenDoor(isActive);

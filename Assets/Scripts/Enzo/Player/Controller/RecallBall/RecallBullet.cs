@@ -6,6 +6,7 @@ public class RecallBullet : MonoBehaviour
 {
     [SerializeField] private Transform rightHand, leftHand;
     [SerializeField] private GameObject vfxRecallBulletDroite, vfxRecallBulletGauche, vfxTrailRecall;
+    private VisualEffect visualEffectTrailRecall;
 
     private Rigidbody2D bulletRigidbody;
 
@@ -30,6 +31,7 @@ public class RecallBullet : MonoBehaviour
     private void Awake()
     {
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
+        visualEffectTrailRecall = vfxTrailRecall.GetComponent<VisualEffect>();
     }
 
     private void Start()
@@ -67,7 +69,7 @@ public class RecallBullet : MonoBehaviour
         if (doRecall)
         {
             vfxTrailRecall.transform.position = vfxRecallBulletDroite.activeInHierarchy ? vfxRecallBulletDroite.transform.position : vfxRecallBulletGauche.transform.position;
-            vfxTrailRecall.GetComponent<VisualEffect>().SetVector3("Ball_Position", _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
+            visualEffectTrailRecall.SetVector3("Ball_Position", _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
 
             if (timer > delay)
