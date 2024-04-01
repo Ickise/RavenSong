@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Spine;
-using UnityEngine.InputSystem.iOS;
 
 public class IAHorloger : IA
 {
@@ -118,6 +117,7 @@ public class IAHorloger : IA
     private void Reloading(TrackEntry trackEntry)
     {
         SetAnimation(AnimationState.stun);
+        
     }
 
     private void OnTriggerEnter2D(Collider2D other)
