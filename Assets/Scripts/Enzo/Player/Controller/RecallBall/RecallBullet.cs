@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.VFX;
 
 public class RecallBullet : MonoBehaviour
 {
-    [SerializeField] private Transform rightHand;
-    [SerializeField] private Transform leftHand;
+    [SerializeField] private Transform rightHand, leftHand;
+    [SerializeField] private GameObject vfxRecallBulletDroite, vfxRecallBulletGauche, vfxTrailRecall;
+    private VisualEffect visualEffectTrailRecall;
 
     private Rigidbody2D bulletRigidbody;
 
@@ -29,6 +31,7 @@ public class RecallBullet : MonoBehaviour
     private void Awake()
     {
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
+        visualEffectTrailRecall = vfxTrailRecall.GetComponent<VisualEffect>();
     }
 
     private void Start()
@@ -65,6 +68,8 @@ public class RecallBullet : MonoBehaviour
     {
         if (doRecall)
         {
+            vfxTrailRecall.transform.position = vfxRecallBulletDroite.activeInHierarchy ? vfxRecallBulletDroite.transform.position : vfxRecallBulletGauche.transform.position;
+            visualEffectTrailRecall.SetVector3("Ball_Position", _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
 
             if (timer > delay)
@@ -131,8 +136,14 @@ public class RecallBullet : MonoBehaviour
         {
             timer = 0;
             doRecall = true;
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut);
+
             //tous les feedbacks qui montrent qu'on att le recall, en faire une fonction
+                vfxTrailRecall.SetActive(true);
+            if (_playerAnimation.GetDirection)
+                vfxRecallBulletDroite.SetActive(true);
+            else
+                vfxRecallBulletGauche.SetActive(true);
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut);
         }
 
         if (context.canceled)
@@ -144,7 +155,11 @@ public class RecallBullet : MonoBehaviour
     public void CancellRecall()
     {
         doRecall = false;
+
         //tous les feedbacks de l'annulation
+        vfxRecallBulletDroite.SetActive(false);
+        vfxRecallBulletGauche.SetActive(false);
+        vfxTrailRecall.SetActive(false);
     }
 
     private void OnDrawGizmos()
