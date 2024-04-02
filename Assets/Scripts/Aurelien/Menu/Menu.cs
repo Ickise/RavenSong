@@ -16,7 +16,7 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene(newGameScene.ToString());
+        SceneManager.LoadScene(newGameScene.name);
     }
 
     public void Quit()
