@@ -2,9 +2,11 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class PlayerController2D : MonoBehaviour
 {
+
     [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -26,6 +28,8 @@ public class PlayerController2D : MonoBehaviour
 
     [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
+
+    [SerializeField, Header("jumpsoundlist")] private SoundData[] jumpsoundlist;
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
@@ -233,6 +237,7 @@ public class PlayerController2D : MonoBehaviour
     {
         if (!InputReader.instance.canDown)
         {
+            AudioManager.instance.PlayRandomSound(jumpsoundlist);
             hangTimeCounter = 0f;
             if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
