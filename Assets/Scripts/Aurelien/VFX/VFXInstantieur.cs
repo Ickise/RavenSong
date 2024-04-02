@@ -22,15 +22,23 @@ public class VFXInstantieur : MonoBehaviour
     /// <param name="timeDestroy"></param>
     public void PlayVFXInWorld(GameObject vfxGameobject, Transform position, float timeDestroy = 3)
     {
+        if (vfxGameobject == null)
+        {
+            Debug.LogWarning("le vfx sur " + vfxGameobject.gameObject.name + " n'est pas set");
+            return;
+        }
         GameObject currentVFX = Instantiate(vfxGameobject, position.position, position.rotation);
-        currentVFX.transform.localScale = position.localScale;
         Destroy(currentVFX, timeDestroy);
     }
 
     public void PlayVFXInWorld(GameObject vfxGameobject, Vector3 position, Vector3 localScale, Quaternion rotation, float timeDestroy = 3)
     {
+        if (vfxGameobject == null)
+        {
+            Debug.LogWarning("le vfx sur " + vfxGameobject.gameObject.name + " n'est pas set");
+            return;
+        }
         GameObject currentVFX = Instantiate(vfxGameobject, position, rotation);
-        currentVFX.transform.localScale = localScale;
         Destroy(currentVFX, timeDestroy);
     }
 }

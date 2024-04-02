@@ -8,6 +8,7 @@ public class ChandelierRope : MonoBehaviour
     [SerializeField, Header("ChandelierRigidbody")] private Rigidbody2D chandelierRigidbody2D;
 
     private OnBulletHit _onBulletHit;
+    [SerializeField] private GameObject vfxImpactRope;
 
     private Animator parentAnimator;
 
@@ -29,6 +30,7 @@ public class ChandelierRope : MonoBehaviour
         parentAnimator.enabled = false;
         chandelierRigidbody2D.isKinematic = false;
         chandelierRigidbody2D.gravityScale = gravity;
+        VFXInstantieur.instance.PlayVFXInWorld(vfxImpactRope, transform);
         Destroy(gameObject);
     }
 }

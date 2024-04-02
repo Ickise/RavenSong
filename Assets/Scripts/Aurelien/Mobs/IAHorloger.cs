@@ -2,7 +2,6 @@ using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using Spine;
-using UnityEngine.InputSystem.iOS;
 
 public class IAHorloger : IA
 {
@@ -84,8 +83,12 @@ public class IAHorloger : IA
 
     private void IsChasePlayer()
     {
-        if (RaycastHitWall)
+        if (RaycastHitWall && !RaycastHitWall.collider.GetComponent<StunDetection>() && !RaycastHitWall.transform.parent.CompareTag("Platforme"))
         {
+            OnBulletHit interactedObject = RaycastHitWall.collider.GetComponent<OnBulletHit>();
+            if (interactedObject)
+                interactedObject.BulletHitSomething(null);
+
             cd2Datk.enabled = false;
             rb2D.velocity = Vector2.zero;
             rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
@@ -114,6 +117,7 @@ public class IAHorloger : IA
     private void Reloading(TrackEntry trackEntry)
     {
         SetAnimation(AnimationState.stun);
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)

@@ -15,6 +15,7 @@ public class Door : MonoBehaviour
 
     private Vector3 originalPosition;
     private Vector3 newPosition;
+    [SerializeField] private GameObject vfxOpenDoor;
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class Door : MonoBehaviour
 
     public void OpenDoor(bool isActive)
     {
+        VFXInstantieur.instance.PlayVFXInWorld(vfxOpenDoor, transform);
         if (isActive)
         {
             transform.DOMove(newPosition, animationDuration).SetEase(ease);

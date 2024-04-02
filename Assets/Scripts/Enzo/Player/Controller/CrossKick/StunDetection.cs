@@ -10,10 +10,13 @@ public class StunDetection : MonoBehaviour
     [Header("À set up")][SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
-    [SerializeField] private GameObject VFXAuraCoup;
-    [SerializeField] private VisualEffect VFXCoupDeCross;
+    [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
     private bool canCrossKick = true;
+    [Header("Sound")][SerializeField] private SoundData[] soundstunsuccessful;
+    [SerializeField] private SoundData soundstunnotsuccessful;
+
+
 
     private void Start()
     {
@@ -25,6 +28,8 @@ public class StunDetection : MonoBehaviour
     {
         if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+       // Debug.Log("CrossSong");
+       //AudioManager.instance.PlaySound(soundstunnotsuccessful);
         _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
@@ -47,10 +52,10 @@ public class StunDetection : MonoBehaviour
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
         if (iAprojectil)
         {
-            VFXCoupDeCross.Play();
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             iAprojectil.VFXStun.Play();
-            GameObject currentVFXAuraCoup = Instantiate(VFXAuraCoup, iAprojectil.transform);
-            Destroy(currentVFXAuraCoup, 3);
+            VFXInstantieur.instance.PlayVFXInWorld(VFXAuraCoup, iAprojectil.transform);
             if (!iAprojectil.enabled)
                 return;
             iAprojectil.ClearAnimations();
@@ -63,6 +68,8 @@ public class StunDetection : MonoBehaviour
         Explodable destructibleObject = other.GetComponent<Explodable>();
         if (destructibleObject)
         {
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
             ExplosionForce ef = FindObjectOfType<ExplosionForce>();
             ef.doExplosion(transform.position);
@@ -72,9 +79,12 @@ public class StunDetection : MonoBehaviour
         //tu peux rajouter d'autre condition ici
 
         OnBulletHit interactedObject = other.GetComponent<OnBulletHit>();
-        if (interactedObject)
+        IAHorloger iAHorloger = other.GetComponent<IAHorloger>();
+        if (interactedObject && !iAHorloger)
         {
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             interactedObject.BulletHitSomething(null);
+            return;
         }
     }
 }
