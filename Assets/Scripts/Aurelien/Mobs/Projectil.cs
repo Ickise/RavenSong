@@ -6,9 +6,8 @@ using System.Linq;
 
 public class Projectil : MonoBehaviour
 {
-    [SerializeField] private float speedProjectil = 5f, maxHeight = 8f;
+    [SerializeField] private float timeToRushPlayer = 2f, maxHeight = 8f;
     [SerializeField] private LayerMask layerDestroyProjectil;
-    private List<Vector2> velocitys = new List<Vector2>();
     public Vector2 playerPos { get; set; }
     private Vector2 directionEndTween, velocity, lastPosition;
     private bool rushEnd, calculeDir;
@@ -17,29 +16,28 @@ public class Projectil : MonoBehaviour
     {
         lastPosition = transform.position;
         Vector2 startPos = transform.position;
-        transform.DOJump(playerPos, maxHeight, 1, speedProjectil)
+        transform.DOJump(playerPos, maxHeight, 1, timeToRushPlayer)
         .SetEase(Ease.Linear)
-        .SetSpeedBased(true)
+        .SetUpdate(UpdateType.Normal)
         .OnComplete(() =>
         {
-            Vector2 total = new Vector2(velocitys.Average(x => x.x), velocitys.Average(x => x.y));
-            velocity = total.normalized * speedProjectil;
             rushEnd = true;
             calculeDir = false;
         });
         float a = 0;
-        DOTween.To(() => a, x => a = x, 1, speedProjectil * 0.6f).SetSpeedBased(true)
+        DOTween.To(() => a, x => a = x, 1, timeToRushPlayer * 0.8f)
         .OnComplete(() => calculeDir = true);
         Destroy(gameObject, 10);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (calculeDir)
         {
+            if ((Vector2)transform.position == lastPosition)
+                return;
             velocity = (Vector2)transform.position - lastPosition;
             lastPosition = transform.position;
-            velocitys.Add(velocity);
         }
         else if (rushEnd)
             transform.Translate(velocity);
