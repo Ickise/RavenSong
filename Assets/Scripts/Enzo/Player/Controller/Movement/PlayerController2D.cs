@@ -29,7 +29,8 @@ public class PlayerController2D : MonoBehaviour
     [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
-    [SerializeField, Header("jumpsoundlist")] private SoundData[] jumpsoundlist;
+    [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
+    [SerializeField] private SoundData rollsound;
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
@@ -325,6 +326,7 @@ public class PlayerController2D : MonoBehaviour
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
                 posVFXRoulade.localScale.z), Quaternion.identity);
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
+        AudioManager.instance.PlaySound(rollsound);
         playerRigidbody2D
             .DOMove(
                 transform.position +
