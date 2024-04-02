@@ -253810,6 +253810,10 @@ PrefabInstance:
       propertyPath: speedRotation
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: shootAudio
+      value: 
+      objectReference: {fileID: 11400000, guid: bd804b9f6922a65488c542f71a90e8f8, type: 2}
     - target: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -339187,6 +339191,7 @@ MonoBehaviour:
   - {fileID: 7702577794792752439}
   - {fileID: 6856511966472758317}
   isActive: 0
+  vfxActiveLever: {fileID: 0}
 --- !u!1 &5936054936428646829
 GameObject:
   m_ObjectHideFlags: 0
@@ -347888,6 +347893,7 @@ MonoBehaviour:
   newXPosition: 43
   animationDuration: 1
   changeYorXPosition: 1
+  vfxOpenDoor: {fileID: 0}
 --- !u!212 &6862683016159347244
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -355292,6 +355298,7 @@ MonoBehaviour:
   newXPosition: 30
   animationDuration: 1
   changeYorXPosition: 1
+  vfxOpenDoor: {fileID: 0}
 --- !u!50 &7704766453790162609
 Rigidbody2D:
   serializedVersion: 4
