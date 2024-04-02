@@ -39672,6 +39672,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 291874684}
   m_Mesh: {fileID: 1166367838}
+--- !u!1 &294206717
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 294206718}
+  m_Layer: 0
+  m_Name: "D\xE9cors 1 "
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &294206718
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294206717}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1833630420}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &295056814
 Mesh:
   m_ObjectHideFlags: 0
@@ -155458,6 +155489,37 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1082585802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1082585803}
+  m_Layer: 0
+  m_Name: "D\xE9cors 2"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1082585803
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1082585802}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1833630420}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1082660025
 GameObject:
   m_ObjectHideFlags: 0
@@ -265654,6 +265716,8 @@ Transform:
   - {fileID: 536796071}
   - {fileID: 1099580681}
   - {fileID: 721573987}
+  - {fileID: 294206718}
+  - {fileID: 1082585803}
   m_Father: {fileID: 24932027}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -365070,6 +365134,7 @@ MonoBehaviour:
   - {fileID: 7702577794792752439}
   - {fileID: 6856511966472758317}
   isActive: 0
+  vfxActiveLever: {fileID: 0}
 --- !u!1 &5936054936428646829
 GameObject:
   m_ObjectHideFlags: 0
@@ -372939,6 +373004,7 @@ MonoBehaviour:
   newXPosition: 43
   animationDuration: 1
   changeYorXPosition: 1
+  vfxOpenDoor: {fileID: 0}
 --- !u!212 &6862683016159347244
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -379540,6 +379606,7 @@ MonoBehaviour:
   newXPosition: 30
   animationDuration: 1
   changeYorXPosition: 1
+  vfxOpenDoor: {fileID: 0}
 --- !u!50 &7704766453790162609
 Rigidbody2D:
   serializedVersion: 4
