@@ -83,7 +83,7 @@ public class IAHorloger : IA
 
     private void IsChasePlayer()
     {
-        if (RaycastHitWall && !RaycastHitWall.collider.GetComponent<StunDetection>())
+        if (RaycastHitWall && !RaycastHitWall.collider.GetComponent<StunDetection>() && !RaycastHitWall.transform.parent.CompareTag("Platforme"))
         {
             OnBulletHit interactedObject = RaycastHitWall.collider.GetComponent<OnBulletHit>();
             if (interactedObject)
@@ -117,7 +117,7 @@ public class IAHorloger : IA
     private void Reloading(TrackEntry trackEntry)
     {
         SetAnimation(AnimationState.stun);
-        
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
