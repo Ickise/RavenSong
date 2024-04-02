@@ -11,7 +11,6 @@ public class Projectil : MonoBehaviour
     public Vector2 playerPos { get; set; }
     private Vector2 directionEndTween, velocity, lastPosition;
     private bool rushEnd, calculeDir;
-    private List<Vector2> velocitys = new List<Vector2>();
 
     private void Start()
     {
@@ -21,7 +20,6 @@ public class Projectil : MonoBehaviour
         .SetEase(Ease.Linear)
         .OnComplete(() =>
         {
-            Vector2 total = new Vector2(velocitys.Average(x => x.x), velocitys.Average(x => x.y));
             rushEnd = true;
             calculeDir = false;
         });
@@ -37,7 +35,6 @@ public class Projectil : MonoBehaviour
         {
             velocity = (Vector2)transform.position - lastPosition;
             lastPosition = transform.position;
-            velocitys.Add(velocity);
         }
         else if (rushEnd)
             transform.Translate(velocity);
