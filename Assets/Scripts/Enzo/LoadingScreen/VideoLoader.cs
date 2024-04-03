@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.Video;
 
-[RequireComponent(typeof(VideoPlayer), typeof(LoadingVideoOnTrigger))]
 public class VideoLoader : MonoBehaviour
 {
-    [SerializeField, Header("GameObjectList")] private GameObject[] listToDisable;
+    [SerializeField, Header("GameObjectList")]
+    private GameObject[] listToDisable;
+
     [SerializeField] private GameObject[] listToEnable;
 
-    [SerializeField, Header("VideoPlayer")] private VideoPlayer videoPlayer;
+    [SerializeField, Header("VideoPlayer")]
+    private VideoPlayer videoPlayer;
 
     private void Update()
     {
@@ -27,15 +29,14 @@ public class VideoLoader : MonoBehaviour
 
     private void UnloadVideo()
     {
-       /* if (!videoPlayer.isPlaying)
+        if (videoPlayer.isPlaying) return;
+        
+        foreach (var gameObject in listToEnable)
         {
-            foreach (var gameObject in listToEnable)
-            {
-                gameObject.SetActive(true);
-            }
+            gameObject.SetActive(true);
+        }
 
-            videoPlayer.Stop();
-            videoPlayer.clip = null;
-        }*/
+        videoPlayer.Stop();
+        videoPlayer.clip = null;
     }
 }
