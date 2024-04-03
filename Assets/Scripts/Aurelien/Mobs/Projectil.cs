@@ -1,6 +1,8 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 public class Projectil : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class Projectil : MonoBehaviour
     [SerializeField] private LayerMask layerDestroyProjectil;
     public Vector2 playerPos { get; set; }
     private Vector2 directionEndTween, velocity, lastPosition;
-    private bool rushEnd;
+    private bool rushEnd, calculeDir;
 
     private void Start()
     {
@@ -16,18 +18,28 @@ public class Projectil : MonoBehaviour
         Vector2 startPos = transform.position;
         transform.DOJump(playerPos, maxHeight, 1, timeToRushPlayer)
         .SetEase(Ease.Linear)
-        .OnComplete(() => rushEnd = true);
+        .SetUpdate(UpdateType.Normal)
+        .OnComplete(() =>
+        {
+            rushEnd = true;
+            calculeDir = false;
+        });
+        float a = 0;
+        DOTween.To(() => a, x => a = x, 1, timeToRushPlayer * 0.8f)
+        .OnComplete(() => calculeDir = true);
         Destroy(gameObject, 10);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if (!rushEnd)
+        if (calculeDir)
         {
+            if ((Vector2)transform.position == lastPosition)
+                return;
             velocity = (Vector2)transform.position - lastPosition;
             lastPosition = transform.position;
         }
-        else
+        else if (rushEnd)
             transform.Translate(velocity);
     }
 

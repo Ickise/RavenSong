@@ -13,6 +13,10 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
     private bool canCrossKick = true;
+    [Header("Sound")][SerializeField] private SoundData[] soundstunsuccessful;
+    [SerializeField] private SoundData soundstunnotsuccessful;
+
+
 
     private void Start()
     {
@@ -24,6 +28,8 @@ public class StunDetection : MonoBehaviour
     {
         if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+       // Debug.Log("CrossSong");
+       //AudioManager.instance.PlaySound(soundstunnotsuccessful);
         _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
@@ -46,6 +52,7 @@ public class StunDetection : MonoBehaviour
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
         if (iAprojectil)
         {
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             iAprojectil.VFXStun.Play();
             VFXInstantieur.instance.PlayVFXInWorld(VFXAuraCoup, iAprojectil.transform);
@@ -61,6 +68,7 @@ public class StunDetection : MonoBehaviour
         Explodable destructibleObject = other.GetComponent<Explodable>();
         if (destructibleObject)
         {
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
             ExplosionForce ef = FindObjectOfType<ExplosionForce>();
@@ -74,7 +82,9 @@ public class StunDetection : MonoBehaviour
         IAHorloger iAHorloger = other.GetComponent<IAHorloger>();
         if (interactedObject && !iAHorloger)
         {
+            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             interactedObject.BulletHitSomething(null);
+            return;
         }
     }
 }

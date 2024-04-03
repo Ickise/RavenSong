@@ -33,7 +33,7 @@ public abstract class IA : MonoBehaviour
     protected bool overwriteIniTialize = false;
     private int nombreVie = 1;
     public VisualEffect VFXStun;
-    private BoxCollider2D cd2D;
+    protected BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float currentSpeedMovement;
     protected bool canJump = true;
@@ -46,7 +46,7 @@ public abstract class IA : MonoBehaviour
         }
     }
     protected RaycastHit2D IsGrounded { get { return Physics2D.BoxCast(transform.position + new Vector3(cd2D.offset.x + cd2D.edgeRadius, cd2D.offset.y - cd2D.edgeRadius, 0) + Vector3.down * ((cd2D.size.y + cd2D.edgeRadius * 2) / 2f), new Vector2(cd2D.size.x + cd2D.edgeRadius * 2, 0.1f), transform.eulerAngles.z, Vector2.down, 0, layerDefault); } }
-    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y - 0.6f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
+    protected RaycastHit2D RaycastHitWall { get { return Physics2D.CapsuleCast(transform.position, new Vector2(0.1f, tailleMob.y * 0.4f), CapsuleDirection2D.Vertical, 0, direction ? Vector2.right : Vector2.left, tailleMob.x, layerDefault); } }
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
     public enum AnimationState { none, moveForward, moveBackward, shoot, shootWalk, idle, mort, stun, stunStart, stunEnd, bonk }
