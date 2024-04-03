@@ -83222,11 +83222,6 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.5}
       - {x: 0.5, y: -0.5}
   m_UseDelaunayMesh: 0
---- !u!4 &580111812 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
-  m_PrefabInstance: {fileID: 1954099879}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &581414230
 GameObject:
   m_ObjectHideFlags: 0
@@ -187706,7 +187701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1284226383
 Transform:
   m_ObjectHideFlags: 0
@@ -243223,7 +243218,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7874018983732964508, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.835641
+      value: 4.835641
       objectReference: {fileID: 0}
     - target: {fileID: 7874018983732964508, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -243260,7 +243255,7 @@ PrefabInstance:
     - target: {fileID: 7938636242915427903, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
       propertyPath: m_Follow
       value: 
-      objectReference: {fileID: 580111812}
+      objectReference: {fileID: 2045026986}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -286264,6 +286259,18 @@ PrefabInstance:
       propertyPath: boneAimName
       value: Aim Target CI
       objectReference: {fileID: 0}
+    - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: maxDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: smoothSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: yCameraPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2248864387631043266, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -286314,7 +286321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4094432775914560057, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3856409
+      value: 2.3856409
       objectReference: {fileID: 0}
     - target: {fileID: 4094432775914560057, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.z
@@ -286455,6 +286462,10 @@ PrefabInstance:
     - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: gravityFactor
       value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 9087905919337726822, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -296076,6 +296087,10 @@ PrefabInstance:
       value: Fog
       objectReference: {fileID: 0}
     - target: {fileID: 2873648279676443756, guid: 76ac69f5bd4655c438fab1bf720f57c8, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2873648279676443756, guid: 76ac69f5bd4655c438fab1bf720f57c8, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
@@ -300790,6 +300805,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &2045026986 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9087905919337726822, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2046432923
 Mesh:
   m_ObjectHideFlags: 0
