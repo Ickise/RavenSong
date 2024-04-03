@@ -37,7 +37,12 @@ public class Respawn : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        if (death) return;
+        if (shaderDeathRespawn == null)
+        {
+            currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+        }
+        else if (death) return;
         Death();
     }
 

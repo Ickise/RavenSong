@@ -33,7 +33,7 @@ public abstract class IA : MonoBehaviour
     protected bool overwriteIniTialize = false;
     private int nombreVie = 1;
     public VisualEffect VFXStun;
-    private BoxCollider2D cd2D;
+    protected BoxCollider2D cd2D;
     public int NbVie { get { return nombreVie; } set { nombreVie = value; } }
     protected float currentSpeedMovement;
     protected bool canJump = true;

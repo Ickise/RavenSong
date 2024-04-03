@@ -83,22 +83,31 @@ public class IAHorloger : IA
 
     private void IsChasePlayer()
     {
-        if (RaycastHitWall && !RaycastHitWall.collider.GetComponent<StunDetection>() && !RaycastHitWall.transform.parent.CompareTag("Platforme"))
-        {
-            OnBulletHit interactedObject = RaycastHitWall.collider.GetComponent<OnBulletHit>();
-            if (interactedObject)
-                interactedObject.BulletHitSomething(null);
 
-            cd2Datk.enabled = false;
-            rb2D.velocity = Vector2.zero;
-            rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
-            SetAnimation(AnimationState.bonk);
-            VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
-            state = State.WaitPlayer;
-            _onBulletHit.bulletFalling = false;
-            isReloading = true;
-            StopAllCoroutines();
-            StartCoroutine(StartReload());
+        if (RaycastHitWall)
+        {
+            if (RaycastHitWall.transform.parent.CompareTag("Platforme"))
+            {
+                if (!Physics2D.GetIgnoreCollision(RaycastHitWall.collider, cd2D))
+                    Physics2D.IgnoreCollision(RaycastHitWall.collider, cd2D);
+            }
+            else if (!RaycastHitWall.collider.GetComponent<StunDetection>())
+            {
+                OnBulletHit interactedObject = RaycastHitWall.collider.GetComponent<OnBulletHit>();
+                if (interactedObject)
+                    interactedObject.BulletHitSomething(null);
+
+                cd2Datk.enabled = false;
+                rb2D.velocity = Vector2.zero;
+                rb2D.AddForce((direction ? new Vector2(-1, 1) : Vector2.one) * 5f, ForceMode2D.Impulse);
+                SetAnimation(AnimationState.bonk);
+                VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
+                state = State.WaitPlayer;
+                _onBulletHit.bulletFalling = false;
+                isReloading = true;
+                StopAllCoroutines();
+                StartCoroutine(StartReload());
+            }
         }
     }
 
