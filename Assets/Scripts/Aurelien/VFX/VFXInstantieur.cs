@@ -24,7 +24,7 @@ public class VFXInstantieur : MonoBehaviour
     {
         if (vfxGameobject == null)
         {
-            Debug.LogWarning("le vfx sur " + vfxGameobject.gameObject.name + " n'est pas set");
+            Debug.LogWarning("le vfx sur " + position.name + " n'est pas set");
             return;
         }
         GameObject currentVFX = Instantiate(vfxGameobject, position.position, position.rotation);
@@ -35,7 +35,7 @@ public class VFXInstantieur : MonoBehaviour
     {
         if (vfxGameobject == null)
         {
-            Debug.LogWarning("le vfx sur " + vfxGameobject.gameObject.name + " n'est pas set");
+            Debug.LogWarning("le vfx à la position " + position + " n'est pas set");
             return;
         }
         GameObject currentVFX = Instantiate(vfxGameobject, position, rotation);

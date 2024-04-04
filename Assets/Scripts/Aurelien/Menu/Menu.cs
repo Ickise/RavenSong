@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] private SceneAsset newGameScene;
+    //[SerializeField] private SceneAsset newGameScene;
     [SerializeField] private GameObject firstButtonSelected;
 
     private void Start()
@@ -16,7 +16,8 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene(newGameScene.name);
+        Respawn.doResetSpawn = true;
+        SceneManager.LoadScene("TestLevelDesign");
     }
 
     public void Quit()

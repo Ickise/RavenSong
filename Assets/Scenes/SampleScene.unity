@@ -993,6 +993,10 @@ PrefabInstance:
       propertyPath: isManette
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1092824997766483060, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4799087
+      objectReference: {fileID: 0}
     - target: {fileID: 1211734008349176980, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -2561,7 +2565,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822226428985032877, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_RootOrder
@@ -2613,7 +2617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703477, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4068,11 +4072,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773194902498123658, guid: e56c36e06078365459ddae905e62cca9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -20.5
+      value: -20.32
       objectReference: {fileID: 0}
     - target: {fileID: 3773194902498123658, guid: e56c36e06078365459ddae905e62cca9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 3773194902498123658, guid: e56c36e06078365459ddae905e62cca9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4113,6 +4117,10 @@ PrefabInstance:
     - target: {fileID: 5022987139119452422, guid: e56c36e06078365459ddae905e62cca9, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6885559656830353396, guid: e56c36e06078365459ddae905e62cca9, type: 3}
+      propertyPath: VfxExplosion
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7341,6 +7349,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &623284306
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 623284308}
+  - component: {fileID: 623284307}
+  m_Layer: 0
+  m_Name: bone follower test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &623284307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623284306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1fd8daaed7b64148a34acb96ba14ce1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonRenderer: {fileID: 133811844}
+  boneName: 
+  followXYPosition: 1
+  followZPosition: 1
+  followBoneRotation: 1
+  followSkeletonFlip: 1
+  followLocalScale: 0
+  maintainedAxisOrientation: 1
+  initializeOnAwake: 1
+--- !u!4 &623284308
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 623284306}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.8989267, y: -1.4526825, z: 0.004500015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648547256
 GameObject:
