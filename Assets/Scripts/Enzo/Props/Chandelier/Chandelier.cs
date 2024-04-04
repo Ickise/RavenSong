@@ -6,6 +6,7 @@ public class Chandelier : MonoBehaviour
     private OnBulletHit _onBulletHit;
 
     private Explodable _explodable;
+    [SerializeField] private GameObject VfxExplosion;
 
     private void Awake()
     {
@@ -46,5 +47,10 @@ public class Chandelier : MonoBehaviour
     private void OnBulletHit(GameObject bullet)
     {
         Destroy(transform.parent.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        VFXInstantieur.instance.PlayVFXInWorld(VfxExplosion, transform);
     }
 }
