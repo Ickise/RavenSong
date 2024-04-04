@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class PlayerController2D : MonoBehaviour
 {
 
-    [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
+    [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
 
@@ -17,7 +17,8 @@ public class PlayerController2D : MonoBehaviour
 
     [SerializeField, Tooltip("En degrés")] private float maxAngleSlop = 72f;
 
-    [Header("Aircontrol")] [SerializeField]
+    [Header("Aircontrol")]
+    [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
@@ -26,7 +27,7 @@ public class PlayerController2D : MonoBehaviour
      Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")]
     private float maxFallSpeed = -20f;
 
-    [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
+    [Header("Jump")][SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
     [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
@@ -34,16 +35,18 @@ public class PlayerController2D : MonoBehaviour
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
-    [Header("CoyoteTime")] [SerializeField, Range(0.1f, 0.5f)]
+    [Header("CoyoteTime")]
+    [SerializeField, Range(0.1f, 0.5f)]
     private float hangTime = 0.1f;
 
-    [Header("FallSpeed")] [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
+    [Header("FallSpeed")]
+    [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
     private float fallMultiplier = 2.5f;
 
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Rool")] [SerializeField] private float distanceRoulade = 4f;
+    [Header("Rool")][SerializeField] private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
     [SerializeField] private float forceBonk = 10f;
@@ -57,9 +60,10 @@ public class PlayerController2D : MonoBehaviour
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
     private StunDetection _stunDetection;
+    private FootTriggerPlatform _footTriggerPlatform;
 
-    [Header("VFX")] [SerializeField] private VisualEffect VFXDustTrail;
-    [SerializeField] private GameObject VFXRoulade;
+    [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
+    [SerializeField] private GameObject VFXRoulade, VFXJump;
 
     [SerializeField] private Transform posVFXRoulade;
 
@@ -98,6 +102,7 @@ public class PlayerController2D : MonoBehaviour
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
         _recallBullet = GetComponent<RecallBullet>();
+        _footTriggerPlatform = GetComponentInChildren<FootTriggerPlatform>();
     }
 
     private void Start()
@@ -238,6 +243,7 @@ public class PlayerController2D : MonoBehaviour
     {
         if (!InputReader.instance.canDown)
         {
+            VFXInstantieur.instance.PlayVFXInWorld(VFXJump, _footTriggerPlatform.transform);
             AudioManager.instance.PlayRandomSound(jumpsoundlist);
             hangTimeCounter = 0f;
             if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
