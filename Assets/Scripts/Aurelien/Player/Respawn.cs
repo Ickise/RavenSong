@@ -8,15 +8,19 @@ public class Respawn : MonoBehaviour
     private Scene currentScene;
     [SerializeField] private Vector2 startPosition = new Vector2(7.5f, 3);
     [SerializeField] private SpriteRenderer shaderDeathRespawn;
-    [SerializeField] private float shaderTime = 1f, timeStartup = 8;
+    [SerializeField] private float shaderTime = 1f;
     public static Vector2 spawnPosition;
+    public static bool doResetSpawn;
     private float dissolveAmount = 0, verticalDissolve = 1.1f;
     private bool spawn, death;
 
     private void Awake()
     {
-        if (Time.realtimeSinceStartup < timeStartup)
+        if (doResetSpawn)
+        {
             spawnPosition = startPosition;
+            doResetSpawn = false;
+        }
     }
 
     private void Start()
