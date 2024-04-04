@@ -46,8 +46,7 @@ public class FireOneBullet : MonoBehaviour
 
             AudioManager.instance.PlaySound(shootAudio);
 
-            bulletRef = Instantiate(bullet.gameObject,
-                bullet.transform.position = ShootPosition.position, Quaternion.identity);
+            bulletRef = Instantiate(bullet.gameObject, ShootPosition.position, Quaternion.identity);
             numberOfAmmo--;
 
             //Debug.Break();
