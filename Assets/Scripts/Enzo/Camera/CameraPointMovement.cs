@@ -1,13 +1,20 @@
+using System;
 using UnityEngine;
 
 public class CameraPointMovement : MonoBehaviour
 {
-    [SerializeField, Range(0f, 5f)] private float smoothSpeed = 2f;
-    [SerializeField, Range(0f, 10f)] private float maxDistance = 7f;
-    [SerializeField, Range(0f, 6f), Tooltip("La position en Y du GameObject CameraPointToFollow")] private float yCameraPoint = 3f;
+    [SerializeField, Range(0f, 5f), Header("Speed")]
+    private float smoothSpeed = 2f;
+
+    [SerializeField, Range(0f, 10f), Header("Distance")]
+    private float maxDistance = 7f;
+
+    [SerializeField, Range(0f, 6f), Tooltip("La position en Y du GameObject CameraPointToFollow"),
+     Header("Camera Height")]
+    private float yCameraPoint = 3f;
 
     private Vector2 velocity;
-
+    
     private void Update()
     {
         if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f)
