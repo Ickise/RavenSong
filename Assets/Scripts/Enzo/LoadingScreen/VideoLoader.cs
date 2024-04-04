@@ -30,7 +30,7 @@ public class VideoLoader : MonoBehaviour
     private void UnloadVideo()
     {
         if (videoPlayer.isPlaying) return;
-        
+
         foreach (var gameObject in listToEnable)
         {
             gameObject.SetActive(true);
