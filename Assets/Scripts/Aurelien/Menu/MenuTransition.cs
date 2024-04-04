@@ -32,7 +32,7 @@ public class MenuTransition : MonoBehaviour
 
     private void Update()
     {
-        if (eventSystem.currentSelectedGameObject == null)
+        if (eventSystem.currentSelectedGameObject == null || !eventSystem.currentSelectedGameObject.activeInHierarchy)
             eventSystem.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject, new BaseEventData(eventSystem));
     }
 }
