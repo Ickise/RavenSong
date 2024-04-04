@@ -13,7 +13,7 @@ public class SpineAim : MonoBehaviour
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
     [SerializeField] private bool isManette;
-    [SerializeField] private GameObject aimLineDroite, aimLineGauche;
+    public GameObject aimLineDroite, aimLineGauche;
     Vector3 localPosDroite, localPosGauche;
     public static bool manette;
 
