@@ -60040,6 +60040,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &439832215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1037418433282939668, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
+  m_PrefabInstance: {fileID: 856223837}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &442073796
 Mesh:
   m_ObjectHideFlags: 0
@@ -103526,7 +103531,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5212990599384656329, guid: 9f00e4930b954e44599993ec38f13e1f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5212990599384656334, guid: 9f00e4930b954e44599993ec38f13e1f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -103738,7 +103743,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6885283453834097361, guid: 9f00e4930b954e44599993ec38f13e1f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6970641700341293693, guid: 9f00e4930b954e44599993ec38f13e1f, type: 3}
       propertyPath: m_Enabled
@@ -201408,6 +201413,22 @@ PrefabInstance:
       propertyPath: videoPlayer
       value: 
       objectReference: {fileID: 1954099881}
+    - target: {fileID: 4026836375584248416, guid: afc2a049f23009f479fb4d407325f6f2, type: 3}
+      propertyPath: listToEnable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026836375584248416, guid: afc2a049f23009f479fb4d407325f6f2, type: 3}
+      propertyPath: listToDisable.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026836375584248416, guid: afc2a049f23009f479fb4d407325f6f2, type: 3}
+      propertyPath: listToEnable.Array.data[0]
+      value: 
+      objectReference: {fileID: 439832215}
+    - target: {fileID: 4026836375584248416, guid: afc2a049f23009f479fb4d407325f6f2, type: 3}
+      propertyPath: listToDisable.Array.data[0]
+      value: 
+      objectReference: {fileID: 439832215}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -288324,7 +288345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: isManette
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: boneAimName
@@ -288340,7 +288361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: maxDistance
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: smoothSpeed
