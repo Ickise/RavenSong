@@ -802,6 +802,7 @@ MonoBehaviour:
   coolDownToRoll: 2
   VFXDustTrail: {fileID: 4020801391066012145}
   VFXRoulade: {fileID: 8712445652773728253, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
+  VFXJump: {fileID: 1231165352650023117, guid: c2b2fbf6a3600a04c8a9779c0afcb1d7, type: 3}
   posVFXRoulade: {fileID: 8040546702331545299}
   onRoll: 0
 --- !u!61 &747856985619423663
@@ -864,7 +865,6 @@ MonoBehaviour:
   startPosition: {x: 15, y: 3}
   shaderDeathRespawn: {fileID: 0}
   shaderTime: 1
-  timeStartup: 8
 --- !u!231 &8217276307982103039
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -986,7 +986,7 @@ MonoBehaviour:
   stunDuration: 1.5
   crossKickCooldown: 2
   timeToDisableHitBox: 0.3
-  VFXAuraCoup: {fileID: 1356581437434044044, guid: 97f4f3916efbbd1449c4beb0074531be, type: 3}
+  VFXAuraCoup: {fileID: 0}
   VFXCoupDeCrossObject: {fileID: 8861756336949416741, guid: 20ed7ea12e0f9104bb23c490da059995, type: 3}
   soundstunsuccessful:
   - {fileID: 11400000, guid: f4c3ef3938ed27843817efd1902d46af, type: 2}
@@ -1597,6 +1597,7 @@ MonoBehaviour:
   leftAimPosition: {fileID: 6595171560773712303}
   shootAudio: {fileID: 11400000, guid: bd804b9f6922a65488c542f71a90e8f8, type: 2}
   numberOfAmmo: 1
+  VfxGunShoot: {fileID: 2281808058870940181, guid: 880d3b2df877cf347966908a9e6d801f, type: 3}
 --- !u!114 &2265981886112315082
 MonoBehaviour:
   m_ObjectHideFlags: 0
