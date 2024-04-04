@@ -33794,6 +33794,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346348743}
   m_Mesh: {fileID: 80922191}
+--- !u!4 &348590511 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3161145761624493340, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &348657427
 GameObject:
   m_ObjectHideFlags: 0
@@ -63720,6 +63725,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &614039395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6595171560773712303, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &614148344
 Mesh:
   m_ObjectHideFlags: 0
@@ -214067,7 +214077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 987536328954242322, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: isManette
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1949906005094012985, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: positionY
@@ -214201,6 +214211,14 @@ PrefabInstance:
       propertyPath: shootAudio
       value: 
       objectReference: {fileID: 11400000, guid: 72d40c880a46e3946a065f304e10f3c5, type: 2}
+    - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: leftAimPosition
+      value: 
+      objectReference: {fileID: 614039395}
+    - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: rightAimPosition
+      value: 
+      objectReference: {fileID: 348590511}
     - target: {fileID: 4911322787764592626, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: leftShootPosition
       value: 

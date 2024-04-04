@@ -10,6 +10,8 @@ public class FireOneBullet : MonoBehaviour
     private Transform rightShootPosition;
 
     [SerializeField] private Transform leftShootPosition;
+    [SerializeField] private Transform rightAimPosition;
+    [SerializeField] private Transform leftAimPosition;
 
     [SerializeField, Header("ShootData")] private SoundData shootAudio;
 
@@ -23,6 +25,7 @@ public class FireOneBullet : MonoBehaviour
     public static FireOneBullet instance;
 
     public Transform ShootPosition => currentDirection ? rightShootPosition : leftShootPosition;
+    public Transform AimPosition => currentDirection ? rightAimPosition : leftAimPosition;
 
     private void Awake()
     {
