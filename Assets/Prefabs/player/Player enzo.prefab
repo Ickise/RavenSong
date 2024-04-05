@@ -31,6 +31,7 @@ Transform:
   - {fileID: 3202086901390609570}
   - {fileID: 5698434682930954650}
   - {fileID: 347895996218672094}
+  - {fileID: 5170615122102854022}
   m_Father: {fileID: 5070513739195827676}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -804,6 +805,7 @@ MonoBehaviour:
   VFXRoulade: {fileID: 8712445652773728253, guid: 301f2db2d86ab85478939b3fe3fe6986, type: 3}
   VFXJump: {fileID: 1231165352650023117, guid: c2b2fbf6a3600a04c8a9779c0afcb1d7, type: 3}
   posVFXRoulade: {fileID: 8040546702331545299}
+  posVFXJump: {fileID: 5170615122102854022}
   onRoll: 0
 --- !u!61 &747856985619423663
 BoxCollider2D:
@@ -1484,6 +1486,37 @@ MonoBehaviour:
   followLocalScale: 0
   maintainedAxisOrientation: 1
   initializeOnAwake: 1
+--- !u!1 &5055276780714077062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5170615122102854022}
+  m_Layer: 3
+  m_Name: PositionVfxJump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5170615122102854022
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5055276780714077062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.96, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8287821065534223957}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5108646155374385951
 GameObject:
   m_ObjectHideFlags: 0

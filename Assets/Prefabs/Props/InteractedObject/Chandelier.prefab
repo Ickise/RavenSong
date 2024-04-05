@@ -243,10 +243,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4489743989370707046}
   - component: {fileID: 7156152356076579516}
-  - component: {fileID: 5242389840275477900}
   - component: {fileID: 4433848806319082556}
   - component: {fileID: 6885559656830353396}
   - component: {fileID: 4794442118357555488}
+  - component: {fileID: 1713840463688914297}
   m_Layer: 12
   m_Name: Chandelier
   m_TagString: Untagged
@@ -321,51 +321,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5242389840275477900
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7502212147592329800}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.075, y: 1.0625}
-    newSize: {x: 0.32, y: 0.32}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 3, y: 1}
-  m_EdgeRadius: 0
 --- !u!50 &4433848806319082556
 Rigidbody2D:
   serializedVersion: 4
@@ -421,6 +376,115 @@ MonoBehaviour:
   onBulletHit:
     m_PersistentCalls:
       m_Calls: []
-  canGoThrough: 1
-  bulletFalling: 0
-  putBulletInChildren: 1
+  canGoThrough: 0
+  bulletFalling: 1
+  putBulletInChildren: 0
+--- !u!68 &1713840463688914297
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502212147592329800}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.4167079, y: -0.022908688}
+  - {x: -1.4122392, y: -0.10070634}
+  - {x: -1.342144, y: -0.07526064}
+  - {x: -1.2755493, y: -0.026567698}
+  - {x: -1.197536, y: -0.022924185}
+  - {x: -1.155532, y: -0.05017233}
+  - {x: -1.0232943, y: -0.025487661}
+  - {x: -0.89042395, y: 0.04701543}
+  - {x: -0.8502317, y: 0.06972504}
+  - {x: -0.7660725, y: 0.090127945}
+  - {x: -0.53071666, y: 0.22899294}
+  - {x: -0.26785278, y: 0.43847346}
+  - {x: -0.27536076, y: 0.46634007}
+  - {x: -0.19335204, y: 0.531785}
+  - {x: 0.18204963, y: 0.5353887}
+  - {x: 0.27351135, y: 0.4712472}
+  - {x: 0.3213932, y: 0.38096237}
+  - {x: 0.5817057, y: 0.19745493}
+  - {x: 0.8721013, y: 0.058035374}
+  - {x: 1.0151849, y: -0.026122093}
+  - {x: 1.1594057, y: -0.039057255}
+  - {x: 1.2347223, y: -0.0079090595}
+  - {x: 1.3760352, y: -0.088202715}
+  - {x: 1.424059, y: -0.009853601}
+  - {x: 1.4600306, y: -0.015208721}
+  - {x: 1.4879205, y: -0.08389449}
+  - {x: 1.5112119, y: -0.19150424}
+  - {x: 1.5601172, y: -0.33043623}
+  - {x: 1.4868748, y: -0.36271095}
+  - {x: 1.4272132, y: -0.4637208}
+  - {x: 1.3325686, y: -0.5180805}
+  - {x: 1.1891822, y: -0.5172832}
+  - {x: 1.1069049, y: -0.42482376}
+  - {x: 1.0437272, y: -0.39778566}
+  - {x: 0.8747939, y: -0.40277505}
+  - {x: 0.8593024, y: -0.46694112}
+  - {x: 0.83856094, y: -0.49564576}
+  - {x: 0.78614986, y: -0.52022505}
+  - {x: 0.6712128, y: -0.49481487}
+  - {x: 0.63804877, y: -0.40448928}
+  - {x: 0.4714049, y: -0.39639544}
+  - {x: 0.32109058, y: -0.53513837}
+  - {x: -0.32312816, y: -0.5309782}
+  - {x: -0.47449526, y: -0.40056205}
+  - {x: -0.647449, y: -0.39734387}
+  - {x: -0.6584665, y: -0.4551282}
+  - {x: -0.7011242, y: -0.5008764}
+  - {x: -0.74419177, y: -0.5101483}
+  - {x: -0.82816136, y: -0.5048814}
+  - {x: -0.8667761, y: -0.45327234}
+  - {x: -0.8732591, y: -0.40472007}
+  - {x: -1.0959772, y: -0.39644933}
+  - {x: -1.1452951, y: -0.4796245}
+  - {x: -1.1948223, y: -0.5175533}
+  - {x: -1.3191855, y: -0.5175638}
+  - {x: -1.3916261, y: -0.48829484}
+  - {x: -1.4422146, y: -0.43177342}
+  - {x: -1.448103, y: -0.36026716}
+  - {x: -1.4972025, y: -0.36284113}
+  - {x: -1.5412676, y: -0.32277417}
+  - {x: -1.5408732, y: -0.29359818}
+  - {x: -1.5238789, y: -0.2784152}
+  - {x: -1.4943982, y: -0.18189168}
+  - {x: -1.4887952, y: -0.081995964}
+  - {x: -1.4539275, y: -0.079357386}
+  - {x: -1.4485229, y: -0.029514313}
+  - {x: -1.4358675, y: -0.01807642}
+  - {x: -1.4131985, y: -0.022856236}
+  - {x: -1.4131985, y: -0.022856236}
+  - {x: -1.415281, y: -0.022856236}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
