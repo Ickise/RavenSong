@@ -25,14 +25,16 @@ public class Respawn : MonoBehaviour
 
     private void Start()
     {
-        shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
         spawn = true;
         DOTween.To(() => verticalDissolve, x => verticalDissolve = x, 0f, shaderTime)
         .OnComplete(() => spawn = false);
+        if (shaderDeathRespawn == null) return;
+        shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
     }
 
     private void Update()
     {
+        if (shaderDeathRespawn == null) return;
         if (spawn)
             shaderDeathRespawn.material.SetFloat("_VerticalDissolve", verticalDissolve);
         else if (death)
