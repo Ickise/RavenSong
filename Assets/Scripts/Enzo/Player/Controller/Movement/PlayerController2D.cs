@@ -327,7 +327,7 @@ public class PlayerController2D : MonoBehaviour
 
         VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
-                posVFXRoulade.localScale.z), Quaternion.identity);
+                posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
         AudioManager.instance.PlaySound(rollsound);
         playerRigidbody2D
