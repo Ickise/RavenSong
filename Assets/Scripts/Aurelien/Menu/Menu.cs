@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
 {
-    [SerializeField] private SceneAsset newGameScene;
+    // [SerializeField] private SceneAsset newGameScene;
     [SerializeField] private GameObject firstButtonSelected;
 
     private void Start()
