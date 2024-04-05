@@ -52,7 +52,7 @@ public class StunDetection : MonoBehaviour
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
         if (iAprojectil)
         {
-            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             iAprojectil.VFXStun.Play();
             VFXInstantieur.instance.PlayVFXInWorld(VFXAuraCoup, iAprojectil.transform);
@@ -68,7 +68,7 @@ public class StunDetection : MonoBehaviour
         Explodable destructibleObject = other.GetComponent<Explodable>();
         if (destructibleObject)
         {
-            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
             ExplosionForce ef = FindObjectOfType<ExplosionForce>();
@@ -82,7 +82,7 @@ public class StunDetection : MonoBehaviour
         IAHorloger iAHorloger = other.GetComponent<IAHorloger>();
         if (interactedObject && !iAHorloger)
         {
-            AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             interactedObject.BulletHitSomething(null);
             return;
         }
