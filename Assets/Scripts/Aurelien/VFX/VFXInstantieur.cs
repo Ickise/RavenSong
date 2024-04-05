@@ -31,14 +31,15 @@ public class VFXInstantieur : MonoBehaviour
         Destroy(currentVFX, timeDestroy);
     }
 
-    public void PlayVFXInWorld(GameObject vfxGameobject, Vector3 position, Vector3 localScale, Quaternion rotation, float timeDestroy = 3)
+    public void PlayVFXInWorld(GameObject vfxGameobject, Vector3 position, Vector3 localScale, Vector3 eulerAngles, float timeDestroy = 3)
     {
         if (vfxGameobject == null)
         {
             Debug.LogWarning("le vfx à la position " + position + " n'est pas set");
             return;
         }
-        GameObject currentVFX = Instantiate(vfxGameobject, position, rotation);
+        GameObject currentVFX = Instantiate(vfxGameobject, position, Quaternion.Euler(eulerAngles));
+        currentVFX.transform.localScale = localScale;
         Destroy(currentVFX, timeDestroy);
     }
 }
