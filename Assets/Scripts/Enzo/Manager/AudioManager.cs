@@ -1,11 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { private set; get; }
 
     private AudioSource mainAudioSource;
-
+    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -27,10 +28,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        mainAudioSource.volume = data.Volume;
-        mainAudioSource.pitch = data.GetPitch();
-        mainAudioSource.outputAudioMixerGroup = data.AudioMixerGroup;
-        mainAudioSource.PlayOneShot(data.AudioToPlay);
+        mainAudioSource.PlayOneShot(SetAudioParameters(data).AudioToPlay);
     }
 
     public void PlayRandomSound(SoundData[] listOfSoundData)
@@ -47,11 +45,16 @@ public class AudioManager : MonoBehaviour
         if (mainAudioSource.isPlaying && mainAudioSource.clip == data)
             return;
 
-        mainAudioSource.volume = data.Volume;
-        mainAudioSource.pitch = data.GetPitch();
-        mainAudioSource.outputAudioMixerGroup = data.AudioMixerGroup;
-        mainAudioSource.clip = data.AudioToPlay;
+        mainAudioSource.clip = SetAudioParameters(data).AudioToPlay;
         mainAudioSource.Play();
+    }
+    
+    private SoundData SetAudioParameters(SoundData soundData)
+    {
+        mainAudioSource.volume = soundData.Volume;
+        mainAudioSource.pitch = soundData.GetPitch();
+        mainAudioSource.outputAudioMixerGroup = soundData.AudioMixerGroup;
+        return soundData;
     }
 }
 /*public static AudioManager instance { get; private set; }

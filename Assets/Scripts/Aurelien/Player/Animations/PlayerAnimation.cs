@@ -13,6 +13,7 @@ using UnityEngine.InputSystem;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject _animationSetter;
+    private RecallBullet _recallBullet;
     private SpineAim _spineAim;
     [SerializeField] private SkeletonAnimation skeletonAnimationDroite, skeletonAnimationGauche;
     private MeshRenderer meshDroite, meshGauche;
@@ -20,9 +21,9 @@ public class PlayerAnimation : MonoBehaviour
     public bool DontAim { get; set; }
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
-    public enum AnimationState { idleNoBall, idleBall, walkBall, walkBackWard, jump, dash/*, crossKick, recall */};
-    private AnimationState currentAnimationState;
-    public AnimationState GetCurrentAnimation => currentAnimationState;
+    public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dash, crossKickHaut, recallHaut, jumpNoBallBas, JumpNoBallHaut, walkNoBallBas, walkNoBallHaut, idleNoBall };
+    private List<AnimationState> currentAnimationStateOnTrack = new List<AnimationState>();
+    public List<AnimationState> GetCurrentAnimationOnEachTrack => currentAnimationStateOnTrack;
 
     //le struct pour set toute les références des animations dans l'editor
     [Serializable]
@@ -32,7 +33,6 @@ public class PlayerAnimation : MonoBehaviour
         public float speed;
         public int trackNum;
         public bool loop;
-        public bool overrideSkeleton;
         public AnimationReferenceAsset animationReferenceAssetDroite;
         public AnimationReferenceAsset animationReferenceAssetGauche;
     }
@@ -45,6 +45,7 @@ public class PlayerAnimation : MonoBehaviour
             Instantiate(_animationSetter);
         //get les références
         _spineAim = GetComponent<SpineAim>();
+        _recallBullet = GetComponentInParent<RecallBullet>();
         meshDroite = skeletonAnimationDroite.GetComponent<MeshRenderer>();
         meshGauche = skeletonAnimationGauche.GetComponent<MeshRenderer>();
 
@@ -61,7 +62,8 @@ public class PlayerAnimation : MonoBehaviour
                     animationStateRef.Add(animationStateRefArray[i], animations[y]);
                     break;
                 }
-        currentAnimationState = AnimationState.idleBall;
+        for (int i = 0; i < 10; i++)
+            currentAnimationStateOnTrack.Add(AnimationState.none);
     }
 
     /// <summary>
@@ -74,31 +76,86 @@ public class PlayerAnimation : MonoBehaviour
         meshGauche.enabled = !direction;
     }
 
-    public void SetAnimation(AnimationState animationState)
+    /// <summary>
+    /// Set une animation sur le joueur
+    /// </summary>
+    /// <param name="animationState"></param>
+    public void SetAnimation(AnimationState animationState, int clearTrackIndex = -1)
     {
-        if (currentAnimationState == animationState) return;
         if (AnimationsSetter.instance == null)
         {
             Debug.LogWarning("mettre le prefab AnimationController dans la scène");
             return;
         }
+        if (clearTrackIndex > -1)
+        {
+            skeletonAnimationDroite.state.SetEmptyAnimation(clearTrackIndex, 0);
+            skeletonAnimationGauche.state.SetEmptyAnimation(clearTrackIndex, 0);
+            currentAnimationStateOnTrack[clearTrackIndex] = animationState;
+        }
         AnimationReference animationRefAsset;
         if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
         {
-            currentAnimationState = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, animationRefAsset.overrideSkeleton));
+            bool overwriteIniTialize = false;
+            if (skeletonAnimationDroite.skeletonDataAsset != animationRefAsset.animationReferenceAssetDroite.SkeletonDataAsset)
+            {
+                overwriteIniTialize = true;
+                for (int i = 0; i < currentAnimationStateOnTrack.Count; i++)
+                    currentAnimationStateOnTrack[i] = AnimationState.none;
+            }
+            else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
+                return;
+            currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            _spineAim.Start();
+        }
+    }
+
+    /// <summary>
+    /// Set une animation sur le joueur et applique une fonction à sa fin
+    /// </summary>
+    /// <param name="animationState"></param>
+    /// <param name="function"></param>
+    public void SetAnimation(AnimationState animationState, Spine.AnimationState.TrackEntryDelegate function, int clearTrackIndex = -1)
+    {
+        if (AnimationsSetter.instance == null)
+        {
+            Debug.LogWarning("mettre le prefab AnimationController dans la scène");
+            return;
+        }
+        if (clearTrackIndex > -1)
+        {
+            skeletonAnimationDroite.state.SetEmptyAnimation(clearTrackIndex, 0);
+            skeletonAnimationGauche.state.SetEmptyAnimation(clearTrackIndex, 0);
+            currentAnimationStateOnTrack[clearTrackIndex] = animationState;
+        }
+        AnimationReference animationRefAsset;
+        if (animationStateRef.TryGetValue(animationState, out animationRefAsset))
+        {
+            bool overwriteIniTialize = false;
+            if (skeletonAnimationDroite.skeletonDataAsset != animationRefAsset.animationReferenceAssetDroite.SkeletonDataAsset)
+            {
+                overwriteIniTialize = true;
+                for (int i = 0; i < currentAnimationStateOnTrack.Count; i++)
+                    currentAnimationStateOnTrack[i] = AnimationState.none;
+            }
+            else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
+                return;
+            currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize), function);
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
             _spineAim.Start();
         }
     }
 
     private void Update()
     {
-        if (DontAim) return;
+        if (DontAim || _recallBullet.doRecall) return;
         //permet de flip l'animation en fonction de la ou le joueur vise
         if (SpineAim.manette && InputReader.instance.manetteDirection != Vector3.zero)
             FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
         else if (!SpineAim.manette)
-            FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, Camera.main.nearClipPlane)).x > transform.position.x);
+            FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y,  -Camera.main.transform.position.z)).x > transform.position.x);
     }
 }

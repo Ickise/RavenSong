@@ -20,10 +20,26 @@ public class VFXInstantieur : MonoBehaviour
     /// <param name="vfxGameobject"></param>
     /// <param name="position"></param>
     /// <param name="timeDestroy"></param>
-    public void PlayerVFXInWorld(GameObject vfxGameobject, Transform position, float timeDestroy)
+    public void PlayVFXInWorld(GameObject vfxGameobject, Transform position, float timeDestroy = 3)
     {
-        GameObject currentVFX = Instantiate(vfxGameobject, position.position, Quaternion.identity);
-        currentVFX.transform.localScale = position.localScale;
+        if (vfxGameobject == null)
+        {
+            Debug.LogWarning("le vfx sur " + position.name + " n'est pas set");
+            return;
+        }
+        GameObject currentVFX = Instantiate(vfxGameobject, position.position, position.rotation);
+        Destroy(currentVFX, timeDestroy);
+    }
+
+    public void PlayVFXInWorld(GameObject vfxGameobject, Vector3 position, Vector3 localScale, Vector3 eulerAngles, float timeDestroy = 3)
+    {
+        if (vfxGameobject == null)
+        {
+            Debug.LogWarning("le vfx à la position " + position + " n'est pas set");
+            return;
+        }
+        GameObject currentVFX = Instantiate(vfxGameobject, position, Quaternion.Euler(eulerAngles));
+        currentVFX.transform.localScale = localScale;
         Destroy(currentVFX, timeDestroy);
     }
 }

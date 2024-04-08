@@ -1,15 +1,16 @@
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    [Header("Ne pas set up")] public Vector2 direction;
+    [HideInInspector] public Vector2 direction;
 
-    public bool jump;
-    public bool activateAim = false;
-    public bool canStun;
-    public bool canDown;
+    [HideInInspector] public bool jump;
+    [HideInInspector] public bool activateAim = false;
+    [HideInInspector] public bool canStun;
+    [HideInInspector] public bool canDown;
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
@@ -17,7 +18,7 @@ public class InputReader : MonoBehaviour
 
     public static InputReader instance;
     private StunDetection _stunDetection;
-    public Vector3 manetteDirection;
+    [HideInInspector] public Vector3 manetteDirection;
 
     private void Awake()
     {
@@ -46,6 +47,8 @@ public class InputReader : MonoBehaviour
 
     public void OnFire(InputAction.CallbackContext context)
     {
+        if (_stunDetection.IsC2DActive || DOTween.IsTweening("roll"))
+            return;
         onFire.Invoke(context);
     }
 
@@ -54,7 +57,7 @@ public class InputReader : MonoBehaviour
     public void OnCrossKick(InputAction.CallbackContext context)
     {
         if (!context.started || DontCrossKick) return;
-        _stunDetection.CrossKick(PlayerController2D._instance.CurrentDirectionAim);
+        StartCoroutine(_stunDetection.CrossKick(PlayerController2D._instance.CurrentDirectionAim));
     }
 
     public void OnDown(InputAction.CallbackContext context) => canDown = context.performed;
@@ -66,6 +69,6 @@ public class InputReader : MonoBehaviour
 
     public void ManetteDirection(InputAction.CallbackContext context)
     {
-        manetteDirection = context.ReadValue<Vector2>().normalized;
+        manetteDirection = context.ReadValue<Vector2>();
     }
 }

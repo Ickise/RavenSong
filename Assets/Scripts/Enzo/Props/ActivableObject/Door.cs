@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private Ease ease;
+    [SerializeField, Header("TweenMovement")] private Ease ease;
 
-    [SerializeField] private float newYPosition;
+    [SerializeField, Header("NewPosition")] private float newYPosition;
     [SerializeField] private float newXPosition;
-    [SerializeField] private float animationDuration = 1f;
+    [SerializeField, Header("AnimationDuration"), Range(0f, 2f)] private float animationDuration = 1f;
 
-    [Tooltip(
-        "Si ce bool est en true, il ne faut changer que newYPosition, s'il est false, il ne faut changer que newXPosition")]
-    [SerializeField]
+    [SerializeField, Tooltip(
+         "Si ce bool est en true, il ne faut changer que newYPosition, s'il est false, il ne faut changer que newXPosition"), Header("Bool")]
     private bool changeYorXPosition;
 
     private Vector3 originalPosition;
     private Vector3 newPosition;
+    [SerializeField] private GameObject vfxOpenDoor;
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class Door : MonoBehaviour
 
     public void OpenDoor(bool isActive)
     {
+        VFXInstantieur.instance.PlayVFXInWorld(vfxOpenDoor, transform);
         if (isActive)
         {
             transform.DOMove(newPosition, animationDuration).SetEase(ease);

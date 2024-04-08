@@ -8,11 +8,12 @@ using System.Collections.Generic;
 public class SpineAim : MonoBehaviour
 {
     private PlayerAnimation _playerAnimation;
-    [SerializeField] private string boneAimName;
+    private string boneAimName = "Aim Target - CI";
     private List<Bone> boneAim = new List<Bone>();
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
     [SerializeField] private bool isManette;
+    public GameObject aimLineDroite, aimLineGauche;
     Vector3 localPosDroite, localPosGauche;
     public static bool manette;
 
@@ -34,18 +35,30 @@ public class SpineAim : MonoBehaviour
 
     private void Update()
     {
-        if (_playerAnimation.DontAim || boneAim[0] == null) return;
+        if (_playerAnimation.DontAim || boneAim[0] == null)
+        {
+            if (aimLineDroite.activeInHierarchy || aimLineGauche.activeInHierarchy)
+            {
+                aimLineDroite.SetActive(false);
+                aimLineGauche.SetActive(false);
+            }
+            return;
+        }
+        aimLineDroite.SetActive(_playerAnimation.GetDirection);
+        aimLineGauche.SetActive(!_playerAnimation.GetDirection);
+
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
-        {
-            localPosDroite = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
-            localPosGauche = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
-        }
+            localPosDroite = localPosGauche = (InputReader.instance.manetteDirection + Vector3.up * 0.25f) * 5f;
+
         else if (!manette)
         {
-            localPosDroite = skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
-            localPosGauche = skeletonAnimation[1].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, cam.nearClipPlane)));
+            localPosDroite = skeletonAnimation[0].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -cam.transform.position.z)));
+            localPosGauche = skeletonAnimation[1].transform.InverseTransformPoint(cam.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -cam.transform.position.z)));
         }
+        // Vector2 currentArmePos = skeletonAnimation[_playerAnimation.GetDirection ? 0 : 1].skeleton.FindBone("Arme").GetWorldPosition(skeletonAnimation[0].transform);
+        // aimLine.transform.position = currentArmePos;
+        // aimLine.transform.rotation = Aurinaxtailer.Rotation2D.LookToDirection2D(aimLine.transform.rotation, _playerAnimation.GetDirection ? localPosDroite : localPosGauche);
         boneAim[0].SetLocalPosition(new Vector3(Mathf.Clamp(localPosDroite.x, 1, Mathf.Infinity), localPosDroite.y, localPosDroite.z));
         boneAim[1].SetLocalPosition(new Vector3(-Mathf.Clamp(localPosGauche.x, Mathf.NegativeInfinity, -1), localPosGauche.y, localPosGauche.z));
     }

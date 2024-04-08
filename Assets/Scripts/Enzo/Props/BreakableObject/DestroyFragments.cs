@@ -5,9 +5,9 @@ public class DestroyFragments : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
 
-    public bool waitToDestroy;
+    [HideInInspector] public bool waitToDestroy;
 
-    public float timeToDestroy;
+    [HideInInspector] public float timeToDestroy;
 
     private void Awake()
     {

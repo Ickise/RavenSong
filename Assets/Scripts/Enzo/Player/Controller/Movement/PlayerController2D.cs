@@ -2,12 +2,11 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Modifie les mouvements")]
-    [SerializeField]
-    private float accelerationSpeed = 2f;
+    [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
 
@@ -15,34 +14,35 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float maxSpeedRecall = 2f;
     [SerializeField] private float groundFriction = 0.3f;
 
-    [Header("Modifie le aircontrol")]
-    [SerializeField]
+    [SerializeField, Tooltip("En degrés")] private float maxAngleSlop = 72f;
+
+    [Header("Aircontrol")] [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
 
-    [Header("Modifie le saut")]
-    [SerializeField]
-    private float gravityFactor = 1f;
-    private float currentGravity;
+    [SerializeField,
+     Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")]
+    private float maxFallSpeed = -20f;
 
-    [SerializeField] private float jumpForce = 3f;
+    [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
+    // private float currentGravity;
 
-    [Header("Modifie le temps où le joueur peut sauter après avoir quitté une plateforme")]
-    [SerializeField]
+    [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
+    [SerializeField] private SoundData rollsound;
+
+    [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
+
+    [Header("CoyoteTime")] [SerializeField, Range(0.1f, 0.5f)]
     private float hangTime = 0.1f;
 
-    [Header("Modifie la rapidité pour tomber après un saut")]
-    [SerializeField]
+    [Header("FallSpeed")] [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
     private float fallMultiplier = 2.5f;
 
-    [Header("Modifie la rapidité pour tomber après le saut minimum")]
-    [SerializeField]
+    [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Modifie les paramètres de la roulade")]
-    [SerializeField]
-    private float distanceRoulade = 4f;
+    [Header("Rool")] [SerializeField] private float distanceRoulade = 4f;
 
     [SerializeField] private float speedRoulade = 15f;
     [SerializeField] private float forceBonk = 10f;
@@ -55,16 +55,25 @@ public class PlayerController2D : MonoBehaviour
     private RaycastDetection _raycastDetection;
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
+    private StunDetection _stunDetection;
+    private FootTriggerPlatform _footTriggerPlatform;
 
-    [SerializeField] private VisualEffect VFXDustTrail, VFXRoulade;
+    [Header("VFX")] [SerializeField] private VisualEffect VFXDustTrail;
+    [SerializeField] private GameObject VFXRoulade, VFXJump;
+
+    [SerializeField] private Transform posVFXRoulade;
+    [SerializeField] private Transform posVFXJump;
 
     private float hangTimeCounter;
 
     private bool canjump = true, canRoll = true, isVFXDustTrailPlaying;
 
-    public bool onRoll;
+    [HideInInspector] public bool onRoll;
 
-    public int CurrentDirectionAim { get { return _playerAnimation.GetDirection ? 1 : -1; } }
+    public int CurrentDirectionAim
+    {
+        get { return _playerAnimation.GetDirection ? 1 : -1; }
+    }
 
     public int LastDirection { get; set; } = 1;
 
@@ -84,16 +93,24 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _stunDetection = GetComponentInChildren<StunDetection>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
         playerCollider2D = GetComponent<Collider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
         _recallBullet = GetComponent<RecallBullet>();
+        _footTriggerPlatform = GetComponentInChildren<FootTriggerPlatform>();
+    }
+
+    private void Start()
+    {
         VFXDustTrail.Stop();
+        transform.position = Respawn.spawnPosition;
     }
 
     private void Update()
     {
+        // Debug.Log(playerVelocity.y);
         //stop la roulade si elle rencontre du vide ou un mur
         if (onRoll)
         {
@@ -140,7 +157,9 @@ public class PlayerController2D : MonoBehaviour
             //     velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
             Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
-            slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
+            slopNormalPerp = Mathf.Abs(slopNormalPerp.y) > maxAngleSlop / 90f
+                ? Vector2.left
+                : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
             //sert a annuler le momentum quand le joueur se trouve sur une pente car cela pose des problèmes
             //check si le joueur va dans la direction de son input en les multipliant entre eux, car si l'un des 2 est négatif ça sera inférieur a 0, 
             //ensuite regarde si il est sur une pente, si les 2 sont vrai alors il reset sa velocité x
@@ -170,15 +189,36 @@ public class PlayerController2D : MonoBehaviour
 
                 playerVelocity.x = Mathf.Lerp(playerVelocity.x, 0, groundFriction);
                 if (hangTimeCounter < hangTime) return;
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleBall);
+                else if (_stunDetection.IsC2DActive || _recallBullet.doRecall)
+                {
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 1);
+                }
+                else
+                    _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.idleNoBall);
+
                 return;
             }
 
             if (hangTimeCounter < hangTime) return;
-            if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+            if (FireOneBullet.instance.bulletRef != null || _stunDetection.IsC2DActive)
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
+            }
             else
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+            {
+                if (!_stunDetection.IsC2DActive)
+                {
+                    if (_playerAnimation.GetDirection == InputReader.instance.direction.x > 0)
+                        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBall);
+
+                    else
+                        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkBackWard);
+                }
+            }
         }
         else
         {
@@ -200,9 +240,18 @@ public class PlayerController2D : MonoBehaviour
     {
         if (!InputReader.instance.canDown)
         {
+            VFXInstantieur.instance.PlayVFXInWorld(VFXJump, posVFXJump);
+            AudioManager.instance.PlayRandomSound(jumpsoundlist);
             hangTimeCounter = 0f;
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jump);
-            playerVelocity.y = Mathf.Sqrt(-2 * jumpForce * Physics2D.gravity.y * gravityFactor);
+            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            else
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
+            }
+
+            playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }
 
@@ -218,9 +267,7 @@ public class PlayerController2D : MonoBehaviour
     /// <param name="slopNormalPerp"></param>
     private float SetNormalDirectionY(Vector2 slopNormalPerp)
     {
-        if (!canjump || Mathf.Abs(slopNormalPerp.y) > 0.8f) return playerVelocity.y;
-        // if (Mathf.Abs(slopNormalPerp.y) > 0.75f)
-        //     return -0.1f;
+        if (!canjump) return playerVelocity.y;
         if (InputReader.instance.direction.x == 0)
             return (slopNormalPerp.y > 0 ? -1 : 1) * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
         return -InputReader.instance.direction.x * slopNormalPerp.y * Mathf.Abs(playerVelocity.x / slopNormalPerp.x);
@@ -230,13 +277,19 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
-            currentGravity = -0.1f;
+            playerVelocity.y = 0;
+            //  currentGravity = -0.1f;
         }
         else
         {
-            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            //            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
+            if (playerVelocity.y < maxFallSpeed)
+            {
+                playerVelocity.y = maxFallSpeed;
+            }
         }
-        playerVelocity.y += currentGravity;
+        //      playerVelocity.y += currentGravity;
     }
 
     private void SetAirControl()
@@ -262,7 +315,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         var factor = isFalling ? fallMultiplier : lowJumpMultiplier;
-        playerVelocity += Vector2.up * (Physics2D.gravity.y * (factor - 1) * Time.deltaTime);
+        playerVelocity.y += Vector2.up.y * (Physics2D.gravity.y * (factor - 1) * Time.fixedDeltaTime);
     }
 
     public void Roll()
@@ -271,11 +324,17 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
         Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        VFXRoulade.gameObject.transform.localScale = new Vector2(VFXRoulade.gameObject.transform.localScale.x * LastDirection, VFXRoulade.gameObject.transform.localScale.y);
-        
-        VFXRoulade.Play();
+
+        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
+            new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
+                posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
-        playerRigidbody2D.DOMove(transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade).SetId("roll")
+        AudioManager.instance.PlaySound(rollsound);
+        playerRigidbody2D
+            .DOMove(
+                transform.position +
+                new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
+            .SetId("roll")
             .SetSpeedBased(true)
             .OnKill(() =>
             {
