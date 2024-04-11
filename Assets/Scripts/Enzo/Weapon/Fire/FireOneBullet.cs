@@ -59,7 +59,7 @@ public class FireOneBullet : MonoBehaviour
             bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));
             numberOfAmmo--;
 
-            //            Debug.Break();
+            //Debug.Break();
         }
     }
 }
