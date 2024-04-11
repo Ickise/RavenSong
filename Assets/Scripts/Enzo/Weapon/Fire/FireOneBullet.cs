@@ -10,14 +10,12 @@ public class FireOneBullet : MonoBehaviour
 
     [SerializeField, Header("BulletSpawnPosition")]
     private Transform rightBulletSpawnPosition;
-    [SerializeField] private Transform leftBulletSpawnPosition;
 
-    [SerializeField, Header("AimPosition")]
-    private Transform rightAimPosition;
-    [SerializeField] private Transform leftAimPosition;
+    [SerializeField] private Transform leftBulletSpawnPosition;
 
     [SerializeField, Header("PositionToLook")]
     private Transform rightPositionToLook;
+
     [SerializeField] private Transform leftPositionToLook;
 
     [SerializeField, Header("ShootData")] private SoundData shootAudio;
@@ -36,7 +34,6 @@ public class FireOneBullet : MonoBehaviour
 
     public Transform BulletSpawnPosition => currentDirection ? rightBulletSpawnPosition : leftBulletSpawnPosition;
     public Transform PositionToLook => currentDirection ? rightPositionToLook : leftPositionToLook;
-    public Transform AimPosition => currentDirection ? rightAimPosition : leftAimPosition;
 
     private void Awake()
     {
@@ -62,7 +59,7 @@ public class FireOneBullet : MonoBehaviour
             bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));
             numberOfAmmo--;
 
-            //Debug.Break();
+            //            Debug.Break();
         }
     }
 }

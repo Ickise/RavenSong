@@ -24,7 +24,7 @@ public class BulletDirection : MonoBehaviour
                 Mouse.current.position.ReadValue().y, cameraDistance));
 
             direction = SpineAim.manette
-                ? (FireOneBullet.instance.AimPosition.position - FireOneBullet.instance.PositionToLook.position)
+                ? (FireOneBullet.instance.BulletSpawnPosition.position - FireOneBullet.instance.PositionToLook.position)
                 .normalized
                 : (positionToLook - FireOneBullet.instance.BulletSpawnPosition.position).normalized;
         }
