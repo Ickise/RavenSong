@@ -8,7 +8,7 @@ public class BulletVelocity : MonoBehaviour
 
     [SerializeField, Header("Fall speed bullet"), Range(1f, 20f)]
     private float forceToFall = 0.5f;
-    
+
     private Rigidbody2D bulletRigidbody2D;
 
     private BulletDirection _bulletDirection;

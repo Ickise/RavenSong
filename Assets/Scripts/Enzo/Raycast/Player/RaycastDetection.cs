@@ -24,7 +24,7 @@ public class RaycastDetection : MonoBehaviour
 
         public RaycastHit2D RaycastOnRoll(Vector2 rollDirection)
         {
-                return Physics2D.BoxCast(transform.position, new Vector2(0.1f, transform.localScale.y - 0.1f), 0, rollDirection, 0, layerWall | layerGround);
+                return Physics2D.BoxCast(transform.position, new Vector2(0.1f, transform.localScale.y - 0.1f), 0, rollDirection, 1, layerWall | layerGround);
         }
 
         void OnDrawGizmos()
