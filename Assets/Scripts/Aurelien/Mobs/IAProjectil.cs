@@ -130,4 +130,10 @@ public class IAProjectil : IA
         Destroy(currentVFXTir, 3);
         StartCoroutine(Attack());
     }
+
+    private void OnDisable()
+    {
+        state = State.Roaming;
+        rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+    }
 }

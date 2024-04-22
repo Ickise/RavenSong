@@ -59,6 +59,7 @@ public class StunDetection : MonoBehaviour
                 return;
             iAprojectil.ClearAnimations();
             iAprojectil.enabled = false;
+            iAprojectil.StopAllCoroutines();
             iAprojectil.SetAnimation(IA.AnimationState.stunStart, iAprojectil.Stunning);
             return;
         }

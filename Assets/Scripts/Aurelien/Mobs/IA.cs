@@ -169,6 +169,8 @@ public abstract class IA : MonoBehaviour
             SetAnimation(AnimationState.stunEnd);
             yield return new WaitForSeconds(animationRefAsset.speed);
             enabled = true;
+            rb2D.constraints = RigidbodyConstraints2D.None;
+            rb2D.freezeRotation = true;
             VFXStun.Stop();
         }
     }
