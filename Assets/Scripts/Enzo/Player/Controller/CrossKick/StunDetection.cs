@@ -27,7 +27,7 @@ public class StunDetection : MonoBehaviour
     public IEnumerator CrossKick(int currentDirection)
     {
         if (!canCrossKick) yield break;
-        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut, ReAim);
        // Debug.Log("CrossSong");
        //AudioManager.instance.PlaySound(soundstunnotsuccessful);
         _playerAnimation.DontAim = true;
@@ -41,7 +41,6 @@ public class StunDetection : MonoBehaviour
         IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
-            _playerAnimation.DontAim = false;
             canCrossKick = true;
         }
     }
@@ -60,6 +59,7 @@ public class StunDetection : MonoBehaviour
                 return;
             iAprojectil.ClearAnimations();
             iAprojectil.enabled = false;
+            iAprojectil.StopAllCoroutines();
             iAprojectil.SetAnimation(IA.AnimationState.stunStart, iAprojectil.Stunning);
             return;
         }
@@ -86,5 +86,10 @@ public class StunDetection : MonoBehaviour
             interactedObject.BulletHitSomething(null);
             return;
         }
+    }
+
+    private void ReAim(TrackEntry trackEntry)
+    {
+        _playerAnimation.DontAim = false;
     }
 }
