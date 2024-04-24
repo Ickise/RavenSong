@@ -212803,7 +212803,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1930834498
 GameObject:
@@ -214298,10 +214298,6 @@ PrefabInstance:
       propertyPath: yCameraPoint
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 2284602886649936191, guid: 22e077090d96080488a155c8050ba547, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
     - target: {fileID: 2424353417485018438, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -214492,7 +214488,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 8c487528890aafd4fac2f874ec506a08, type: 2}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_ActionId
@@ -214503,6 +214499,10 @@ PrefabInstance:
       value: Player/LeftStick[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/leftStick/right]
       objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -214510,6 +214510,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1954099880}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -214523,12 +214527,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: OnJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnFire
       objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LeftStickDirection
+      objectReference: {fileID: 0}
+    - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: InputReader, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_ActionEvents.Array.data[7].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -214562,6 +214574,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.9999999
       objectReference: {fileID: 0}
+    - target: {fileID: 6668070509189283223, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7335652219000336131, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: manette
       value: 1
@@ -214576,7 +214592,7 @@ PrefabInstance:
       objectReference: {fileID: 8612664303447618227, guid: 04d7e127bea8adf409c5c78b2a54d9b6, type: 3}
     - target: {fileID: 7644935309534444737, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7672566409580914129, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: layerWall.m_Bits
@@ -237418,7 +237434,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 430863066888447899, guid: 99cbc8b4ebf83d64a81a72f4e45db17e, type: 3}
       propertyPath: m_RootOrder
-      value: 14
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 430863066888447899, guid: 99cbc8b4ebf83d64a81a72f4e45db17e, type: 3}
       propertyPath: m_LocalPosition.x
