@@ -1,14 +1,17 @@
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
 {
     private Scene currentScene;
     [SerializeField] private Vector2 startPosition = new Vector2(7.5f, 3);
-    [SerializeField] private SpriteRenderer shaderDeathRespawn;
     [SerializeField] private float shaderTime = 1f;
+    [SerializeField] private GameObject corvusDeathEffectSprite;
+    private PlayerInput playerInput;
+    private SpriteRenderer shaderDeathRespawn;
     public static Vector2 spawnPosition;
     public static bool doResetSpawn;
     private float dissolveAmount = 0, verticalDissolve = 1.1f;
@@ -26,8 +29,11 @@ public class Respawn : MonoBehaviour
     private void Start()
     {
         spawn = true;
+        playerInput = PlayerController2D._instance.transform.GetComponent<PlayerInput>();
+        playerInput.enabled = false;
+        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
         DOTween.To(() => verticalDissolve, x => verticalDissolve = x, 0f, shaderTime)
-        .OnComplete(() => spawn = false);
+        .OnComplete(() => { spawn = false; Destroy(shaderDeathRespawn); });
         if (shaderDeathRespawn == null) return;
         shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
     }
@@ -56,6 +62,7 @@ public class Respawn : MonoBehaviour
     {
         shaderDeathRespawn.material.SetFloat("_DissolveAmount", 0);
         death = true;
+        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
         DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
         .OnComplete(() =>
         {
