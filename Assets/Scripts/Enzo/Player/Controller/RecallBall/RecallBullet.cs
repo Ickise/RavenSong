@@ -60,7 +60,7 @@ public class RecallBullet : MonoBehaviour
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
             InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
         {
-            CancellRecall();
+            CancelRecall();
         }
     }
 
@@ -113,7 +113,7 @@ public class RecallBullet : MonoBehaviour
             Destroy(FireOneBullet.instance.bulletRef);
             FireOneBullet.instance.numberOfAmmo = 1;
             onRecall = false;
-            CancellRecall();
+            CancelRecall();
         }
     }
 
@@ -148,11 +148,11 @@ public class RecallBullet : MonoBehaviour
 
         if (context.canceled)
         {
-            CancellRecall();
+            CancelRecall();
         }
     }
 
-    public void CancellRecall()
+    private void CancelRecall()
     {
         doRecall = false;
 
