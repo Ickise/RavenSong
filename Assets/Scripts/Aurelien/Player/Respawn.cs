@@ -10,6 +10,7 @@ public class Respawn : MonoBehaviour
     [SerializeField] private Vector2 startPosition = new Vector2(7.5f, 3);
     [SerializeField] private float shaderTime = 1f;
     [SerializeField] private GameObject corvusDeathEffectSprite;
+    private Transform meshRenderer;
     private PlayerInput playerInput;
     private SpriteRenderer shaderDeathRespawn;
     public static Vector2 spawnPosition;
@@ -31,9 +32,20 @@ public class Respawn : MonoBehaviour
         spawn = true;
         playerInput = PlayerController2D._instance.transform.GetComponent<PlayerInput>();
         playerInput.enabled = false;
-        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
+        meshRenderer = PlayerController2D._instance.transform.GetComponentInChildren<PlayerAnimation>().transform;
+        for (int i = 0; i < meshRenderer.childCount; i++)
+            meshRenderer.GetChild(i).gameObject.SetActive(false);
+
+        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity, PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
         DOTween.To(() => verticalDissolve, x => verticalDissolve = x, 0f, shaderTime)
-        .OnComplete(() => { spawn = false; Destroy(shaderDeathRespawn); });
+        .OnComplete(() =>
+        {
+            spawn = false;
+            Destroy(shaderDeathRespawn.gameObject);
+            playerInput.enabled = true;
+            for (int i = 0; i < meshRenderer.childCount; i++)
+                meshRenderer.GetChild(i).gameObject.SetActive(true);
+        });
         if (shaderDeathRespawn == null) return;
         shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
     }
@@ -49,7 +61,7 @@ public class Respawn : MonoBehaviour
 
     public void RespawnPlayer()
     {
-        if (shaderDeathRespawn == null)
+        if (corvusDeathEffectSprite == null)
         {
             currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
@@ -60,9 +72,12 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
+        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity, PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
+        shaderDeathRespawn.transform.localScale = new Vector3(meshRenderer.GetComponent<PlayerAnimation>().GetDirection ? shaderDeathRespawn.transform.localScale.x : -shaderDeathRespawn.transform.localScale.x, shaderDeathRespawn.transform.localScale.y, shaderDeathRespawn.transform.localScale.z);
         shaderDeathRespawn.material.SetFloat("_DissolveAmount", 0);
         death = true;
-        shaderDeathRespawn = Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity).GetComponent<SpriteRenderer>();
+        for (int i = 0; i < meshRenderer.childCount; i++)
+            meshRenderer.GetChild(i).gameObject.SetActive(false);
         DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
         .OnComplete(() =>
         {
