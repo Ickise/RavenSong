@@ -58,7 +58,6 @@ public class RecallBullet : MonoBehaviour
     private void Update()
     {
         delay = DestroyEnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
-        Debug.Log(delay);
 
         LaunchRecall();
 
