@@ -5,9 +5,12 @@ public class DestroyEnemyCorpse : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
 
+    public static bool bulletInCorpse;
+
     private void Awake()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
+        bulletInCorpse = true;
     }
 
     private void Start()
