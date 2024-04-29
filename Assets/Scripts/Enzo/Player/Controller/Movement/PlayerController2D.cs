@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
+    [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
 
@@ -16,8 +16,7 @@ public class PlayerController2D : MonoBehaviour
 
     [SerializeField, Tooltip("En degrés")] private float maxAngleSlop = 72f;
 
-    [Header("Aircontrol")]
-    [SerializeField]
+    [Header("Aircontrol")] [SerializeField]
     private float accelerationAirControlSpeed = 0.1f;
 
     [SerializeField] private float maxAirControlSpeed = 4f;
@@ -26,7 +25,7 @@ public class PlayerController2D : MonoBehaviour
      Tooltip("Lorsque la vitesse de chute du joueur dépasse maxFallSpeed, elle se bloque à cette valeur")]
     private float maxFallSpeed = -20f;
 
-    [Header("Jump")][SerializeField] private float gravityFactor = 1f;
+    [Header("Jump")] [SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
     [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
@@ -34,18 +33,16 @@ public class PlayerController2D : MonoBehaviour
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
-    [Header("CoyoteTime")]
-    [SerializeField, Range(0.1f, 0.5f)]
+    [Header("CoyoteTime")] [SerializeField, Range(0.1f, 0.5f)]
     private float hangTime = 0.1f;
 
-    [Header("FallSpeed")]
-    [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
+    [Header("FallSpeed")] [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
     private float fallMultiplier = 2.5f;
 
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Rool")][SerializeField] private float rouladeTime = 0.7f;
+    [Header("Rool")] [SerializeField] private float rouladeTime = 0.7f;
 
     [SerializeField] private float speedRoulade = 6f;
     [SerializeField] private float forceBonk = 10f;
@@ -61,7 +58,7 @@ public class PlayerController2D : MonoBehaviour
     private StunDetection _stunDetection;
     private FootTriggerPlatform _footTriggerPlatform;
 
-    [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
+    [Header("VFX")] [SerializeField] private VisualEffect VFXDustTrail;
     [SerializeField] private GameObject VFXRoulade, VFXJump;
 
     [SerializeField] private Transform posVFXRoulade;
@@ -122,16 +119,21 @@ public class PlayerController2D : MonoBehaviour
                 ? Vector2.left
                 : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
             rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
-            if (!_raycastDetection.IsGrounded || Mathf.Abs(Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized.y) > maxAngleSlop / 90f)
+            if (!_raycastDetection.IsGrounded ||
+                Mathf.Abs(Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized.y) >
+                maxAngleSlop / 90f)
             {
                 DOTween.Kill("roll");
                 return;
             }
+
             if (_raycastDetection.RaycastOnRoll(rollDirection))
             {
-                slopNormalPerp = Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized;
+                slopNormalPerp = Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal)
+                    .normalized;
                 rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
             }
+
             playerRigidbody2D.velocity = rollDirection * speedRoulade;
         }
 
@@ -334,6 +336,7 @@ public class PlayerController2D : MonoBehaviour
     }
 
     private Vector2 startRollPos, finalRollPos;
+
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
@@ -350,11 +353,11 @@ public class PlayerController2D : MonoBehaviour
         // finalRollPos = transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade;
         float rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
-        // playerRigidbody2D
-        //     .DOMove(
-        //         transform.position +
-        //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
-        //     .SetSpeedBased(true)
+            // playerRigidbody2D
+            //     .DOMove(
+            //         transform.position +
+            //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
+            //     .SetSpeedBased(true)
             .SetId("roll")
             .OnKill(() =>
             {
@@ -364,6 +367,7 @@ public class PlayerController2D : MonoBehaviour
                     // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
                     //     ForceMode2D.Impulse);
                 }
+
                 _playerAnimation.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;

@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            Respawn.checkPoint = true;
             Respawn.spawnPosition = transform.position;
             Destroy(GetComponent<Collider2D>());
         }
