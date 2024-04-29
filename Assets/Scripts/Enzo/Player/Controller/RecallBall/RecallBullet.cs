@@ -74,7 +74,7 @@ public class RecallBullet : MonoBehaviour
         }
 
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
-            InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
+            InputReader.instance.canStun || !doRecall || (InputReader.instance.canDown && InputReader.instance.jump))
         {
             CancelRecall();
         }

@@ -30316,6 +30316,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!23 &305140535 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &306183330
 Mesh:
   m_ObjectHideFlags: 0
@@ -214745,6 +214750,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 404d7924cde131f43895f8cc826a9f0a, type: 2}
@@ -214782,6 +214791,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 10a9561c6e2815f459bdd5f90c093492, type: 2}
     - target: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Materials.Array.data[9]
+      value: 
+      objectReference: {fileID: 2100000, guid: b995d379abf9a57419653debfb1542cc, type: 2}
+    - target: {fileID: 554432219672931462, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_Materials.Array.data[10]
       value: 
       objectReference: {fileID: 2100000, guid: b995d379abf9a57419653debfb1542cc, type: 2}
     - target: {fileID: 747856985619423663, guid: 22e077090d96080488a155c8050ba547, type: 3}
@@ -214909,6 +214922,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3873875208504716918, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: deathRespawn
+      value: 
+      objectReference: {fileID: 2100000, guid: 4ad6db795900e6f498c656c041d1ed60, type: 2}
+    - target: {fileID: 3873875208504716918, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: startPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -214916,6 +214933,14 @@ PrefabInstance:
       propertyPath: startPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3873875208504716918, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: leftMeshRenderer
+      value: 
+      objectReference: {fileID: 2123521241}
+    - target: {fileID: 3873875208504716918, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: rightMeshRenderer
+      value: 
+      objectReference: {fileID: 305140535}
     - target: {fileID: 4008850654020251753, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Name
       value: LeftBulletSpawn
@@ -215054,6 +215079,10 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 7b2466d818175f049af824fdc10325e8, type: 2}
     - target: {fileID: 5272320530604490598, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Materials.Array.data[7]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8c487528890aafd4fac2f874ec506a08, type: 2}
+    - target: {fileID: 5272320530604490598, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_Materials.Array.data[8]
       value: 
       objectReference: {fileID: 2100000, guid: 8c487528890aafd4fac2f874ec506a08, type: 2}
     - target: {fileID: 5578715252151829945, guid: 22e077090d96080488a155c8050ba547, type: 3}
@@ -235248,6 +235277,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!23 &2123521241 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5272320530604490598, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!43 &2123752450
 Mesh:
   m_ObjectHideFlags: 0
