@@ -16,7 +16,6 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        Respawn.doResetSpawn = true;
         SceneManager.LoadScene("TestLevelDesign");
     }
 

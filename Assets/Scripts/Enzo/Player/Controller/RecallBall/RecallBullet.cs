@@ -4,8 +4,13 @@ using UnityEngine.VFX;
 
 public class RecallBullet : MonoBehaviour
 {
-    [SerializeField] private Transform rightHand, leftHand;
-    [SerializeField] private GameObject vfxRecallBulletDroite, vfxRecallBulletGauche, vfxTrailRecall;
+    [SerializeField, Header("Transform des mains")]
+    private Transform rightHand;
+
+    [SerializeField] private Transform leftHand;
+    [SerializeField, Header("VFX")] private GameObject vfxRecallBulletDroite;
+    [SerializeField] private GameObject vfxRecallBulletGauche;
+    [SerializeField] private GameObject vfxTrailRecall;
     private VisualEffect visualEffectTrailRecall;
 
     private Rigidbody2D bulletRigidbody;
@@ -13,17 +18,28 @@ public class RecallBullet : MonoBehaviour
     private Vector2 direction;
     private Vector2 distanceAmmoPlayer;
 
-    public bool doRecall;
-    public bool onRecall;
+    [HideInInspector] public bool doRecall;
+    [HideInInspector] public bool onRecall;
 
     private PlayerAnimation _playerAnimation;
 
     private BulletCollisionDetection _bulletCollisionDetection;
 
-    [SerializeField] private float speedToRecall = 50f;
+    [SerializeField, Header("Vitesse de rappel")]
+    private float speedBulletRecall = 50f;
+
     [SerializeField] private float speedDelay = 0.2f;
-    [SerializeField] private float distanceToRecall;
-    [SerializeField] private float distanceToGetAmmo = 0.5f;
+
+    [SerializeField,
+     Tooltip(
+         "Temps de rappel de la balle lorsqu'elle est dans un cadavre. Peu importe la distance entre le cadavre et le joueur, elle mettra toujours le même temps de rappel.")]
+    private float delayBulletRecallInCorpse = 1f;
+
+    [SerializeField, Header("Distance pour récupérer la balle")]
+    private float distanceToGetAmmo = 0.5f;
+
+    [SerializeField, Header("Distance de rappel")]
+    private float distanceToRecall;
 
     private float timer;
     private float delay;
@@ -41,7 +57,7 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        delay = GetDelayBeforeMove();
+        delay = DestroyEnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
 
         LaunchRecall();
 
@@ -52,7 +68,7 @@ public class RecallBullet : MonoBehaviour
 
         if (onRecall && bulletRigidbody != null)
         {
-            bulletRigidbody.velocity = direction.normalized * speedToRecall;
+            bulletRigidbody.velocity = direction.normalized * speedBulletRecall;
 
             GetBulletToReload();
         }
@@ -68,8 +84,11 @@ public class RecallBullet : MonoBehaviour
     {
         if (doRecall)
         {
-            vfxTrailRecall.transform.position = vfxRecallBulletDroite.activeInHierarchy ? vfxRecallBulletDroite.transform.position : vfxRecallBulletGauche.transform.position;
-            visualEffectTrailRecall.SetVector3("Ball_Position", _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
+            vfxTrailRecall.transform.position = vfxRecallBulletDroite.activeInHierarchy
+                ? vfxRecallBulletDroite.transform.position
+                : vfxRecallBulletGauche.transform.position;
+            visualEffectTrailRecall.SetVector3("Ball_Position",
+                _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
 
             if (timer > delay)
@@ -113,6 +132,7 @@ public class RecallBullet : MonoBehaviour
             Destroy(FireOneBullet.instance.bulletRef);
             FireOneBullet.instance.numberOfAmmo = 1;
             onRecall = false;
+            DestroyEnemyCorpse.bulletInCorpse = false;
             CancelRecall();
         }
     }
@@ -138,7 +158,7 @@ public class RecallBullet : MonoBehaviour
             doRecall = true;
 
             //tous les feedbacks qui montrent qu'on att le recall, en faire une fonction
-                vfxTrailRecall.SetActive(true);
+            vfxTrailRecall.SetActive(true);
             if (_playerAnimation.GetDirection)
                 vfxRecallBulletDroite.SetActive(true);
             else
