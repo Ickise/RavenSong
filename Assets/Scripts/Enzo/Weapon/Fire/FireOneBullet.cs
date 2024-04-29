@@ -1,17 +1,22 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class FireOneBullet : MonoBehaviour
 {
     [SerializeField, Header("BulletReference")]
     private GameObject bullet;
 
-    [SerializeField, Header("PlayerShootPositions")]
-    private Transform rightShootPosition;
+    [SerializeField, Header("BulletSpawnPosition")]
+    private Transform rightBulletSpawnPosition;
 
-    [SerializeField] private Transform leftShootPosition;
-    [SerializeField] private Transform rightAimPosition;
-    [SerializeField] private Transform leftAimPosition;
+    [SerializeField] private Transform leftBulletSpawnPosition;
+
+    [SerializeField, Header("PositionToLook")]
+    private Transform rightPositionToLook;
+
+    [SerializeField] private Transform leftPositionToLook;
 
     [SerializeField, Header("ShootData")] private SoundData shootAudio;
 
@@ -27,8 +32,8 @@ public class FireOneBullet : MonoBehaviour
     private SpineAim _spineAim;
     private PlayerAnimation _playerAnimation;
 
-    public Transform ShootPosition => currentDirection ? rightShootPosition : leftShootPosition;
-    public Transform AimPosition => currentDirection ? rightAimPosition : leftAimPosition;
+    public Transform BulletSpawnPosition => currentDirection ? rightBulletSpawnPosition : leftBulletSpawnPosition;
+    public Transform PositionToLook => currentDirection ? rightPositionToLook : leftPositionToLook;
 
     private void Awake()
     {
@@ -48,11 +53,10 @@ public class FireOneBullet : MonoBehaviour
         if (numberOfAmmo == 1)
         {
             currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
-
             AudioManager.instance.PlaySound(shootAudio);
             // VFXInstantieur.instance.PlayVFXInWorld(VfxGunShoot, _playerAnimation.GetDirection ? _spineAim.aimLineDroite.transform.position + _spineAim.aimLineDroite.transform.right  : _spineAim.aimLineGauche.transform.position - _spineAim.aimLineDroite.transform.right , _spineAim.aimLineDroite.transform.localScale, Quaternion.identity);
 
-            bulletRef = Instantiate(bullet.gameObject, ShootPosition.position, Quaternion.identity);
+            bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));
             numberOfAmmo--;
 
             //Debug.Break();

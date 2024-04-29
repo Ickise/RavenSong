@@ -9,7 +9,10 @@ public class VideoLoader : MonoBehaviour
     [SerializeField] private GameObject[] listToEnable;
 
     [SerializeField, Header("VideoPlayer")]
-    private VideoPlayer videoPlayer;
+    private VideoPlayer cinematicCameraVideoPlayer;
+
+    [SerializeField, Header("Prefab CinematicCamera")]
+    private GameObject cinematicCamera;
 
     private void Update()
     {
@@ -23,20 +26,22 @@ public class VideoLoader : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        videoPlayer.clip = videoClip;
-        videoPlayer.Play();
+        cinematicCamera.SetActive(true);
+        cinematicCameraVideoPlayer.clip = videoClip;
+        cinematicCameraVideoPlayer.Play();
     }
 
     private void UnloadVideo()
     {
-        if (videoPlayer.isPlaying) return;
+        if (cinematicCameraVideoPlayer.isPlaying) return;
 
+        cinematicCamera.SetActive(false);
         foreach (var gameObject in listToEnable)
         {
             gameObject.SetActive(true);
         }
 
-        videoPlayer.Stop();
-        videoPlayer.clip = null;
+        cinematicCameraVideoPlayer.Stop();
+        cinematicCameraVideoPlayer.clip = null;
     }
 }

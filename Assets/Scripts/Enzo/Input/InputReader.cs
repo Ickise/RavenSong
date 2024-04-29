@@ -8,6 +8,7 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public Vector2 direction;
 
     [HideInInspector] public bool jump;
+    [HideInInspector] public bool canJump;
     [HideInInspector] public bool activateAim = false;
     [HideInInspector] public bool canStun;
     [HideInInspector] public bool canDown;
@@ -35,6 +36,7 @@ public class InputReader : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        canJump = context.performed;
         if (DontJump) return;
         if (context.started)
         {
