@@ -80,7 +80,7 @@ public class PlayerAnimation : MonoBehaviour
     /// Set une animation sur le joueur
     /// </summary>
     /// <param name="animationState"></param>
-    public void SetAnimation(AnimationState animationState, int clearTrackIndex = -1)
+    public void SetAnimation(AnimationState animationState, int clearTrackIndex = -1, float overridespeed = -1)
     {
         if (AnimationsSetter.instance == null)
         {
@@ -106,8 +106,8 @@ public class PlayerAnimation : MonoBehaviour
             else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
                 return;
             currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
-            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, overridespeed > 0 ? overridespeed : animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
+            AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, overridespeed > 0 ? overridespeed : animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
             _spineAim.Start();
         }
     }
@@ -156,6 +156,6 @@ public class PlayerAnimation : MonoBehaviour
         if (SpineAim.manette && InputReader.instance.manetteDirection != Vector3.zero)
             FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
         else if (!SpineAim.manette)
-            FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y,  -Camera.main.transform.position.z)).x > transform.position.x);
+            FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -Camera.main.transform.position.z)).x > transform.position.x);
     }
 }

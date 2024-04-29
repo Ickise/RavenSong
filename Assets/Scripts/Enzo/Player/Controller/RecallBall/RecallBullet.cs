@@ -163,7 +163,7 @@ public class RecallBullet : MonoBehaviour
                 vfxRecallBulletDroite.SetActive(true);
             else
                 vfxRecallBulletGauche.SetActive(true);
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut);
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,  8f /Vector2.Distance(bulletRigidbody.transform.position, transform.position));
         }
 
         if (context.canceled)
