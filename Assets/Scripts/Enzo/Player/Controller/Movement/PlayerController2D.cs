@@ -121,7 +121,6 @@ public class PlayerController2D : MonoBehaviour
             slopNormalPerp = Mathf.Abs(slopNormalPerp.y) > maxAngleSlop / 90f
                 ? Vector2.left
                 : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
-            print(LastDirection);
             rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
             if (!_raycastDetection.IsGrounded ||
                 Mathf.Abs(Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized.y) >
