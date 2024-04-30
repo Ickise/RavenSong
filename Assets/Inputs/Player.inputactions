@@ -368,6 +368,56 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Menu",
+            "id": "c227804a-ce08-428f-9720-68684e7e834d",
+            "actions": [
+                {
+                    "name": "ChangeValues",
+                    "type": "Value",
+                    "id": "ac567d8e-9fc7-4001-a220-267df4af0e88",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "e789c01a-de1b-414c-b64a-0b9d8b8ca6c1",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeValues",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "7b0b381f-c5d5-4d58-ad9c-4b85883621d9",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeValues",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c62114cc-fa45-44d8-ac06-6569ee748dd9",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeValues",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
         }
     ],
     "controlSchemes": []
