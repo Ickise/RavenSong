@@ -81,6 +81,7 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
+        playerInput.enabled = false;
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
                 PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
