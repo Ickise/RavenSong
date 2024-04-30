@@ -15,7 +15,7 @@ public class GraphicsParameter : MonoBehaviour
         fullscreenModeText.text = "plein écran";
         indexResolution = resolutions.Length - 1;
         resolutionText.text = resolutions[indexResolution].x + " × " + resolutions[indexResolution].y;
-        brightessText.SetText(((brightnessSlider.value = Screen.brightness) * 10).ToString());
+        brightessText.SetText(Mathf.Round((brightnessSlider.value = Screen.brightness) * 10).ToString());
     }
     public void ChangeQuality(int add)
     {

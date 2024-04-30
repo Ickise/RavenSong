@@ -4,9 +4,9 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { private set; get; }
-
+    public static float volumeScale = 1;
     private AudioSource mainAudioSource;
-    
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -48,10 +48,10 @@ public class AudioManager : MonoBehaviour
         mainAudioSource.clip = SetAudioParameters(data).AudioToPlay;
         mainAudioSource.Play();
     }
-    
+
     private SoundData SetAudioParameters(SoundData soundData)
     {
-        mainAudioSource.volume = soundData.Volume;
+        mainAudioSource.volume = soundData.Volume * volumeScale;
         mainAudioSource.pitch = soundData.GetPitch();
         mainAudioSource.outputAudioMixerGroup = soundData.AudioMixerGroup;
         return soundData;
