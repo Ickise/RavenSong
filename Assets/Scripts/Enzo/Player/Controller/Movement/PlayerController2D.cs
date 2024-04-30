@@ -249,6 +249,14 @@ public class PlayerController2D : MonoBehaviour
                 isVFXDustTrailPlaying = false;
             }
 
+            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            else
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
+            }
+
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
@@ -264,14 +272,6 @@ public class PlayerController2D : MonoBehaviour
             VFXInstantieur.instance.PlayVFXInWorld(VFXJump, posVFXJump);
             AudioManager.instance.PlayRandomSound(jumpsoundlist);
             hangTimeCounter = 0f;
-            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
-            else
-            {
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
-            }
-
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }
