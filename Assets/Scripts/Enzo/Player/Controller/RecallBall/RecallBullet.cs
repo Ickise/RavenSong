@@ -57,7 +57,7 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        delay = DestroyEnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
+        delay = EnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
 
         LaunchRecall();
 
@@ -132,7 +132,7 @@ public class RecallBullet : MonoBehaviour
             Destroy(FireOneBullet.instance.bulletRef);
             FireOneBullet.instance.numberOfAmmo = 1;
             onRecall = false;
-            DestroyEnemyCorpse.bulletInCorpse = false;
+            EnemyCorpse.bulletInCorpse = false;
             CancelRecall();
         }
     }
