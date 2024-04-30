@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
 public class Respawn : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class Respawn : MonoBehaviour
     
     public static Vector2 spawnPosition;
     public static bool checkPoint;
+    PlayerIndex playerIndex;
+    GamePadState gamePadState, prevState;
 
     private void Awake()
     {
@@ -81,6 +84,7 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
+        GamePad.SetVibration(playerIndex, 1f, 1f);
         playerInput.enabled = false;
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
@@ -97,6 +101,7 @@ public class Respawn : MonoBehaviour
         DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
             .OnComplete(() =>
             {
+                GamePad.SetVibration(playerIndex, 0, 0);
                 currentScene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(currentScene.name);
                 death = false;
