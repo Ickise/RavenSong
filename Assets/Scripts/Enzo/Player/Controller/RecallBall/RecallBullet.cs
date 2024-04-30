@@ -57,7 +57,7 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        delay = EnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
+        delay = GetDelayBeforeMove();
 
         LaunchRecall();
 
@@ -105,9 +105,10 @@ public class RecallBullet : MonoBehaviour
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
                 FireOneBullet.instance.bulletRef.transform.position;
+            
             float distance = direction.magnitude;
-
-            return distance * speedDelay;
+            
+            return EnemyCorpse.bulletInCorpse ? direction.normalized.magnitude * delayBulletRecallInCorpse : distance * speedDelay;
         }
 
         return 0;
@@ -163,7 +164,8 @@ public class RecallBullet : MonoBehaviour
                 vfxRecallBulletDroite.SetActive(true);
             else
                 vfxRecallBulletGauche.SetActive(true);
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,  8f /Vector2.Distance(bulletRigidbody.transform.position, transform.position));
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,
+                8f / Vector2.Distance(bulletRigidbody.transform.position, transform.position));
         }
 
         if (context.canceled)

@@ -27,7 +27,7 @@ public class EnemyCorpse : MonoBehaviour
     {
         StartCoroutine(WaitToDestroyComponents());
     }
-    
+
     private void GetComponents()
     {
         _onBulletHit = GetComponent<OnBulletHit>();
@@ -51,11 +51,11 @@ public class EnemyCorpse : MonoBehaviour
     {
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
-    
+
     private IEnumerator WaitToDestroyComponents()
     {
         ChangeLayer();
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.1f);
         DestroyComponents();
         StopCoroutine(WaitToDestroyComponents());
     }
