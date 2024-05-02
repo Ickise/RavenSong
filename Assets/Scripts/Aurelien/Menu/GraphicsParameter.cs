@@ -24,7 +24,7 @@ public class GraphicsParameter : MonoBehaviour
     public void ManetteControl(InputAction.CallbackContext context)
     {
         if (!context.started || !gameObject.activeInHierarchy) return;
-        int add = Mathf.RoundToInt(context.ReadValue<float>());
+        int add = Mathf.RoundToInt(Mathf.Clamp(context.ReadValue<float>() * Mathf.Infinity, -1, 1));
         if (EventSystem.current.currentSelectedGameObject == qualityText.transform.parent.gameObject)
             ChangeQuality(add);
         else if (EventSystem.current.currentSelectedGameObject == fullscreenModeText.transform.parent.gameObject)
