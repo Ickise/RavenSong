@@ -20,7 +20,6 @@ public class RecallBullet : MonoBehaviour
 
     [HideInInspector] public bool doRecall;
     [HideInInspector] public bool onRecall;
-    private bool isGoodDistance;
 
     private PlayerAnimation _playerAnimation;
 
@@ -60,14 +59,11 @@ public class RecallBullet : MonoBehaviour
     {
         delay = GetDelayBeforeMove();
 
-
         LaunchRecall();
-
 
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
-            isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall;
         }
 
         if (onRecall && bulletRigidbody != null)
@@ -78,7 +74,7 @@ public class RecallBullet : MonoBehaviour
         }
 
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
-            InputReader.instance.canStun || !doRecall || (InputReader.instance.canDown && InputReader.instance.jump) || !isGoodDistance)
+            InputReader.instance.canStun || !doRecall || (InputReader.instance.canDown && InputReader.instance.jump))
         {
             CancelRecall();
         }
@@ -109,12 +105,10 @@ public class RecallBullet : MonoBehaviour
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
                 FireOneBullet.instance.bulletRef.transform.position;
-
+            
             float distance = direction.magnitude;
-
-            return EnemyCorpse.bulletInCorpse
-                ? direction.normalized.magnitude * delayBulletRecallInCorpse
-                : distance * speedDelay;
+            
+            return EnemyCorpse.bulletInCorpse ? direction.normalized.magnitude * delayBulletRecallInCorpse : distance * speedDelay;
         }
 
         return 0;
@@ -159,7 +153,7 @@ public class RecallBullet : MonoBehaviour
 
         if (_bulletCollisionDetection == null) return;
 
-        if (context.started && isGoodDistance && _bulletCollisionDetection.hasToStop)
+        if (context.started && distanceAmmoPlayer.magnitude < distanceToRecall && _bulletCollisionDetection.hasToStop)
         {
             timer = 0;
             doRecall = true;
