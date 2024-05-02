@@ -18,7 +18,7 @@ public class AudioParameter : MonoBehaviour
     public void ManetteControl(InputAction.CallbackContext context)
     {
         if (!context.started || !gameObject.activeInHierarchy) return;
-        int add = Mathf.RoundToInt(context.ReadValue<float>());
+        int add = Mathf.RoundToInt(Mathf.Clamp(context.ReadValue<float>() * Mathf.Infinity, -1, 1));
         Slider slider = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Slider>();
         if (slider != null)
         {
