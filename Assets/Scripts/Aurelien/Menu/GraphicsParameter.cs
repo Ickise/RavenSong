@@ -23,7 +23,7 @@ public class GraphicsParameter : MonoBehaviour
 
     public void ManetteControl(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
+        if (!context.started || !gameObject.activeInHierarchy) return;
         int add = Mathf.RoundToInt(context.ReadValue<float>());
         if (EventSystem.current.currentSelectedGameObject == qualityText.transform.parent.gameObject)
             ChangeQuality(add);

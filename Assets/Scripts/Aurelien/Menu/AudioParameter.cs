@@ -1,5 +1,7 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class AudioParameter : MonoBehaviour
@@ -11,6 +13,20 @@ public class AudioParameter : MonoBehaviour
         Slider[] sliders = GetComponentsInChildren<Slider>();
         for (int i = 0; i < sliders.Length; i++)
             volumeTexts[i].SetText(((sliders[i].value = AudioManager.volumeScale) * 10).ToString());
+    }
+
+    public void ManetteControl(InputAction.CallbackContext context)
+    {
+        if (!context.started || !gameObject.activeInHierarchy) return;
+        int add = Mathf.RoundToInt(context.ReadValue<float>());
+        Slider slider = EventSystem.current.currentSelectedGameObject.GetComponentInChildren<Slider>();
+        if (slider != null)
+        {
+            slider.value = Mathf.Round((slider.value * 10) + add) / 10f;
+            AudioManager.volumeScale = slider.value;
+            TextMeshProUGUI[] text = slider.transform.parent.GetComponentsInChildren<TextMeshProUGUI>();
+            text[text.Length - 1].text = Mathf.Round(slider.value * 10).ToString();
+        }
     }
 
     public void ChangeGlobalVolume(TextMeshProUGUI text)
