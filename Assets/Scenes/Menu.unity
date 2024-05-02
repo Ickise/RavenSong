@@ -730,6 +730,7 @@ GameObject:
   - component: {fileID: 102306563}
   - component: {fileID: 102306567}
   - component: {fileID: 102306568}
+  - component: {fileID: 102306569}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -854,6 +855,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeTransitionTime: 0.2
+--- !u!114 &102306569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 102306562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: dc0fb1353c2ce9741bad9d9ca1845fcf, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 262bcf95-7054-4ba8-968e-a4fad0ae877a
+    m_ActionName: Player/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5596bc74-5913-4177-a57a-1f73bb756e3d
+    m_ActionName: Player/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 51542f6f-8ae6-4a10-8f9e-36f5ab761a37
+    m_ActionName: Player/Fire[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d1eb84b9-17f2-4c5a-933c-9b6dc14055c9
+    m_ActionName: Player/Roll[/Keyboard/leftShift]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b0f0c051-220a-4b87-a5bb-8c592dff09fa
+    m_ActionName: Player/Down[/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5945ab08-71b4-4eec-af0b-13d323c59e05
+    m_ActionName: Player/CrossKick[/Keyboard/g]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5c4f7a19-8d4b-44be-a3a9-c1843ae8ae35
+    m_ActionName: Player/manette direction
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 591673207}
+        m_TargetAssemblyTypeName: GraphicsParameter, Assembly-CSharp
+        m_MethodName: ManetteControl
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2039570011}
+        m_TargetAssemblyTypeName: AudioParameter, Assembly-CSharp
+        m_MethodName: ManetteControl
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ac567d8e-9fc7-4001-a220-267df4af0e88
+    m_ActionName: Menu/ChangeValues[/Keyboard/a,/Keyboard/d]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Menu
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &107405898
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4285,6 +4372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   emptyCase: {fileID: 21300000, guid: 4d89cdc421e94754689770559e9681ec, type: 3}
   crossCase: {fileID: 21300000, guid: 399dc476c95c45741bb3cd6c77fcfc84, type: 3}
+  inverseAxePar: {fileID: 1657359358}
+  vibrationPar: {fileID: 1657359357}
 --- !u!1 &859026605
 GameObject:
   m_ObjectHideFlags: 0
@@ -9669,6 +9758,16 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610997243}
   m_CullTransparentMesh: 1
+--- !u!1 &1657359357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7784227531866043000, guid: 2d67d71d8b38478448f500bbe0dc42fd, type: 3}
+  m_PrefabInstance: {fileID: 810490046}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1657359358 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4956894522611094100, guid: 2d67d71d8b38478448f500bbe0dc42fd, type: 3}
+  m_PrefabInstance: {fileID: 810490046}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1663985999
 GameObject:
   m_ObjectHideFlags: 0
