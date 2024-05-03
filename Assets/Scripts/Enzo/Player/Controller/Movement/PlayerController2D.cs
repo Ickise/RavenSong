@@ -122,16 +122,21 @@ public class PlayerController2D : MonoBehaviour
                 ? Vector2.left
                 : new Vector2(-Mathf.Abs(slopNormalPerp.x), slopNormalPerp.y);
             rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
-            if (!_raycastDetection.IsGrounded || Mathf.Abs(Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized.y) > maxAngleSlop / 90f)
+            if (!_raycastDetection.IsGrounded ||
+                Mathf.Abs(Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized.y) >
+                maxAngleSlop / 90f)
             {
                 DOTween.Kill("roll");
                 return;
             }
+
             if (_raycastDetection.RaycastOnRoll(rollDirection))
             {
-                slopNormalPerp = Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal).normalized;
+                slopNormalPerp = Vector2.Perpendicular(_raycastDetection.RaycastOnRoll(rollDirection).normal)
+                    .normalized;
                 rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
             }
+
             playerRigidbody2D.velocity = rollDirection * speedRoulade;
         }
 
@@ -160,7 +165,7 @@ public class PlayerController2D : MonoBehaviour
         if (InputReader.instance.direction.x == 0)
             LastDirection = CurrentDirectionAim;
         else
-            LastDirection = (int)InputReader.instance.direction.x;
+            LastDirection = Mathf.RoundToInt(InputReader.instance.direction.x);
     }
 
     //gère les déplacements du player
@@ -243,6 +248,14 @@ public class PlayerController2D : MonoBehaviour
                 isVFXDustTrailPlaying = false;
             }
 
+            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
+            else
+            {
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
+            }
+
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
@@ -258,14 +271,6 @@ public class PlayerController2D : MonoBehaviour
             VFXInstantieur.instance.PlayVFXInWorld(VFXJump, posVFXJump);
             AudioManager.instance.PlayRandomSound(jumpsoundlist);
             hangTimeCounter = 0f;
-            if (FireOneBullet.instance.bulletRef == null && !_stunDetection.IsC2DActive)
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpBall);
-            else
-            {
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
-            }
-
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
     }
@@ -333,7 +338,6 @@ public class PlayerController2D : MonoBehaviour
         playerVelocity.y += Vector2.up.y * (Physics2D.gravity.y * (factor - 1) * Time.fixedDeltaTime);
     }
 
-    private Vector2 startRollPos, finalRollPos;
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
@@ -350,11 +354,11 @@ public class PlayerController2D : MonoBehaviour
         // finalRollPos = transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade;
         float rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
-        // playerRigidbody2D
-        //     .DOMove(
-        //         transform.position +
-        //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
-        //     .SetSpeedBased(true)
+            // playerRigidbody2D
+            //     .DOMove(
+            //         transform.position +
+            //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
+            //     .SetSpeedBased(true)
             .SetId("roll")
             .OnKill(() =>
             {
@@ -364,6 +368,7 @@ public class PlayerController2D : MonoBehaviour
                     // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
                     //     ForceMode2D.Impulse);
                 }
+
                 _playerAnimation.DontAim = false;
                 InputReader.instance.DontCrossKick = false;
                 onRoll = false;

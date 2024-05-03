@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(OnBulletHit))]
 public class Chandelier : MonoBehaviour
 {
     private Explodable _explodable;
@@ -22,7 +21,6 @@ public class Chandelier : MonoBehaviour
         {
             if (other.TryGetComponent(out _explodable))
             {
-                Debug.Log(_explodable);
                 _explodable.explode(gameObject);
             }
             else
