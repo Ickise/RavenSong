@@ -2,34 +2,37 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using XInputDotNetPure;
 
 public class Respawn : MonoBehaviour
 {
     [SerializeField, Header("TimeToDoShader")] private float shaderTime = 1f;
-    
+
     [SerializeField, Header("DeathPrefab")] private GameObject corvusDeathEffectSprite;
-    
+
     private Scene currentScene;
-    
+
     private Vector2 startPosition;
 
     private Transform meshRenderer;
-    
+
     private PlayerInput playerInput;
-    
+
     private SpriteRenderer shaderDeathRespawn;
-    
+
     private float dissolveAmount = 0, verticalDissolve = 1.1f;
-    
+
     private bool spawn, death;
-    
+
     public static Vector2 spawnPosition;
     public static bool checkPoint;
+    PlayerIndex playerIndex;
+    GamePadState gamePadState, prevState;
 
     private void Awake()
     {
         if (checkPoint) return;
-        
+
         FirstSpawn();
     }
 
@@ -81,6 +84,9 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
+        if (ControlsParameter.controllerVibration)
+            GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
+        playerInput.enabled = false;
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
                 PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
@@ -96,6 +102,8 @@ public class Respawn : MonoBehaviour
         DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
             .OnComplete(() =>
             {
+                if (ControlsParameter.controllerVibration)
+                    GamePad.SetVibration(playerIndex, 0, 0);
                 currentScene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(currentScene.name);
                 death = false;

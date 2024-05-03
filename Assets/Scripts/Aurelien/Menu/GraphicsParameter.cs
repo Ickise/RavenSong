@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
+using Unity.VisualScripting;
 
 public class GraphicsParameter : MonoBehaviour
 {
@@ -15,8 +18,26 @@ public class GraphicsParameter : MonoBehaviour
         fullscreenModeText.text = "plein écran";
         indexResolution = resolutions.Length - 1;
         resolutionText.text = resolutions[indexResolution].x + " × " + resolutions[indexResolution].y;
-        brightessText.SetText(((brightnessSlider.value = Screen.brightness) * 10).ToString());
+        brightessText.SetText(Mathf.Round((brightnessSlider.value = Screen.brightness) * 10).ToString());
     }
+
+    public void ManetteControl(InputAction.CallbackContext context)
+    {
+        if (!context.started || !gameObject.activeInHierarchy) return;
+        int add = Mathf.RoundToInt(Mathf.Clamp(context.ReadValue<float>() * Mathf.Infinity, -1, 1));
+        if (EventSystem.current.currentSelectedGameObject == qualityText.transform.parent.gameObject)
+            ChangeQuality(add);
+        else if (EventSystem.current.currentSelectedGameObject == fullscreenModeText.transform.parent.gameObject)
+            ChangeFullscreenMode(add);
+        else if (EventSystem.current.currentSelectedGameObject == resolutionText.transform.parent.gameObject)
+            ChangeResolution(add);
+        else if (EventSystem.current.currentSelectedGameObject == brightessText.transform.parent.gameObject)
+        {
+            brightnessSlider.value += add / 10f;
+            ChangeBrightness();
+        }
+    }
+
     public void ChangeQuality(int add)
     {
         indexQuality += add;

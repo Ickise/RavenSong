@@ -226,7 +226,7 @@ MonoBehaviour:
   m_IgnoreTimeScale: 0
   m_WorldUpOverride: {fileID: 0}
   m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
+  m_BlendUpdateMethod: 0
   m_DefaultBlend:
     m_Style: 1
     m_Time: 2
@@ -939,6 +939,26 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 5c4f7a19-8d4b-44be-a3a9-c1843ae8ae35
     m_ActionName: Player/manette direction
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7732752715474662002, guid: 0229160fbd6f97a459da8ebcd94569d1, type: 3}
+        m_TargetAssemblyTypeName: Checkpoint, Assembly-CSharp
+        m_MethodName: ActiveCheckpoint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c1b6dd6-5916-42d3-a67f-5e9077d0ade1
+    m_ActionName: Player/Checkpoint[/XInputControllerWindows/buttonNorth,/Keyboard/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ac567d8e-9fc7-4001-a220-267df4af0e88
+    m_ActionName: Menu/ChangeValues[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/dpad/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/right,/XInputControllerWindows/rightStick/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1063,7 +1083,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f89b3709eeda4a14dbcfdffb8886e462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPosition: {x: 15, y: 3}
   shaderTime: 1
   corvusDeathEffectSprite: {fileID: 3022279532584528458, guid: d0e1a5fdea631e94b9d1791846fea843, type: 3}
 --- !u!231 &8217276307982103039
@@ -1106,10 +1125,11 @@ MonoBehaviour:
   vfxTrailRecall: {fileID: 3091271199037836173}
   doRecall: 0
   onRecall: 0
-  speedToRecall: 50
+  speedBulletRecall: 50
   speedDelay: 0.2
-  distanceToRecall: 12
+  delayBulletRecallInCorpse: 1
   distanceToGetAmmo: 1
+  distanceToRecall: 12
 --- !u!114 &7644935309534444737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1885,7 +1905,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 137059e7aa7ab704e968e013cb60d059, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxSize: {x: 1, y: 0.1}
+  boxSize: {x: 0.8, y: 0.1}
   platformScaleY: 0.5
 --- !u!1 &6867774216131039303
 GameObject:

@@ -20,6 +20,7 @@ public class RecallBullet : MonoBehaviour
 
     [HideInInspector] public bool doRecall;
     [HideInInspector] public bool onRecall;
+    private bool isGoodDistance;
 
     private PlayerAnimation _playerAnimation;
 
@@ -57,13 +58,16 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        delay = DestroyEnemyCorpse.bulletInCorpse ? delayBulletRecallInCorpse : GetDelayBeforeMove();
+        delay = GetDelayBeforeMove();
+
 
         LaunchRecall();
+
 
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
+            isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall;
         }
 
         if (onRecall && bulletRigidbody != null)
@@ -74,7 +78,7 @@ public class RecallBullet : MonoBehaviour
         }
 
         if (InputReader.instance.jump || PlayerController2D._instance.onRoll ||
-            InputReader.instance.canDown || InputReader.instance.canStun || !doRecall)
+            InputReader.instance.canStun || !doRecall || (InputReader.instance.canDown && InputReader.instance.jump) || !isGoodDistance)
         {
             CancelRecall();
         }
@@ -105,9 +109,12 @@ public class RecallBullet : MonoBehaviour
             direction =
                 (PlayerController2D._instance.CurrentDirectionAim > 0 ? rightHand.position : leftHand.position) -
                 FireOneBullet.instance.bulletRef.transform.position;
+
             float distance = direction.magnitude;
 
-            return distance * speedDelay;
+            return EnemyCorpse.bulletInCorpse
+                ? direction.normalized.magnitude * delayBulletRecallInCorpse
+                : distance * speedDelay;
         }
 
         return 0;
@@ -132,7 +139,7 @@ public class RecallBullet : MonoBehaviour
             Destroy(FireOneBullet.instance.bulletRef);
             FireOneBullet.instance.numberOfAmmo = 1;
             onRecall = false;
-            DestroyEnemyCorpse.bulletInCorpse = false;
+            EnemyCorpse.bulletInCorpse = false;
             CancelRecall();
         }
     }
@@ -152,7 +159,7 @@ public class RecallBullet : MonoBehaviour
 
         if (_bulletCollisionDetection == null) return;
 
-        if (context.started && distanceAmmoPlayer.magnitude < distanceToRecall && _bulletCollisionDetection.hasToStop)
+        if (context.started && isGoodDistance && _bulletCollisionDetection.hasToStop)
         {
             timer = 0;
             doRecall = true;
@@ -163,7 +170,8 @@ public class RecallBullet : MonoBehaviour
                 vfxRecallBulletDroite.SetActive(true);
             else
                 vfxRecallBulletGauche.SetActive(true);
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut);
+            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,
+                8f / Vector2.Distance(bulletRigidbody.transform.position, transform.position));
         }
 
         if (context.canceled)
