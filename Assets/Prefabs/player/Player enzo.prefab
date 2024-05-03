@@ -959,6 +959,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: ac567d8e-9fc7-4001-a220-267df4af0e88
     m_ActionName: Menu/ChangeValues[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/dpad/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/right,/XInputControllerWindows/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: ActivateAim
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 7f876dd3-8626-45a5-a905-0bb8d18efa72
+    m_ActionName: Player/ActivateAim[/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -986,7 +1002,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   manetteDirection: {x: 0, y: 0, z: 0}
-  aimPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &8012276900402190899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1952,8 +1967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd62b9e596ab004ebe785ae20c3795b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  smoothSpeed: 2
-  maxDistance: 7
+  basicMovementSpeed: 1
+  aimSpeed: 2
+  basicMovementMaxDistance: 4
+  aimMaxDistance: 10
   floatToAdd: 1
 --- !u!1 &8335044014015760339
 GameObject:
