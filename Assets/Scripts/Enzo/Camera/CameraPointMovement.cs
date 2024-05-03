@@ -28,7 +28,7 @@ public class CameraPointMovement : MonoBehaviour
     {
         playerPosition = transform.parent.position;
 
-        if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f || FireOneBullet.instance.numberOfAmmo == 0)
+        if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f)
         {
             InputReader.instance.activateAim = false;
         }
