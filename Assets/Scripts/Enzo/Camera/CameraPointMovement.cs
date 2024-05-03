@@ -1,62 +1,77 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CameraPointMovement : MonoBehaviour
 {
-    [SerializeField, Range(0f, 5f), Header("Speed")]
-    private float smoothSpeed = 2f;
+    [SerializeField, Range(0f, 5f), Header("Speed"),
+     Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur se déplace")]
+    private float basicMovementSpeed = 1f;
 
-    [SerializeField, Range(0f, 10f), Header("Distance")]
-    private float maxDistance = 7f;
+    [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur vise")]
+    private float aimSpeed = 2f;
 
-    [SerializeField, Range(-3f, 3f),
-     Tooltip("La position en X que prendra le GameObject CameraPointToFollow"),
-     Header("CameraPointToFollow Position")]
-    private float positionX = 0f;
+    [SerializeField, Range(0f, 10f), Header("Distance"),
+     Tooltip("Modifie la distance maximum depuis le joueur jusqu'où la caméra peut aller lorsque le joueur se déplace")]
+    private float basicMovementMaxDistance = 4f;
 
-    [SerializeField, Range(0f, 5f),
-     Tooltip("La position en Y que prendra le GameObject CameraPointToFollow")]
-    private float positionY = 3f;
+    [SerializeField, Range(0f, 20f),
+     Tooltip("Modifie la distance maximum depuis le joueur jusqu'où la caméra peut aller lorsque le joueur vise")]
+    private float aimMaxDistance = 10f;
+
+    [SerializeField, Tooltip("Ce float est la valeur ajouter au Y de la position du transform du player"),
+     Range(0.1f, 5f), Header("Float Y Position")]
+    private float floatToAdd;
 
     private Vector2 velocity;
-
-    private void Awake()
-    {
-        transform.localPosition = new Vector2(positionX, positionY);
-    }
+    private Vector2 playerPosition;
 
     private void Update()
     {
+        playerPosition = transform.parent.position;
+
+        if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f || FireOneBullet.instance.numberOfAmmo == 0)
+        {
+            InputReader.instance.activateAim = false;
+        }
+
+        if (InputReader.instance.activateAim)
+        {
+            AimWithLeftStick();
+            return;
+        }
+
         if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f)
         {
             SmoothCameraPointMovement();
         }
         else
         {
-            transform.position = Vector2.SmoothDamp(transform.position,
-                new Vector2(PlayerController2D._instance.transform.position.x, transform.position.y), ref velocity,
-                1 / smoothSpeed);
-        }
-
-        if (InputReader.instance.activateAim)
-        {
-            //  LeftStickMoveCamera();
+            ReturnToOriginalPosition();
         }
     }
 
     private void SmoothCameraPointMovement()
     {
-        Vector2 playerPosition = PlayerController2D._instance.transform.position;
-        float destinationX = playerPosition.x + InputReader.instance.direction.x * maxDistance;
+        float destinationX = playerPosition.x + InputReader.instance.direction.x * basicMovementMaxDistance;
+        float destinationY = playerPosition.y + floatToAdd;
 
-        Vector2 destination = new Vector2(destinationX, playerPosition.y + positionY);
+        Vector2 destination = new Vector2(destinationX, destinationY);
 
-        transform.position = Vector2.SmoothDamp(transform.position, destination, ref velocity, 1 / smoothSpeed);
+        transform.position =
+            Vector2.SmoothDamp(transform.position, destination, ref velocity, 1 / basicMovementSpeed);
     }
 
-    private void LeftStickMoveCamera()
+    private void ReturnToOriginalPosition()
     {
-        transform.position += InputReader.instance.manetteDirection;
+        Vector2 target = new Vector2(playerPosition.x, playerPosition.y + 1);
+
+        transform.position =
+            Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / basicMovementSpeed);
+    }
+
+    private void AimWithLeftStick()
+    {
+        Vector2 target = InputReader.instance.manetteDirection * aimMaxDistance;
+        transform.localPosition =
+            Vector2.SmoothDamp(transform.localPosition, target, ref velocity, 1 / aimSpeed);
     }
 }

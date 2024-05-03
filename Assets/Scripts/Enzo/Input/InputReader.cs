@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -54,7 +55,13 @@ public class InputReader : MonoBehaviour
         onFire.Invoke(context);
     }
 
-    public void OnAim(InputAction.CallbackContext context) => activateAim = context.performed;
+    public void ActivateAim(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            activateAim = !activateAim;
+        }
+    }
 
     public void OnCrossKick(InputAction.CallbackContext context)
     {
