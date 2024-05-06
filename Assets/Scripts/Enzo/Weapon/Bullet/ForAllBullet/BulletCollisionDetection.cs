@@ -37,6 +37,8 @@ public class BulletCollisionDetection : MonoBehaviour
                 bulletRigidbody2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
             bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
+        if (!hit2D) return;
+        if (hit2D.transform.CompareTag("Platforme")) return;
 
         if (hit2D.collider == intersection.collider) return;
 
@@ -47,8 +49,6 @@ public class BulletCollisionDetection : MonoBehaviour
 
     private void InvokeBulletHit()
     {
-        if (intersection.collider == null) return;
-
         onBulletHit = intersection.collider.GetComponentInParent<OnBulletHit>();
 
         if (onBulletHit == null)
