@@ -2,7 +2,6 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
-using System.Collections.Generic;
 
 public class PlayerController2D : MonoBehaviour
 {
