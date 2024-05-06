@@ -76,6 +76,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ActivateAim",
+                    "type": "Button",
+                    "id": "7f876dd3-8626-45a5-a905-0bb8d18efa72",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -193,17 +202,6 @@
                     "name": "",
                     "id": "aa6cd732-4b13-41a6-aab3-f26d77836d3a",
                     "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CrossKick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8656eb8d-4e46-4516-b47c-3f3b1bbd029d",
-                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -439,6 +437,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Checkpoint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "872072bc-1f86-429e-9811-65ec28946c4e",
+                    "path": "<Gamepad>/rightStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ActivateAim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
