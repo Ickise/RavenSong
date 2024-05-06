@@ -13,6 +13,8 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public bool activateAim = false;
     [HideInInspector] public bool canStun;
     [HideInInspector] public bool canDown;
+    public int lastDirection;
+
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
@@ -33,6 +35,11 @@ public class InputReader : MonoBehaviour
     {
         if (context.started || context.ReadValue<Vector2>() == direction) return;
         direction = context.ReadValue<Vector2>();
+
+        if (context.performed)
+        {
+            lastDirection = Mathf.RoundToInt(direction.x);
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
