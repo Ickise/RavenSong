@@ -14,7 +14,7 @@ public class FlashingLight : MonoBehaviour
 
     [SerializeField, Range(0.1f, 2f), Header("Timer Multiplier"),
      Tooltip(
-         "Si vous modifiez ce float, cela modifier la rapidité du timer pour atteindre le temps aléatoire qui éteint/allume les lights, si c'est 2, il sera 2 fois plus rapide")]
+         "Si vous modifiez ce float, cela change la rapidité du timer pour atteindre le temps aléatoire qui éteint/allume les lights. Pour exemple : si c'est 2, il sera 2 fois plus rapide.")]
     private float timerMultiplier = 0.5f;
 
     private float timer;
