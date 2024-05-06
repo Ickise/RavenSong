@@ -5,6 +5,7 @@ public class CameraPointMovement : MonoBehaviour
     [SerializeField, Range(0f, 5f), Header("Speed"),
      Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur se déplace")]
     private float basicMovementSpeed = 1f;
+    [SerializeField, Range(0f, 5f)] private float basicMovementSpeed2 = 0.5f;
 
     [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur vise")]
     private float aimSpeed = 2f;
@@ -62,10 +63,10 @@ public class CameraPointMovement : MonoBehaviour
 
     private void ReturnToOriginalPosition()
     {
-        Vector2 target = new Vector2(playerPosition.x, playerPosition.y + 1);
+        Vector2 target = new Vector2(playerPosition.x + 1F, playerPosition.y + 1);
 
         transform.position =
-            Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / basicMovementSpeed);
+            Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / basicMovementSpeed2);
     }
 
     private void AimWithLeftStick()
