@@ -3,12 +3,14 @@ using Cinemachine;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.InputSystem;
 
 public class CameraCinematic : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private CameraPointMovement cam;
     [SerializeField] private NoiseSettings noneSettings;
+    private PlayerInput playerInput;
     private CinemachineBasicMultiChannelPerlin camComponent;
     private int index;
 
@@ -34,6 +36,8 @@ public class CameraCinematic : MonoBehaviour
         {
             StartCoroutine(Events());
             GetComponent<Collider2D>().enabled = false;
+            playerInput = other.GetComponent<PlayerInput>();
+            playerInput.enabled = false;
             cam.enabled = false;
         }
     }
@@ -53,6 +57,7 @@ public class CameraCinematic : MonoBehaviour
             cam.enabled = true;
             cam.transform.localPosition = Vector2.zero;
             camComponent.m_NoiseProfile = noneSettings;
+            playerInput.enabled = true;
             yield break;
         }
         StartCoroutine(Events());

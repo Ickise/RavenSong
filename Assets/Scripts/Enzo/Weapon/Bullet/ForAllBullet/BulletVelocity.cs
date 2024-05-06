@@ -8,10 +8,17 @@ public class BulletVelocity : MonoBehaviour
     [SerializeField, Header("Fall speed bullet"), Range(1f, 20f)]
     private float forceToFall = 0.5f;
 
+    [SerializeField, Header("Maximum distance before to fall")]
+    private float maxDistanceToFall = 50f;
+
     private Rigidbody2D bulletRigidbody2D;
 
     private BulletDirection _bulletDirection;
     private BulletCollisionDetection _bulletCollisionDetection;
+
+    private float totalDistance = 0;
+
+    private Vector3 previousPosition;
 
     private void Awake()
     {
@@ -27,10 +34,17 @@ public class BulletVelocity : MonoBehaviour
             xSpeedBullet;
     }
 
+    private void FixedUpdate()
+    {
+        RecordDistance();
+        SetVelocityOnMaxDistance();
+    }
+
     public void SetVelocityOnHit()
     {
         if (_bulletCollisionDetection.hasToStop)
         {
+            //mettre son quand elle commence à tomber
             bulletRigidbody2D.velocity = Vector2.down * forceToFall;
         }
 
@@ -38,5 +52,22 @@ public class BulletVelocity : MonoBehaviour
         {
             bulletRigidbody2D.velocity = Vector2.zero;
         }
+    }
+
+    private void SetVelocityOnMaxDistance()
+    {
+        bool achieveMaxDistance = totalDistance >= maxDistanceToFall;
+        
+        if (achieveMaxDistance)
+        {
+            //mettre son quand elle commence à tomber
+            bulletRigidbody2D.velocity = Vector2.down * forceToFall;
+        }
+    }
+
+    private void RecordDistance()
+    {
+        totalDistance += Vector3.Distance(transform.position, previousPosition);
+        previousPosition = transform.position;
     }
 }

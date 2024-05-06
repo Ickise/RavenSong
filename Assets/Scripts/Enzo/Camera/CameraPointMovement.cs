@@ -1,11 +1,13 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraPointMovement : MonoBehaviour
 {
     [SerializeField, Range(0f, 5f), Header("Speed"),
      Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur se déplace")]
-    private float basicMovementSpeed = 1f;
-    [SerializeField, Range(0f, 5f)] private float basicMovementSpeed2 = 0.5f;
+    private float lerpSpeedWhenWalk = 1f;
+
+    [SerializeField, Range(0f, 5f),Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur s'arrête de bouger")] private float lerpSpeedWhenStop = 0.5f;
 
     [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur vise")]
     private float aimSpeed = 2f;
@@ -21,6 +23,10 @@ public class CameraPointMovement : MonoBehaviour
     [SerializeField, Tooltip("Ce float est la valeur ajouter au Y de la position du transform du player"),
      Range(0.1f, 5f), Header("Float Y Position")]
     private float floatToAdd;
+
+    [SerializeField,
+     Tooltip("Ce float permet créer le décalage avec Corvus, pour qu'il ne soit pas au centre de l'écran")]
+    private float xGapPosition = 1f;
 
     private Vector2 velocity;
     private Vector2 playerPosition;
@@ -52,21 +58,23 @@ public class CameraPointMovement : MonoBehaviour
 
     private void SmoothCameraPointMovement()
     {
-        float destinationX = playerPosition.x + InputReader.instance.direction.x * basicMovementMaxDistance;
+        float destinationX = playerPosition.x;
         float destinationY = playerPosition.y + floatToAdd;
 
         Vector2 destination = new Vector2(destinationX, destinationY);
 
         transform.position =
-            Vector2.SmoothDamp(transform.position, destination, ref velocity, 1 / basicMovementSpeed);
+            Vector2.SmoothDamp(transform.position, destination, ref velocity, 1 / lerpSpeedWhenWalk);
     }
 
     private void ReturnToOriginalPosition()
     {
-        Vector2 target = new Vector2(playerPosition.x + 1F, playerPosition.y + 1);
+        Vector2 target = InputReader.instance.lastDirection >= 0
+            ? new Vector2(playerPosition.x + xGapPosition, playerPosition.y + floatToAdd)
+            : new Vector2(playerPosition.x - xGapPosition, playerPosition.y + floatToAdd);
 
         transform.position =
-            Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / basicMovementSpeed2);
+            Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / lerpSpeedWhenStop);
     }
 
     private void AimWithLeftStick()

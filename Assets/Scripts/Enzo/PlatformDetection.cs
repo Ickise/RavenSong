@@ -5,6 +5,7 @@ public class PlatformDetection : MonoBehaviour
     private GameObject currentPlatform;
 
     private Collider2D currentPlatformCollider;
+    [SerializeField] private GameObject vfxDescentPlatform;
 
     [SerializeField, Header("BoxCast Size")]
     private Vector2 boxSize = new Vector2(1f, 0.1f);
@@ -32,6 +33,7 @@ public class PlatformDetection : MonoBehaviour
         if (currentPlatform != null && InputReader.instance.canJump && InputReader.instance.canDown)
         {
             SetPlatformAsPlatform();
+            VFXInstantieur.instance.PlayVFXInWorld(vfxDescentPlatform, transform);
         }
     }
 
@@ -44,7 +46,7 @@ public class PlatformDetection : MonoBehaviour
 
     private void SetPlatformAsPlatform()
     {
-        ChangeTriggerAndLayer(true, "Default");
+        ChangeTriggerAndLayer(true, "Escalier");
         currentPlatform = null;
     }
 

@@ -35,6 +35,7 @@ public class SpineAim : MonoBehaviour
 
     private void Update()
     {
+        // print(_playerAnimation.DontAim.ToString() + "  et  " + (boneAim[0] == null).ToString());
         if (_playerAnimation.DontAim || boneAim[0] == null)
         {
             if (aimLineDroite.activeInHierarchy || aimLineGauche.activeInHierarchy)
@@ -44,6 +45,7 @@ public class SpineAim : MonoBehaviour
             }
             return;
         }
+
         aimLineDroite.SetActive(_playerAnimation.GetDirection);
         aimLineGauche.SetActive(!_playerAnimation.GetDirection);
 

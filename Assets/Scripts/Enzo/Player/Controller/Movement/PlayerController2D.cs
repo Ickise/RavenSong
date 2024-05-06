@@ -255,7 +255,7 @@ public class PlayerController2D : MonoBehaviour
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
             }
-
+            
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
