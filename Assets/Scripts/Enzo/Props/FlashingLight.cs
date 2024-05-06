@@ -12,6 +12,11 @@ public class FlashingLight : MonoBehaviour
 
     [SerializeField, Range(0f, 10f)] private float maximumTime = 1.9f;
 
+    [SerializeField, Range(0.1f, 2f), Header("Timer Multiplier"),
+     Tooltip(
+         "Si vous modifiez ce float, cela modifier la rapidité du timer pour atteindre le temps aléatoire qui éteint/allume les lights, si c'est 2, il sera 2 fois plus rapide")]
+    private float timerMultiplier = 0.5f;
+
     private float timer;
     private float randomTimeToFlash;
 
@@ -22,7 +27,7 @@ public class FlashingLight : MonoBehaviour
 
     private void Update()
     {
-        timer += 0.5f * Time.deltaTime;
+        timer += timerMultiplier * Time.deltaTime;
 
         ShutLight();
         LightUp();
@@ -44,7 +49,7 @@ public class FlashingLight : MonoBehaviour
     private void LightUp()
     {
         if (timer <= 0.2f) return;
-        
+
         foreach (var light2D in listOfLight)
         {
             light2D.enabled = true;
