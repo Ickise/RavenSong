@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class CameraPointMovement : MonoBehaviour
 {
@@ -7,7 +6,8 @@ public class CameraPointMovement : MonoBehaviour
      Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur se déplace")]
     private float lerpSpeedWhenWalk = 1f;
 
-    [SerializeField, Range(0f, 5f),Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur s'arrête de bouger")] private float lerpSpeedWhenStop = 0.5f;
+    [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur s'arrête de bouger")]
+    private float lerpSpeedWhenStop = 0.5f;
 
     [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur vise")]
     private float aimSpeed = 2f;
@@ -72,7 +72,7 @@ public class CameraPointMovement : MonoBehaviour
         Vector2 target = InputReader.instance.lastDirection >= 0
             ? new Vector2(playerPosition.x + xGapPosition, playerPosition.y + floatToAdd)
             : new Vector2(playerPosition.x - xGapPosition, playerPosition.y + floatToAdd);
-
+        
         transform.position =
             Vector2.SmoothDamp(transform.position, target, ref velocity, 1 / lerpSpeedWhenStop);
     }
