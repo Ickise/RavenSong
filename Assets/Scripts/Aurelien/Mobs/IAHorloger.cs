@@ -91,7 +91,7 @@ public class IAHorloger : IA
                 if (!Physics2D.GetIgnoreCollision(RaycastHitWall.collider, cd2D))
                 {
                     Physics2D.IgnoreCollision(RaycastHitWall.collider, cd2D);
-                    // Physics2D.IgnoreCollision(RaycastHitWall.transform.GetChild(0).GetComponent<Collider2D>(), cd2D);
+                    Physics2D.IgnoreCollision(RaycastHitWall.transform.GetChild(0).GetComponent<Collider2D>(), cd2D);
                 }
             }
             else if (!RaycastHitWall.collider.GetComponent<StunDetection>())
