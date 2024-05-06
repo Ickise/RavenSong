@@ -30,18 +30,6 @@ public class BallInterfacePosition : MonoBehaviour
 
     private void Indicator()
     {
-        // foreach (var ammoSprite in _gun.AmmoRefsDico)
-        // {
-        //     if (!IsOnScreen(ammoSprite.Key.transform.position))
-        //     {
-        //         var intersectionAmmo = CalculeIntersectionSegments(ammoSprite.Key.transform.position);
-        //         ammoSprite.Value.gameObject.SetActive(true);
-        //         ammoSprite.Value.transform.position = intersectionAmmo;
-        //         ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
-        //     }
-        //     else
-        //         ammoSprite.Value.gameObject.SetActive(false);
-        // }
         Transform bullet = _gun.bulletRef.transform;
         if (!IsOnScreen(bullet.position))
         {
