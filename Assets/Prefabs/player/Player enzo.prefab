@@ -103,8 +103,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5070513739195827676}
-  m_RootOrder: 16
+  m_Father: {fileID: 9087905919337726822}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &1372676767172544356
 Camera:
@@ -740,7 +740,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4470063400077651361}
   - {fileID: 5561882108913191949}
   - {fileID: 4301666583512804372}
   - {fileID: 696423167165222469}
@@ -1952,7 +1951,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4470063400077651361}
   m_Father: {fileID: 5070513739195827676}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1968,8 +1968,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fd62b9e596ab004ebe785ae20c3795b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicMovementSpeed: 1
-  basicMovementSpeed2: 0.5
+  lerpSpeedWhenWalk: 1
+  lerpSpeedWhenStop: 0.5
   aimSpeed: 2
   basicMovementMaxDistance: 4
   aimMaxDistance: 10
