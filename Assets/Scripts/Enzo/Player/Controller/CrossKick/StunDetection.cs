@@ -7,15 +7,14 @@ public class StunDetection : MonoBehaviour
 {
     private Collider2D c2D;
     public bool IsC2DActive => c2D.enabled;
-    [Header("À set up")][SerializeField] private float stunDuration = 1.5f;
+    [Header("À set up")] [SerializeField] private float stunDuration = 1.5f;
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
     private bool canCrossKick = true;
-    [Header("Sound")][SerializeField] private SoundData[] soundstunsuccessful;
+    [Header("Sound")] [SerializeField] private SoundData[] soundstunsuccessful;
     [SerializeField] private SoundData soundstunnotsuccessful;
-
 
 
     private void Start()
@@ -28,8 +27,8 @@ public class StunDetection : MonoBehaviour
     {
         if (!canCrossKick) yield break;
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut, ReAim);
-       // Debug.Log("CrossSong");
-       //AudioManager.instance.PlaySound(soundstunnotsuccessful);
+        // Debug.Log("CrossSong");
+        //AudioManager.instance.PlaySound(soundstunnotsuccessful);
         _playerAnimation.DontAim = true;
         transform.localPosition = new Vector2(Mathf.Abs(transform.localPosition.x), transform.localPosition.y);
         transform.localPosition *= currentDirection;
@@ -38,6 +37,7 @@ public class StunDetection : MonoBehaviour
         yield return new WaitForSeconds(stunDuration);
         c2D.enabled = false;
         StartCoroutine(CrossKickCoolDown());
+
         IEnumerator CrossKickCoolDown()
         {
             yield return new WaitForSeconds(crossKickCooldown);
@@ -71,8 +71,8 @@ public class StunDetection : MonoBehaviour
             //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
-           // ExplosionForce ef = FindObjectOfType<ExplosionForce>();
-          //  ef.doExplosion(transform.position);
+            ExplosionForce ef = FindObjectOfType<ExplosionForce>();
+            ef.doExplosion(transform.position);
             return;
         }
 
