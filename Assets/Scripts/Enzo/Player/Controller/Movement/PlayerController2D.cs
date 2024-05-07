@@ -254,7 +254,7 @@ public class PlayerController2D : MonoBehaviour
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.JumpNoBallHaut);
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.jumpNoBallBas);
             }
-            
+
             if (velocityWhenJump == 0 && !InputReader.instance.jump) return;
             if (_raycastDetection.RaycastJump && playerVelocity.y > 0f)
                 playerVelocity.y = 0f;
@@ -340,7 +340,9 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
-        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dash);
+        _playerAnimation.FlipAnimation(LastDirection > 0);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashHaut);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
 
@@ -348,16 +350,8 @@ public class PlayerController2D : MonoBehaviour
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
                 posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         AudioManager.instance.PlaySound(rollsound);
-        // rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
-        // startRollPos = transform.position;
-        // finalRollPos = transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade;
         float rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
-            // playerRigidbody2D
-            //     .DOMove(
-            //         transform.position +
-            //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
-            //     .SetSpeedBased(true)
             .SetId("roll")
             .OnKill(() =>
             {
