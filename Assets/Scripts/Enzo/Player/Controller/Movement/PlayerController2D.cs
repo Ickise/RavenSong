@@ -348,16 +348,8 @@ public class PlayerController2D : MonoBehaviour
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
                 posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         AudioManager.instance.PlaySound(rollsound);
-        // rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
-        // startRollPos = transform.position;
-        // finalRollPos = transform.position + new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade;
         float rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
-            // playerRigidbody2D
-            //     .DOMove(
-            //         transform.position +
-            //         new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection * distanceRoulade, speedRoulade)
-            //     .SetSpeedBased(true)
             .SetId("roll")
             .OnKill(() =>
             {
