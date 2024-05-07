@@ -18,6 +18,7 @@ public class BulletCollisionDetection : MonoBehaviour
     private Collider2D bulletCollider;
 
     private RaycastHit2D intersection;
+    private int firstPlatforme;
 
     [HideInInspector] public OnBulletHit onBulletHit;
 
@@ -38,7 +39,17 @@ public class BulletCollisionDetection : MonoBehaviour
             Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
             bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
         if (!hit2D) return;
-        if (hit2D.transform.CompareTag("Platforme")) return;
+        if (hit2D.transform.CompareTag("Platforme"))
+        {
+            print(hit2D.transform.GetHashCode());
+            if (firstPlatforme != 0 && hit2D.transform.GetHashCode() == firstPlatforme)
+                return;
+            else if (firstPlatforme == 0)
+            {
+                firstPlatforme = hit2D.transform.GetHashCode();
+                return;
+            }
+        }
 
         if (hit2D.collider == intersection.collider) return;
 
