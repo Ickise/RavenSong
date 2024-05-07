@@ -80,15 +80,12 @@ public class BulletCollisionDetection : MonoBehaviour
     private void FixBulletOnObject()
     {
         transform.position = intersection.point;
-        transform.parent = intersection.collider.transform;
         VFXRaisonnanceBall.Play();
         VFXExplosionImpact.Play();
 
         ChangeColliderRigidbody(true);
 
         _bulletVelocity.SetVelocityOnHit();
-
-        if (onBulletHit != null && !onBulletHit.putBulletInChildren) transform.parent = null;
     }
 
     public void Recall()
