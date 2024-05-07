@@ -71,8 +71,8 @@ public class StunDetection : MonoBehaviour
             //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
-            ExplosionForce ef = FindObjectOfType<ExplosionForce>();
-            ef.doExplosion(transform.position);
+           // ExplosionForce ef = FindObjectOfType<ExplosionForce>();
+          //  ef.doExplosion(transform.position);
             return;
         }
 
