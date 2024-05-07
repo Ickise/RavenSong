@@ -6,9 +6,11 @@ using XInputDotNetPure;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField, Header("TimeToDoShader")] private float shaderTime = 1f;
+    [SerializeField, Header("TimeToDoShader")]
+    private float shaderTime = 1f;
 
-    [SerializeField, Header("DeathPrefab")] private GameObject corvusDeathEffectSprite;
+    [SerializeField, Header("DeathPrefab")]
+    private GameObject corvusDeathEffectSprite;
 
     private Scene currentScene;
 
@@ -31,6 +33,8 @@ public class Respawn : MonoBehaviour
 
     private void Awake()
     {
+        death = false;
+        
         if (checkPoint) return;
 
         FirstSpawn();
@@ -63,6 +67,7 @@ public class Respawn : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(death);
         if (shaderDeathRespawn == null) return;
         if (spawn)
             shaderDeathRespawn.material.SetFloat("_VerticalDissolve", verticalDissolve);
@@ -77,7 +82,10 @@ public class Respawn : MonoBehaviour
             currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }
-        else if (death) return;
+        else if (death)
+        {
+            return;
+        }
 
         Death();
     }
@@ -104,14 +112,15 @@ public class Respawn : MonoBehaviour
             {
                 if (ControlsParameter.controllerVibration)
                     GamePad.SetVibration(playerIndex, 0, 0);
+
                 currentScene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(currentScene.name);
-                death = false;
             });
     }
 
     private void FirstSpawn()
     {
+        Debug.Log("FirstSpawn");
         startPosition = transform.position;
         spawnPosition = startPosition;
     }
