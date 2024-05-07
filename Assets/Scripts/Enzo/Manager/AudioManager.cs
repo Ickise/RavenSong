@@ -30,6 +30,11 @@ public class AudioManager : MonoBehaviour
 
         mainAudioSource.PlayOneShot(SetAudioParameters(data).AudioToPlay);
     }
+    
+    public void StopSound()
+    {
+        mainAudioSource.Stop();
+    }
 
     public void PlayRandomSound(SoundData[] listOfSoundData)
     {
