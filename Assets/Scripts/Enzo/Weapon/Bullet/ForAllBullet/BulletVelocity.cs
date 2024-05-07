@@ -18,8 +18,6 @@ public class BulletVelocity : MonoBehaviour
 
     private float totalDistance = 0;
 
-    private Vector3 previousPosition;
-
     private void Awake()
     {
         _bulletDirection = GetComponent<BulletDirection>();
@@ -36,6 +34,7 @@ public class BulletVelocity : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (_bulletCollisionDetection.hasToStop) return; // si jamais problème de recall, voir ici
         RecordDistance();
         SetVelocityOnMaxDistance();
     }
@@ -57,7 +56,7 @@ public class BulletVelocity : MonoBehaviour
     private void SetVelocityOnMaxDistance()
     {
         bool achieveMaxDistance = totalDistance >= maxDistanceToFall;
-        
+
         if (achieveMaxDistance)
         {
             //mettre son quand elle commence à tomber
@@ -67,7 +66,6 @@ public class BulletVelocity : MonoBehaviour
 
     private void RecordDistance()
     {
-        totalDistance += Vector3.Distance(transform.position, previousPosition);
-        previousPosition = transform.position;
+        totalDistance = Vector3.Distance(transform.position, PlayerController2D._instance.transform.position);
     }
 }
