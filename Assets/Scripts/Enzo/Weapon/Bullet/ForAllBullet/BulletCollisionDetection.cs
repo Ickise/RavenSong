@@ -41,7 +41,6 @@ public class BulletCollisionDetection : MonoBehaviour
         if (!hit2D) return;
         if (hit2D.transform.CompareTag("Platforme"))
         {
-            print(hit2D.transform.GetHashCode());
             if (firstPlatforme != 0 && hit2D.transform.GetHashCode() == firstPlatforme)
                 return;
             else if (firstPlatforme == 0)
