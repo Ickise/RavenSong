@@ -45,11 +45,11 @@ public class PlayerController2D : MonoBehaviour
     private float lowJumpMultiplier = 2f;
 
     [Header("Rool")][SerializeField] private float rouladeTime = 0.7f;
-
     [SerializeField] private float speedRoulade = 6f;
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
-
+    [SerializeField] private AnimationCurve animationCurveDash;
+    private float rollTime = 0;
     private Rigidbody2D playerRigidbody2D;
 
     private BoxCollider2D playerCollider2D;
@@ -136,7 +136,7 @@ public class PlayerController2D : MonoBehaviour
                 rollDirection = new Vector3(-slopNormalPerp.x, -slopNormalPerp.y) * LastDirection;
             }
 
-            playerRigidbody2D.velocity = rollDirection * speedRoulade;
+            playerRigidbody2D.velocity = rollDirection * speedRoulade * animationCurveDash.Evaluate(rollTime);
         }
 
         CoyoteTime();
@@ -350,7 +350,7 @@ public class PlayerController2D : MonoBehaviour
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
                 posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         AudioManager.instance.PlaySound(rollsound);
-        float rollTime = 0;
+        rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
             .SetId("roll")
             .OnKill(() =>
