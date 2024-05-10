@@ -67,7 +67,6 @@ public class Respawn : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(death);
         if (shaderDeathRespawn == null) return;
         if (spawn)
             shaderDeathRespawn.material.SetFloat("_VerticalDissolve", verticalDissolve);
@@ -120,7 +119,6 @@ public class Respawn : MonoBehaviour
 
     private void FirstSpawn()
     {
-        Debug.Log("FirstSpawn");
         startPosition = transform.position;
         spawnPosition = startPosition;
     }
