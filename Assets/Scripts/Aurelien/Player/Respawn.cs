@@ -92,7 +92,7 @@ public class Respawn : MonoBehaviour
     private void Death()
     {
         if (ControlsParameter.controllerVibration)
-            GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
+            GamePad.SetVibration(playerIndex, 0.3f, 0.7f);
         playerInput.enabled = false;
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
