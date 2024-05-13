@@ -8,6 +8,9 @@ public class CameraPointMovement : MonoBehaviour
 
     [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur s'arrête de bouger")]
     private float lerpSpeedWhenStop = 0.5f;
+    
+    [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque la caméra doit focus un point précis")]
+    private float lerpSpeedWhenFocus = 0.5f;
 
     [SerializeField, Range(0f, 5f), Tooltip("Modifie la vitesse du SmoothDamp lorsque le joueur vise")]
     private float aimSpeed = 2f;
@@ -27,12 +30,14 @@ public class CameraPointMovement : MonoBehaviour
     [SerializeField,
      Tooltip("Ce float permet créer le décalage avec Corvus, pour qu'il ne soit pas au centre de l'écran")]
     private float xGapPosition = 1f;
-
+    
     private Vector2 velocity;
     private Vector2 playerPosition;
-
+    
     private void Update()
     {
+        //if (stopScript) return;
+        
         playerPosition = transform.parent.position;
 
         if (Mathf.Abs(InputReader.instance.direction.x) >= 0.03f)
@@ -82,5 +87,10 @@ public class CameraPointMovement : MonoBehaviour
         Vector2 target = InputReader.instance.manetteDirection * aimMaxDistance;
         transform.localPosition =
             Vector2.SmoothDamp(transform.localPosition, target, ref velocity, 1 / aimSpeed);
+    }
+
+    public void CameraFocus(Transform transformFocus)
+    {
+        transform.position = Vector2.SmoothDamp(transform.position, transformFocus.position, ref velocity, 1 / lerpSpeedWhenFocus);
     }
 }

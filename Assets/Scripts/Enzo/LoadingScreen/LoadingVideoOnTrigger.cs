@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-[RequireComponent(typeof(VideoLoader))]
 public class LoadingVideoOnTrigger : MonoBehaviour
 {
     [Header("UnityEvent"),Tooltip("Mettre dans l'Event la fonction LoadVideo du script VideoLoader")]
