@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -44,7 +43,7 @@ public class EnemyCorpse : MonoBehaviour
 
     private void ChangeLayer()
     {
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("IADontCollide");
     }
 
     private IEnumerator WaitToDestroyComponents()

@@ -1950,9 +1950,6 @@ MonoBehaviour:
   vfxDescentPlatform: {fileID: 6491103293301625326, guid: b6ece5e5aa3a5854bb4f8f14ef290e98, type: 3}
   boxSize: {x: 0.8, y: 0.1}
   platformScaleY: 0.5
-  layer:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!1 &6867774216131039303
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +1996,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lerpSpeedWhenWalk: 1
   lerpSpeedWhenStop: 1
+  lerpSpeedWhenFocus: 2
   aimSpeed: 2
   basicMovementMaxDistance: 4
   aimMaxDistance: 10
