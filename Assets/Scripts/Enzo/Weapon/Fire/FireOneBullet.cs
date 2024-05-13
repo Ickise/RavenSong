@@ -48,6 +48,7 @@ public class FireOneBullet : MonoBehaviour
         {
             currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
             AudioManager.instance.PlaySound(shootAudio);
+            ControlsParameter.GamePadVibration(this, 0.1f, 0.1f, 0.1f);
 
             bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));
             numberOfAmmo--;
