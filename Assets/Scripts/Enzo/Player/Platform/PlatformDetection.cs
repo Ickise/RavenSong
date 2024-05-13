@@ -21,7 +21,6 @@ public class PlatformDetection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(PlayerController2D._instance.isFalling);
         if (PlayerController2D._instance.isFalling)
         {
             hit2D = Physics2D.BoxCast(transform.position + Vector3.down * platformScaleY, boxSize, 0,
