@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
+     public bool isFalling;
     [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -325,7 +326,7 @@ public class PlayerController2D : MonoBehaviour
 
     private void ComputeGravity()
     {
-        bool isFalling = playerVelocity.y < 0;
+        isFalling = playerVelocity.y < 0;
         bool isReleasingJump = playerVelocity.y > 0 && !InputReader.instance.jump;
 
         if (!isFalling && !isReleasingJump)

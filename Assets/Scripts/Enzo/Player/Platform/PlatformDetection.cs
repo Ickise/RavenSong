@@ -1,25 +1,33 @@
+using System;
 using UnityEngine;
 
 public class PlatformDetection : MonoBehaviour
 {
+    [SerializeField, Header("VFX")] private GameObject vfxDescentPlatform;
+
     private GameObject currentPlatform;
 
     private Collider2D currentPlatformCollider;
-    [SerializeField] private GameObject vfxDescentPlatform;
 
     [SerializeField, Header("BoxCast Size")]
     private Vector2 boxSize = new Vector2(1f, 0.1f);
-    
+
     [SerializeField, Header("Platform Scale Y"), Range(0.1f, 1f),
      Tooltip(
          "Il faut mettre la même valeur que celle en Y du scale des platformes. Il faut que le scale en Y soit le même pour toutes les plateformes !!")]
     private float platformScaleY = 0.5f;
 
+    private RaycastHit2D hit2D;
+
     private void FixedUpdate()
     {
-        RaycastHit2D hit2D = Physics2D.BoxCast(transform.position + Vector3.down * platformScaleY, boxSize, 0,
-            Vector3.down * Time.fixedDeltaTime,
-            PlayerController2D._instance.PlayerVelocity.magnitude * Time.fixedDeltaTime);
+        Debug.Log(PlayerController2D._instance.isFalling);
+        if (PlayerController2D._instance.isFalling)
+        {
+            hit2D = Physics2D.BoxCast(transform.position + Vector3.down * platformScaleY, boxSize, 0,
+                Vector3.down * Time.fixedDeltaTime,
+                PlayerController2D._instance.PlayerVelocity.magnitude * Time.fixedDeltaTime);
+        }
 
         if (hit2D.collider != null && hit2D.collider.CompareTag("Platforme"))
         {
