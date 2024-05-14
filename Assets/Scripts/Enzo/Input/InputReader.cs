@@ -22,11 +22,13 @@ public class InputReader : MonoBehaviour
     public static InputReader instance;
     private StunDetection _stunDetection;
     [HideInInspector] public Vector3 manetteDirection;
+    private PlayerAnimation _playerAnimation;
 
     private void Awake()
     {
         //get tous les components
         instance = this;
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _stunDetection = GetComponentInChildren<StunDetection>();
     }
 
@@ -59,6 +61,7 @@ public class InputReader : MonoBehaviour
         if (_stunDetection.IsC2DActive || DOTween.IsTweening("roll"))
             return;
         onFire.Invoke(context);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
     }
 
     public void ActivateAim(InputAction.CallbackContext context)
