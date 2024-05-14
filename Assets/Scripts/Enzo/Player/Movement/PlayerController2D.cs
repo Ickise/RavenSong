@@ -225,7 +225,7 @@ public class PlayerController2D : MonoBehaviour
             if (FireOneBullet.instance.bulletRef != null || _stunDetection.IsC2DActive)
             {
                 _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallHaut);
-                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas);
+                _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.walkNoBallBas, -1, _recallBullet.doRecall ? slowSpeed / accelerationSpeed : 1);
             }
             else
             {
