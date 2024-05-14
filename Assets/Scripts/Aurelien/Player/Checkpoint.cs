@@ -5,14 +5,18 @@ using UnityEngine.InputSystem;
 public class Checkpoint : MonoBehaviour
 {
     private static bool canActiveCheckpoint;
+    
     private static Checkpoint currentPos;
+    
     [SerializeField] private float timeActiveCheckpoint = 2;
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             canActiveCheckpoint = true;
+            
             currentPos = GetComponent<Checkpoint>();
         }
     }
@@ -20,7 +24,9 @@ public class Checkpoint : MonoBehaviour
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
+        {
             canActiveCheckpoint = false;
+        }
     }
 
     public void ActiveCheckpoint(InputAction.CallbackContext context)
