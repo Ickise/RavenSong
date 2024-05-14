@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 public class Checkpoint : MonoBehaviour
 {
@@ -10,20 +9,12 @@ public class Checkpoint : MonoBehaviour
     private static Checkpoint currentPos;
     
     [SerializeField] private float timeActiveCheckpoint = 2;
-
-    private Image interactionSprite;
-
-    private void Awake()
-    {
-        interactionSprite = GetComponentInChildren<Image>();
-        interactionSprite.enabled = false;
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            interactionSprite.enabled = true;
             canActiveCheckpoint = true;
             
             currentPos = GetComponent<Checkpoint>();
@@ -34,7 +25,6 @@ public class Checkpoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            interactionSprite.enabled = false;
             canActiveCheckpoint = false;
         }
     }
