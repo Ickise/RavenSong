@@ -94,7 +94,7 @@ public class RecallBullet : MonoBehaviour
             visualEffectTrailRecall.SetVector3("Ball_Position",
                 _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
-
+            bulletRigidbody.constraints = RigidbodyConstraints2D.None;
             if (timer > delay)
             {
                 RecallAmmo();
