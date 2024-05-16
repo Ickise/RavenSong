@@ -381,9 +381,4 @@ public class PlayerController2D : MonoBehaviour
         yield return new WaitForSeconds(coolDownToRoll);
         canRoll = true;
     }
-
-    private void OnDisable()
-    {
-        canRoll = true;
-    }
 }

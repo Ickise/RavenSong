@@ -12,7 +12,7 @@ public class SpineAim : MonoBehaviour
     private List<Bone> boneAim = new List<Bone>();
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
-    [SerializeField] private bool isManette, enableAimLine = true;
+    [SerializeField] private bool isManette;
     public GameObject aimLineDroite, aimLineGauche;
     Vector3 localPosDroite, localPosGauche;
     public static bool manette;
@@ -45,11 +45,9 @@ public class SpineAim : MonoBehaviour
             }
             return;
         }
-        if (enableAimLine)
-        {
-            aimLineDroite.SetActive(_playerAnimation.GetDirection);
-            aimLineGauche.SetActive(!_playerAnimation.GetDirection);
-        }
+
+        aimLineDroite.SetActive(_playerAnimation.GetDirection);
+        aimLineGauche.SetActive(!_playerAnimation.GetDirection);
 
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
         if (manette && InputReader.instance.manetteDirection != Vector3.zero)
