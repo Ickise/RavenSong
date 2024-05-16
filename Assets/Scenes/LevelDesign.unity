@@ -200614,6 +200614,7 @@ GameObject:
   - component: {fileID: 2143336783276167011}
   - component: {fileID: 6397403591570249731}
   - component: {fileID: 8159473205061355945}
+  - component: {fileID: 8159473205061355946}
   m_Layer: 6
   m_Name: Pente
   m_TagString: Untagged
@@ -211788,7 +211789,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822226428985032877, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_RootOrder
@@ -211840,7 +211841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703477, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -221608,6 +221609,7 @@ GameObject:
   - component: {fileID: 4799463084759364768}
   - component: {fileID: 9101615993557223550}
   - component: {fileID: 8805636810076106389}
+  - component: {fileID: 9101615993557223551}
   m_Layer: 6
   m_Name: Pente (1)
   m_TagString: Untagged
@@ -222440,7 +222442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7822226428985032877, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703474, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_RootOrder
@@ -222492,7 +222494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8888719148359703477, guid: 4ac33ce1fbb11c848b22e2d622f786fc, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -228164,6 +228166,18 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
+--- !u!114 &8159473205061355946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 806482418934256023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a664d64385277c4f8613d104a0d9e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &8160909557567987585
 Transform:
   m_ObjectHideFlags: 0
@@ -232051,6 +232065,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9101615993557223551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6285546993665067911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a664d64385277c4f8613d104a0d9e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9107959917676007099
 GameObject:
   m_ObjectHideFlags: 0
