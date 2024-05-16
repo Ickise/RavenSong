@@ -5,7 +5,8 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
-    [SerializeField] private GhostTrail _ghostTrail;
+    private GhostTrail _ghostTrail;
+
      public bool isFalling;
     [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
 
@@ -97,6 +98,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _ghostTrail = GetComponent<GhostTrail>();
         _stunDetection = GetComponentInChildren<StunDetection>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
