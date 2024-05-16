@@ -58,7 +58,6 @@ public class RecallBullet : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(onRecall);
         delay = GetDelayBeforeMove();
 
         LaunchRecall();
