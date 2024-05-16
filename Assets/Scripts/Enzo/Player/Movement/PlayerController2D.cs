@@ -346,10 +346,7 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-
-        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
-            new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
-                posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
+        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade);
         AudioManager.instance.PlaySound(rollsound);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)

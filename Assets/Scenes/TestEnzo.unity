@@ -43576,6 +43576,11 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!4 &478044082 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8379932846165081690, guid: 22e077090d96080488a155c8050ba547, type: 3}
+  m_PrefabInstance: {fileID: 1954099879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &479110566
 GameObject:
   m_ObjectHideFlags: 0
@@ -189512,6 +189517,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5055276780714077062, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_Name
+      value: PositionVFXJump
+      objectReference: {fileID: 0}
+    - target: {fileID: 5055276780714077062, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Layer
       value: 2
       objectReference: {fileID: 0}
@@ -189759,6 +189768,10 @@ PrefabInstance:
       propertyPath: gravityFactor
       value: 1.9
       objectReference: {fileID: 0}
+    - target: {fileID: 8012276900402190899, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: posVFXRoulade
+      value: 
+      objectReference: {fileID: 478044082}
     - target: {fileID: 8052073124967544687, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_Layer
       value: 2
@@ -189792,7 +189805,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4555221340981118898, guid: 22e077090d96080488a155c8050ba547, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5070513739195827676, guid: 22e077090d96080488a155c8050ba547, type: 3}
       insertIndex: -1
