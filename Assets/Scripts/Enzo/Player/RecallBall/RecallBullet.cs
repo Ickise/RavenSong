@@ -19,7 +19,7 @@ public class RecallBullet : MonoBehaviour
     private Vector2 distanceAmmoPlayer;
 
     [HideInInspector] public bool doRecall;
-    [HideInInspector] public bool onRecall;
+    [HideInInspector] public static bool onRecall;
     private bool isGoodDistance;
 
     private PlayerAnimation _playerAnimation;
@@ -60,7 +60,6 @@ public class RecallBullet : MonoBehaviour
     {
         delay = GetDelayBeforeMove();
 
-
         LaunchRecall();
 
 
@@ -73,6 +72,8 @@ public class RecallBullet : MonoBehaviour
         if (onRecall && bulletRigidbody != null)
         {
             bulletRigidbody.velocity = direction.normalized * speedBulletRecall;
+
+            bulletRigidbody.constraints = RigidbodyConstraints2D.None;
 
             GetBulletToReload();
         }
@@ -94,7 +95,7 @@ public class RecallBullet : MonoBehaviour
             visualEffectTrailRecall.SetVector3("Ball_Position",
                 _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
-
+//              bulletRigidbody.constraints = RigidbodyConstraints2D.None;
             if (timer > delay)
             {
                 RecallAmmo();
