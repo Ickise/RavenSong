@@ -12,6 +12,8 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public bool activateAim = false;
     [HideInInspector] public bool canStun;
     [HideInInspector] public bool canDown;
+    public int lastDirection;
+
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
@@ -20,11 +22,13 @@ public class InputReader : MonoBehaviour
     public static InputReader instance;
     private StunDetection _stunDetection;
     [HideInInspector] public Vector3 manetteDirection;
+    private PlayerAnimation _playerAnimation;
 
     private void Awake()
     {
         //get tous les components
         instance = this;
+        _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _stunDetection = GetComponentInChildren<StunDetection>();
     }
 
@@ -32,6 +36,11 @@ public class InputReader : MonoBehaviour
     {
         if (context.started || context.ReadValue<Vector2>() == direction) return;
         direction = context.ReadValue<Vector2>();
+
+        if (context.performed)
+        {
+            lastDirection = Mathf.RoundToInt(direction.x);
+        }
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -52,9 +61,16 @@ public class InputReader : MonoBehaviour
         if (_stunDetection.IsC2DActive || DOTween.IsTweening("roll"))
             return;
         onFire.Invoke(context);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.none, 0);
     }
 
-    public void OnAim(InputAction.CallbackContext context) => activateAim = context.performed;
+    public void ActivateAim(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            activateAim = !activateAim;
+        }
+    }
 
     public void OnCrossKick(InputAction.CallbackContext context)
     {

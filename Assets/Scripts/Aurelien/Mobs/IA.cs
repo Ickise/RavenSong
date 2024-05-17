@@ -71,7 +71,7 @@ public abstract class IA : MonoBehaviour
         tailleMob.x *= 0.7f;
         tailleMob.y += 0.1f;
         currentSpeedMovement = speedBalader;
-        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide");
+        layerDefault = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("IADontCollide") | LayerMask.GetMask("PlayerDontCollide") | LayerMask.GetMask("Escalier");
         layerDetectPlayer = LayerMask.GetMask("Default") | LayerMask.GetMask("Ground") | LayerMask.GetMask("Player") | LayerMask.GetMask("IADontCollide");
         player = GameObject.FindGameObjectWithTag("Player").transform;
         VFXStun.Stop();
@@ -190,5 +190,10 @@ public abstract class IA : MonoBehaviour
         }
         if (!drawCirclesDetectioninEditor) return;
         Gizmos.DrawWireSphere(transform.position, distancePlayerDetection);
+    }
+
+    private void OnDisable()
+    {
+        ControlsParameter.GamePadVibration(PlayerController2D._instance, 0.3f, 0.3f, 0.4f);
     }
 }

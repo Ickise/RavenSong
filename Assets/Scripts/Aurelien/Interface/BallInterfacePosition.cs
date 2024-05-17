@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class BallInterfacePosition : MonoBehaviour
 {
     [SerializeField] private FireOneBullet _gun;
+    [SerializeField, Tooltip("A quel point l'indicateur est proche du joueur")]
+    private float indicatorScaleOnScreen = 0.97f;
     private Camera cam;
     private Vector3 DLWP, ULWP, DRWP, URWP;
     private List<Vector3> screenAngles = new List<Vector3>();
@@ -28,18 +30,6 @@ public class BallInterfacePosition : MonoBehaviour
 
     private void Indicator()
     {
-        // foreach (var ammoSprite in _gun.AmmoRefsDico)
-        // {
-        //     if (!IsOnScreen(ammoSprite.Key.transform.position))
-        //     {
-        //         var intersectionAmmo = CalculeIntersectionSegments(ammoSprite.Key.transform.position);
-        //         ammoSprite.Value.gameObject.SetActive(true);
-        //         ammoSprite.Value.transform.position = intersectionAmmo;
-        //         ammoSprite.Value.transform.localScale = 10f / Vector2.Distance(_gun.transform.position, ammoSprite.Key.transform.position) * Vector3.one;
-        //     }
-        //     else
-        //         ammoSprite.Value.gameObject.SetActive(false);
-        // }
         Transform bullet = _gun.bulletRef.transform;
         if (!IsOnScreen(bullet.position))
         {
@@ -55,10 +45,10 @@ public class BallInterfacePosition : MonoBehaviour
 
     private void SetViewportToWorldPoints()
     {
-        DLWP = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        ULWP = cam.ViewportToWorldPoint(new Vector3(0, 1, cam.nearClipPlane));
-        URWP = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
-        DRWP = cam.ViewportToWorldPoint(new Vector3(1, 0, cam.nearClipPlane));
+        DLWP = cam.ViewportToWorldPoint(new Vector3(0, 0, -cam.transform.position.z * indicatorScaleOnScreen));
+        ULWP = cam.ViewportToWorldPoint(new Vector3(0, 1, -cam.transform.position.z * indicatorScaleOnScreen));
+        URWP = cam.ViewportToWorldPoint(new Vector3(1, 1, -cam.transform.position.z * indicatorScaleOnScreen));
+        DRWP = cam.ViewportToWorldPoint(new Vector3(1, 0, -cam.transform.position.z * indicatorScaleOnScreen));
         screenAngles = new List<Vector3>() { DLWP, ULWP, URWP, DRWP, DLWP };
     }
 

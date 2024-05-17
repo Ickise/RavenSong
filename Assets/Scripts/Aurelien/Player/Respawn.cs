@@ -2,13 +2,14 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using XInputDotNetPure;
 
 public class Respawn : MonoBehaviour
 {
-    [SerializeField, Header("TimeToDoShader")] private float shaderTime = 1f;
+    [SerializeField, Header("TimeToDoShader")]
+    private float shaderTime = 1f;
 
-    [SerializeField, Header("DeathPrefab")] private GameObject corvusDeathEffectSprite;
+    [SerializeField, Header("DeathPrefab")]
+    private GameObject corvusDeathEffectSprite;
 
     private Scene currentScene;
 
@@ -26,11 +27,11 @@ public class Respawn : MonoBehaviour
 
     public static Vector2 spawnPosition;
     public static bool checkPoint;
-    PlayerIndex playerIndex;
-    GamePadState gamePadState, prevState;
 
     private void Awake()
     {
+        death = false;
+        
         if (checkPoint) return;
 
         FirstSpawn();
@@ -39,6 +40,7 @@ public class Respawn : MonoBehaviour
     private void Start()
     {
         spawn = true;
+        ControlsParameter.GamePadVibration(this, 0f, 0f, 0f);
         playerInput = PlayerController2D._instance.transform.GetComponent<PlayerInput>();
         playerInput.enabled = false;
         meshRenderer = PlayerController2D._instance.transform.GetComponentInChildren<PlayerAnimation>().transform;
@@ -77,15 +79,17 @@ public class Respawn : MonoBehaviour
             currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         }
-        else if (death) return;
+        else if (death)
+        {
+            return;
+        }
 
         Death();
     }
 
     private void Death()
     {
-        if (ControlsParameter.controllerVibration)
-            GamePad.SetVibration(playerIndex, 0.5f, 0.5f);
+        ControlsParameter.GamePadVibration(this, 0.4f, 0.4f, 0.8f);
         playerInput.enabled = false;
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
@@ -102,11 +106,8 @@ public class Respawn : MonoBehaviour
         DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
             .OnComplete(() =>
             {
-                if (ControlsParameter.controllerVibration)
-                    GamePad.SetVibration(playerIndex, 0, 0);
                 currentScene = SceneManager.GetActiveScene();
                 SceneManager.LoadScene(currentScene.name);
-                death = false;
             });
     }
 
