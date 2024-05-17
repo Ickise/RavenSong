@@ -39,7 +39,7 @@ public class GhostTrail : MonoBehaviour
 
     private void Update()
     {
-        if (timer >= PlayerController2D._instance.rouladeTime) return;
+        if (timer >= PlayerController2D._instance.DashTime) return;
 
         LaunchTimer();
         CreateGhost();

@@ -47,7 +47,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Rool")] public float rouladeTime = 0.7f;
+    [Header("Rool")] private float rouladeTime = 0.7f;
     [SerializeField] private float speedRoulade = 6f;
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
@@ -79,6 +79,8 @@ public class PlayerController2D : MonoBehaviour
     {
         get { return _playerAnimation.GetDirection ? 1 : -1; }
     }
+
+    public float DashTime => rouladeTime;
 
     public int LastDirection { get; set; } = 1;
 
