@@ -64,9 +64,8 @@ public class PlayerController2D : MonoBehaviour
     private FootTriggerPlatform _footTriggerPlatform;
 
     [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
-    [SerializeField] private GameObject VFXRoulade, VFXJump;
+    [SerializeField] private GameObject VFXJump;
 
-    [SerializeField] private Transform posVFXRoulade;
     [SerializeField] private Transform posVFXJump;
 
     private float hangTimeCounter;
@@ -353,7 +352,6 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade);
         AudioManager.instance.PlaySound(rollsound);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
