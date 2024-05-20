@@ -30,15 +30,23 @@ public class AudioManager : MonoBehaviour
 
         mainAudioSource.PlayOneShot(SetAudioParameters(data).AudioToPlay);
     }
-    
-    public void StopSound()
+
+    public void StopSound(AudioSource specifiedAudioSource = null)
     {
-        mainAudioSource.Stop();
+        if (specifiedAudioSource == null)
+            mainAudioSource.Stop();
+        else specifiedAudioSource.Stop();
     }
 
     public void PlayRandomSound(SoundData[] listOfSoundData)
     {
         SoundData randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
+
+        if (randomClip == null)
+        {
+            Debug.LogWarning("sound data is not referenced");
+            return;
+        }
 
         PlaySound(randomClip);
     }
@@ -52,6 +60,17 @@ public class AudioManager : MonoBehaviour
 
         mainAudioSource.clip = SetAudioParameters(data).AudioToPlay;
         mainAudioSource.Play();
+    }
+
+    public void PlayMusicOnSpecifiedAudioSource(SoundData data, AudioSource audioSource)
+    {
+        if (data == null)
+            return;
+        if (audioSource.isPlaying && audioSource.clip == data)
+            return;
+
+        audioSource.clip = SetAudioParameters(data).AudioToPlay;
+        audioSource.Play();
     }
 
     private SoundData SetAudioParameters(SoundData soundData)

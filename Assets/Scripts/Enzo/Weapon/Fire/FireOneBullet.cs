@@ -16,7 +16,7 @@ public class FireOneBullet : MonoBehaviour
 
     [SerializeField] private Transform leftPositionToLook;
 
-    [SerializeField, Header("ShootData")] private SoundData shootAudio;
+    [SerializeField, Header("ShootData")] private SoundData[] shootsAudio;
 
     [Header("NumberOfAmmo"), Range(0f, 1f)]
     public int numberOfAmmo = 1;
@@ -47,7 +47,7 @@ public class FireOneBullet : MonoBehaviour
         if (numberOfAmmo == 1)
         {
             currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;
-            AudioManager.instance.PlaySound(shootAudio);
+            AudioManager.instance.PlayRandomSound(shootsAudio);
             ControlsParameter.GamePadVibration(this, 0.1f, 0.1f, 0.1f);
 
             bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));

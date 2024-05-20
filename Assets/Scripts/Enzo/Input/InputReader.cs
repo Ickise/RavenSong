@@ -21,7 +21,12 @@ public class InputReader : MonoBehaviour
 
     public static InputReader instance;
     private StunDetection _stunDetection;
+    private AudioSource audioSource;
     [HideInInspector] public Vector3 manetteDirection;
+    [SerializeField, Header("Sound")] private SoundData runSound;
+    [SerializeField] private SoundData runSoundEcho;
+    [SerializeField] private SoundData runSoundCatha;
+    private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
 
     private void Awake()
@@ -30,6 +35,8 @@ public class InputReader : MonoBehaviour
         instance = this;
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _stunDetection = GetComponentInChildren<StunDetection>();
+        audioSource = GetComponent<AudioSource>();
+        currentRunSound = runSound;
     }
 
     public void OnMovement(InputAction.CallbackContext context)
@@ -39,8 +46,11 @@ public class InputReader : MonoBehaviour
 
         if (context.performed)
         {
+            AudioManager.instance.PlayMusicOnSpecifiedAudioSource(currentRunSound, audioSource);
             lastDirection = Mathf.RoundToInt(direction.x);
         }
+        else
+            AudioManager.instance.StopSound(audioSource);
     }
 
     public void OnJump(InputAction.CallbackContext context)

@@ -29,8 +29,9 @@ public class PlayerController2D : MonoBehaviour
     [Header("Jump")][SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
-    [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
-    [SerializeField] private SoundData rollsound;
+    [SerializeField, Header("Sound")] private SoundData[] jumpSounds;
+    [SerializeField] private SoundData[] jumpEchoSounds;
+    [SerializeField] private SoundData[] rollSounds;
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
@@ -269,7 +270,7 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             VFXInstantieur.instance.PlayVFXInWorld(VFXJump, posVFXJump);
-            AudioManager.instance.PlayRandomSound(jumpsoundlist);
+            AudioManager.instance.PlayRandomSound(jumpSounds);
             hangTimeCounter = 0f;
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
@@ -350,7 +351,7 @@ public class PlayerController2D : MonoBehaviour
         VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
             new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
                 posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
-        AudioManager.instance.PlaySound(rollsound);
+        AudioManager.instance.PlayRandomSound(rollSounds);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
             .SetId("roll")
