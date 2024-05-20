@@ -47,7 +47,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Rool")][SerializeField] private float rouladeTime = 0.7f;
+    [Header("Rool")] private float rouladeTime = 0.7f;
     [SerializeField] private float speedRoulade = 6f;
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
@@ -64,9 +64,8 @@ public class PlayerController2D : MonoBehaviour
     private FootTriggerPlatform _footTriggerPlatform;
 
     [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
-    [SerializeField] private GameObject VFXRoulade, VFXJump;
+    [SerializeField] private GameObject VFXJump;
 
-    [SerializeField] private Transform posVFXRoulade;
     [SerializeField] private Transform posVFXJump;
 
     private float hangTimeCounter;
@@ -79,6 +78,8 @@ public class PlayerController2D : MonoBehaviour
     {
         get { return _playerAnimation.GetDirection ? 1 : -1; }
     }
+
+    public float DashTime => rouladeTime;
 
     public int LastDirection { get; set; } = 1;
 
@@ -351,7 +352,6 @@ public class PlayerController2D : MonoBehaviour
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade);
         AudioManager.instance.PlaySound(rollsound);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
