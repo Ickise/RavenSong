@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8271778199473928751}
   - component: {fileID: 8701902283021698083}
   - component: {fileID: 3320292156929152473}
+  - component: {fileID: 584352363529616347}
   m_Layer: 6
   m_Name: Pente
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8701902283021698083
 SpriteRenderer:
@@ -135,3 +136,15 @@ PolygonCollider2D:
       - {x: 0.5, y: -0.5}
       - {x: 0.5, y: 0.5}
   m_UseDelaunayMesh: 0
+--- !u!114 &584352363529616347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5248084344662346895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a664d64385277c4f8613d104a0d9e39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

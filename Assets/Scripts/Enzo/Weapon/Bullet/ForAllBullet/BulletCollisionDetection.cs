@@ -111,8 +111,8 @@ public class BulletCollisionDetection : MonoBehaviour
     {
         bulletCollider.enabled = isEnable;
         bulletRigidbody2D.isKinematic = !bulletCollider.enabled;
-        if (isEnable)
-            bulletRigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+     //   if (isEnable)
+       //     bulletRigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
     private void GetAndSetComponent()
