@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
-     public bool isFalling;
+    public bool isFalling;
     [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -51,6 +51,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
     [SerializeField] private AnimationCurve animationCurveDash;
+    public float DashTime => rouladeTime;
     private float rollTime = 0;
     private Rigidbody2D playerRigidbody2D;
 
@@ -63,9 +64,8 @@ public class PlayerController2D : MonoBehaviour
     private FootTriggerPlatform _footTriggerPlatform;
 
     [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
-    [SerializeField] private GameObject VFXRoulade, VFXJump;
+    [SerializeField] private GameObject VFXJump;
 
-    [SerializeField] private Transform posVFXRoulade;
     [SerializeField] private Transform posVFXJump;
 
     private float hangTimeCounter;
@@ -348,9 +348,6 @@ public class PlayerController2D : MonoBehaviour
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
 
-        VFXInstantieur.instance.PlayVFXInWorld(VFXRoulade, posVFXRoulade.position,
-            new Vector3(posVFXRoulade.localScale.x * LastDirection, posVFXRoulade.localScale.y,
-                posVFXRoulade.localScale.z), VFXRoulade.transform.eulerAngles);
         AudioManager.instance.PlayRandomSound(rollSounds);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
