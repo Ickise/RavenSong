@@ -5,9 +5,7 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
-    private GhostTrail _ghostTrail;
-
-     public bool isFalling;
+    public bool isFalling;
     [Header("Movements")][SerializeField] private float accelerationSpeed = 2f;
 
     [SerializeField] private float slowSpeed = 0.1f;
@@ -31,8 +29,9 @@ public class PlayerController2D : MonoBehaviour
     [Header("Jump")][SerializeField] private float gravityFactor = 1f;
     // private float currentGravity;
 
-    [SerializeField, Header("Sound")] private SoundData[] jumpsoundlist;
-    [SerializeField] private SoundData rollsound;
+    [SerializeField, Header("Sound")] private SoundData[] jumpSounds;
+    [SerializeField] private SoundData[] jumpEchoSounds;
+    [SerializeField] private SoundData[] rollSounds;
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
@@ -47,11 +46,12 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
 
-    [Header("Rool")] private float rouladeTime = 0.7f;
+    [Header("Rool")][SerializeField] private float rouladeTime = 0.7f;
     [SerializeField] private float speedRoulade = 6f;
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
     [SerializeField] private AnimationCurve animationCurveDash;
+    public float DashTime => rouladeTime;
     private float rollTime = 0;
     private Rigidbody2D playerRigidbody2D;
 
@@ -79,8 +79,6 @@ public class PlayerController2D : MonoBehaviour
         get { return _playerAnimation.GetDirection ? 1 : -1; }
     }
 
-    public float DashTime => rouladeTime;
-
     public int LastDirection { get; set; } = 1;
 
     private Vector2 playerVelocity;
@@ -99,7 +97,6 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
-        _ghostTrail = GetComponent<GhostTrail>();
         _stunDetection = GetComponentInChildren<StunDetection>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
@@ -273,7 +270,7 @@ public class PlayerController2D : MonoBehaviour
         if (!InputReader.instance.canDown)
         {
             VFXInstantieur.instance.PlayVFXInWorld(VFXJump, posVFXJump);
-            AudioManager.instance.PlayRandomSound(jumpsoundlist);
+            AudioManager.instance.PlayRandomSound(jumpSounds);
             hangTimeCounter = 0f;
             playerVelocity.y = Mathf.Sqrt(-2 * maxHeight * Physics2D.gravity.y * gravityFactor);
         }
@@ -345,14 +342,13 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
-        _ghostTrail.enabled = true;
-        
         _playerAnimation.FlipAnimation(LastDirection > 0);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashHaut);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
         // Vector2 slopNormalPerp = Vector2.Perpendicular(_raycastDetection.IsGrounded.normal).normalized;
         // slopNormalPerp.x = -Mathf.Abs(slopNormalPerp.x);
-        AudioManager.instance.PlaySound(rollsound);
+
+        AudioManager.instance.PlayRandomSound(rollSounds);
         rollTime = 0;
         DOTween.To(() => rollTime, x => rollTime = x, 1f, rouladeTime)
             .SetId("roll")
@@ -379,7 +375,6 @@ public class PlayerController2D : MonoBehaviour
 
     IEnumerator RollCoolDown()
     {
-        _ghostTrail.enabled = false;
         canRoll = false;
         yield return new WaitForSeconds(coolDownToRoll);
         canRoll = true;
