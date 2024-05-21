@@ -13,6 +13,8 @@ public class RecallBullet : MonoBehaviour
     [SerializeField] private GameObject vfxTrailRecall;
     private VisualEffect visualEffectTrailRecall;
 
+    [Header("Sounds")]
+    [SerializeField] private SoundData magnetism;
     private Rigidbody2D bulletRigidbody;
 
     private Vector2 direction;
@@ -95,7 +97,7 @@ public class RecallBullet : MonoBehaviour
             visualEffectTrailRecall.SetVector3("Ball_Position",
                 _bulletCollisionDetection.transform.position - vfxTrailRecall.transform.position);
             timer += Time.deltaTime;
-//              bulletRigidbody.constraints = RigidbodyConstraints2D.None;
+            //              bulletRigidbody.constraints = RigidbodyConstraints2D.None;
             if (timer > delay)
             {
                 RecallAmmo();
@@ -165,20 +167,28 @@ public class RecallBullet : MonoBehaviour
             timer = 0;
             doRecall = true;
 
-            //tous les feedbacks qui montrent qu'on att le recall, en faire une fonction
-            vfxTrailRecall.SetActive(true);
-            if (_playerAnimation.GetDirection)
-                vfxRecallBulletDroite.SetActive(true);
-            else
-                vfxRecallBulletGauche.SetActive(true);
-            _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,
-                8f / Vector2.Distance(bulletRigidbody.transform.position, transform.position));
+            FeedBackRecall();
         }
 
         if (context.canceled)
         {
             CancelRecall();
         }
+    }
+
+    private void FeedBackRecall()
+    {
+        float distancePlayerBullet = Vector2.Distance(bulletRigidbody.transform.position, transform.position);
+
+        AudioManager.instance.PlaySound(magnetism, magnetism.AudioToPlay.length / (distancePlayerBullet/3f));
+
+        vfxTrailRecall.SetActive(true);
+        if (_playerAnimation.GetDirection)
+            vfxRecallBulletDroite.SetActive(true);
+        else
+            vfxRecallBulletGauche.SetActive(true);
+        _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.recallHaut, -1,
+            8f / distancePlayerBullet);
     }
 
     private void CancelRecall()
