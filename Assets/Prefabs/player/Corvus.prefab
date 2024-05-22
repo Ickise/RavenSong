@@ -1004,6 +1004,7 @@ MonoBehaviour:
   onFire:
     m_PersistentCalls:
       m_Calls: []
+  audioSourceWalk: {fileID: 0}
   manetteDirection: {x: 0, y: 0, z: 0}
   runSound: {fileID: 11400000, guid: a5ec6915de94ded49bdc4ec8752ed943, type: 2}
   runSoundEcho: {fileID: 11400000, guid: ab09268f93a020e4bb93bcefe634b54f, type: 2}
@@ -1039,9 +1040,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aade66bc52a53b246ac9ca19a0aea18e, type: 2}
   rollSounds:
   - {fileID: 11400000, guid: e0d8f1a5bd1801c4a86b2bcaf389bfa8, type: 2}
+  landingSound: {fileID: 11400000, guid: 01707ff13fbbcc444933f17ca1062177, type: 2}
   maxHeight: 3
   hangTime: 0.1
   fallMultiplier: 3
+  minimumFallSpeedForFeedback: 14
   lowJumpMultiplier: 2
   rouladeTime: 0.7
   speedRoulade: 6
@@ -1237,7 +1240,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

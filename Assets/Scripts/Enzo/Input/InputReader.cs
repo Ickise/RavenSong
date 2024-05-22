@@ -20,8 +20,8 @@ public class InputReader : MonoBehaviour
     public UnityEvent<InputAction.CallbackContext> onFire = new();
 
     public static InputReader instance;
+    public AudioSource audioSourceWalk;
     private StunDetection _stunDetection;
-    private AudioSource audioSource;
     [HideInInspector] public Vector3 manetteDirection;
     [SerializeField, Header("Sound")] private SoundData runSound;
     [SerializeField] private SoundData runSoundEcho;
@@ -35,7 +35,7 @@ public class InputReader : MonoBehaviour
         instance = this;
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _stunDetection = GetComponentInChildren<StunDetection>();
-        audioSource = GetComponent<AudioSource>();
+        audioSourceWalk = GetComponent<AudioSource>();
         currentRunSound = runSound;
     }
 
@@ -46,11 +46,11 @@ public class InputReader : MonoBehaviour
 
         if (context.performed)
         {
-            AudioManager.instance.PlayMusicOnSpecifiedAudioSource(currentRunSound, audioSource);
+            AudioManager.instance.PlayMusicOnSpecifiedAudioSource(currentRunSound, audioSourceWalk);
             lastDirection = Mathf.RoundToInt(direction.x);
         }
         else
-            AudioManager.instance.StopSound(audioSource);
+            AudioManager.instance.StopSound(audioSourceWalk);
     }
 
     public void OnJump(InputAction.CallbackContext context)
