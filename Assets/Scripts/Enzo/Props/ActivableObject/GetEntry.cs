@@ -4,14 +4,30 @@ using UnityEngine.UI;
 
 public class GetEntry : MonoBehaviour
 {
-    [SerializeField] private EntryData _entryData;
+    [SerializeField, Header("ScriptableObject"),
+     Tooltip(
+         "Il faut mettre le ScriptableObject EntryData de l'Entry que nous voulons faire débloquer au joueur via cet objet")]
+    private EntryData _entryData;
 
-    [SerializeField] private TextMeshProUGUI buttonTitleToUpdate;
-    [SerializeField] private TextMeshProUGUI titleToUpdate;
-    [SerializeField] private TextMeshProUGUI descriptionToUpdate;
-    [SerializeField] private TextMeshProUGUI moreDescriptionToUpdate;
-    
-    [SerializeField] private Image spriteToUpdate;
+    [SerializeField, Header("Text"),
+     Tooltip("Il faut mettre le Text du Button du Bestiaire dont nous voulons changer le titre")]
+    private TextMeshProUGUI buttonTitleToUpdate;
+
+    [SerializeField,
+     Tooltip("Il faut mettre le Text du Titre de la page du monstre du Bestiaire dont nous voulons changer le titre")]
+    private TextMeshProUGUI titleToUpdate;
+
+    [SerializeField,
+     Tooltip("Il faut mettre la Description de la page du monstre du Bestiaire dont nous voulons changer le texte")]
+    private TextMeshProUGUI descriptionToUpdate;
+
+    [SerializeField,
+     Tooltip(
+         "Il faut mettre la Description supplémentaire de la page du monstre du Bestiaire dont nous voulons changer le texte")]
+    private TextMeshProUGUI moreDescriptionToUpdate;
+
+    [SerializeField, Header("Image"), Tooltip("Il faut l'Image de la page du monstre du Bestiaire dont nous voulons changer le visuel")]
+    private Image spriteToUpdate;
 
     public void UpdateEntry()
     {

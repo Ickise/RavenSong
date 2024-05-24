@@ -5,8 +5,11 @@ using UnityEngine.UI;
 
 public class ShowMakeInteraction : MonoBehaviour
 {
-    [SerializeField] private float timeToInteract;
-    
+    [SerializeField, Header("Time"),
+     Tooltip(
+         "Ce float permet de changer le temps où il faut maintenir la touche pour interagir avec l'objet et lancer l'interaction")]
+    private float timeToInteract = 1f;
+
     private Image interactionSprite;
 
     public UnityEvent onInteraction = new UnityEvent();
@@ -22,7 +25,7 @@ public class ShowMakeInteraction : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             interactionSprite.enabled = true;
-            
+
             if (InputReader.instance.canInteract)
             {
                 StartCoroutine(HoldActive());
@@ -42,7 +45,7 @@ public class ShowMakeInteraction : MonoBehaviour
             InputReader.instance.canInteract = false;
         }
     }
-    
+
     private IEnumerator HoldActive()
     {
         yield return new WaitForSeconds(timeToInteract);

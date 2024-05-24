@@ -1,9 +1,10 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PauseController : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseMenu;
+    [SerializeField, Header("Canvas"), Tooltip("Il faut mettre le GameObject InventoryMenu du Canvas PauseMenuCanvas")]
+    private GameObject pauseMenu;
+
     [SerializeField] private GameObject pauseFirstButton, optionsFirstButton, optionsClosedButton;
 
     public static PauseController _instance;
