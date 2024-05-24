@@ -12,6 +12,8 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public bool activateAim = false;
     [HideInInspector] public bool canStun;
     [HideInInspector] public bool canDown;
+    [HideInInspector] public bool canInteract;
+
     public int lastDirection;
 
     public bool DontJump { private get; set; }
@@ -28,7 +30,7 @@ public class InputReader : MonoBehaviour
     [SerializeField] private SoundData runSoundCatha;
     private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
-
+    
     private void Awake()
     {
         //get tous les components
@@ -93,6 +95,26 @@ public class InputReader : MonoBehaviour
     public void OnRoll(InputAction.CallbackContext context)
     {
         if (context.started) PlayerController2D._instance.Roll();
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            PauseController._instance.PauseUnPause();
+        }
+    }
+    
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            canInteract = true;
+        }
+        else if (context.canceled)
+        {
+            canInteract = false;
+        }
     }
 
     public void ManetteDirection(InputAction.CallbackContext context)

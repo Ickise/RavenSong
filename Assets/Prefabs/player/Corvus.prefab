@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237967857555162655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 1.154701, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,11 +137,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 9.7
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5.5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -977,6 +977,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7f876dd3-8626-45a5-a905-0bb8d18efa72
     m_ActionName: Player/ActivateAim[/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5a8a580e-23d8-4836-ab48-8a06477bc88d
+    m_ActionName: Player/Pause[/XInputControllerWindows/start,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce1c4829-686a-4989-938b-c48988e026da
+    m_ActionName: Player/Interaction[/XInputControllerWindows/buttonNorth,/DualShock4GamepadHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1000,6 +1032,7 @@ MonoBehaviour:
   activateAim: 0
   canStun: 0
   canDown: 0
+  canInteract: 0
   lastDirection: 0
   onFire:
     m_PersistentCalls:
@@ -1842,7 +1875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4302107771420068065}
   m_LocalRotation: {x: -0, y: -0, z: -0.9582356, w: 0.28598005}
-  m_LocalPosition: {x: -0.42901278, y: 0.44977462, z: 0}
+  m_LocalPosition: {x: -0.42901278, y: 0.4497745, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1926,7 +1959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.28691673, y: 0.4074632, z: 0}
+  m_LocalPosition: {x: -0.28691673, y: 0.4074633, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

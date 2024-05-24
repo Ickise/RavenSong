@@ -161,7 +161,7 @@ public class PlayerController2D : MonoBehaviour
             canjump = true;
 
         ModularMovement();
-        print(playerVelocity.y);
+//        print(playerVelocity.y);
         playerRigidbody2D.velocity = playerVelocity;
         Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
 
