@@ -5,6 +5,7 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 {
     [SerializeField, Header("IaCorpsePrefab")]
     private GameObject iaCorpsePrefab;
+    [SerializeField] private GameObject VFXDeath;
 
     private OnBulletHit _onBulletHit;
 
@@ -20,6 +21,7 @@ public class InstantiateEnemyCorpse : MonoBehaviour
 
     private void OnBulletHit(GameObject bullet)
     {
+        VFXInstantieur.instance.PlayVFXInWorld(VFXDeath, transform, 3);
         Instantiate(iaCorpsePrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

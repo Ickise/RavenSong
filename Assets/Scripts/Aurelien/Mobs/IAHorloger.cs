@@ -9,8 +9,8 @@ public class IAHorloger : IA
     [SerializeField, Tooltip("le temps entre le moment ou il voit le joueur et il commence à le charger")] private float beforeChargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
     public bool IsAttacking => cd2Datk.enabled;
-    [SerializeField] private GameObject VFXBonk, VFXCourse, VFXCourseEtincel;
-    [SerializeField] private Transform posVFXBonk, posVFXCourse, posVFXCourseEtincel;
+    [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel;
+    [SerializeField] private Transform posVFXBonk, posVFXImpactMetalBall, posVFXCourse, posVFXCourseEtincel;
     private OnBulletHit _onBulletHit;
     private bool isReloading;
     private State state;
@@ -136,5 +136,10 @@ public class IAHorloger : IA
     {
         if (other.CompareTag("Player"))
             player.GetComponent<Respawn>().RespawnPlayer();
+    }
+
+    public void PlayVFXImpactMetalBall()
+    {
+        VFXInstantieur.instance.PlayVFXInWorld(VFXImpactMetalBall, posVFXImpactMetalBall);
     }
 }
