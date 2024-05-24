@@ -1,0 +1,10 @@
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "ScriptableObjects/Entry/EntryData", order = 1)]
+public class EntryData : ScriptableObject
+{
+  public string entryTitle;
+  [TextArea(1,50)] public string entryDescription;
+  [TextArea(1,50)] public string entryMoreDescription;
+  public Sprite entryVisual;
+}

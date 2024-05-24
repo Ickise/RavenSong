@@ -77,6 +77,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.8, y: 1.15}
   m_EdgeRadius: 0
+--- !u!1 &1124160338636344278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1074379668382298469}
+  m_Layer: 0
+  m_Name: posVFX metal impact ball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1074379668382298469
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1124160338636344278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.68, y: 0.097, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 8888719148359703474}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1255228123557514334
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,6 +361,7 @@ Transform:
   - {fileID: 8359047937202411529}
   - {fileID: 7092099576130364733}
   - {fileID: 3628447597720033008}
+  - {fileID: 1074379668382298469}
   - {fileID: 8966917801585219970}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -426,9 +458,11 @@ MonoBehaviour:
   beforeChargeTime: 0.5
   cd2Datk: {fileID: 843535173440656884}
   VFXBonk: {fileID: 5010377046930350073, guid: 0d37d5928e198014897c52648bbf9fb5, type: 3}
+  VFXImpactMetalBall: {fileID: 4352399558922178304, guid: 24638ef57b8e9e743870312472dfb465, type: 3}
   VFXCourse: {fileID: 7612893444115532493, guid: 22bb900b20950a14f83be5fc9f087092, type: 3}
   VFXCourseEtincel: {fileID: 3589885211284753036, guid: bd39c589474c46449831e3ca72e2ae26, type: 3}
   posVFXBonk: {fileID: 8359047937202411529}
+  posVFXImpactMetalBall: {fileID: 1074379668382298469}
   posVFXCourse: {fileID: 7092099576130364733}
   posVFXCourseEtincel: {fileID: 3628447597720033008}
 --- !u!61 &-8660407494564947819
@@ -489,6 +523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   iaCorpsePrefab: {fileID: 242511868777815649, guid: aac165229b1004444bea796ff1f9e57f, type: 3}
+  VFXDeath: {fileID: 1236551421894714467, guid: afb2f54f6da26ed4d9016f808f24bfb7, type: 3}
 --- !u!114 &6375191612365375532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,7 +541,6 @@ MonoBehaviour:
       m_Calls: []
   canGoThrough: 0
   bulletFalling: 0
-  putBulletInChildren: 0
 --- !u!114 &-2502182463509369498
 MonoBehaviour:
   m_ObjectHideFlags: 0

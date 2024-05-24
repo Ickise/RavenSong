@@ -32,6 +32,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField, Header("Sound")] private SoundData[] jumpSounds;
     [SerializeField] private SoundData[] jumpEchoSounds;
     [SerializeField] private SoundData[] rollSounds;
+    [SerializeField] private SoundData landingSound;
 
     [SerializeField, Range(1f, 5f)] private float maxHeight = 3f;
 
@@ -42,6 +43,8 @@ public class PlayerController2D : MonoBehaviour
     [Header("FallSpeed")]
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après un saut")]
     private float fallMultiplier = 2.5f;
+    [SerializeField, Tooltip("la vitesse minimum pour que les particules et le son de l'atterissage se fasse")]
+    private float minimumFallSpeedForFeedback = 4f;
 
     [SerializeField, Tooltip("Modifie la rapidité pour tomber après le saut minimum")]
     private float lowJumpMultiplier = 2f;
@@ -61,7 +64,6 @@ public class PlayerController2D : MonoBehaviour
     private RecallBullet _recallBullet;
     private PlayerAnimation _playerAnimation;
     private StunDetection _stunDetection;
-    private FootTriggerPlatform _footTriggerPlatform;
 
     [Header("VFX")][SerializeField] private VisualEffect VFXDustTrail;
     [SerializeField] private GameObject VFXJump;
@@ -103,7 +105,6 @@ public class PlayerController2D : MonoBehaviour
         playerCollider2D = GetComponent<BoxCollider2D>();
         _raycastDetection = GetComponentInChildren<RaycastDetection>();
         _recallBullet = GetComponent<RecallBullet>();
-        _footTriggerPlatform = GetComponentInChildren<FootTriggerPlatform>();
     }
 
     private void Start()
@@ -160,6 +161,7 @@ public class PlayerController2D : MonoBehaviour
             canjump = true;
 
         ModularMovement();
+//        print(playerVelocity.y);
         playerRigidbody2D.velocity = playerVelocity;
         Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
 
@@ -174,6 +176,13 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
+            if (InputReader.instance.audioSourceWalk.mute)
+                InputReader.instance.audioSourceWalk.mute = false;
+            if (playerVelocity.y < -minimumFallSpeedForFeedback)
+            {
+                print("landingSound");
+                AudioManager.instance.PlaySound(landingSound);
+            }
             // if (!InputReader.instance.jump)
             //     velocityWhenJump = 0f;
             //calcule le vecteur perpendiculaire a la normal (étant le vecteur up du segment) du segment présent sous les pieds du player
@@ -298,11 +307,19 @@ public class PlayerController2D : MonoBehaviour
     {
         if (_raycastDetection.IsGrounded)
         {
+            if (InputReader.instance.audioSourceWalk.mute)
+                InputReader.instance.audioSourceWalk.mute = false;
+            if (playerVelocity.y < -minimumFallSpeedForFeedback)
+                AudioManager.instance.PlaySound(landingSound);
+
             playerVelocity.y = 0;
             //  currentGravity = -0.1f;
         }
         else
         {
+            if (!InputReader.instance.audioSourceWalk.mute)
+                InputReader.instance.audioSourceWalk.mute = true;
+
             playerVelocity.y += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
             //            currentGravity += Physics2D.gravity.y * Time.fixedDeltaTime * gravityFactor;
             if (playerVelocity.y < maxFallSpeed)
