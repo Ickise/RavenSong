@@ -143,7 +143,6 @@ public class PlayerController2D : MonoBehaviour
         }
 
         CoyoteTime();
-        Debug.Log(canjump);
     }
 
     private void FixedUpdate()
