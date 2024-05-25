@@ -143,6 +143,7 @@ public class PlayerController2D : MonoBehaviour
         }
 
         CoyoteTime();
+        Debug.Log(canjump);
     }
 
     private void FixedUpdate()
@@ -157,7 +158,7 @@ public class PlayerController2D : MonoBehaviour
             canjump = false;
             Jump();
         }
-        else if (!InputReader.instance.jump)
+        else if (!InputReader.instance.jump && hangTimeCounter >= hangTime)
             canjump = true;
 
         ModularMovement();
@@ -337,6 +338,7 @@ public class PlayerController2D : MonoBehaviour
             playerVelocity.x = velocityWhenJump;
             velocityWhenJump += InputReader.instance.direction.x * accelerationAirControlSpeed;
             velocityWhenJump = Mathf.Clamp(velocityWhenJump, -maxAirControlSpeed, maxAirControlSpeed);
+            canjump = false;
         }
         else
             velocityWhenJump = playerVelocity.x;
