@@ -15,7 +15,7 @@ public class SoundData : ScriptableObject
     public AudioMixerGroup AudioMixerGroup => audioMixerGroup;
     public AudioClip AudioToPlay => audioToPlay;
 
-    public float GetPitch()
+    public float GetRandomPitch()
     {
         return 1 + Random.Range(-pitchVariation, pitchVariation);
     }

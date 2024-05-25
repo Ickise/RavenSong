@@ -1,20 +1,20 @@
 using System.Collections;
 using Spine;
 using UnityEngine;
-using UnityEngine.VFX;
 
 public class StunDetection : MonoBehaviour
 {
     private Collider2D c2D;
-    public bool IsC2DActive => c2D.enabled;
-    [Header("À set up")] [SerializeField] private float stunDuration = 1.5f;
+    public bool IsC2DActive => isCrossKickAnimationPlaying;
+    [Header("À set up")]
     [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
-    private bool canCrossKick = true;
-    [Header("Sound")] [SerializeField] private SoundData[] soundstunsuccessful;
-    [SerializeField] private SoundData soundstunnotsuccessful;
+    private bool canCrossKick = true, isCrossKickAnimationPlaying;
+    [Header("Sound")][SerializeField] private SoundData[] successfulStunSounds;
+    [SerializeField] private SoundData unsuccessfulStunSound;
+    private SoundData currentStunSound;
 
 
     private void Start()
@@ -34,15 +34,15 @@ public class StunDetection : MonoBehaviour
         transform.localPosition *= currentDirection;
         canCrossKick = false;
         c2D.enabled = true;
-        yield return new WaitForSeconds(stunDuration);
+        currentStunSound = unsuccessfulStunSound;
+        isCrossKickAnimationPlaying = true;
+        yield return 3;
+        AudioManager.instance.PlaySound(currentStunSound);
         c2D.enabled = false;
-        StartCoroutine(CrossKickCoolDown());
-
-        IEnumerator CrossKickCoolDown()
-        {
-            yield return new WaitForSeconds(crossKickCooldown);
-            canCrossKick = true;
-        }
+        yield return new WaitForSeconds(1);
+        isCrossKickAnimationPlaying = false;
+        yield return new WaitForSeconds(crossKickCooldown);
+        canCrossKick = true;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -51,7 +51,7 @@ public class StunDetection : MonoBehaviour
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
         if (iAprojectil)
         {
-            //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
+            currentStunSound = successfulStunSounds[Random.Range(0, successfulStunSounds.Length)];
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             iAprojectil.VFXStun.Play();
             VFXInstantieur.instance.PlayVFXInWorld(VFXAuraCoup, iAprojectil.transform);
@@ -68,7 +68,6 @@ public class StunDetection : MonoBehaviour
         Explodable destructibleObject = other.GetComponent<Explodable>();
         if (destructibleObject)
         {
-            //AudioManager.instance.PlayRandomSound(soundstunsuccessful);
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
             destructibleObject.explode(gameObject);
             ExplosionForce ef = FindObjectOfType<ExplosionForce>();

@@ -19,7 +19,7 @@ public class AudioManager : MonoBehaviour
         mainAudioSource = GetComponent<AudioSource>();
     }
 
-    public void PlaySound(SoundData data)
+    public void PlaySound(SoundData data, float pitch = 1)
     {
         //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
         if (data == null)
@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        mainAudioSource.PlayOneShot(SetAudioParameters(data).AudioToPlay);
+        mainAudioSource.PlayOneShot(SetAudioParameters(mainAudioSource, data, pitch).AudioToPlay);
     }
 
     public void StopSound(AudioSource specifiedAudioSource = null)
@@ -58,7 +58,7 @@ public class AudioManager : MonoBehaviour
         if (mainAudioSource.isPlaying && mainAudioSource.clip == data)
             return;
 
-        mainAudioSource.clip = SetAudioParameters(data).AudioToPlay;
+        mainAudioSource.clip = SetAudioParameters(mainAudioSource, data).AudioToPlay;
         mainAudioSource.Play();
     }
 
@@ -69,15 +69,15 @@ public class AudioManager : MonoBehaviour
         if (audioSource.isPlaying && audioSource.clip == data)
             return;
 
-        audioSource.clip = SetAudioParameters(data).AudioToPlay;
+        audioSource.clip = SetAudioParameters(audioSource, data).AudioToPlay;
         audioSource.Play();
     }
 
-    private SoundData SetAudioParameters(SoundData soundData)
+    private SoundData SetAudioParameters(AudioSource audioSource, SoundData soundData, float pitch = 1)
     {
-        mainAudioSource.volume = soundData.Volume * volumeScale;
-        mainAudioSource.pitch = soundData.GetPitch();
-        mainAudioSource.outputAudioMixerGroup = soundData.AudioMixerGroup;
+        audioSource.volume = soundData.Volume * volumeScale;
+        audioSource.pitch = soundData.GetRandomPitch() * pitch;
+        audioSource.outputAudioMixerGroup = soundData.AudioMixerGroup;
         return soundData;
     }
 }

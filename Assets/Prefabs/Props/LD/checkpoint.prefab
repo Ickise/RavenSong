@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57dc1ad3293e9345978632b4f2a09a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeActiveCheckpoint: 2
 --- !u!114 &8029881608826433683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,6 +157,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc983459f5494f478b731b147975183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timeToInteract: 1
+  onInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7732752715474662002}
+        m_TargetAssemblyTypeName: Checkpoint, Assembly-CSharp
+        m_MethodName: ActiveCheckpoint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &7697303496708045083
 PrefabInstance:
   m_ObjectHideFlags: 0

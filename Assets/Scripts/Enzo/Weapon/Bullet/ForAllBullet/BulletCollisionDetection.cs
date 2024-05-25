@@ -38,6 +38,7 @@ public class BulletCollisionDetection : MonoBehaviour
                 bulletRigidbody2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
             bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
+//        Debug.Log(hit2D.collider.name);
         if (!hit2D) return;
         if (hit2D.transform.CompareTag("Platforme"))
         {
@@ -83,7 +84,10 @@ public class BulletCollisionDetection : MonoBehaviour
             if (_iAChargeur.GetDirection
                     ? transform.position.x > _iAChargeur.transform.position.x
                     : transform.position.x < _iAChargeur.transform.position.x)
+            {
+                _iAChargeur.PlayVFXImpactMetalBall();
                 return;
+            }
         onBulletHit.BulletHitSomething(gameObject);
     }
 
@@ -111,8 +115,8 @@ public class BulletCollisionDetection : MonoBehaviour
     {
         bulletCollider.enabled = isEnable;
         bulletRigidbody2D.isKinematic = !bulletCollider.enabled;
-     //   if (isEnable)
-       //     bulletRigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+        //   if (isEnable)
+        //     bulletRigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
     }
 
     private void GetAndSetComponent()

@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237967857555162655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 1.154701, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,11 +137,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 9.7
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5.5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -977,6 +977,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 7f876dd3-8626-45a5-a905-0bb8d18efa72
     m_ActionName: Player/ActivateAim[/DualShock4GamepadHID/rightStickPress,/XInputControllerWindows/rightStickPress]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5a8a580e-23d8-4836-ab48-8a06477bc88d
+    m_ActionName: Player/Pause[/XInputControllerWindows/start,/DualShock4GamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnInteraction
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ce1c4829-686a-4989-938b-c48988e026da
+    m_ActionName: Player/Interaction[/XInputControllerWindows/buttonNorth,/DualShock4GamepadHID/buttonNorth]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1000,10 +1032,12 @@ MonoBehaviour:
   activateAim: 0
   canStun: 0
   canDown: 0
+  canInteract: 0
   lastDirection: 0
   onFire:
     m_PersistentCalls:
       m_Calls: []
+  audioSourceWalk: {fileID: 0}
   manetteDirection: {x: 0, y: 0, z: 0}
   runSound: {fileID: 11400000, guid: a5ec6915de94ded49bdc4ec8752ed943, type: 2}
   runSoundEcho: {fileID: 11400000, guid: ab09268f93a020e4bb93bcefe634b54f, type: 2}
@@ -1039,9 +1073,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aade66bc52a53b246ac9ca19a0aea18e, type: 2}
   rollSounds:
   - {fileID: 11400000, guid: e0d8f1a5bd1801c4a86b2bcaf389bfa8, type: 2}
+  landingSound: {fileID: 11400000, guid: 01707ff13fbbcc444933f17ca1062177, type: 2}
   maxHeight: 3
   hangTime: 0.1
   fallMultiplier: 3
+  minimumFallSpeedForFeedback: 14
   lowJumpMultiplier: 2
   rouladeTime: 0.7
   speedRoulade: 6
@@ -1172,6 +1208,7 @@ MonoBehaviour:
   vfxRecallBulletDroite: {fileID: 7767760485090942752}
   vfxRecallBulletGauche: {fileID: 623836733676802584}
   vfxTrailRecall: {fileID: 3091271199037836173}
+  magnetism: {fileID: 11400000, guid: fd7eaf476eccd8743a23e840b40201d9, type: 2}
   doRecall: 0
   speedBulletRecall: 50
   speedDelay: 0.2
@@ -1236,10 +1273,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -1366,15 +1403,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3de2a48372d9a41b4188cb45c0b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stunDuration: 1.5
   crossKickCooldown: 2
   timeToDisableHitBox: 0.3
   VFXAuraCoup: {fileID: 0}
   VFXCoupDeCrossObject: {fileID: 8861756336949416741, guid: 20ed7ea12e0f9104bb23c490da059995, type: 3}
-  soundstunsuccessful:
-  - {fileID: 11400000, guid: f4c3ef3938ed27843817efd1902d46af, type: 2}
+  successfulStunSounds:
+  - {fileID: 11400000, guid: b196a6534e3b1dc4da06209490034b1f, type: 2}
   - {fileID: 11400000, guid: 6172a4f2348abf74393aa7ee516f4c39, type: 2}
-  soundstunnotsuccessful: {fileID: 11400000, guid: f4c3ef3938ed27843817efd1902d46af, type: 2}
+  unsuccessfulStunSound: {fileID: 11400000, guid: f4c3ef3938ed27843817efd1902d46af, type: 2}
 --- !u!61 &7969890108814067093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1418,7 +1454,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.7}
+  m_Size: {x: 1.3, y: 0.7}
   m_EdgeRadius: 0
 --- !u!1 &2837131274398816341
 GameObject:
@@ -1839,7 +1875,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4302107771420068065}
   m_LocalRotation: {x: -0, y: -0, z: -0.9582356, w: 0.28598005}
-  m_LocalPosition: {x: -0.42901278, y: 0.44977462, z: 0}
+  m_LocalPosition: {x: -0.42901278, y: 0.4497745, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1923,7 +1959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.28691673, y: 0.4074632, z: 0}
+  m_LocalPosition: {x: -0.28691673, y: 0.4074633, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2008,7 +2044,8 @@ MonoBehaviour:
   leftBulletSpawnPosition: {fileID: 4585983170249824554}
   rightPositionToLook: {fileID: 3161145761624493340}
   leftPositionToLook: {fileID: 6595171560773712303}
-  shootsAudio: []
+  shootsAudio:
+  - {fileID: 11400000, guid: bd804b9f6922a65488c542f71a90e8f8, type: 2}
   numberOfAmmo: 1
   VfxGunShoot: {fileID: 2281808058870940181, guid: 880d3b2df877cf347966908a9e6d801f, type: 3}
 --- !u!114 &2265981886112315082

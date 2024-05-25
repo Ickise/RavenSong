@@ -12,6 +12,8 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public bool activateAim = false;
     [HideInInspector] public bool canStun;
     [HideInInspector] public bool canDown;
+    [HideInInspector] public bool canInteract;
+
     public int lastDirection;
 
     public bool DontJump { private get; set; }
@@ -20,22 +22,22 @@ public class InputReader : MonoBehaviour
     public UnityEvent<InputAction.CallbackContext> onFire = new();
 
     public static InputReader instance;
+    public AudioSource audioSourceWalk;
     private StunDetection _stunDetection;
-    private AudioSource audioSource;
     [HideInInspector] public Vector3 manetteDirection;
     [SerializeField, Header("Sound")] private SoundData runSound;
     [SerializeField] private SoundData runSoundEcho;
     [SerializeField] private SoundData runSoundCatha;
     private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
-
+    
     private void Awake()
     {
         //get tous les components
         instance = this;
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         _stunDetection = GetComponentInChildren<StunDetection>();
-        audioSource = GetComponent<AudioSource>();
+        audioSourceWalk = GetComponent<AudioSource>();
         currentRunSound = runSound;
     }
 
@@ -46,11 +48,11 @@ public class InputReader : MonoBehaviour
 
         if (context.performed)
         {
-            AudioManager.instance.PlayMusicOnSpecifiedAudioSource(currentRunSound, audioSource);
+            AudioManager.instance.PlayMusicOnSpecifiedAudioSource(currentRunSound, audioSourceWalk);
             lastDirection = Mathf.RoundToInt(direction.x);
         }
         else
-            AudioManager.instance.StopSound(audioSource);
+            AudioManager.instance.StopSound(audioSourceWalk);
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -93,6 +95,26 @@ public class InputReader : MonoBehaviour
     public void OnRoll(InputAction.CallbackContext context)
     {
         if (context.started) PlayerController2D._instance.Roll();
+    }
+
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            PauseController._instance.PauseUnPause();
+        }
+    }
+    
+    public void OnInteraction(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            canInteract = true;
+        }
+        else if (context.canceled)
+        {
+            canInteract = false;
+        }
     }
 
     public void ManetteDirection(InputAction.CallbackContext context)
