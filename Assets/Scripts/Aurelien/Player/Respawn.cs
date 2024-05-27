@@ -31,7 +31,7 @@ public class Respawn : MonoBehaviour
     private void Awake()
     {
         death = false;
-        
+
         if (checkPoint) return;
 
         FirstSpawn();
@@ -94,6 +94,7 @@ public class Respawn : MonoBehaviour
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
                 PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
+        Destroy(shaderDeathRespawn.transform.GetChild(0).gameObject);
         shaderDeathRespawn.transform.localScale = new Vector3(
             meshRenderer.GetComponent<PlayerAnimation>().GetDirection
                 ? shaderDeathRespawn.transform.localScale.x
