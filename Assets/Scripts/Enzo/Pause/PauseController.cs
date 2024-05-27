@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class PauseController : MonoBehaviour
@@ -15,6 +16,8 @@ public class PauseController : MonoBehaviour
     private EventSystem eventSystem;
 
     private Transform firstActiveGameObject;
+
+    [SerializeField] private PlayerInput playerInput;
     
     private void Awake()
     {
@@ -31,12 +34,13 @@ public class PauseController : MonoBehaviour
         if (firstActiveGameObject == null)
         {
             pauseMenu.SetActive(true);
+            playerInput.SwitchCurrentActionMap("Menu");
             Time.timeScale = 0;
         }
         else
         {
             DisableElements();
-            InputReader.instance.enabled = true;
+            playerInput.SwitchCurrentActionMap("Player");
             Time.timeScale = 1;
         }
     }
