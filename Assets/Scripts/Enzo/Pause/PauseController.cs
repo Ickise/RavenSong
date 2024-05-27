@@ -12,19 +12,16 @@ public class PauseController : MonoBehaviour
     private GameObject pauseMenu;
 
     public static PauseController _instance;
-
-    private EventSystem eventSystem;
-
-    private Transform firstActiveGameObject;
+    
+    [SerializeField] private Transform firstActiveGameObject;
 
     [SerializeField] private PlayerInput playerInput;
-    
+
+
     private void Awake()
     {
         _instance = this;
         DisableElements();
-
-        eventSystem = EventSystem.current;
     }
 
     public void PauseUnPause()
@@ -64,14 +61,5 @@ public class PauseController : MonoBehaviour
         }
 
         firstActiveGameObject = null;
-    }
-
-    private void Update()
-    {
-        if (eventSystem.currentSelectedGameObject == null || !eventSystem.currentSelectedGameObject.activeInHierarchy)
-        {
-            eventSystem.SetSelectedGameObject(GetComponentInChildren<Button>().gameObject,
-                new BaseEventData(eventSystem));
-        }
     }
 }
