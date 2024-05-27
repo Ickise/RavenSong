@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1681131561768448838}
   - component: {fileID: 1155221413749588847}
   - component: {fileID: 2131849017379708141}
+  - component: {fileID: 5187387417715392092}
   m_Layer: 12
   m_Name: ChandelierRope
   m_TagString: Untagged
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2445082658690806483}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalPosition: {x: 0, y: 2.75, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 0.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -67,10 +68,10 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.028691292}
+  m_Offset: {x: 0, y: -1.1437302}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.4664142, y: 0.99865085}
     oldSize: {x: 0.2, y: 2.29}
     newSize: {x: 0.32, y: 0.32}
     adaptiveTilingThreshold: 0.5
@@ -78,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 2.2731304}
+  m_Size: {x: 0.5, y: 2.3669243}
   m_EdgeRadius: 0
 --- !u!212 &1681131561768448838
 SpriteRenderer:
@@ -147,6 +148,7 @@ MonoBehaviour:
   gravity: 3
   chandelierRigidbody2D: {fileID: 4433848806319082556}
   vfxImpactRope: {fileID: 8250091928702868315, guid: 7edb052f398eae84bb3e95bb63f05d7f, type: 3}
+  _balancingChandelier: {fileID: 5728704946990683904}
 --- !u!114 &2131849017379708141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,6 +166,23 @@ MonoBehaviour:
       m_Calls: []
   canGoThrough: 1
   bulletFalling: 0
+--- !u!114 &5187387417715392092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2445082658690806483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49aff2f9ebe0a74c8ede2c6ff289403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAmplitude: 0.02
+  movementAmplitude: 1
+  speed: 1
+  movePosition: 0
+  moveRotation: 1
 --- !u!1 &5022987139119452422
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +192,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3773194902498123658}
-  - component: {fileID: 3647132714857500951}
   - component: {fileID: 485056228450245760}
   m_Layer: 12
   m_Name: Chandelier
@@ -196,31 +214,9 @@ Transform:
   m_Children:
   - {fileID: 6801051759322417852}
   - {fileID: 4489743989370707046}
-  - {fileID: 2159738585146139858}
   m_Father: {fileID: 0}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3647132714857500951
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022987139119452422}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 896de3a40ef532b438ccc1e90b2b1119, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &485056228450245760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +252,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7179256580544683781}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -266,7 +262,7 @@ Transform:
   - {fileID: 967768787020451372}
   - {fileID: 4613088029308389567}
   - {fileID: 380659020613983598}
-  m_Father: {fileID: 3773194902498123658}
+  m_Father: {fileID: 4489743989370707046}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7502212147592329800
@@ -283,6 +279,7 @@ GameObject:
   - component: {fileID: 6885559656830353396}
   - component: {fileID: 4794442118357555488}
   - component: {fileID: 1713840463688914297}
+  - component: {fileID: 5728704946990683904}
   m_Layer: 12
   m_Name: Chandelier
   m_TagString: Untagged
@@ -301,7 +298,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2159738585146139858}
   m_Father: {fileID: 3773194902498123658}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -523,6 +521,23 @@ EdgeCollider2D:
   m_AdjacentEndPoint: {x: 0, y: 0}
   m_UseAdjacentStartPoint: 0
   m_UseAdjacentEndPoint: 0
+--- !u!114 &5728704946990683904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502212147592329800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49aff2f9ebe0a74c8ede2c6ff289403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationAmplitude: 0.01
+  movementAmplitude: 0.1
+  speed: 1
+  movePosition: 1
+  moveRotation: 1
 --- !u!1001 &3176744019632758271
 PrefabInstance:
   m_ObjectHideFlags: 0
