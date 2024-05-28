@@ -1,7 +1,5 @@
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 public class PauseController : MonoBehaviour
 {
@@ -13,15 +11,17 @@ public class PauseController : MonoBehaviour
 
     public static PauseController _instance;
 
-    [SerializeField] private Transform firstActiveGameObject;
+    private Transform firstActiveGameObject;
     private GameObject firstSelectedGameObject;
-
-    [SerializeField] private PlayerInput playerInput;
 
     private EventSystem eventSystem;
 
     public static bool gameIsPaused;
-    
+
+    [SerializeField] private GameObject selectionImage;
+
+    [SerializeField] private float addingXPosition;
+
     private void Awake()
     {
         _instance = this;
@@ -38,6 +38,7 @@ public class PauseController : MonoBehaviour
         if (firstActiveGameObject == null)
         {
             pauseMenu.SetActive(true);
+            //  selectionImage.SetActive(true);
 
             eventSystem.SetSelectedGameObject(firstSelectedGameObject);
             gameIsPaused = true;
@@ -70,11 +71,34 @@ public class PauseController : MonoBehaviour
             gameObject.SetActive(false);
         }
 
+        // selectionImage.SetActive(false);
         firstActiveGameObject = null;
     }
 
     private void Update()
     {
-        Debug.Log(gameIsPaused);
+        /*   if (gameIsPaused)
+           {
+               Vector2 selectionImagePosition = new Vector2(eventSystem.currentSelectedGameObject.transform.position.x + addingXPosition, eventSystem.currentSelectedGameObject.transform.position.y);
+   
+               selectionImage.transform.position = selectionImagePosition;
+           }
+       }*/
+    }
+
+    public void TabChanger()
+    {
+        switch (InputReader.instance.tabID)
+        {
+            case -1:
+                Debug.Log("test-1");
+                break;
+            case 0:
+                Debug.Log("test0");
+                break;
+            case 1:
+                Debug.Log("test1");
+                break;
+        }
     }
 }

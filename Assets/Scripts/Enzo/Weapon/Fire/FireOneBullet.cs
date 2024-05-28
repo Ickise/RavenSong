@@ -43,6 +43,7 @@ public class FireOneBullet : MonoBehaviour
 
     private void OnClickToShoot(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
         if (numberOfAmmo == 1)
         {
             currentDirection = PlayerController2D._instance.CurrentDirectionAim > 0;

@@ -14,13 +14,13 @@ public class InputReader : MonoBehaviour
     [HideInInspector] public bool canDown;
     [HideInInspector] public bool canInteract;
 
-    public int lastDirection;
+    [HideInInspector] public int lastDirection;
 
     public bool DontJump { private get; set; }
     public bool DontCrossKick { private get; set; }
 
     public UnityEvent<InputAction.CallbackContext> onFire = new();
-
+    
     public static InputReader instance;
     public AudioSource audioSourceWalk;
     private StunDetection _stunDetection;
@@ -30,6 +30,8 @@ public class InputReader : MonoBehaviour
     [SerializeField] private SoundData runSoundCatha;
     private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
+
+    [HideInInspector] public float tabID;
 
     private void Awake()
     {
@@ -141,5 +143,16 @@ public class InputReader : MonoBehaviour
         if (PauseController.gameIsPaused) return;
 
         manetteDirection = context.ReadValue<Vector2>();
+    }
+    
+    public void OnTabChange(InputAction.CallbackContext context)
+    {
+        if (PauseController.gameIsPaused && context.started)
+        {
+            float value = context.ReadValue<float>();
+            tabID = Mathf.RoundToInt(tabID + value);
+            
+            PauseController._instance.TabChanger();
+        }
     }
 }

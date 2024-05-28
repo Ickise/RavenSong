@@ -1,4 +1,4 @@
-using UnityEngine;
+    using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -17,6 +17,8 @@ public class MenuInputReader : MonoBehaviour
     {
         if (context.started)
         {
+            Debug.LogError("no");
+
             onPause.Invoke();
         }
     }
