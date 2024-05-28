@@ -35,6 +35,7 @@ public class SpineAim : MonoBehaviour
 
     private void Update()
     {
+        if (PauseController.gameIsPaused) return;
         // print(_playerAnimation.DontAim.ToString() + "  et  " + (boneAim[0] == null).ToString());
         if (_playerAnimation.DontAim || boneAim[0] == null)
         {
