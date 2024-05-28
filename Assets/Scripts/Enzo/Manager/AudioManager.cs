@@ -21,6 +21,7 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(SoundData data, float pitch = 1)
     {
+        if (PauseController.gameIsPaused) return;
         //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
         if (data == null)
         {
@@ -40,6 +41,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayRandomSound(SoundData[] listOfSoundData)
     {
+        if (PauseController.gameIsPaused) return;
+
         SoundData randomClip = listOfSoundData[Random.Range(0, listOfSoundData.Length)];
 
         if (randomClip == null)
@@ -53,6 +56,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusic(SoundData data)
     {
+        if (PauseController.gameIsPaused) return;
+
         if (data == null)
             return;
         if (mainAudioSource.isPlaying && mainAudioSource.clip == data)
@@ -64,6 +69,8 @@ public class AudioManager : MonoBehaviour
 
     public void PlayMusicOnSpecifiedAudioSource(SoundData data, AudioSource audioSource)
     {
+        if (PauseController.gameIsPaused) return;
+
         if (data == null)
             return;
         if (audioSource.isPlaying && audioSource.clip == data)

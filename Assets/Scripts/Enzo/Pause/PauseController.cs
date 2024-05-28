@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -19,8 +20,8 @@ public class PauseController : MonoBehaviour
 
     private EventSystem eventSystem;
 
-    //je ne peux pas réappuyer sur la touche du menu pause
-
+    public static bool gameIsPaused;
+    
     private void Awake()
     {
         _instance = this;
@@ -39,16 +40,14 @@ public class PauseController : MonoBehaviour
             pauseMenu.SetActive(true);
 
             eventSystem.SetSelectedGameObject(firstSelectedGameObject);
-            playerInput.SwitchCurrentActionMap("Menu");
+            gameIsPaused = true;
 
             Time.timeScale = 0;
         }
         else
         {
             DisableElements();
-
-            playerInput.SwitchCurrentActionMap("Player");
-
+            gameIsPaused = false;
             Time.timeScale = 1;
         }
     }
@@ -72,5 +71,10 @@ public class PauseController : MonoBehaviour
         }
 
         firstActiveGameObject = null;
+    }
+
+    private void Update()
+    {
+        Debug.Log(gameIsPaused);
     }
 }
