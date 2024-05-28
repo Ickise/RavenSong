@@ -50,7 +50,7 @@ public abstract class IA : MonoBehaviour
     protected bool DetectPlayer { get { return Mathf.Abs(transform.position.y - player.position.y) < hauteurPlayerDetection && RaycastDetectPlayer && RaycastDetectPlayer.transform.CompareTag("Player"); } }
     private RaycastHit2D RaycastDetectPlayer { get { return Physics2D.Raycast(transform.position, player.position - transform.position, distancePlayerDetection, layerDetectPlayer); } }
     public enum AnimationState { none, moveForward, moveBackward, shoot, shootWalk, idle, mort, stun, stunStart, stunEnd, bonk }
-    private SkeletonAnimation skeletonAnimation;
+    protected SkeletonAnimation skeletonAnimation;
     [Serializable]
     public struct AnimationReference
     {
