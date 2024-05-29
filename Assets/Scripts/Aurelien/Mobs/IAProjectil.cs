@@ -5,8 +5,9 @@ public class IAProjectil : IA
 {
     [SerializeField] private float minDistanceToAttack = 5f, maxDistanceToAttack = 20f, timeBetweenAttack = 3f;
     private float minPauseTime = 3f, maxPauseTime = 6f, minTimeBetweenPause = 6f, maxTimeBetweenPause = 12f;
-    [SerializeField] private GameObject projectil, VFXTir;
+    [SerializeField, Header("VFX")] private GameObject projectil, VFXTir;
     [SerializeField] private Transform posVFXTir;
+    [SerializeField, Header("Sounds")] private SoundData mort, rire, detection, idle;
     private RaycastHit2D RaycastDetectPlayerProjectil
     {
         get
@@ -56,6 +57,7 @@ public class IAProjectil : IA
         if (DetectPlayer || DetectPlayerYProjectil)
         {
             state = State.RushDistancePlayer;
+            AudioManager.instance.PlaySound(detection);
             currentSpeedMovement = speedAttaquePlayer;
         }
     }
@@ -74,6 +76,7 @@ public class IAProjectil : IA
             if (!DetectPlayer && !DetectPlayerYProjectil)
             {
                 state = State.Roaming;
+                AudioManager.instance.PlaySound(idle);
                 return;
             }
             rb2D.velocity = Vector2.zero;
@@ -95,6 +98,7 @@ public class IAProjectil : IA
             }
             StopAllCoroutines();
             state = State.Roaming;
+            AudioManager.instance.PlaySound(idle);
             return;
         }
         if (Mathf.Abs(posATK - transform.position.x) < 0.2f)
@@ -134,6 +138,12 @@ public class IAProjectil : IA
     private void OnDisable()
     {
         state = State.Roaming;
+        AudioManager.instance.PlaySound(idle);
         rb2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+    }
+
+    private void OnDestroy()
+    {
+        AudioManager.instance.PlaySound(mort);
     }
 }
