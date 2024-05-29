@@ -150,12 +150,10 @@ public class InputReader : MonoBehaviour
         if (PauseController.gameIsPaused && context.performed)
         {
             float value = context.ReadValue<float>();
+          
             tabID += Mathf.RoundToInt(value);
-
             tabID = Mathf.Clamp(tabID, -1, 1);
-
-            Debug.Log(tabID);
-
+            
             PauseController._instance.TabChanger();
         }
     }
