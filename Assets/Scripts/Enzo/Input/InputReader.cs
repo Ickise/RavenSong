@@ -20,7 +20,7 @@ public class InputReader : MonoBehaviour
     public bool DontCrossKick { private get; set; }
 
     public UnityEvent<InputAction.CallbackContext> onFire = new();
-    
+
     public static InputReader instance;
     public AudioSource audioSourceWalk;
     private StunDetection _stunDetection;
@@ -31,7 +31,7 @@ public class InputReader : MonoBehaviour
     private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
 
-    [HideInInspector] public float tabID;
+    [HideInInspector] public float tabID = 0;
 
     private void Awake()
     {
@@ -97,7 +97,7 @@ public class InputReader : MonoBehaviour
     public void OnCrossKick(InputAction.CallbackContext context)
     {
         if (PauseController.gameIsPaused) return;
-        
+
         if (!context.started || DontCrossKick) return;
         StartCoroutine(_stunDetection.CrossKick(PlayerController2D._instance.CurrentDirectionAim));
     }
@@ -144,14 +144,18 @@ public class InputReader : MonoBehaviour
 
         manetteDirection = context.ReadValue<Vector2>();
     }
-    
+
     public void OnTabChange(InputAction.CallbackContext context)
     {
-        if (PauseController.gameIsPaused && context.started)
+        if (PauseController.gameIsPaused && context.performed)
         {
             float value = context.ReadValue<float>();
-            tabID = Mathf.RoundToInt(tabID + value);
-            
+            tabID += Mathf.RoundToInt(value);
+
+            tabID = Mathf.Clamp(tabID, -1, 1);
+
+            Debug.Log(tabID);
+
             PauseController._instance.TabChanger();
         }
     }
