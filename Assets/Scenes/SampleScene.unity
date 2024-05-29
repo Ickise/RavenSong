@@ -1177,6 +1177,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.9582356
       objectReference: {fileID: 0}
+    - target: {fileID: 5921993692494464134, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5996619747820030045, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -7306,6 +7310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 619394802}
   - component: {fileID: 619394801}
+  - component: {fileID: 619394803}
   m_Layer: 0
   m_Name: Global Light 2D
   m_TagString: Untagged
@@ -7378,6 +7383,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &619394803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619394800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 60ab1448ead04a34e849d1a1fc61de5f, type: 2}
 --- !u!1 &623284306
 GameObject:
   m_ObjectHideFlags: 0

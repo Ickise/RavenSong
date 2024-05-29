@@ -28,13 +28,14 @@ public class IAHorloger : IA
         _onBulletHit = GetComponent<OnBulletHit>();
         tailleMob.y += 0.2f;
         overwriteIniTialize = true;
-        ShaderBrillance(0.4f);
+        ShaderBrillance(1f, reloadTime);
     }
 
     protected override void Update()
     {
         base.Update();
-        currentShaderBrillance.material.SetFloat("_FlashAmount", currentValueShaderBrillance);
+        Color sbc = currentShaderBrillance.material.GetColor("_Flash_Fatigue_Color");
+        currentShaderBrillance.material.SetColor("_Flash_Fatigue_Color", new Color(sbc.r, currentValueShaderBrillance, sbc.b, sbc.a));
     }
 
     protected override void StateManager()
@@ -65,7 +66,7 @@ public class IAHorloger : IA
             {
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
-                ShaderBrillance(0);
+                ShaderBrillance(0, runTime);
                 state = State.ChasePlayer;
                 _onBulletHit.bulletFalling = true;
                 SetAnimation(AnimationState.moveForward);
@@ -79,7 +80,7 @@ public class IAHorloger : IA
                 StartCoroutine(StartReload());
                 cd2Datk.enabled = false;
                 state = State.WaitPlayer;
-                ShaderBrillance(0.4f);
+                ShaderBrillance(1f, reloadTime);
                 _onBulletHit.bulletFalling = false;
             }
         }
@@ -117,7 +118,7 @@ public class IAHorloger : IA
                 SetAnimation(AnimationState.bonk);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
                 state = State.WaitPlayer;
-                ShaderBrillance(0.4f);
+                ShaderBrillance(1f, reloadTime);
                 _onBulletHit.bulletFalling = false;
                 isReloading = true;
                 StopAllCoroutines();
@@ -154,10 +155,10 @@ public class IAHorloger : IA
         VFXInstantieur.instance.PlayVFXInWorld(VFXImpactMetalBall, posVFXImpactMetalBall);
     }
 
-    private void ShaderBrillance(float value)
+    private void ShaderBrillance(float gValue, float time)
     {
         currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
-        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, value, reloadTime)
+        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, gValue, time)
         .SetEase(Ease.OutBounce);
     }
 }
