@@ -465,7 +465,11 @@ MonoBehaviour:
   posVFXImpactMetalBall: {fileID: 1074379668382298469}
   posVFXCourse: {fileID: 7092099576130364733}
   posVFXCourseEtincel: {fileID: 3628447597720033008}
-  shaderBrillance: {fileID: 2100000, guid: 658c5668c3f9fbf4d8daa1bbf406743b, type: 2}
+  mort: {fileID: 0}
+  charge: {fileID: 0}
+  detection: {fileID: 0}
+  idle: {fileID: 11400000, guid: ccff7d77747eb164b99bbbf5b83823b9, type: 2}
+  recharge: {fileID: 0}
 --- !u!61 &-8660407494564947819
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -525,6 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iaCorpsePrefab: {fileID: 242511868777815649, guid: aac165229b1004444bea796ff1f9e57f, type: 3}
   VFXDeath: {fileID: 1236551421894714467, guid: afb2f54f6da26ed4d9016f808f24bfb7, type: 3}
+  mobDisparitionSound: {fileID: 11400000, guid: 7989a5f193e33d24fa1a3d65f9a3d7cf, type: 2}
 --- !u!114 &6375191612365375532
 MonoBehaviour:
   m_ObjectHideFlags: 0

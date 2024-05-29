@@ -9,8 +9,10 @@ public class IAHorloger : IA
     [SerializeField, Tooltip("le temps entre le moment ou il voit le joueur et il commence à le charger")] private float beforeChargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
     public bool IsAttacking => cd2Datk.enabled;
+    [Header("VFX")]
     [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXImpactMetalBall, posVFXCourse, posVFXCourseEtincel;
+    [SerializeField, Header("Sounds")] private SoundData mort, charge, detection, idle, recharge;
     private MeshRenderer currentShaderBrillance;
     private float currentValueShaderBrillance;
     private OnBulletHit _onBulletHit;
@@ -56,6 +58,8 @@ public class IAHorloger : IA
     private void IsWaitingPlayer()
     {
         if (isReloading || DOTween.IsTweening("chargingTime")) return;
+        if (Mathf.RoundToInt(Random.Range(0, 30 / Time.deltaTime)) == 0)
+            AudioManager.instance.PlaySound(idle);
         if (DetectPlayer)
         {
             direction = transform.position.x < player.position.x;
@@ -67,6 +71,7 @@ public class IAHorloger : IA
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
                 ShaderBrillance(0, runTime);
+                AudioManager.instance.PlaySound(charge);
                 state = State.ChasePlayer;
                 _onBulletHit.bulletFalling = true;
                 SetAnimation(AnimationState.moveForward);
@@ -79,6 +84,7 @@ public class IAHorloger : IA
                 isReloading = true;
                 StartCoroutine(StartReload());
                 cd2Datk.enabled = false;
+                AudioManager.instance.PlaySound(recharge);
                 state = State.WaitPlayer;
                 ShaderBrillance(1f, reloadTime);
                 _onBulletHit.bulletFalling = false;
@@ -118,6 +124,7 @@ public class IAHorloger : IA
                 SetAnimation(AnimationState.bonk);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
                 state = State.WaitPlayer;
+                AudioManager.instance.PlaySound(recharge);
                 ShaderBrillance(1f, reloadTime);
                 _onBulletHit.bulletFalling = false;
                 isReloading = true;
@@ -160,5 +167,10 @@ public class IAHorloger : IA
         currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
         DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, gValue, time)
         .SetEase(Ease.OutBounce);
+    }
+
+    private void OnDestroy()
+    {
+        AudioManager.instance.PlaySound(mort);
     }
 }
