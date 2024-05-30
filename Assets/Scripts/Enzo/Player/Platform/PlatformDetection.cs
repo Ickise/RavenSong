@@ -19,13 +19,16 @@ public class PlatformDetection : MonoBehaviour
 
     private RaycastHit2D hit2D;
 
+    [SerializeField, Header("Layer"), Tooltip("Mettre le layer Ground et celui des plateformes, le layer Escalier")]
+    private LayerMask platformLayer;
+
     private void FixedUpdate()
     {
         if (PlayerController2D._instance.isFalling)
         {
             hit2D = Physics2D.BoxCast(transform.position + Vector3.down * platformScaleY, boxSize, 0,
                 Vector3.down * Time.fixedDeltaTime,
-                PlayerController2D._instance.PlayerVelocity.magnitude * Time.fixedDeltaTime);
+                PlayerController2D._instance.PlayerVelocity.magnitude * Time.fixedDeltaTime, platformLayer);
         }
 
         if (hit2D.collider != null && hit2D.collider.CompareTag("Platforme"))
@@ -42,6 +45,8 @@ public class PlatformDetection : MonoBehaviour
             SetPlatformAsPlatform();
             VFXInstantieur.instance.PlayVFXInWorld(vfxDescentPlatform, transform);
         }
+
+        Debug.Log(hit2D.collider.name);
     }
 
     private void SetPlatformAsGround(RaycastHit2D raycastHit2D)
