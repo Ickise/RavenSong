@@ -46,7 +46,7 @@ public class PlatformDetection : MonoBehaviour
             VFXInstantieur.instance.PlayVFXInWorld(vfxDescentPlatform, transform);
         }
 
-        Debug.Log(hit2D.collider.name);
+//        Debug.Log(hit2D.collider.name);
     }
 
     private void SetPlatformAsGround(RaycastHit2D raycastHit2D)
