@@ -20,6 +20,7 @@ public class InputReader : MonoBehaviour
     public bool DontCrossKick { private get; set; }
 
     public UnityEvent<InputAction.CallbackContext> onFire = new();
+    public UnityEvent<InputAction.CallbackContext> onParametersChange = new();
 
     public static InputReader instance;
     public AudioSource audioSourceWalk;
@@ -141,7 +142,6 @@ public class InputReader : MonoBehaviour
     public void ManetteDirection(InputAction.CallbackContext context)
     {
         if (PauseController.gameIsPaused) return;
-
         manetteDirection = context.ReadValue<Vector2>();
     }
 
@@ -150,11 +150,17 @@ public class InputReader : MonoBehaviour
         if (PauseController.gameIsPaused && context.performed)
         {
             float value = context.ReadValue<float>();
-          
+
             tabID += Mathf.RoundToInt(value);
             tabID = Mathf.Clamp(tabID, -1, 1);
-            
+
             PauseController._instance.TabChanger();
         }
+    }
+
+    public void OnChangeValues(InputAction.CallbackContext context)
+    {
+        if (!PauseController.gameIsPaused) return;
+        onParametersChange.Invoke(context);
     }
 }
