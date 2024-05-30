@@ -11,6 +11,8 @@ public class IAHorloger : IA
     public bool IsAttacking => cd2Datk.enabled;
     [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXImpactMetalBall, posVFXCourse, posVFXCourseEtincel;
+    private MeshRenderer currentShaderBrillance;
+    private float currentValueShaderBrillance;
     private OnBulletHit _onBulletHit;
     private bool isReloading;
     private State state;
@@ -26,6 +28,13 @@ public class IAHorloger : IA
         _onBulletHit = GetComponent<OnBulletHit>();
         tailleMob.y += 0.2f;
         overwriteIniTialize = true;
+        ShaderBrillance(0.4f);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        currentShaderBrillance.material.SetFloat("_FlashAmount", currentValueShaderBrillance);
     }
 
     protected override void StateManager()
@@ -56,6 +65,7 @@ public class IAHorloger : IA
             {
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
+                ShaderBrillance(0);
                 state = State.ChasePlayer;
                 _onBulletHit.bulletFalling = true;
                 SetAnimation(AnimationState.moveForward);
@@ -69,6 +79,7 @@ public class IAHorloger : IA
                 StartCoroutine(StartReload());
                 cd2Datk.enabled = false;
                 state = State.WaitPlayer;
+                ShaderBrillance(0.4f);
                 _onBulletHit.bulletFalling = false;
             }
         }
@@ -106,6 +117,7 @@ public class IAHorloger : IA
                 SetAnimation(AnimationState.bonk);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
                 state = State.WaitPlayer;
+                ShaderBrillance(0.4f);
                 _onBulletHit.bulletFalling = false;
                 isReloading = true;
                 StopAllCoroutines();
@@ -129,7 +141,6 @@ public class IAHorloger : IA
     private void Reloading(TrackEntry trackEntry)
     {
         SetAnimation(AnimationState.stun);
-
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -141,5 +152,12 @@ public class IAHorloger : IA
     public void PlayVFXImpactMetalBall()
     {
         VFXInstantieur.instance.PlayVFXInWorld(VFXImpactMetalBall, posVFXImpactMetalBall);
+    }
+
+    private void ShaderBrillance(float value)
+    {
+        currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
+        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, value, reloadTime)
+        .SetEase(Ease.OutBounce);
     }
 }

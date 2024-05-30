@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -14,8 +15,16 @@ public class VideoLoader : MonoBehaviour
     [SerializeField, Header("Prefab CinematicCamera")]
     private GameObject cinematicCamera;
 
+    private LoadingVideoOnTrigger _loadingVideoOnTrigger;
+
+    private void Awake()
+    {
+        _loadingVideoOnTrigger = GetComponent<LoadingVideoOnTrigger>();
+    }
+
     private void Update()
     {
+        if (!_loadingVideoOnTrigger.canEnableObject) return;
         UnloadVideo();
     }
 
@@ -43,5 +52,6 @@ public class VideoLoader : MonoBehaviour
 
         cinematicCameraVideoPlayer.Stop();
         cinematicCameraVideoPlayer.clip = null;
+        _loadingVideoOnTrigger.canEnableObject = false;
     }
 }

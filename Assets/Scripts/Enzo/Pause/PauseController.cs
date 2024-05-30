@@ -13,6 +13,8 @@ public class PauseController : MonoBehaviour
 
     private Transform firstActiveGameObject;
     private GameObject firstSelectedGameObject;
+    [SerializeField] private GameObject firstSelectedSettingsGameObject;
+    [SerializeField] private GameObject firstSelectedBestiaryGameObject;
 
     private EventSystem eventSystem;
 
@@ -91,13 +93,19 @@ public class PauseController : MonoBehaviour
         switch (InputReader.instance.tabID)
         {
             case -1:
-                Debug.Log("test-1");
+                DisableElements();
+                pauseMenuElements[1].SetActive(true);
+                eventSystem.SetSelectedGameObject(firstSelectedSettingsGameObject);
                 break;
             case 0:
-                Debug.Log("test0");
+                DisableElements();
+                pauseMenuElements[0].SetActive(true);
+                eventSystem.SetSelectedGameObject(firstSelectedGameObject);
                 break;
             case 1:
-                Debug.Log("test1");
+                DisableElements();
+                pauseMenuElements[2].SetActive(true);
+                eventSystem.SetSelectedGameObject(firstSelectedBestiaryGameObject);
                 break;
         }
     }

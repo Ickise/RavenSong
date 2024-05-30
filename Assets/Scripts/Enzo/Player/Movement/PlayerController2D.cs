@@ -161,7 +161,7 @@ public class PlayerController2D : MonoBehaviour
             canjump = true;
 
         ModularMovement();
-//        print(playerVelocity.y);
+        //        print(playerVelocity.y);
         playerRigidbody2D.velocity = playerVelocity;
         Debug.DrawRay(transform.position, playerVelocity, Color.green, Time.deltaTime);
 
@@ -377,7 +377,7 @@ public class PlayerController2D : MonoBehaviour
                 playerRigidbody2D.velocity = Vector2.zero;
                 if (_raycastDetection.RaycastOnRoll(rollDirection))
                 {
-                    // playerRigidbody2D.AddForce(new Vector2(CurrentDirection, 1).normalized * forceBonk,
+                    // playerRigidbody2D.AddForce(new Vector2(LastDirection, 1).normalized * forceBonk,
                     //     ForceMode2D.Impulse);
                 }
 
