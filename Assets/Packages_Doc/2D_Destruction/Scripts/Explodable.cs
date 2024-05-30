@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Explodable : MonoBehaviour
 {
     public System.Action<List<GameObject>> OnFragmentsGenerated;
+    public SoundData destroyWallSound;
 
     public bool allowRuntimeFragmentation = false;
 
@@ -33,6 +34,7 @@ public class Explodable : MonoBehaviour
     ///
     public void explode(GameObject bullet)
     {
+        AudioManager.instance.PlaySound(destroyWallSound);
         _exploseWall = GetComponent<ExploseWall>();
         //if fragments were not created before runtime then create them now
         if (fragments.Count == 0 && allowRuntimeFragmentation)
@@ -48,7 +50,7 @@ public class Explodable : MonoBehaviour
                 frag.SetActive(true);
                 frag.AddComponent<OnBulletHit>();
                 frag.AddComponent<DestroyFragments>();
-                
+
                 if (_exploseWall.destroyFragmentsAfterSeconds)
                 {
                     frag.GetComponent<DestroyFragments>().waitToDestroy = true;

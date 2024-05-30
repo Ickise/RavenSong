@@ -4,7 +4,7 @@ using UnityEngine;
 public class ExploseWall : MonoBehaviour
 {
     private OnBulletHit _onBulletHit;
-
+    [SerializeField] private SoundData destroyWallSound;
     private Explodable _explodable;
 
     [Tooltip("À mettre sur true si vous voulez détruire les fragments après X secondes"), Header("Bool")]
@@ -18,6 +18,7 @@ public class ExploseWall : MonoBehaviour
     {
         _onBulletHit = GetComponent<OnBulletHit>();
         _explodable = GetComponent<Explodable>();
+        _explodable.destroyWallSound = destroyWallSound;
     }
 
     private void Start()

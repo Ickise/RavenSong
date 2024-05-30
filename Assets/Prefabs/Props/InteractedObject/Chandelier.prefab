@@ -147,8 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 3
   chandelierRigidbody2D: {fileID: 4433848806319082556}
-  vfxImpactRope: {fileID: 8250091928702868315, guid: 7edb052f398eae84bb3e95bb63f05d7f, type: 3}
   _balancingChandelier: {fileID: 5728704946990683904}
+  vfxImpactRope: {fileID: 8250091928702868315, guid: 7edb052f398eae84bb3e95bb63f05d7f, type: 3}
+  cutRopeSound: {fileID: 11400000, guid: c5e5aeb8e75167d438c018936c3f18f6, type: 2}
 --- !u!114 &2131849017379708141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +216,7 @@ Transform:
   - {fileID: 6801051759322417852}
   - {fileID: 4489743989370707046}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &485056228450245760
 MonoBehaviour:
@@ -395,6 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VfxExplosion: {fileID: 2365890837872329372, guid: 8f2884c821ec36f4daa66eb950621011, type: 3}
+  destroySound: {fileID: 11400000, guid: b201a89ba4410ac49b4127b405a165a2, type: 2}
 --- !u!114 &4794442118357555488
 MonoBehaviour:
   m_ObjectHideFlags: 0

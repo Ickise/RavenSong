@@ -712,6 +712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButtonSelected: {fileID: 1260540202609499789}
+  sceneNameToPlay: LevelDesign
 --- !u!114 &102306568
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -824,8 +825,8 @@ MonoBehaviour:
     m_ActionName: Player/ChangeTab[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 2379ca47-1a57-45fc-82cc-3f673a51064a
-    m_ActionName: Menu/Pause[/XInputControllerWindows/start]
+    m_ActionId: 4025f028-c263-4696-9d05-40e1c29cb429
+    m_ActionName: Player/ChangeValues[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/left,/XInputControllerWindows2/leftStick/left,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows/dpad/left,/XInputControllerWindows2/dpad/left,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows2/rightStick/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows2/leftStick/right,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows/dpad/right,/XInputControllerWindows2/dpad/right,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows2/rightStick/right,/DualShock4GamepadHID/rightStick/right]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Menu
@@ -14740,18 +14741,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 102306567}
-        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
-        m_MethodName: NewGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 102306568}
         m_TargetAssemblyTypeName: MenuTransition, Assembly-CSharp
         m_MethodName: DoFadeTransitionFrom
@@ -14771,6 +14760,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 862858916}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 102306567}
+        m_TargetAssemblyTypeName: Menu, Assembly-CSharp
+        m_MethodName: NewGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

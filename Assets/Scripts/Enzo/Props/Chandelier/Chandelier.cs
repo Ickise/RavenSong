@@ -4,6 +4,7 @@ public class Chandelier : MonoBehaviour
 {
     private Explodable _explodable;
     [SerializeField] private GameObject VfxExplosion;
+    [SerializeField] private SoundData destroySound;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -33,5 +34,6 @@ public class Chandelier : MonoBehaviour
     private void OnDestroy()
     {
         VFXInstantieur.instance.PlayVFXInWorld(VfxExplosion, transform);
+        AudioManager.instance.PlaySound(destroySound);
     }
 }

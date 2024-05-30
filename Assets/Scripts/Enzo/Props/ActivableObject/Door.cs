@@ -17,6 +17,7 @@ public class Door : MonoBehaviour
     private Vector3 newPosition;
     [SerializeField] private GameObject vfxOpenDoor, vfxCloseDoor;
     [SerializeField] private Transform posVFXOpenDoor, posVFXCloseDoor;
+    [SerializeField] private SoundData moveDoorSound;
 
     private void Awake()
     {
@@ -29,6 +30,7 @@ public class Door : MonoBehaviour
 
     public void OpenDoor(bool isActive)
     {
+        AudioManager.instance.PlaySound(moveDoorSound);
         if (isActive)
         {
             transform.DOMove(newPosition, animationDuration)

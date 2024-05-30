@@ -1,12 +1,12 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.EventSystems;
 
 public class Menu : MonoBehaviour
 {
-    // [SerializeField] private SceneAsset newGameScene;
     [SerializeField] private GameObject firstButtonSelected;
+
+    [SerializeField] private string sceneNameToPlay;
 
     private void Start()
     {
@@ -16,7 +16,7 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
-        SceneManager.LoadScene("TestLevelDesign");
+        SceneManager.LoadScene(sceneNameToPlay);
     }
 
     public void Quit()

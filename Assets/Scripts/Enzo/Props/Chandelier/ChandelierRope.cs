@@ -14,6 +14,7 @@ public class ChandelierRope : MonoBehaviour
     private OnBulletHit _onBulletHit;
 
     [SerializeField, Header("VFX")] private GameObject vfxImpactRope;
+    [SerializeField] private SoundData cutRopeSound;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class ChandelierRope : MonoBehaviour
         chandelierRigidbody2D.isKinematic = false;
         chandelierRigidbody2D.gravityScale = gravity;
         VFXInstantieur.instance.PlayVFXInWorld(vfxImpactRope, transform);
+        AudioManager.instance.PlaySound(cutRopeSound);
         Destroy(gameObject);
     }
 }

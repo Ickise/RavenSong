@@ -995,6 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75953d6b31f574644be1238b08e89b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyWallSound: {fileID: 0}
   allowRuntimeFragmentation: 0
   extraPoints: 50
   subshatterSteps: 0
@@ -1119,7 +1120,6 @@ MonoBehaviour:
       m_Calls: []
   canGoThrough: 0
   bulletFalling: 0
-  putBulletInChildren: 1
 --- !u!114 &1316262360170052679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1132,6 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 250974eb6429fd74babf67f6bd4649ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyWallSound: {fileID: 11400000, guid: 54c9ee487cac7b14c949fd51b654afee, type: 2}
   destroyFragmentsAfterSeconds: 0
   timeToDestroyFragments: 0
 --- !u!114 &6895958778593371527
