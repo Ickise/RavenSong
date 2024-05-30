@@ -5,6 +5,7 @@ using UnityEngine;
 public class TriggerSetFalse : MonoBehaviour
 {
     [SerializeField] private GameObject objectFalse;
+    [SerializeField] private bool _active;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +21,7 @@ public class TriggerSetFalse : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            objectFalse.SetActive(false);
+            objectFalse.SetActive(_active);
         }
             
     }
