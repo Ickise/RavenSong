@@ -36,6 +36,7 @@ public class GetEntry : MonoBehaviour
         descriptionToUpdate.text = _entryData.entryDescription;
         moreDescriptionToUpdate.text = _entryData.entryMoreDescription;
         spriteToUpdate.sprite = _entryData.entryVisual;
+        spriteToUpdate.SetNativeSize();
         Destroy(this);
     }
 }
