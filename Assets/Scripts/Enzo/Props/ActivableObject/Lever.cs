@@ -11,6 +11,7 @@ public class Lever : MonoBehaviour
 
     private OnBulletHit _onBulletHit;
     [SerializeField] private GameObject vfxActiveLever;
+    [SerializeField] private SoundData leverSound;
 
     private Animator leverAnimator;
 
@@ -43,6 +44,7 @@ public class Lever : MonoBehaviour
     {
         CanChangeBool();
         VFXInstantieur.instance.PlayVFXInWorld(vfxActiveLever, transform);
+        AudioManager.instance.PlaySound(leverSound);
         foreach (var gameObject in _door)
         {
             gameObject.OpenDoor(isActive);

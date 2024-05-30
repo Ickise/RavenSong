@@ -12,7 +12,8 @@ public class IAHorloger : IA
     [Header("VFX")]
     [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel;
     [SerializeField] private Transform posVFXBonk, posVFXImpactMetalBall, posVFXCourse, posVFXCourseEtincel;
-    [SerializeField, Header("Sounds")] private SoundData mort, charge, detection, idle, recharge;
+    [Header("Sounds")]
+    [SerializeField] private SoundData mort, charge, detection, idle, recharge;
     private MeshRenderer currentShaderBrillance;
     private float currentValueShaderBrillance;
     private OnBulletHit _onBulletHit;
