@@ -13,10 +13,10 @@ public class GraphicsParameter : MonoBehaviour
 
     private void Start()
     {
-        qualityText.text = QualitySettings.names[indexQuality = QualitySettings.GetQualityLevel()];
-        fullscreenModeText.text = "plein écran";
+        qualityText.text = "<size=150%> <</size>" + QualitySettings.names[indexQuality = QualitySettings.GetQualityLevel()] + "<size=150%>> </size>";
+        fullscreenModeText.text = "<size=150%> <</size>Full-Screen<size=150%>> </size>";
         indexResolution = resolutions.Length - 1;
-        resolutionText.text = resolutions[indexResolution].x + " × " + resolutions[indexResolution].y;
+        resolutionText.text = "<size=150%> <</size>" + resolutions[indexResolution].x + " × " + resolutions[indexResolution].y + "<size=150%>> </size>";
         brightessText.SetText(Mathf.Round((brightnessSlider.value = Screen.brightness) * 10).ToString());
     }
 
@@ -45,7 +45,7 @@ public class GraphicsParameter : MonoBehaviour
         else if (indexQuality < 0)
             indexQuality = QualitySettings.count - 1;
         QualitySettings.SetQualityLevel(indexQuality, true);
-        qualityText.text = QualitySettings.names[QualitySettings.GetQualityLevel()];
+        qualityText.text = "<size=150%> <</size>" + QualitySettings.names[QualitySettings.GetQualityLevel()] + "<size=150%>> </size>";
     }
 
     public void ChangeFullscreenMode(int add)
@@ -58,17 +58,17 @@ public class GraphicsParameter : MonoBehaviour
         if (indexFullscreenMode == 0)
         {
             Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.FullScreenWindow);
-            fullscreenModeText.text = "plein écran";
+            fullscreenModeText.text = "<size=150%> <</size>Full-Screen<size=150%>> </size>";
         }
         else if (indexFullscreenMode == 1)
         {
             Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.MaximizedWindow);
-            fullscreenModeText.text = "fenêtre sans bordure";
+            fullscreenModeText.text = "<size=150%> <</size>Borderless Window<size=150%>> </size>";
         }
         else if (indexFullscreenMode == 2)
         {
             Screen.SetResolution(Screen.width, Screen.height, FullScreenMode.Windowed);
-            fullscreenModeText.text = "fenêtre";
+            fullscreenModeText.text = "<size=150%> <</size>Windowed<size=150%>> </size>";
         }
     }
 
@@ -80,7 +80,7 @@ public class GraphicsParameter : MonoBehaviour
         else if (indexResolution < 0)
             indexResolution = resolutions.Length - 1;
         Screen.SetResolution(resolutions[indexResolution].x, resolutions[indexResolution].y, Screen.fullScreenMode);
-        resolutionText.text = resolutions[indexResolution].x + " × " + resolutions[indexResolution].y;
+        resolutionText.text = "<size=150%> <</size>" + resolutions[indexResolution].x + " × " + resolutions[indexResolution].y + "<size=150%>> </size>";
     }
 
     public void ChangeBrightness()
