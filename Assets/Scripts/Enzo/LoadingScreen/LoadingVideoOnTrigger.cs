@@ -14,7 +14,6 @@ public class LoadingVideoOnTrigger : MonoBehaviour
         {
             onLoading.Invoke();
             canEnableObject = true;
-            Destroy(gameObject);
         }
     }
 }
