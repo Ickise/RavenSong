@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PauseController : MonoBehaviour
 {
@@ -13,11 +12,7 @@ public class PauseController : MonoBehaviour
 
     private Transform firstActiveGameObject;
     private GameObject firstSelectedGameObject;
-    [SerializeField] private GameObject firstSelectedSettingsGameObject;
-    [SerializeField] private GameObject firstSelectedBestiaryGameObject;
-
-    private EventSystem eventSystem;
-
+    
     public static bool gameIsPaused;
 
     [SerializeField] private GameObject selectionImage;
@@ -28,9 +23,6 @@ public class PauseController : MonoBehaviour
     {
         _instance = this;
         DisableElements();
-
-        eventSystem = EventSystem.current;
-        firstSelectedGameObject = eventSystem.firstSelectedGameObject;
     }
 
     public void PauseUnPause()
@@ -42,7 +34,6 @@ public class PauseController : MonoBehaviour
             pauseMenu.SetActive(true);
             //  selectionImage.SetActive(true);
 
-            eventSystem.SetSelectedGameObject(firstSelectedGameObject);
             gameIsPaused = true;
 
             Time.timeScale = 0;
@@ -95,17 +86,14 @@ public class PauseController : MonoBehaviour
             case -1:
                 DisableElements();
                 pauseMenuElements[1].SetActive(true);
-                eventSystem.SetSelectedGameObject(firstSelectedSettingsGameObject);
                 break;
             case 0:
                 DisableElements();
                 pauseMenuElements[0].SetActive(true);
-                eventSystem.SetSelectedGameObject(firstSelectedGameObject);
                 break;
             case 1:
                 DisableElements();
                 pauseMenuElements[2].SetActive(true);
-                eventSystem.SetSelectedGameObject(firstSelectedBestiaryGameObject);
                 break;
         }
     }
