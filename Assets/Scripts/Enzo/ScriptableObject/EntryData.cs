@@ -4,7 +4,8 @@ using UnityEngine;
 public class EntryData : ScriptableObject
 {
   public string entryTitle;
-  [TextArea(1,50)] public string entryDescription;
-  [TextArea(1,50)] public string entryMoreDescription;
+
+  [TextArea(1,50)] public string[] listOfTextEntry;
+  
   public Sprite entryVisual;
 }

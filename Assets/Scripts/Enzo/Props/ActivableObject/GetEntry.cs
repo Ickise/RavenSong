@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GetEntry : MonoBehaviour
@@ -16,15 +17,10 @@ public class GetEntry : MonoBehaviour
     [SerializeField,
      Tooltip("Il faut mettre le Text du Titre de la page du monstre du Bestiaire dont nous voulons changer le titre")]
     private TextMeshProUGUI titleToUpdate;
-
+    
     [SerializeField,
-     Tooltip("Il faut mettre la Description de la page du monstre du Bestiaire dont nous voulons changer le texte")]
-    private TextMeshProUGUI descriptionToUpdate;
-
-    [SerializeField,
-     Tooltip(
-         "Il faut mettre la Description supplémentaire de la page du monstre du Bestiaire dont nous voulons changer le texte")]
-    private TextMeshProUGUI moreDescriptionToUpdate;
+     Tooltip("Il faut mettre les textes de la page du monstre du Bestiaire dont nous voulons changer le texte et l'ordre a une importance")]
+    private TextMeshProUGUI[] descriptionListToUpdate;
 
     [SerializeField, Header("Image"), Tooltip("Il faut l'Image de la page du monstre du Bestiaire dont nous voulons changer le visuel")]
     private Image spriteToUpdate;
@@ -33,8 +29,12 @@ public class GetEntry : MonoBehaviour
     {
         buttonTitleToUpdate.text = _entryData.entryTitle;
         titleToUpdate.text = _entryData.entryTitle;
-        descriptionToUpdate.text = _entryData.entryDescription;
-        moreDescriptionToUpdate.text = _entryData.entryMoreDescription;
+
+        for (int i = 0; i < descriptionListToUpdate.Length; i++)
+        {
+            descriptionListToUpdate[i].text = _entryData.listOfTextEntry[i];
+        }
+        
         spriteToUpdate.sprite = _entryData.entryVisual;
         spriteToUpdate.SetNativeSize();
         Destroy(this);
