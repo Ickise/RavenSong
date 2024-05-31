@@ -10,6 +10,7 @@ public class Respawn : MonoBehaviour
 
     [SerializeField, Header("DeathPrefab")]
     private GameObject corvusDeathEffectSprite;
+    [SerializeField] private GameObject luciolVFX, sparkleVFX, impactDeathVFX, blackSplashShader;
 
     private Scene currentScene;
 
@@ -20,8 +21,9 @@ public class Respawn : MonoBehaviour
     private PlayerInput playerInput;
 
     private SpriteRenderer shaderDeathRespawn;
+    private Material blackSplash;
 
-    private float dissolveAmount = 0, verticalDissolve = 1.1f;
+    private float dissolveAmount = 0, verticalDissolve = 1.1f, blackSplashSize = 0;
 
     private bool spawn, death;
 
@@ -50,6 +52,7 @@ public class Respawn : MonoBehaviour
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
                 PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
+        shaderDeathRespawn.color = Color.red;
         DOTween.To(() => verticalDissolve, x => verticalDissolve = x, 0f, shaderTime)
             .OnComplete(() =>
             {
@@ -69,7 +72,10 @@ public class Respawn : MonoBehaviour
         if (spawn)
             shaderDeathRespawn.material.SetFloat("_VerticalDissolve", verticalDissolve);
         else if (death)
+        {
             shaderDeathRespawn.material.SetFloat("_DissolveAmount", dissolveAmount);
+            blackSplash.SetFloat("_Size", blackSplashSize);
+        }
     }
 
     public void RespawnPlayer()
@@ -101,15 +107,35 @@ public class Respawn : MonoBehaviour
                 : -shaderDeathRespawn.transform.localScale.x, shaderDeathRespawn.transform.localScale.y,
             shaderDeathRespawn.transform.localScale.z);
         shaderDeathRespawn.material.SetFloat("_DissolveAmount", 0);
+        blackSplash = Instantiate(blackSplashShader, transform.position, Quaternion.identity).GetComponent<SpriteRenderer>().material;
+        blackSplash.SetFloat("_Size", 0);
         death = true;
         for (int i = 0; i < meshRenderer.childCount; i++)
             meshRenderer.GetChild(i).gameObject.SetActive(false);
-        DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
-            .OnComplete(() =>
-            {
-                currentScene = SceneManager.GetActiveScene();
-                SceneManager.LoadScene(currentScene.name);
-            });
+        VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
+        VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5);
+        DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime));
+        // sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5));
+        // float a = 0;
+        // sequence.Append(DOTween.To(() => a, x => a = x, 1f, 1f));
+        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform));
+        float b = 0;
+        sequence.Append(DOTween.To(() => b, x => b = x, 1f, 1f));
+        sequence.AppendCallback(() =>
+        {
+            currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+        });
+        // DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
+        //     .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5))
+        //     .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform))
+        //     .OnComplete(() =>
+        //     {
+        //         currentScene = SceneManager.GetActiveScene();
+        //         SceneManager.LoadScene(currentScene.name);
+        //     });
     }
 
     private void FirstSpawn()

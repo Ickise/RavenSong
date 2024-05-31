@@ -172,6 +172,7 @@ public class IAHorloger : IA
 
     private void OnDestroy()
     {
-        AudioManager.instance.PlaySound(mort);
+        if (AudioManager.instance != null)
+            AudioManager.instance.PlaySound(mort);
     }
 }

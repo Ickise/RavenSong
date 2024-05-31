@@ -17,13 +17,15 @@ public class GetEntry : MonoBehaviour
     [SerializeField,
      Tooltip("Il faut mettre le Text du Titre de la page du monstre du Bestiaire dont nous voulons changer le titre")]
     private TextMeshProUGUI titleToUpdate;
-    
+
     [SerializeField,
-     Tooltip("Il faut mettre les textes de la page du monstre du Bestiaire dont nous voulons changer le texte et l'ordre a une importance")]
+     Tooltip(
+         "Il faut mettre les textes de la page du monstre du Bestiaire dont nous voulons changer le texte et l'ordre a une importance")]
     private TextMeshProUGUI[] descriptionListToUpdate;
 
-    [SerializeField, Header("Image"), Tooltip("Il faut l'Image de la page du monstre du Bestiaire dont nous voulons changer le visuel")]
-    private Image spriteToUpdate;
+    [SerializeField, Header("Image"),
+     Tooltip("Il faut l'Image de la page du monstre du Bestiaire dont nous voulons changer le visuel")]
+    private Image[] spriteListToUpdate;
 
     public void UpdateEntry()
     {
@@ -33,10 +35,9 @@ public class GetEntry : MonoBehaviour
         for (int i = 0; i < descriptionListToUpdate.Length; i++)
         {
             descriptionListToUpdate[i].text = _entryData.listOfTextEntry[i];
+            spriteListToUpdate[i].sprite = _entryData.entryVisualsList[i];
+            spriteListToUpdate[i].SetNativeSize();
         }
-        
-        spriteToUpdate.sprite = _entryData.entryVisual;
-        spriteToUpdate.SetNativeSize();
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
