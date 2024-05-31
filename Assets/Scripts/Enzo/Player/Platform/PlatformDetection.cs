@@ -39,7 +39,7 @@ public class PlatformDetection : MonoBehaviour
             SetPlatformAsPlatform();
         }
 
-        if (currentPlatform != null && InputReader.instance.canJump && InputReader.instance.canDown)
+        if (currentPlatform != null && (PlayerController2D._instance.isJumping || InputReader.instance.canDown))
         {
             SetPlatformAsPlatform();
             VFXInstantieur.instance.PlayVFXInWorld(vfxDescentPlatform, transform);

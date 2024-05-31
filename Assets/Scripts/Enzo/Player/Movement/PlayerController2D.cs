@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
+    public bool isJumping => playerVelocity.y > 0;
     private GhostTrail _ghostTrail;
     public bool isFalling;
     [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
