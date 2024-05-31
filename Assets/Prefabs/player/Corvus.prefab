@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967438958619023172}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.014129639, y: 0.479908, z: 0}
+  m_LocalPosition: {x: 0.014137268, y: 0.479908, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -531,7 +531,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736661597819335962}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.014129639, y: 0.479908, z: 0}
+  m_LocalPosition: {x: 0.014137268, y: 0.479908, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -584,7 +584,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081539809428432178}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.014129639, y: 0.479908, z: 0}
+  m_LocalPosition: {x: -0.014137268, y: 0.479908, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -942,22 +942,6 @@ MonoBehaviour:
     m_ActionId: 5c4f7a19-8d4b-44be-a3a9-c1843ae8ae35
     m_ActionName: Player/manette direction
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7732752715474662002, guid: 0229160fbd6f97a459da8ebcd94569d1, type: 3}
-        m_TargetAssemblyTypeName: Checkpoint, Assembly-CSharp
-        m_MethodName: ActiveCheckpoint
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3c1b6dd6-5916-42d3-a67f-5e9077d0ade1
-    m_ActionName: Player/Checkpoint[/XInputControllerWindows/buttonNorth,/Keyboard/y]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: ac567d8e-9fc7-4001-a220-267df4af0e88
     m_ActionName: Menu/ChangeValues[/Keyboard/a,/Keyboard/d,/XInputControllerWindows/leftStick/left,/XInputControllerWindows/dpad/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows/leftStick/right,/XInputControllerWindows/dpad/right,/XInputControllerWindows/rightStick/right]
@@ -1009,6 +993,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce1c4829-686a-4989-938b-c48988e026da
     m_ActionName: Player/Interaction[/XInputControllerWindows/buttonNorth,/DualShock4GamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4025f028-c263-4696-9d05-40e1c29cb429
+    m_ActionName: Player/ChangeValues[/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows1/leftStick/left,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows1/dpad/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows1/rightStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows1/leftStick/right,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows1/dpad/right,/DualShock4GamepadHID/rightStick/right,/XInputControllerWindows1/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 78da5b9c-0206-4843-99f2-a5dd9f16bc56
+    m_ActionName: Player/ChangeTab[/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftShoulder,/XInputControllerWindows1/leftShoulder,/DualShock4GamepadHID/rightShoulder,/XInputControllerWindows1/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fb1b7d81-6653-41fb-9c5e-a9d4b7a438ef
+    m_ActionName: Menu/Back[/DualShock4GamepadHID/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1174,6 +1170,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shaderTime: 1
   corvusDeathEffectSprite: {fileID: 3022279532584528458, guid: d0e1a5fdea631e94b9d1791846fea843, type: 3}
+  luciolVFX: {fileID: 5526196431056455838, guid: f6ef006403f48e24cb80d9fe440d874b, type: 3}
+  sparkleVFX: {fileID: 3493999897616772326, guid: 0421880f95bf87b4083ba107ab0051b7, type: 3}
+  impactDeathVFX: {fileID: 3935203508377705847, guid: 2a9dfbc8017bfff4b88348e48577ddc0, type: 3}
+  blackSplashShader: {fileID: 50422086906125182, guid: fe9f82cb47a2cd742a83775ffd442c04, type: 3}
 --- !u!231 &8217276307982103039
 SpringJoint2D:
   m_ObjectHideFlags: 0
@@ -1600,7 +1600,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3791076367058320981}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.014129639, y: 0.479908, z: 0}
+  m_LocalPosition: {x: -0.014137268, y: 0.479908, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1963,7 +1963,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.286911, y: 0.40746307, z: 0}
+  m_LocalPosition: {x: -0.28691864, y: 0.40746307, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
