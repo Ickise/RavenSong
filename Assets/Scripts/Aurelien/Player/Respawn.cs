@@ -112,30 +112,24 @@ public class Respawn : MonoBehaviour
         death = true;
         for (int i = 0; i < meshRenderer.childCount; i++)
             meshRenderer.GetChild(i).gameObject.SetActive(false);
+
         VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
-        VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5);
         DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
         Sequence sequence = DOTween.Sequence();
+        float a = 0;
+        sequence.Append(DOTween.To(() => a, x => a = x, 1f, 1f));
         sequence.Append(DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime));
-        // sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5));
-        // float a = 0;
-        // sequence.Append(DOTween.To(() => a, x => a = x, 1f, 1f));
-        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform));
+        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5));
         float b = 0;
-        sequence.Append(DOTween.To(() => b, x => b = x, 1f, 1f));
+        sequence.Append(DOTween.To(() => b, x => b = x, 1f, 1.3f));
+        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform));
+        float c = 0;
+        sequence.Append(DOTween.To(() => c, x => c = x, 1f, 1f));
         sequence.AppendCallback(() =>
         {
             currentScene = SceneManager.GetActiveScene();
             SceneManager.LoadScene(currentScene.name);
         });
-        // DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime)
-        //     .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform, 5))
-        //     .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform))
-        //     .OnComplete(() =>
-        //     {
-        //         currentScene = SceneManager.GetActiveScene();
-        //         SceneManager.LoadScene(currentScene.name);
-        //     });
     }
 
     private void FirstSpawn()
