@@ -35,8 +35,12 @@ public class GetEntry : MonoBehaviour
         for (int i = 0; i < descriptionListToUpdate.Length; i++)
         {
             descriptionListToUpdate[i].text = _entryData.listOfTextEntry[i];
+        }
+        for (int i = 0; i < spriteListToUpdate.Length; i++)
+        {
             spriteListToUpdate[i].sprite = _entryData.entryVisualsList[i];
         }
+        
         Destroy(gameObject);
     }
 }
