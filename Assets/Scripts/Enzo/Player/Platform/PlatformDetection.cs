@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlatformDetection : MonoBehaviour
@@ -58,7 +57,7 @@ public class PlatformDetection : MonoBehaviour
 
     private void SetPlatformAsPlatform()
     {
-        ChangeTriggerAndLayer(true, "Escalier");
+        ChangeTriggerAndLayer(true, "Platform");
         currentPlatform = null;
     }
 
