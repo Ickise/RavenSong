@@ -59,7 +59,7 @@ public class IAHorloger : IA
     private void IsWaitingPlayer()
     {
         if (isReloading || DOTween.IsTweening("chargingTime")) return;
-        if (Mathf.RoundToInt(Random.Range(0, 30 / Time.deltaTime)) == 0)
+        if (Mathf.RoundToInt(Random.Range(0, 30f / Time.deltaTime)) == 0)
             AudioManager.instance.PlaySound(idle);
         if (DetectPlayer)
         {

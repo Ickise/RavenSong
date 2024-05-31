@@ -55,7 +55,7 @@ public class IAProjectil : IA
 
     private void IsRoaming()
     {
-        if (Mathf.RoundToInt(Random.Range(0, 30 / Time.deltaTime)) == 0)
+        if (Mathf.RoundToInt(Random.Range(0, 30f / Time.deltaTime)) == 0)
             AudioManager.instance.PlaySound(idle);
         if (DetectPlayer || DetectPlayerYProjectil)
         {
