@@ -7,5 +7,5 @@ public class EntryData : ScriptableObject
 
   [TextArea(1,50)] public string[] listOfTextEntry;
   
-  public Sprite entryVisual;
+  public Sprite[] entryVisualsList;
 }
