@@ -68,17 +68,6 @@ public class PauseController : MonoBehaviour
         firstActiveGameObject = null;
     }
 
-    private void Update()
-    {
-        /*   if (gameIsPaused)
-           {
-               Vector2 selectionImagePosition = new Vector2(eventSystem.currentSelectedGameObject.transform.position.x + addingXPosition, eventSystem.currentSelectedGameObject.transform.position.y);
-   
-               selectionImage.transform.position = selectionImagePosition;
-           }
-       }*/
-    }
-
     public void TabChanger()
     {
         switch (InputReader.instance.tabID)
