@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class PlayerController2D : MonoBehaviour
 {
+    private GhostTrail _ghostTrail;
     public bool isFalling;
     [Header("Movements")] [SerializeField] private float accelerationSpeed = 2f;
 
@@ -52,6 +53,8 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
     [SerializeField] private AnimationCurve animationCurveDash;
+
+    public bool DoGhostTrail => onRoll;
     public float DashTime => rouladeTime;
     private float rollTime = 0;
     private Rigidbody2D playerRigidbody2D;
@@ -97,6 +100,7 @@ public class PlayerController2D : MonoBehaviour
     private void Awake()
     {
         _instance = this;
+        _ghostTrail = GetComponent<GhostTrail>();
         _stunDetection = GetComponentInChildren<StunDetection>();
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         playerRigidbody2D = GetComponent<Rigidbody2D>();
@@ -362,6 +366,8 @@ public class PlayerController2D : MonoBehaviour
     public void Roll()
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
+        _ghostTrail.enabled = true;
+        
         _playerAnimation.FlipAnimation(LastDirection > 0);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashHaut);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
@@ -395,6 +401,7 @@ public class PlayerController2D : MonoBehaviour
 
     IEnumerator RollCoolDown()
     {
+        _ghostTrail.enabled = false;
         canRoll = false;
         yield return new WaitForSeconds(coolDownToRoll);
         canRoll = true;
