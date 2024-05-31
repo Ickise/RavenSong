@@ -3,6 +3,7 @@ using Spine.Unity;
 using Spine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using DG.Tweening;
 
 //modifie la position du bone "aim" sur les deux meshs (voir animationController) pour créer une animation de visée
 public class SpineAim : MonoBehaviour
@@ -13,8 +14,9 @@ public class SpineAim : MonoBehaviour
     private SkeletonAnimation[] skeletonAnimation;
     private Camera cam;
     [SerializeField] private bool isManette, enableAimLine = true;
-    public GameObject aimLineDroite, aimLineGauche;
-    Vector3 localPosDroite, localPosGauche;
+    public GameObject aimLineDroite, aimLineGauche, spriteAimDroite, spriteAimGauche, pointerDroite, pointerGauche;
+    private Vector3 localPosDroite, localPosGauche;
+    private bool animeSpriteAim;
     public static bool manette;
 
     //get toute les références
@@ -41,8 +43,15 @@ public class SpineAim : MonoBehaviour
         {
             if (aimLineDroite.activeInHierarchy || aimLineGauche.activeInHierarchy)
             {
+                animeSpriteAim = false;
+
                 aimLineDroite.SetActive(false);
+                spriteAimDroite.transform.localPosition = Vector3.zero;
+                spriteAimDroite.transform.localScale = Vector3.one * 0.1f;
+
                 aimLineGauche.SetActive(false);
+                spriteAimGauche.transform.localPosition = Vector3.zero;
+                spriteAimGauche.transform.localScale = Vector3.one * 0.1f;
             }
             return;
         }
@@ -50,6 +59,23 @@ public class SpineAim : MonoBehaviour
         {
             aimLineDroite.SetActive(_playerAnimation.GetDirection);
             aimLineGauche.SetActive(!_playerAnimation.GetDirection);
+
+            pointerDroite.transform.position = spriteAimDroite.transform.GetChild(0).transform.position;
+            pointerDroite.transform.rotation = spriteAimDroite.transform.GetChild(0).transform.rotation;
+            
+            pointerGauche.transform.position = spriteAimGauche.transform.GetChild(0).transform.position;
+            pointerGauche.transform.rotation = spriteAimGauche.transform.GetChild(0).transform.rotation;
+
+            if (!animeSpriteAim)
+            {
+                animeSpriteAim = true;
+
+                spriteAimDroite.transform.DOScaleX(0.45f, 0.4f).SetEase(Ease.OutQuint);
+                spriteAimDroite.transform.DOBlendableLocalMoveBy(Vector2.right * 5, 0.4f);
+
+                spriteAimGauche.transform.DOScaleX(0.45f, 0.4f).SetEase(Ease.OutQuint);
+                spriteAimGauche.transform.DOBlendableLocalMoveBy(Vector2.right * 5, 0.4f);
+            }
         }
 
         //obligé de set individuellement les bone car le bone aim du coté gauche a le x inversé pour des raisons obscure
