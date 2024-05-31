@@ -56,7 +56,6 @@ public class StunDetection : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
-            Debug.Log(Mathf.Lerp(1f, 0f, t));
             imageStun.fillAmount = Mathf.Lerp(0f, 1f, t);
             yield return null;
         }

@@ -423,7 +423,6 @@ public class PlayerController2D : MonoBehaviour
         {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / duration;
-            Debug.Log(Mathf.Lerp(1f, 0f, t));
             imageRool.fillAmount = Mathf.Lerp(0f, 1f, t);
             yield return null;
         }
