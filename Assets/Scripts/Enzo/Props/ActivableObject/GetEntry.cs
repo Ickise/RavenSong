@@ -37,6 +37,6 @@ public class GetEntry : MonoBehaviour
         
         spriteToUpdate.sprite = _entryData.entryVisual;
         spriteToUpdate.SetNativeSize();
-        Destroy(this);
+        Destroy(gameObject);
     }
 }
