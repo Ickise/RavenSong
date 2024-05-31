@@ -2,6 +2,7 @@ using UnityEngine.VFX;
 using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerController2D : MonoBehaviour
 {
@@ -54,6 +55,7 @@ public class PlayerController2D : MonoBehaviour
     [SerializeField] private float forceBonk = 10f;
     [SerializeField] private float coolDownToRoll = 2f;
     [SerializeField] private AnimationCurve animationCurveDash;
+    [SerializeField] private Image imageRool;
 
     public bool DoGhostTrail => onRoll;
     public float DashTime => rouladeTime;
@@ -404,8 +406,27 @@ public class PlayerController2D : MonoBehaviour
     {
         _ghostTrail.enabled = false;
         canRoll = false;
+        StartCoroutine(AnimateImageFill(coolDownToRoll));
         yield return new WaitForSeconds(coolDownToRoll);
         canRoll = true;
+    }
+
+    IEnumerator AnimateImageFill(float duration)
+    {
+
+        
+        float elapsedTime = 0f;
+
+        imageRool.fillAmount = 1f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            Debug.Log(Mathf.Lerp(1f, 0f, t));
+            imageRool.fillAmount = Mathf.Lerp(0f, 1f, t);
+            yield return null;
+        }
     }
 
     private void OnDisable()
