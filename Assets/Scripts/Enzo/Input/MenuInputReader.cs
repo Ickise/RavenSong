@@ -3,17 +3,14 @@ using UnityEngine.InputSystem;
 
 public class MenuInputReader : MonoBehaviour
 {
-    private Transform activBackGameObject;
-
-    private BackInMenu activBack;
+    private BackInMenu activeBackInMenu;
 
     public void OnBack(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            activBack = gameObject.GetComponentInChildren<BackInMenu>();
-            activBack.Back();
-            Debug.Log(activBack.name);
+            activeBackInMenu = gameObject.GetComponentInChildren<BackInMenu>();
+            activeBackInMenu.Back();
         }
     }
 }
