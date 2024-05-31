@@ -138,7 +138,7 @@ public class Respawn : MonoBehaviour
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
         });
         float a = 0;
-        sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.5f));
+        sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.4f));
         sequence.Append(DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime));
         sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform.position + Vector3.down, luciolVFX.transform.localScale, luciolVFX.transform.eulerAngles));
         sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform));

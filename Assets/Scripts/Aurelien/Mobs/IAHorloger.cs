@@ -10,7 +10,7 @@ public class IAHorloger : IA
     [SerializeField] private Collider2D cd2Datk;
     public bool IsAttacking => cd2Datk.enabled;
     [Header("VFX")]
-    [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel;
+    [SerializeField] private GameObject VFXBonk, VFXImpactMetalBall, VFXCourse, VFXCourseEtincel, VFXParticuleChargement;
     [SerializeField] private Transform posVFXBonk, posVFXImpactMetalBall, posVFXCourse, posVFXCourseEtincel;
     [Header("Sounds")]
     [SerializeField] private SoundData mort, charge, detection, idle, recharge;
@@ -31,14 +31,15 @@ public class IAHorloger : IA
         _onBulletHit = GetComponent<OnBulletHit>();
         tailleMob.y += 0.2f;
         overwriteIniTialize = true;
-        ShaderBrillance(1f, reloadTime);
+        ShaderBrillance(0.4f, reloadTime);
     }
 
     protected override void Update()
     {
         base.Update();
-        Color sbc = currentShaderBrillance.material.GetColor("_Flash_Fatigue_Color");
-        currentShaderBrillance.material.SetColor("_Flash_Fatigue_Color", new Color(sbc.r, currentValueShaderBrillance, sbc.b, sbc.a));
+        // Color sbc = currentShaderBrillance.material.GetColor("_Flash_Fatigue_Color");
+        // currentShaderBrillance.material.SetColor("_Flash_Fatigue_Color", new Color(sbc.r, currentValueShaderBrillance, sbc.b, sbc.a));
+        currentShaderBrillance.material.SetFloat("_FlashAmount", currentValueShaderBrillance);
     }
 
     protected override void StateManager()
@@ -71,7 +72,7 @@ public class IAHorloger : IA
             {
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
-                ShaderBrillance(0, runTime);
+                ShaderBrillance(0, 0.4f);
                 AudioManager.instance.PlaySound(charge);
                 state = State.ChasePlayer;
                 _onBulletHit.bulletFalling = true;
@@ -87,7 +88,7 @@ public class IAHorloger : IA
                 cd2Datk.enabled = false;
                 AudioManager.instance.PlaySound(recharge);
                 state = State.WaitPlayer;
-                ShaderBrillance(1f, reloadTime);
+                ShaderBrillance(0.4f, reloadTime);
                 _onBulletHit.bulletFalling = false;
             }
         }
@@ -126,7 +127,7 @@ public class IAHorloger : IA
                 VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
                 state = State.WaitPlayer;
                 AudioManager.instance.PlaySound(recharge);
-                ShaderBrillance(1f, reloadTime);
+                ShaderBrillance(0.4f, reloadTime);
                 _onBulletHit.bulletFalling = false;
                 isReloading = true;
                 StopAllCoroutines();
@@ -144,6 +145,7 @@ public class IAHorloger : IA
         SetAnimation(AnimationState.stunEnd);
         yield return new WaitForSeconds(animationRefAsset.speed);
         isReloading = false;
+        VFXInstantieur.instance.PlayVFXInWorld(VFXParticuleChargement, transform);
         SetAnimation(AnimationState.idle);
     }
 
@@ -163,10 +165,10 @@ public class IAHorloger : IA
         VFXInstantieur.instance.PlayVFXInWorld(VFXImpactMetalBall, posVFXImpactMetalBall);
     }
 
-    private void ShaderBrillance(float gValue, float time)
+    private void ShaderBrillance(float value, float time)
     {
         currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
-        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, gValue, time)
+        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, value, time)
         .SetEase(Ease.OutBounce);
     }
 
