@@ -28,6 +28,10 @@ public class FireOneBullet : MonoBehaviour
 
     public static FireOneBullet instance;
 
+    [SerializeField] private Animator animatorIcons;
+
+    [SerializeField] private Animator animatorBarel;
+
     public Transform BulletSpawnPosition => currentDirection ? rightBulletSpawnPosition : leftBulletSpawnPosition;
     public Transform PositionToLook => currentDirection ? rightPositionToLook : leftPositionToLook;
 
@@ -53,7 +57,10 @@ public class FireOneBullet : MonoBehaviour
             bulletRef = Instantiate(bullet.gameObject, BulletSpawnPosition.position, Quaternion.Euler(Vector3.zero));
             numberOfAmmo--;
 
-            //Debug.Break();
+            animatorIcons.SetBool("Fire", true);
+            animatorBarel.SetBool("Barrel", true);
+            animatorBarel.SetBool("Barrel V2", false);
+            animatorIcons.SetBool("Recal", false);
         }
     }
 }
