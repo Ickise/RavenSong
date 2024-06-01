@@ -13,6 +13,8 @@ public class Menu : MonoBehaviour
     {
         var eventSystem = EventSystem.current;
         eventSystem.SetSelectedGameObject(firstButtonSelected, new BaseEventData(eventSystem));
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void NewGame()
