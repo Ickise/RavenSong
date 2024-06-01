@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject firstButtonSelected;
-    [SerializeField] private SoundData quitGame;
+    [SerializeField] private SoundData quitGame, menuIntro, menuLoop;
     [SerializeField] private string sceneNameToPlay;
 
     private void Start()
@@ -15,6 +15,11 @@ public class Menu : MonoBehaviour
         eventSystem.SetSelectedGameObject(firstButtonSelected, new BaseEventData(eventSystem));
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        
+        AudioManager.instance.PlayMusic(menuIntro);
+        float a = 0;
+        DOTween.To(() => a, x => a = x, 1, menuIntro.AudioToPlay.length)
+        .OnComplete(() => AudioManager.instance.PlayMusic(menuLoop));
     }
 
     public void NewGame()
