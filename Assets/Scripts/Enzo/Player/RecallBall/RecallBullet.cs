@@ -15,7 +15,7 @@ public class RecallBullet : MonoBehaviour
     private VisualEffect visualEffectTrailRecall;
 
     [Header("Sounds")]
-    [SerializeField] private SoundData magnetism, corvusVoiceCantRecall;
+    [SerializeField] private SoundData magnetism, corvusVoiceCantRecall, recupBalle;
     private Rigidbody2D bulletRigidbody;
 
     private Vector2 direction;
@@ -24,6 +24,7 @@ public class RecallBullet : MonoBehaviour
     [HideInInspector] public bool doRecall;
     [HideInInspector] public static bool onRecall;
     private bool isGoodDistance;
+    [SerializeField] private AudioSource audioSourceRecall;
 
     private PlayerAnimation _playerAnimation;
 
@@ -152,6 +153,7 @@ public class RecallBullet : MonoBehaviour
             animatorIcons.SetBool("Fire", false);
             onRecall = false;
             EnemyCorpse.bulletInCorpse = false;
+            AudioManager.instance.PlaySound(recupBalle);
             CancelRecall();
         }
     }
@@ -199,7 +201,8 @@ public class RecallBullet : MonoBehaviour
     {
         float distancePlayerBullet = Vector2.Distance(bulletRigidbody.transform.position, transform.position);
 
-        AudioManager.instance.PlaySound(magnetism, magnetism.AudioToPlay.length / (distancePlayerBullet / 3f));
+        // AudioManager.instance.PlaySound(magnetism, magnetism.AudioToPlay.length / (distancePlayerBullet / 3f));
+        AudioManager.instance.PlayMusicOnSpecifiedAudioSource(magnetism, audioSourceRecall);
 
         vfxTrailRecall.SetActive(true);
         if (_playerAnimation.GetDirection)
@@ -215,6 +218,7 @@ public class RecallBullet : MonoBehaviour
         doRecall = false;
 
         //tous les feedbacks de l'annulation
+        audioSourceRecall.Stop();
         vfxRecallBulletDroite.SetActive(false);
         vfxRecallBulletGauche.SetActive(false);
         vfxTrailRecall.SetActive(false);
