@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Spine.Unity;
@@ -19,6 +20,7 @@ public class PlayerAnimation : MonoBehaviour
     private MeshRenderer meshDroite, meshGauche;
     public bool GetDirection => meshDroite.enabled;
     public bool DontAim { get; set; }
+    private bool isAnime;
 
     //la liste des animations, pour en rajouter une, en plus de la mettre ici, il faut aussi la mettre dans le Start() quand on set le dictionnaire
     public enum AnimationState { none, idleBall, walkBall, walkBackWard, jumpBall, dashHaut, crossKickHaut, recallHaut, jumpNoBallBas, JumpNoBallHaut, walkNoBallBas, walkNoBallHaut, idleNoBall, dashBas };
@@ -105,10 +107,17 @@ public class PlayerAnimation : MonoBehaviour
             }
             else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
                 return;
+            if (isAnime)
+            {
+                StartCoroutine(ApplyAnimeDelay1frame(animationState, clearTrackIndex, overridespeed));
+                return;
+            }
             currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, overridespeed > 0 ? overridespeed : animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, overridespeed > 0 ? overridespeed : animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
             _spineAim.Start();
+            StartCoroutine(AnimeDelay1frame());
+            isAnime = true;
         }
     }
 
@@ -142,6 +151,8 @@ public class PlayerAnimation : MonoBehaviour
             }
             else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
                 return;
+            // StartCoroutine(AnimeDelay1frame());
+            // if (isAnime) return;
             currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize), function);
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
@@ -157,5 +168,17 @@ public class PlayerAnimation : MonoBehaviour
             FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
         else if (!SpineAim.manette)
             FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -Camera.main.transform.position.z)).x > transform.position.x);
+    }
+
+    private IEnumerator AnimeDelay1frame()
+    {
+        yield return 0;
+        isAnime = false;
+    }
+
+    private IEnumerator ApplyAnimeDelay1frame(AnimationState animationState, int clearTrackIndex, float overridespeed)
+    {
+        yield return 0;
+        SetAnimation(animationState, clearTrackIndex, overridespeed);
     }
 }
