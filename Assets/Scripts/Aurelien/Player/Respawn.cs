@@ -159,4 +159,9 @@ public class Respawn : MonoBehaviour
         startPosition = transform.position;
         spawnPosition = startPosition;
     }
+
+    private void OnDestroy()
+    {
+        ControlsParameter.GamePadVibration(this, 0, 0, 0);
+    }
 }
