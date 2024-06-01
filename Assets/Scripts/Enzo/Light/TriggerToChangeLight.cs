@@ -35,10 +35,8 @@ public class TriggerToChangeLight : MonoBehaviour
 
     private void ChangeLightColor()
     {
-        globalLight.color = new Color(Mathf.Lerp(globalLight.color.r, newColor.r, timer),
-            Mathf.Lerp(globalLight.color.g, newColor.g, timer),
-            Mathf.Lerp(globalLight.color.b, newColor.b, timer));
-        
+        globalLight.color = Color.Lerp(globalLight.color, newColor, timer);
+
         DestroyTrigger();
     }
 
