@@ -5,7 +5,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { private set; get; }
     public static float volumeScale = 1;
-    private AudioSource mainAudioSource;
+    [SerializeField] private AudioSource mainAudioSource, musicAudioSource;
 
     private void Awake()
     {
@@ -16,7 +16,6 @@ public class AudioManager : MonoBehaviour
         }
 
         instance = this;
-        mainAudioSource = GetComponent<AudioSource>();
     }
 
     public void PlaySound(SoundData data, float pitch = 1)
@@ -60,11 +59,11 @@ public class AudioManager : MonoBehaviour
 
         if (data == null)
             return;
-        if (mainAudioSource.isPlaying && mainAudioSource.clip == data)
+        if (musicAudioSource.isPlaying && musicAudioSource.clip == data)
             return;
 
-        mainAudioSource.clip = SetAudioParameters(mainAudioSource, data).AudioToPlay;
-        mainAudioSource.Play();
+        musicAudioSource.clip = SetAudioParameters(musicAudioSource, data).AudioToPlay;
+        musicAudioSource.Play();
     }
 
     public void PlayMusicOnSpecifiedAudioSource(SoundData data, AudioSource audioSource)
