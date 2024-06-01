@@ -151,12 +151,17 @@ public class PlayerAnimation : MonoBehaviour
             }
             else if (currentAnimationStateOnTrack[animationRefAsset.trackNum] == animationState)
                 return;
-            // StartCoroutine(AnimeDelay1frame());
-            // if (isAnime) return;
+            if (isAnime)
+            {
+                StartCoroutine(ApplyAnimeDelay1frame(animationState, function, clearTrackIndex));
+                return;
+            }
             currentAnimationStateOnTrack[animationRefAsset.trackNum] = animationState;
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationDroite, animationRefAsset.animationReferenceAssetDroite, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize), function);
             AnimationsSetter.instance.SetState(new AnimationsSetter.AnimationStructConstructor(animationState.ToString(), skeletonAnimationGauche, animationRefAsset.animationReferenceAssetGauche, animationRefAsset.trackNum, animationRefAsset.speed, animationRefAsset.loop, overwriteIniTialize));
             _spineAim.Start();
+            StartCoroutine(AnimeDelay1frame());
+            isAnime = true;
         }
     }
 
@@ -180,5 +185,11 @@ public class PlayerAnimation : MonoBehaviour
     {
         yield return 0;
         SetAnimation(animationState, clearTrackIndex, overridespeed);
+    }
+
+    private IEnumerator ApplyAnimeDelay1frame(AnimationState animationState, Spine.AnimationState.TrackEntryDelegate function, int clearTrackIndex)
+    {
+        yield return 0;
+        SetAnimation(animationState, clearTrackIndex);
     }
 }
