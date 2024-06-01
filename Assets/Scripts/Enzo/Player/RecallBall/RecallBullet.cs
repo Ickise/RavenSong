@@ -47,6 +47,10 @@ public class RecallBullet : MonoBehaviour
     private float timer;
     private float delay;
 
+    [SerializeField] private Animator animatorIcons;
+
+    [SerializeField] private Animator animatorBarel;
+
     private void Awake()
     {
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
@@ -141,6 +145,10 @@ public class RecallBullet : MonoBehaviour
         {
             Destroy(FireOneBullet.instance.bulletRef);
             FireOneBullet.instance.numberOfAmmo = 1;
+            animatorIcons.SetBool("Recal", true);
+            animatorBarel.SetBool("Barrel", false);
+            animatorBarel.SetBool("Barrel V2", true);
+            animatorIcons.SetBool("Fire", false);
             onRecall = false;
             EnemyCorpse.bulletInCorpse = false;
             CancelRecall();
@@ -199,6 +207,7 @@ public class RecallBullet : MonoBehaviour
         vfxRecallBulletDroite.SetActive(false);
         vfxRecallBulletGauche.SetActive(false);
         vfxTrailRecall.SetActive(false);
+
     }
 
     private void OnDrawGizmos()
