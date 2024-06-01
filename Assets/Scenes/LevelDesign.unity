@@ -78256,7 +78256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1037418433282939668, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1684050033566158617, guid: d52d5eb760d033647a07fa2bf8486c8b, type: 3}
       propertyPath: m_IsActive
@@ -94110,7 +94110,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7938636242915427903, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
   m_PrefabInstance: {fileID: 1651067886}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1651067887}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
@@ -155199,10 +155199,35 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6651571973706166621, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1651067888}
     - targetCorrespondingSourceObject: {fileID: 4201438258027077131, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 518906037}
   m_SourcePrefab: {fileID: 100100000, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
+--- !u!1 &1651067887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6651571973706166621, guid: 9643be44a51288b4fbca90d944cd586b, type: 3}
+  m_PrefabInstance: {fileID: 1651067886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1651067888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651067887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfineMode: 0
+  m_BoundingVolume: {fileID: 0}
+  m_BoundingShape2D: {fileID: 1901299119}
+  m_ConfineScreenEdges: 1
+  m_Damping: 0.5
 --- !u!1 &1652065764 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1922956793077334595, guid: fbac9b2cffff60d42886995f33de6d76, type: 3}
@@ -191828,8 +191853,12 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4470063400077651361, guid: 22e077090d96080488a155c8050ba547, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5.007867
+      objectReference: {fileID: 0}
+    - target: {fileID: 4470063400077651361, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.3856409
+      value: 1.1127963
       objectReference: {fileID: 0}
     - target: {fileID: 4470063400077651361, guid: 22e077090d96080488a155c8050ba547, type: 3}
       propertyPath: m_LocalPosition.z
