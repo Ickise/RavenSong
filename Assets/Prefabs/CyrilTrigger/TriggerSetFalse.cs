@@ -1,10 +1,11 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class TriggerSetFalse : MonoBehaviour
 {
     [SerializeField] private GameObject objectFalse;
     [SerializeField] private SoundData soundToPlay;
-    [SerializeField] private SoundData musicToPlay;
+    [SerializeField] private SoundData musicToPlayIntro, musicToPlayLoop;
     [SerializeField] private bool _active;
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -16,7 +17,12 @@ public class TriggerSetFalse : MonoBehaviour
             if (soundToPlay != null)
                 AudioManager.instance.PlaySound(soundToPlay);
             if (soundToPlay != null)
-                AudioManager.instance.PlayMusic(musicToPlay);
+            {
+                AudioManager.instance.PlayMusic(musicToPlayIntro);
+                float a = 0;
+                DOTween.To(() => a, x => a = x, 1, musicToPlayIntro.AudioToPlay.length)
+                .OnComplete(() => AudioManager.instance.PlayMusic(musicToPlayLoop));
+            }
         }
     }
 }
