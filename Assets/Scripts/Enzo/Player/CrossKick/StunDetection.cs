@@ -1,6 +1,7 @@
 using System.Collections;
 using Spine;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StunDetection : MonoBehaviour
 {
@@ -11,9 +12,10 @@ public class StunDetection : MonoBehaviour
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
-    private bool canCrossKick = true, isCrossKickAnimationPlaying;
+    [SerializeField]  private bool canCrossKick = true, isCrossKickAnimationPlaying;
     [Header("Sound")][SerializeField] private SoundData[] successfulStunSounds;
     [SerializeField] private SoundData unsuccessfulStunSound;
+    [SerializeField] private Image imageStun; 
     private SoundData currentStunSound;
 
 
@@ -22,7 +24,7 @@ public class StunDetection : MonoBehaviour
         c2D = GetComponent<Collider2D>();
         _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
-
+  
     public IEnumerator CrossKick(int currentDirection)
     {
         if (!canCrossKick) yield break;
@@ -41,11 +43,24 @@ public class StunDetection : MonoBehaviour
         c2D.enabled = false;
         yield return new WaitForSeconds(1);
         isCrossKickAnimationPlaying = false;
+        StartCoroutine(AnimateImageFill(crossKickCooldown));
         yield return new WaitForSeconds(crossKickCooldown);
         canCrossKick = true;
     }
+    IEnumerator AnimateImageFill(float duration)
+    {
+        float elapsedTime = 0f;
+        imageStun.fillAmount = 1f;
 
-    private void OnTriggerEnter2D(Collider2D other)
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+            imageStun.fillAmount = Mathf.Lerp(0f, 1f, t);
+            yield return null;
+        }
+    }
+        private void OnTriggerEnter2D(Collider2D other)
     {
         //pour les IA
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
