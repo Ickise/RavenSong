@@ -15,10 +15,6 @@ public class PauseController : MonoBehaviour
     
     public static bool gameIsPaused;
 
-    [SerializeField] private GameObject selectionImage;
-
-    [SerializeField] private float addingXPosition;
-
     private void Awake()
     {
         _instance = this;
