@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MenuTransition : MonoBehaviour
 {
     [SerializeField] private float fadeTransitionTime = 0.5f;
+    [SerializeField] private SoundData validation;
     private EventSystem eventSystem;
 
     public UnityEvent onLoading = new UnityEvent();
@@ -25,6 +26,7 @@ public class MenuTransition : MonoBehaviour
 
     public void DoFadeTransitionTo(GameObject transitionTo)
     {
+        AudioManager.instance.PlaySound(validation);
         transitionTo.SetActive(true);
         CanvasGroup canvasGroup = transitionTo.GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0;
