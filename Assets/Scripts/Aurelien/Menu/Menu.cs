@@ -24,8 +24,8 @@ public class Menu : MonoBehaviour
     {
         AudioManager.instance.PlaySound(quitGame);
         float a = 0;
-        DOTween.To(() => a, x => a = x, 1, 0.5f);
-        Application.Quit();
+        DOTween.To(() => a, x => a = x, 1, 0.5f)
+        .OnComplete(() => Application.Quit());
     }
 
     public void GoToMenu()
