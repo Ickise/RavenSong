@@ -50,7 +50,6 @@ public class ShowMakeInteraction : MonoBehaviour
 
     private IEnumerator HoldActive()
     {
-        InputReader.instance.canInteract = false;
         yield return new WaitForSeconds(timeToInteract);
         onInteraction.Invoke();
         if (!oneUse) yield break;
