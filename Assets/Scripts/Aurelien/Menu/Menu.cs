@@ -1,11 +1,12 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 
 public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject firstButtonSelected;
-
+    [SerializeField] private SoundData quitGame;
     [SerializeField] private string sceneNameToPlay;
 
     private void Start()
@@ -21,6 +22,9 @@ public class Menu : MonoBehaviour
 
     public void Quit()
     {
+        AudioManager.instance.PlaySound(quitGame);
+        float a = 0;
+        DOTween.To(() => a, x => a = x, 1, 0.5f);
         Application.Quit();
     }
 
