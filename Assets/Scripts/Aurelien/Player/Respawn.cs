@@ -28,6 +28,8 @@ public class Respawn : MonoBehaviour
 
     private bool spawn, death;
 
+    public static bool alreadyDeath;
+
     public static Vector2 spawnPosition;
     public static bool checkPoint;
 
@@ -107,6 +109,7 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
+        alreadyDeath = true;
         ControlsParameter.GamePadVibration(this, 0.4f, 0.4f, 0.8f);
         playerInput.enabled = false;
         shaderDeathRespawn =

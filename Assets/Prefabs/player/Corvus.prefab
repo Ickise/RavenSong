@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967438958619023172}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.014160156, y: 0.4799118, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -533,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736661597819335962}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.014160156, y: 0.4799118, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,7 +671,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081539809428432178}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.014160156, y: 0.4799118, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -838,7 +838,7 @@ Transform:
   - {fileID: 8287821065534223957}
   - {fileID: 9087905919337726822}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &3775067873167366473
 Rigidbody2D:
@@ -1194,6 +1194,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  imageRool: {fileID: 0}
   VFXDustTrail: {fileID: 4020801391066012145}
   VFXJump: {fileID: 1231165352650023117, guid: c2b2fbf6a3600a04c8a9779c0afcb1d7, type: 3}
   posVFXJump: {fileID: 5170615122102854022}
@@ -1308,6 +1309,8 @@ MonoBehaviour:
   delayBulletRecallInCorpse: 1
   distanceToGetAmmo: 1
   distanceToRecall: 12
+  animatorIcons: {fileID: 0}
+  animatorBarel: {fileID: 0}
 --- !u!114 &7644935309534444737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1500,10 +1503,13 @@ MonoBehaviour:
   timeToDisableHitBox: 0.3
   VFXAuraCoup: {fileID: 0}
   VFXCoupDeCrossObject: {fileID: 8861756336949416741, guid: 20ed7ea12e0f9104bb23c490da059995, type: 3}
+  canCrossKick: 1
+  isCrossKickAnimationPlaying: 0
   successfulStunSounds:
   - {fileID: 11400000, guid: b196a6534e3b1dc4da06209490034b1f, type: 2}
   - {fileID: 11400000, guid: 6172a4f2348abf74393aa7ee516f4c39, type: 2}
   unsuccessfulStunSound: {fileID: 11400000, guid: f4c3ef3938ed27843817efd1902d46af, type: 2}
+  imageStun: {fileID: 0}
 --- !u!61 &7969890108814067093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1605,7 +1611,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3791076367058320981}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.014160156, y: 0.4799118, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1885,7 +1891,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4302107771420068065}
   m_LocalRotation: {x: -0, y: -0, z: -0.9582356, w: 0.28598005}
-  m_LocalPosition: {x: -0.42901278, y: 0.44977462, z: 0}
+  m_LocalPosition: {x: -0.42895508, y: 0.4497757, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1969,7 +1975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.28691673, y: 0.4074632, z: 0}
+  m_LocalPosition: {x: -0.28686523, y: 0.40746307, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2058,6 +2064,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bd804b9f6922a65488c542f71a90e8f8, type: 2}
   numberOfAmmo: 1
   VfxGunShoot: {fileID: 2281808058870940181, guid: 880d3b2df877cf347966908a9e6d801f, type: 3}
+  animatorIcons: {fileID: 0}
+  animatorBarel: {fileID: 0}
 --- !u!114 &2265981886112315082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2583,7 +2591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9d558112d3e5794eb12363f35a7052e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isManette: 0
+  isManette: 1
   enableAimLine: 1
   aimLineDroite: {fileID: 967438958619023172}
   aimLineGauche: {fileID: 3791076367058320981}
