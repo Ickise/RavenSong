@@ -10,6 +10,7 @@ public class GhostTrail : MonoBehaviour
     [SerializeField, Header("Float"), Range(0.1f, 1f)]
     private float delay = 0.2f;
 
+    [SerializeField, Range(0.1f, 1f)] private float waitUntilFirstGhost = 0.1f;
     [SerializeField, Range(0.1f, 1f)] private float destroyTime = 0.1f;
 
     [SerializeField, Header("Player Mesh")]
@@ -18,7 +19,7 @@ public class GhostTrail : MonoBehaviour
     [SerializeField] private MeshFilter leftMeshFilter;
 
     private float delta;
-    private float timer = 0.1f;
+    private float timer;
 
     private PlayerAnimation _playerAnimation;
 
@@ -28,7 +29,7 @@ public class GhostTrail : MonoBehaviour
 
     void Start()
     {
-        timer = 0.1f;
+        timer = waitUntilFirstGhost;
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
     }
 
@@ -83,6 +84,6 @@ public class GhostTrail : MonoBehaviour
     private void ResetVariables()
     {
         delta = 0;
-        timer = 0.1f;
+        timer = waitUntilFirstGhost;
     }
 }

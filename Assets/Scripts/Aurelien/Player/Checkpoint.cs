@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -24,7 +23,6 @@ public class Checkpoint : MonoBehaviour
             return;
         }
 
-        DontDestroyOnLoad(gameObject);
         interactionSprite = GetComponentInChildren<Image>();
         vfx = GetComponentInChildren<VisualEffect>();
     }
@@ -45,5 +43,6 @@ public class Checkpoint : MonoBehaviour
         vfx.SetGradient(checkpointColorProperty, newGradient);
         vfx.SetGradient(checkpointGradientProperty, newGradient);
         Destroy(interactionSprite);
+        DontDestroyOnLoad(gameObject);
     }
 }

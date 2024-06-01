@@ -14,6 +14,8 @@ public class ShowMakeInteraction : MonoBehaviour
 
     public UnityEvent onInteraction = new UnityEvent();
 
+    [SerializeField] private bool oneUse = true;
+
     private void Awake()
     {
         interactionSprite = GetComponentInChildren<Image>();
@@ -50,6 +52,7 @@ public class ShowMakeInteraction : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToInteract);
         onInteraction.Invoke();
+        if (!oneUse) yield break;
         Destroy(GetComponent<Collider2D>());
         Destroy(GetComponentInChildren<Canvas>().gameObject);
         Destroy(this);
