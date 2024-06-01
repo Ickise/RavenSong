@@ -37,4 +37,10 @@ public class ControlsParameter : MonoBehaviour
             GamePad.SetVibration(playerIndex, 0f, 0f);
         }
     }
+    
+    public void DefaultControlsSettings()
+    {
+        controllerVibration = false;
+        inverseAxe = true;
+    }
 }

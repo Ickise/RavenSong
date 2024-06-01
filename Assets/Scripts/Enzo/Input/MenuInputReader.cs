@@ -3,15 +3,19 @@ using UnityEngine.InputSystem;
 
 public class MenuInputReader : MonoBehaviour
 {
-    private BackInMenu activeBackInMenu;
     [SerializeField] private SoundData back, selection;
+
+    private BackInMenu activeBackInMenu;
+
+    private DefaultValueInMenu _defaultValue;
 
     public void OnBack(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            AudioManager.instance.PlaySound(back);
             activeBackInMenu = gameObject.GetComponentInChildren<BackInMenu>();
+            if (activeBackInMenu == null) return;
+            AudioManager.instance.PlaySound(back);
             activeBackInMenu.Back();
         }
     }
@@ -20,5 +24,16 @@ public class MenuInputReader : MonoBehaviour
     {
         if (!context.started) return;
         AudioManager.instance.PlaySound(selection);
+    }
+
+    public void OnDefault(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            _defaultValue = gameObject.GetComponentInChildren<DefaultValueInMenu>();
+            if (_defaultValue == null) return;
+            AudioManager.instance.PlaySound(selection);
+            _defaultValue.DefaultSettings();
+        }
     }
 }

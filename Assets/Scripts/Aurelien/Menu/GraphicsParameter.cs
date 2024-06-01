@@ -89,4 +89,13 @@ public class GraphicsParameter : MonoBehaviour
         Screen.brightness = brightnessSlider.value;
         brightessText.text = (brightnessSlider.value * 10).ToString();
     }
+
+    public void DefaultGraphicsSettings()
+    {
+        qualityText.text = "<size=150%> <</size>" + QualitySettings.names[2] + "<size=150%>> </size>";
+        fullscreenModeText.text = "<size=150%> <</size>Full-Screen<size=150%>> </size>";
+        indexResolution = resolutions.Length - 1;
+        resolutionText.text = "<size=150%> <</size>" + resolutions[indexResolution].x + " × " + resolutions[indexResolution].y + "<size=150%>> </size>";
+        brightessText.SetText(Mathf.Round((brightnessSlider.value = Screen.brightness) * 10).ToString());
+    }
 }
