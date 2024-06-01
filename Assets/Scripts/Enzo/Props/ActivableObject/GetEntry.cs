@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class GetEntry : MonoBehaviour
@@ -24,7 +23,7 @@ public class GetEntry : MonoBehaviour
     private TextMeshProUGUI[] descriptionListToUpdate;
 
     [SerializeField, Header("Image"),
-     Tooltip("Il faut l'Image de la page du monstre du Bestiaire dont nous voulons changer le visuel")]
+     Tooltip("Il faut les images de la page du monstre du Bestiaire dont nous voulons changer les visuels")]
     private Image[] spriteListToUpdate;
 
     public void UpdateEntry()

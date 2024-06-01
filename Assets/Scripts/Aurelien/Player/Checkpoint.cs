@@ -24,7 +24,6 @@ public class Checkpoint : MonoBehaviour
     {
         Respawn.checkPoint = true;
         Respawn.spawnPosition = currentPos.transform.position;
-        currentPos.GetComponent<SpriteRenderer>().color = new Color(Color.red.r, Color.red.g, Color.red.b, 0.11f);
         Destroy(interactionSprite);
     }
 }

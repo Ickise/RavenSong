@@ -12,6 +12,11 @@ public class TriggerToChangeLight : MonoBehaviour
 
     private bool changeLight;
 
+    private void Awake()
+    {
+        KeepChanges();
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
@@ -43,5 +48,13 @@ public class TriggerToChangeLight : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    private void KeepChanges()
+    {
+        if (!Respawn.alreadyDeath) return;
+        
+        globalLight.color = newColor;
+        Destroy(gameObject);
     }
 }
