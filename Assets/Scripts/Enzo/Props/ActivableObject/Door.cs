@@ -34,14 +34,16 @@ public class Door : MonoBehaviour
         if (isActive)
         {
             transform.DOMove(newPosition, animationDuration)
-            .SetEase(ease)
-            .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(vfxOpenDoor, posVFXOpenDoor));
+            .SetEase(ease);
+            // .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(vfxOpenDoor, posVFXOpenDoor));
+            VFXInstantieur.instance.PlayVFXInWorld(vfxOpenDoor, posVFXOpenDoor);
         }
         else
         {
             transform.DOMove(originalPosition, animationDuration)
-            .SetEase(ease)
-            .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(vfxCloseDoor, posVFXCloseDoor));
+            .SetEase(ease);
+            // .OnComplete(() => VFXInstantieur.instance.PlayVFXInWorld(vfxCloseDoor, posVFXCloseDoor));
+            VFXInstantieur.instance.PlayVFXInWorld(vfxCloseDoor, posVFXCloseDoor);
         }
     }
 }
