@@ -25,9 +25,11 @@ public class GetEntry : MonoBehaviour
     [SerializeField, Header("Image"),
      Tooltip("Il faut les images de la page du monstre du Bestiaire dont nous voulons changer les visuels")]
     private Image[] spriteListToUpdate;
+    [SerializeField] private SoundData soundTrigger;
 
     public void UpdateEntry()
     {
+        AudioManager.instance.PlaySound(soundTrigger);
         buttonTitleToUpdate.text = _entryData.entryTitle;
         titleToUpdate.text = _entryData.entryTitle;
 
