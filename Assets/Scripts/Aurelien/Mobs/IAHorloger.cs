@@ -5,7 +5,7 @@ using Spine;
 
 public class IAHorloger : IA
 {
-    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f;
+    [SerializeField] private float reloadTime = 5f, runTime = 5f, decelerationTime = 1f, baseValueBrillance = 0.4f;
     [SerializeField, Tooltip("le temps entre le moment ou il voit le joueur et il commence à le charger")] private float beforeChargeTime = 1f;
     [SerializeField] private Collider2D cd2Datk;
     public bool IsAttacking => cd2Datk.enabled;
@@ -31,7 +31,7 @@ public class IAHorloger : IA
         _onBulletHit = GetComponent<OnBulletHit>();
         tailleMob.y += 0.2f;
         overwriteIniTialize = true;
-        ShaderBrillance(0.4f, reloadTime);
+        ShaderBrillance(baseValueBrillance, reloadTime);
     }
 
     protected override void Update()
@@ -72,7 +72,7 @@ public class IAHorloger : IA
             {
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourse, posVFXCourse);
                 VFXInstantieur.instance.PlayVFXInWorld(VFXCourseEtincel, posVFXCourse);
-                ShaderBrillance(0, 0.4f);
+                ShaderBrillance(0, baseValueBrillance);
                 AudioManager.instance.PlaySound(charge);
                 state = State.ChasePlayer;
                 _onBulletHit.bulletFalling = true;
@@ -88,7 +88,7 @@ public class IAHorloger : IA
                 cd2Datk.enabled = false;
                 AudioManager.instance.PlaySound(recharge);
                 state = State.WaitPlayer;
-                ShaderBrillance(0.4f, reloadTime);
+                ShaderBrillance(baseValueBrillance, reloadTime);
                 _onBulletHit.bulletFalling = false;
             }
         }
@@ -127,7 +127,7 @@ public class IAHorloger : IA
                 VFXInstantieur.instance.PlayVFXInWorld(VFXBonk, posVFXBonk, 3);
                 state = State.WaitPlayer;
                 AudioManager.instance.PlaySound(recharge);
-                ShaderBrillance(0.4f, reloadTime);
+                ShaderBrillance(baseValueBrillance, reloadTime);
                 _onBulletHit.bulletFalling = false;
                 isReloading = true;
                 StopAllCoroutines();
