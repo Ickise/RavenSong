@@ -1,28 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TriggerSetFalse : MonoBehaviour
 {
     [SerializeField] private GameObject objectFalse;
+    [SerializeField] private SoundData soundToPlay;
     [SerializeField] private bool _active;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            objectFalse.SetActive(_active);
+            if (objectFalse != null)
+                objectFalse.SetActive(_active);
+            if (soundToPlay != null)
+                AudioManager.instance.PlaySound(soundToPlay);
         }
-            
+
     }
 }
