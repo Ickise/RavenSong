@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237967857555162655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 14.739728, y: 3.3817453, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,11 +137,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 9.7
+  near clip plane: 0.1
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5.5
+  orthographic size: 8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967438958619023172}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.014133945, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -533,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736661597819335962}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.014133945, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,7 +671,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081539809428432178}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.01413399, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -804,7 +804,6 @@ GameObject:
   - component: {fileID: 8012276900402190899}
   - component: {fileID: 747856985619423663}
   - component: {fileID: 3873875208504716918}
-  - component: {fileID: 8217276307982103039}
   - component: {fileID: 7737656467659577540}
   - component: {fileID: 7644935309534444737}
   - component: {fileID: 3302141208712367337}
@@ -1095,7 +1094,7 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: bf9f2ce7-a8eb-40c1-87a0-8a7a0802f7cb
-    m_ActionName: Menu/VerticalNavigation[/Keyboard/s,/Keyboard/downArrow,/Keyboard/w,/Keyboard/upArrow]
+    m_ActionName: Menu/VerticalNavigation[/Keyboard/s,/Keyboard/downArrow,/Keyboard/w,/Keyboard/upArrow,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/up,/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1146,16 +1145,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFalling: 0
-  accelerationSpeed: 0.5
+  accelerationSpeed: 0.65
   slowSpeed: 0.1
-  maxSpeed: 6.5
-  maxSpeedRecall: 0.5
+  maxSpeed: 6.25
+  maxSpeedRecall: 0.8
   groundFriction: 0.3
   maxAngleSlop: 72
-  accelerationAirControlSpeed: 6
-  maxAirControlSpeed: 4
+  accelerationAirControlSpeed: 1.25
+  maxAirControlSpeed: 4.5
   maxFallSpeed: -20
-  gravityFactor: 1.9
+  gravityFactor: 2
   jumpSounds:
   - {fileID: 11400000, guid: c46b372aa005c6a43b402ef62da2a7f7, type: 2}
   - {fileID: 11400000, guid: 883c585204edf244eaf108622bc57182, type: 2}
@@ -1169,11 +1168,11 @@ MonoBehaviour:
   hangTime: 0.1
   fallMultiplier: 3
   minimumFallSpeedForFeedback: 14
-  lowJumpMultiplier: 2
-  rouladeTime: 0.7
-  speedRoulade: 6
+  lowJumpMultiplier: 2.5
+  rouladeTime: 0.5
+  speedRoulade: 10
   forceBonk: 10
-  coolDownToRoll: 2
+  coolDownToRoll: 1.25
   animationCurveDash:
     serializedVersion: 2
     m_Curve:
@@ -1267,27 +1266,6 @@ MonoBehaviour:
   impactDeathVFX: {fileID: 3935203508377705847, guid: 2a9dfbc8017bfff4b88348e48577ddc0, type: 3}
   blackSplashShader: {fileID: 50422086906125182, guid: fe9f82cb47a2cd742a83775ffd442c04, type: 3}
   deathSound: {fileID: 11400000, guid: 5147b5a5f17305b49ac8df804329b86d, type: 2}
---- !u!231 &8217276307982103039
-SpringJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2441308369916113764}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 1
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_AutoConfigureDistance: 0
-  m_Distance: 1.5
-  m_DampingRatio: 0
-  m_Frequency: 1
 --- !u!114 &7737656467659577540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1305,11 +1283,11 @@ MonoBehaviour:
   vfxRecallBulletDroite: {fileID: 7767760485090942752}
   vfxRecallBulletGauche: {fileID: 623836733676802584}
   vfxTrailRecall: {fileID: 3091271199037836173}
-  magnetism: {fileID: 11400000, guid: fc6c4f878894174429ae562185c3e0f9, type: 2}
+  magnetism: {fileID: 11400000, guid: fd7eaf476eccd8743a23e840b40201d9, type: 2}
   corvusVoiceCantRecall: {fileID: 11400000, guid: 154c7e2af67c17349a8e98ea1ec6ca05, type: 2}
   recupBalle: {fileID: 11400000, guid: 97d01eb260c6f3d418a59b39d6fcc582, type: 2}
   doRecall: 0
-  audioSourceRecall: {fileID: 1148708344303866090}
+  audioSourceRecall: {fileID: 2001354968453441199}
   speedBulletRecall: 50
   speedDelay: 0.2
   delayBulletRecallInCorpse: 1
@@ -1505,9 +1483,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3de2a48372d9a41b4188cb45c0b618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  crossKickCooldown: 2
+  crossKickCooldown: 1.5
   timeToDisableHitBox: 0.3
-  VFXAuraCoup: {fileID: 0}
+  VFXAuraCoup: {fileID: 1356581437434044044, guid: 97f4f3916efbbd1449c4beb0074531be, type: 3}
   VFXCoupDeCrossObject: {fileID: 8861756336949416741, guid: 20ed7ea12e0f9104bb23c490da059995, type: 3}
   canCrossKick: 1
   isCrossKickAnimationPlaying: 0
@@ -1617,7 +1595,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3791076367058320981}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.01413399, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1981,7 +1959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.28691673, y: 0.4074632, z: 0}
+  m_LocalPosition: {x: -0.28691676, y: 0.4074632, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2020,7 +1998,7 @@ GameObject:
   - component: {fileID: 5561882108913191949}
   - component: {fileID: 4911322787764592626}
   - component: {fileID: 2265981886112315082}
-  - component: {fileID: 1148708344303866090}
+  - component: {fileID: 2001354968453441199}
   m_Layer: 3
   m_Name: gun
   m_TagString: Untagged
@@ -2085,7 +2063,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84a621b070984d419519f5d18ea9bb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!82 &1148708344303866090
+--- !u!82 &2001354968453441199
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
