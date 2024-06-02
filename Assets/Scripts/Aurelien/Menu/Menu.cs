@@ -15,7 +15,8 @@ public class Menu : MonoBehaviour
         eventSystem.SetSelectedGameObject(firstButtonSelected, new BaseEventData(eventSystem));
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        
+        if (menuIntro == null) return;
+
         AudioManager.instance.PlayMusic(menuIntro);
         float a = 0;
         DOTween.To(() => a, x => a = x, 1, menuIntro.AudioToPlay.length)

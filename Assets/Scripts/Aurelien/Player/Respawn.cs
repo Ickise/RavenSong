@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
@@ -126,7 +127,9 @@ public class Respawn : MonoBehaviour
         for (int i = 0; i < meshRenderer.childCount; i++)
             meshRenderer.GetChild(i).gameObject.SetActive(false);
         DOTween.Kill("blackSplashSize");
-
+        GameObject[] lights = GameObject.FindGameObjectsWithTag("UnableLight");
+        foreach (var light in lights)
+            Destroy(light);
         Sequence sequence = DOTween.Sequence();
         float d = 0;
         GameObject blackSplashShaderObj = Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
