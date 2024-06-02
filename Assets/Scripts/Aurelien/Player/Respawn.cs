@@ -129,14 +129,14 @@ public class Respawn : MonoBehaviour
 
         Sequence sequence = DOTween.Sequence();
         float d = 0;
+        GameObject blackSplashShaderObj = Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
+        blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
+        blackSplashSize = -0.1f;
+        blackSplash.SetFloat("_Size", blackSplashSize);
         sequence.Append(DOTween.To(() => d, x => d = x, 1f, 0.2f));
         sequence.AppendCallback(() =>
         {
             AudioManager.instance.PlaySound(deathSound);
-            GameObject blackSplashShaderObj = Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
-            blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
-            blackSplashSize = 0f;
-            blackSplash.SetFloat("_Size", blackSplashSize);
             VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
         });
