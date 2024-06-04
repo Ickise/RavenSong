@@ -1,3 +1,4 @@
+using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -27,10 +28,12 @@ public class InputReader : MonoBehaviour
     private StunDetection _stunDetection;
     [HideInInspector] public Vector3 manetteDirection;
     [SerializeField, Header("Sound")] private SoundData runSound;
+    [SerializeField] private SoundData back;
     [SerializeField] private SoundData runSoundEcho;
     [SerializeField] private SoundData runSoundCatha;
     private SoundData currentRunSound;
     private PlayerAnimation _playerAnimation;
+    private BackInMenu activeBackInMenu;
 
     [HideInInspector] public float tabID = 0;
 
@@ -44,9 +47,25 @@ public class InputReader : MonoBehaviour
         currentRunSound = runSound;
     }
 
+    private void Update()
+    {
+        if (PauseController.gameIsPaused)
+        {
+            audioSourceWalk.Pause();
+        }
+        else
+        {
+            audioSourceWalk.UnPause();
+        }
+    }
+
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (PauseController.gameIsPaused) return;
+        if (PauseController.gameIsPaused)
+        {
+            direction = Vector2.zero;
+            return;
+        }
 
         if (context.started || context.ReadValue<Vector2>() == direction) return;
         direction = context.ReadValue<Vector2>();
@@ -162,5 +181,18 @@ public class InputReader : MonoBehaviour
     {
         if (!PauseController.gameIsPaused) return;
         onParametersChange.Invoke(context);
+    }
+
+    public void OnBack(InputAction.CallbackContext context)
+    {
+        if (!PauseController.gameIsPaused) return;
+
+        if (context.started)
+        {
+            activeBackInMenu =  PauseController._instance.gameObject.GetComponentInChildren<BackInMenu>();
+            if (activeBackInMenu == null) return;
+            AudioManager.instance.PlaySound(back);
+            activeBackInMenu.Back();
+        }
     }
 }

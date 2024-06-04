@@ -1080,11 +1080,35 @@ MonoBehaviour:
     m_ActionId: ce1c4829-686a-4989-938b-c48988e026da
     m_ActionName: Player/Interaction[/XInputControllerWindows/buttonNorth,/DualShock4GamepadHID/buttonNorth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnChangeValues
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 4025f028-c263-4696-9d05-40e1c29cb429
     m_ActionName: Player/ChangeValues[/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftStick/left,/XInputControllerWindows1/leftStick/left,/DualShock4GamepadHID/dpad/left,/XInputControllerWindows1/dpad/left,/DualShock4GamepadHID/rightStick/left,/XInputControllerWindows1/rightStick/left,/DualShock4GamepadHID/leftStick/right,/XInputControllerWindows1/leftStick/right,/DualShock4GamepadHID/dpad/right,/XInputControllerWindows1/dpad/right,/DualShock4GamepadHID/rightStick/right,/XInputControllerWindows1/rightStick/right]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnTabChange
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 78da5b9c-0206-4843-99f2-a5dd9f16bc56
     m_ActionName: Player/ChangeTab[/Keyboard/a,/Keyboard/d,/DualShock4GamepadHID/leftShoulder,/XInputControllerWindows1/leftShoulder,/DualShock4GamepadHID/rightShoulder,/XInputControllerWindows1/rightShoulder]
   - m_PersistentCalls:
@@ -1094,7 +1118,27 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: bf9f2ce7-a8eb-40c1-87a0-8a7a0802f7cb
-    m_ActionName: Menu/VerticalNavigation[/Keyboard/s,/Keyboard/downArrow,/Keyboard/w,/Keyboard/upArrow,/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows/dpad/up,/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up]
+    m_ActionName: Menu/VerticalNavigation[/Keyboard/s,/Keyboard/downArrow,/Keyboard/w,/Keyboard/upArrow,/DualShock4GamepadHID/leftStick/down,/XInputControllerWindows1/leftStick/down,/DualShock4GamepadHID/rightStick/down,/XInputControllerWindows1/rightStick/down,/DualShock4GamepadHID/dpad/down,/XInputControllerWindows1/dpad/down,/DualShock4GamepadHID/dpad/up,/XInputControllerWindows1/dpad/up,/DualShock4GamepadHID/leftStick/up,/XInputControllerWindows1/leftStick/up,/DualShock4GamepadHID/rightStick/up,/XInputControllerWindows1/rightStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 79b65f2a-cf22-4122-b7c1-c4c2454b552b
+    m_ActionName: Menu/SetDefault[/DualShock4GamepadHID/buttonNorth,/XInputControllerWindows1/buttonNorth,/XInputControllerWindows2/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6482090840447388875}
+        m_TargetAssemblyTypeName: InputReader, Assembly-CSharp
+        m_MethodName: OnBack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c9fef0af-e916-4fcb-80e4-e0a2b0b465f1
+    m_ActionName: Player/Back[/DualShock4GamepadHID/buttonEast,/XInputControllerWindows1/buttonEast,/XInputControllerWindows2/buttonEast,/Keyboard/escape,/Keyboard/b]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -1129,6 +1173,7 @@ MonoBehaviour:
   audioSourceWalk: {fileID: 0}
   manetteDirection: {x: 0, y: 0, z: 0}
   runSound: {fileID: 11400000, guid: a5ec6915de94ded49bdc4ec8752ed943, type: 2}
+  back: {fileID: 11400000, guid: 389a23fca2155374eb30c977e05715cc, type: 2}
   runSoundEcho: {fileID: 11400000, guid: ab09268f93a020e4bb93bcefe634b54f, type: 2}
   runSoundCatha: {fileID: 11400000, guid: 48ebb0b5aec6f1b4286e5308176c27c8, type: 2}
   tabID: 0

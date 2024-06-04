@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
 public class Checkpoint : MonoBehaviour
 {
+    public static List<Checkpoint> listOfActivCheckpoint = new List<Checkpoint>();
     private static Checkpoint currentPos;
 
     private Image interactionSprite;
@@ -39,6 +41,7 @@ public class Checkpoint : MonoBehaviour
     {
         Respawn.checkPoint = true;
         Respawn.spawnPosition = currentPos.transform.position;
+        listOfActivCheckpoint.Add(currentPos);
 
         vfx.SetGradient(checkpointColorProperty, newGradient);
         vfx.SetGradient(checkpointGradientProperty, newGradient);

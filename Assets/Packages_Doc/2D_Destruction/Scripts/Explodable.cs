@@ -7,6 +7,8 @@ public class Explodable : MonoBehaviour
     public System.Action<List<GameObject>> OnFragmentsGenerated;
     public SoundData destroyWallSound;
 
+    private OnCrossKickHit onCrossKickHit;
+
     public bool allowRuntimeFragmentation = false;
 
     public int extraPoints = 0;
@@ -34,6 +36,10 @@ public class Explodable : MonoBehaviour
     ///
     public void explode(GameObject bullet)
     {
+        onCrossKickHit = GetComponent<OnCrossKickHit>();    
+        onCrossKickHit.OnHIt();
+        
+
         AudioManager.instance.PlaySound(destroyWallSound);
         _exploseWall = GetComponent<ExploseWall>();
         //if fragments were not created before runtime then create them now

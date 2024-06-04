@@ -20,7 +20,6 @@ public class AudioManager : MonoBehaviour
 
     public void PlaySound(SoundData data, float pitch = 1)
     {
-        if (PauseController.gameIsPaused) return;
         //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
         if (data == null)
         {

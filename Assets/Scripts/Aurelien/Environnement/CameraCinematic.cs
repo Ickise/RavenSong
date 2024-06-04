@@ -13,6 +13,7 @@ public class CameraCinematic : MonoBehaviour
     private PlayerInput playerInput;
     private CinemachineBasicMultiChannelPerlin camComponent;
     private int index;
+    [SerializeField] private GameObject SuivantActive;
 
     private void Start()
     {
@@ -58,6 +59,7 @@ public class CameraCinematic : MonoBehaviour
             cam.transform.localPosition = Vector2.zero;
             camComponent.m_NoiseProfile = noneSettings;
             playerInput.enabled = true;
+            if (SuivantActive != null) SuivantActive.SetActive(true);
             yield break;
         }
         StartCoroutine(Events());
