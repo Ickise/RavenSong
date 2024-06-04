@@ -50,9 +50,8 @@ public class TriggerToChangeLight : MonoBehaviour
 
     private void KeepChanges()
     {
-        if (!Respawn.alreadyDeath) return;
+        if (Checkpoint.listOfActivCheckpoint.Count < 1) return;
         
         globalLight.color = newColor;
-        Destroy(gameObject);
     }
 }
