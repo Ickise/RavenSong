@@ -7,15 +7,14 @@ public class StunDetection : MonoBehaviour
 {
     private Collider2D c2D;
     public bool IsC2DActive => isCrossKickAnimationPlaying;
-    [Header("À set up")]
-    [SerializeField] private float crossKickCooldown = 2f;
+    [Header("À set up")] [SerializeField] private float crossKickCooldown = 2f;
     [SerializeField] private float timeToDisableHitBox = 0.3f;
     [SerializeField] private GameObject VFXAuraCoup, VFXCoupDeCrossObject;
     private PlayerAnimation _playerAnimation;
-    [SerializeField]  private bool canCrossKick = true, isCrossKickAnimationPlaying;
-    [Header("Sound")][SerializeField] private SoundData[] successfulStunSounds;
+    [SerializeField] private bool canCrossKick = true, isCrossKickAnimationPlaying;
+    [Header("Sound")] [SerializeField] private SoundData[] successfulStunSounds;
     [SerializeField] private SoundData unsuccessfulStunSound;
-    [SerializeField] private Image imageStun; 
+    [SerializeField] private Image imageStun;
     private SoundData currentStunSound;
 
 
@@ -24,7 +23,7 @@ public class StunDetection : MonoBehaviour
         c2D = GetComponent<Collider2D>();
         _playerAnimation = transform.parent.GetComponentInChildren<PlayerAnimation>();
     }
-  
+
     public IEnumerator CrossKick(int currentDirection)
     {
         if (!canCrossKick) yield break;
@@ -47,6 +46,7 @@ public class StunDetection : MonoBehaviour
         yield return new WaitForSeconds(crossKickCooldown);
         canCrossKick = true;
     }
+
     IEnumerator AnimateImageFill(float duration)
     {
         float elapsedTime = 0f;
@@ -60,7 +60,8 @@ public class StunDetection : MonoBehaviour
             yield return null;
         }
     }
-        private void OnTriggerEnter2D(Collider2D other)
+
+    private void OnTriggerEnter2D(Collider2D other)
     {
         //pour les IA
         IAProjectil iAprojectil = other.GetComponent<IAProjectil>();
@@ -84,9 +85,8 @@ public class StunDetection : MonoBehaviour
         if (destructibleObject)
         {
             VFXInstantieur.instance.PlayVFXInWorld(VFXCoupDeCrossObject, transform);
-            destructibleObject.explode(gameObject);
-            ExplosionForce ef = FindObjectOfType<ExplosionForce>();
-            ef.doExplosion(transform.position);
+            destructibleObject.GetComponent<ExplosionForce>().doExplosion(destructibleObject.transform.localPosition);
+            destructibleObject.GetComponent<OnBulletHit>().BulletHitSomething(null);
             return;
         }
 
