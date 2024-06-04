@@ -1,4 +1,3 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,25 +44,9 @@ public class InputReader : MonoBehaviour
         currentRunSound = runSound;
     }
 
-    private void Update()
-    {
-        if (PauseController.gameIsPaused)
-        {
-            audioSourceWalk.Pause();
-        }
-        else
-        {
-            audioSourceWalk.UnPause();
-        }
-    }
-
     public void OnMovement(InputAction.CallbackContext context)
     {
-        if (PauseController.gameIsPaused)
-        {
-            direction = Vector2.zero;
-            return;
-        }
+        if (PauseController.gameIsPaused) return;
 
         if (context.started || context.ReadValue<Vector2>() == direction) return;
         direction = context.ReadValue<Vector2>();
