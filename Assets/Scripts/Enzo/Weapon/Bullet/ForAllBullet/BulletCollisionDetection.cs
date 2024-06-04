@@ -28,11 +28,6 @@ public class BulletCollisionDetection : MonoBehaviour
     private void Awake()
     {
         GetAndSetComponent();
-        foreach (var item in (MonoBehaviour[])FindObjectsOfType(typeof(MonoBehaviour)))
-        {
-            if (item.gameObject.layer == LayerMask.NameToLayer("PlayerDontCollide"))
-                print(item.name);
-        }
     }
 
     private void FixedUpdate()
