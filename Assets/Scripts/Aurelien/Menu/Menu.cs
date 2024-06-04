@@ -25,6 +25,7 @@ public class Menu : MonoBehaviour
 
     public void NewGame()
     {
+        Respawn.checkPoint = false;
         SceneManager.LoadScene(sceneNameToPlay);
     }
 
