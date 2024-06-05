@@ -25,7 +25,26 @@ public class GetEntry : MonoBehaviour
     [SerializeField, Header("Image"),
      Tooltip("Il faut les images de la page du monstre du Bestiaire dont nous voulons changer les visuels")]
     private Image[] spriteListToUpdate;
+
     [SerializeField] private SoundData soundTrigger;
+
+    [SerializeField,
+     Tooltip(
+         "Ce int correspond au nombre de checkpoint que le joueur a dû récupérer pour conserver les données de l'entry")]
+    private int checkpointNumber;
+
+    private bool unlockEntry;
+
+    private void Start()
+    {
+        unlockEntry = PlayerPrefs.GetInt(gameObject.name + "_estRécupéré", 0) == 1;
+
+        if (Checkpoint.listOfActivCheckpoint.Count < checkpointNumber) return;
+        
+        if (!unlockEntry) return;
+        soundTrigger = null;
+        UpdateEntry();
+    }
 
     public void UpdateEntry()
     {
@@ -37,11 +56,20 @@ public class GetEntry : MonoBehaviour
         {
             descriptionListToUpdate[i].text = _entryData.listOfTextEntry[i];
         }
+
         for (int i = 0; i < spriteListToUpdate.Length; i++)
         {
             spriteListToUpdate[i].sprite = _entryData.entryVisualsList[i];
         }
-        
+
+        KeepChanges();
         Destroy(gameObject);
+    }
+    
+    private void KeepChanges()
+    {
+        unlockEntry = true;
+        PlayerPrefs.SetInt(gameObject.name + "_estRécupéré", 1);
+        PlayerPrefs.Save();
     }
 }

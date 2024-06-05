@@ -13,6 +13,7 @@ public class ShowMakeInteraction : MonoBehaviour
     private Image interactionSprite;
 
     public UnityEvent onInteraction = new UnityEvent();
+    public UnityEvent onDestroy = new UnityEvent();
 
     [SerializeField] private bool oneUse = true;
 
@@ -56,5 +57,10 @@ public class ShowMakeInteraction : MonoBehaviour
         Destroy(GetComponent<Collider2D>());
         Destroy(GetComponentInChildren<Canvas>().gameObject);
         Destroy(this);
+    }
+
+    public void OnDestroy()
+    {
+        onDestroy.Invoke();
     }
 }

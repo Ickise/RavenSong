@@ -12,8 +12,14 @@ public class TriggerToChangeLight : MonoBehaviour
 
     private bool changeLight;
 
-    private void Awake()
+    [SerializeField,
+     Tooltip(
+         "Ce int correspond au nombre de checkpoint que le joueur a dû récupérer pour conserver les données de l'entry")]
+    private int checkpointNumber;
+
+    private void Start()
     {
+        if (Checkpoint.listOfActivCheckpoint.Count < checkpointNumber) return;
         KeepChanges();
     }
 
@@ -50,8 +56,7 @@ public class TriggerToChangeLight : MonoBehaviour
 
     private void KeepChanges()
     {
-        if (Checkpoint.listOfActivCheckpoint.Count < 1) return;
-        
         globalLight.color = newColor;
+        DestroyTrigger();
     }
 }
