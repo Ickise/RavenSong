@@ -38,12 +38,7 @@ public class Checkpoint : MonoBehaviour
             currentPos = GetComponent<Checkpoint>();
         }
     }
-
-    private void Update()
-    {
-        Debug.Log(listOfActivCheckpoint.Count);
-    }
-
+    
     public void ActiveCheckpoint()
     {
         Respawn.checkPoint = true;
