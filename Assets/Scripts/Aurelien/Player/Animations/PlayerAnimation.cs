@@ -169,8 +169,13 @@ public class PlayerAnimation : MonoBehaviour
     {
         if (DontAim || _recallBullet.doRecall) return;
         //permet de flip l'animation en fonction de la ou le joueur vise
-        if (SpineAim.manette && InputReader.instance.manetteDirection != Vector3.zero)
-            FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
+        if (SpineAim.manette)
+        {
+            if (InputReader.instance.manetteDirection != Vector3.zero)
+                FlipAnimation(transform.position.x + InputReader.instance.manetteDirection.x > transform.position.x);
+            else if (InputReader.instance.direction.x != 0)
+                FlipAnimation(transform.position.x + InputReader.instance.direction.x > transform.position.x);
+        }
         else if (!SpineAim.manette)
             FlipAnimation(Camera.main.ScreenToWorldPoint(new Vector3(Mouse.current.position.ReadValue().x, Mouse.current.position.ReadValue().y, -Camera.main.transform.position.z)).x > transform.position.x);
     }
