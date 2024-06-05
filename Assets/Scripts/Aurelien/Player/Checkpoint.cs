@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -17,16 +18,17 @@ public class Checkpoint : MonoBehaviour
 
     [SerializeField] private Gradient newGradient;
 
+    [SerializeField] private int checkpointOrder;
+
     private void Awake()
     {
-        if (currentPos != null && currentPos != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        interactionSprite = GetComponentInChildren<Image>();
         vfx = GetComponentInChildren<VisualEffect>();
+        interactionSprite = GetComponentInChildren<Image>();
+
+        if (listOfActivCheckpoint.Count >= checkpointOrder)
+        {
+            KeepCheckpoint();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -37,15 +39,34 @@ public class Checkpoint : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Debug.Log(listOfActivCheckpoint.Count);
+    }
+
     public void ActiveCheckpoint()
     {
         Respawn.checkPoint = true;
         Respawn.spawnPosition = currentPos.transform.position;
-        listOfActivCheckpoint.Add(currentPos);
 
         vfx.SetGradient(checkpointColorProperty, newGradient);
         vfx.SetGradient(checkpointGradientProperty, newGradient);
-        Destroy(interactionSprite);
-        DontDestroyOnLoad(gameObject);
+        Destroy(interactionSprite.gameObject);
+    }
+
+    public void AddElementAtList()
+    {
+        if (listOfActivCheckpoint.Count >= checkpointOrder) return;
+        if (listOfActivCheckpoint.Contains(currentPos)) return;
+        listOfActivCheckpoint.Add(currentPos);
+    }
+
+    private void KeepCheckpoint()
+    {
+        Destroy(interactionSprite.gameObject);
+        Destroy(GetComponent<ShowMakeInteraction>());
+        Destroy(GetComponent<Collider2D>());
+        vfx.SetGradient(checkpointColorProperty, newGradient);
+        vfx.SetGradient(checkpointGradientProperty, newGradient);
     }
 }
