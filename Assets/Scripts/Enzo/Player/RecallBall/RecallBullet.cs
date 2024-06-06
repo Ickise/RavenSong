@@ -25,6 +25,7 @@ public class RecallBullet : MonoBehaviour
     [HideInInspector] public static bool onRecall;
     private bool isGoodDistance;
     [SerializeField] private AudioSource audioSourceRecall;
+    [HideInInspector] public BallInterfacePosition _ballInterfacePosition;
 
     private PlayerAnimation _playerAnimation;
 
@@ -183,11 +184,15 @@ public class RecallBullet : MonoBehaviour
 
                 FeedBackRecall();
             }
-            else if (!DOTween.IsTweening("corvusVoiceCantRecall"))
+            else
             {
-                float a = 0;
-                DOTween.To(() => a, x => a = x, 1, 2).SetId("corvusVoiceCantRecall");
-                AudioManager.instance.PlaySound(corvusVoiceCantRecall);
+                _ballInterfacePosition.ShakeBallUI();
+                if (!DOTween.IsTweening("corvusVoiceCantRecall"))
+                {
+                    float a = 0;
+                    DOTween.To(() => a, x => a = x, 1, 2).SetId("corvusVoiceCantRecall");
+                    AudioManager.instance.PlaySound(corvusVoiceCantRecall);
+                }
             }
         }
 
