@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -39,9 +38,9 @@ public class BulletCollisionDetection : MonoBehaviour
                 bulletRigidbody2D.velocity.normalized.y, 0) *
             Time.fixedDeltaTime, radius, bulletRigidbody2D.velocity * Time.fixedDeltaTime,
             bulletRigidbody2D.velocity.magnitude * Time.fixedDeltaTime, bulletCollision);
-        //        Debug.Log(hit2D.collider.name);
+//        Debug.Log(hit2D.collider.name);
         if (!hit2D) return;
-        if (hit2D.transform.parent != null && hit2D.transform.parent.CompareTag("Platforme"))
+        if (hit2D.transform.CompareTag("Platforme"))
         {
             if (firstPlatforme != 0 && hit2D.transform.GetHashCode() == firstPlatforme)
                 return;
