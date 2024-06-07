@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-384673727078007388
+--- !u!114 &-2846383448332441886
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,8 +20,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: DamageFlash_Brillance_Material
-  m_Shader: {fileID: -6465566751694194690, guid: 8ee3bb86d17ddf942a91491034010504, type: 3}
+  m_Name: Shield_Chargeur
+  m_Shader: {fileID: -6465566751694194690, guid: 69e5c0304d4f4d740b1b034ed0ece892, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 22256184b4b9d624980cf681871a21f6, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -66,18 +66,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Chargement_Float: 0
     - _EnableExternalAlpha: 0
-    - _FlashAmount: 0
-    - _FlashAmount_1: 0
-    - _Float: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     m_Colors:
-    - _Chargement: {r: 1, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _FlashColor: {r: 0.7578583, g: 0.02076324, b: 0, a: 0}
-    - _FlashColor_Fatigue: {r: 0.37892914, g: 0, b: 0, a: 1}
-    - _Flash_Chargement: {r: 1, g: 0.8117647, b: 0, a: 0}
-    - _Flash_Fatigue_Color: {r: 1.7616467, g: 1.0978531, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
