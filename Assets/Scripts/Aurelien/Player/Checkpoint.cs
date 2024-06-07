@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,7 +39,12 @@ public class Checkpoint : MonoBehaviour
             currentPos = GetComponent<Checkpoint>();
         }
     }
-    
+
+    private void Update()
+    {
+        Debug.Log(listOfActivCheckpoint.Count);
+    }
+
     public void ActiveCheckpoint()
     {
         Respawn.checkPoint = true;
