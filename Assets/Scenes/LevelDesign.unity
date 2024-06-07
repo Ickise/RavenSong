@@ -12452,8 +12452,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.025900006, y: -9.75305, z: 0}
-    m_Extent: {x: 1.5274, y: 10.940451, z: 0}
+    m_Center: {x: -0.023000002, y: -9.7498, z: 0}
+    m_Extent: {x: 1.5329, y: 10.9368, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -35081,8 +35081,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.025749981, y: -9.91225, z: 0}
-    m_Extent: {x: 1.54145, y: 10.78575, z: 0}
+    m_Center: {x: -0.021699965, y: -9.908449, z: 0}
+    m_Extent: {x: 1.5390999, y: 10.78475, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -62626,8 +62626,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.05094999, y: -9.84925, z: 0}
-    m_Extent: {x: 1.55935, y: 10.84455, z: 0}
+    m_Center: {x: -0.04304999, y: -9.846, z: 0}
+    m_Extent: {x: 1.55475, y: 10.8404, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -68131,6 +68131,7 @@ GameObject:
   m_Component:
   - component: {fileID: 567658102}
   - component: {fileID: 567658103}
+  - component: {fileID: 567658104}
   m_Layer: 5
   m_Name: Bestiary
   m_TagString: Untagged
@@ -68227,6 +68228,33 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &567658104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 567658101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b737ffc675943474893a8197c6db03e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1498621725}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: PauseUnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &567863491
 GameObject:
@@ -69622,8 +69650,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.055100024, y: -9.84845, z: 0}
-    m_Extent: {x: 1.5564001, y: 10.8377495, z: 0}
+    m_Center: {x: -0.05245, y: -9.843451, z: 0}
+    m_Extent: {x: 1.56355, y: 10.84605, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -73972,8 +74000,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.030399919, y: -9.90935, z: 0}
-    m_Extent: {x: 3.6718001, y: 12.92265, z: 0}
+    m_Center: {x: -0.015949965, y: -9.90915, z: 0}
+    m_Extent: {x: 3.67455, y: 12.9255495, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -89361,8 +89389,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.057850003, y: -9.6285, z: 0}
-    m_Extent: {x: 1.50175, y: 11.041901, z: 0}
+    m_Center: {x: -0.052699983, y: -9.62325, z: 0}
+    m_Extent: {x: 1.4986999, y: 11.04815, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -105259,6 +105287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 890866822}
   - component: {fileID: 890866823}
+  - component: {fileID: 890866824}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -105319,6 +105348,33 @@ MonoBehaviour:
   onDisableEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &890866824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890866821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b737ffc675943474893a8197c6db03e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1498621725}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: PauseUnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &895742216
 GameObject:
   m_ObjectHideFlags: 0
@@ -111453,6 +111509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 942603878}
   - component: {fileID: 942603879}
+  - component: {fileID: 942603880}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -111525,6 +111582,33 @@ MonoBehaviour:
   onDisableEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &942603880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942603877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b737ffc675943474893a8197c6db03e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onBack:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1498621725}
+        m_TargetAssemblyTypeName: PauseController, Assembly-CSharp
+        m_MethodName: PauseUnPause
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &943953621
 GameObject:
   m_ObjectHideFlags: 0
@@ -113001,8 +113085,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.041800022, y: -9.844851, z: 0}
-    m_Extent: {x: 1.558, y: 10.84375, z: 0}
+    m_Center: {x: -0.04705006, y: -9.84415, z: 0}
+    m_Extent: {x: 1.55675, y: 10.84435, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -145063,8 +145147,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.049950004, y: -9.84615, z: 0}
-    m_Extent: {x: 1.55485, y: 10.84035, z: 0}
+    m_Center: {x: -0.039800048, y: -9.84335, z: 0}
+    m_Extent: {x: 1.5575, y: 10.84765, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -161489,8 +161573,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.018000007, y: -9.74865, z: 0}
-    m_Extent: {x: 1.5374, y: 10.94685, z: 0}
+    m_Center: {x: -0.02424997, y: -9.75465, z: 0}
+    m_Extent: {x: 1.5278499, y: 10.93705, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -199540,8 +199624,8 @@ MonoBehaviour:
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
-    m_Center: {x: -0.051199973, y: -9.62345, z: 0}
-    m_Extent: {x: 1.5069001, y: 11.04045, z: 0}
+    m_Center: {x: -0.061150014, y: -9.624, z: 0}
+    m_Extent: {x: 1.50775, y: 11.0412, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
