@@ -11,8 +11,11 @@ public class Respawn : MonoBehaviour
 
     [SerializeField, Header("DeathPrefab")]
     private GameObject corvusDeathEffectSprite;
+
     [SerializeField] private GameObject luciolVFX, sparkleVFX, impactDeathVFX, blackSplashShader;
     [SerializeField] private SoundData deathSound;
+
+    [SerializeField] private GameObject canvas;
 
     private Scene currentScene;
 
@@ -29,17 +32,17 @@ public class Respawn : MonoBehaviour
 
     private bool spawn, death;
 
-    public static bool alreadyDeath;
-
     public static Vector2 spawnPosition;
     public static bool checkPoint;
+    
+    private LightVisibility _lightVisibility;
 
     private void Awake()
     {
         death = false;
+        _lightVisibility = GetComponentInChildren<LightVisibility>();
 
         if (checkPoint) return;
-
         FirstSpawn();
     }
 
@@ -53,12 +56,14 @@ public class Respawn : MonoBehaviour
         for (int i = 0; i < meshRenderer.childCount; i++)
             meshRenderer.GetChild(i).gameObject.SetActive(false);
 
-        GameObject blackSplashShaderObj = Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
+        GameObject blackSplashShaderObj =
+            Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
         blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
         blackSplashSize = 1f;
         blackSplash.SetFloat("_Size", blackSplashSize);
-        DOTween.To(() => blackSplashSize, x => blackSplashSize = x, -1, 6).SetEase(Ease.OutCirc).SetId("blackSplashSize")
-        .OnComplete(() => Destroy(blackSplashShaderObj));
+        DOTween.To(() => blackSplashSize, x => blackSplashSize = x, -1, 6).SetEase(Ease.OutCirc)
+            .SetId("blackSplashSize")
+            .OnComplete(() => Destroy(blackSplashShaderObj));
         shaderDeathRespawn =
             Instantiate(corvusDeathEffectSprite, PlayerController2D._instance.transform.position, Quaternion.identity,
                 PlayerController2D._instance.transform).GetComponent<SpriteRenderer>();
@@ -110,7 +115,6 @@ public class Respawn : MonoBehaviour
 
     private void Death()
     {
-        alreadyDeath = true;
         ControlsParameter.GamePadVibration(this, 0.4f, 0.4f, 0.8f);
         playerInput.enabled = false;
         shaderDeathRespawn =
@@ -124,15 +128,14 @@ public class Respawn : MonoBehaviour
             shaderDeathRespawn.transform.localScale.z);
         shaderDeathRespawn.material.SetFloat("_DissolveAmount", 0);
         death = true;
+
         for (int i = 0; i < meshRenderer.childCount; i++)
             meshRenderer.GetChild(i).gameObject.SetActive(false);
         DOTween.Kill("blackSplashSize");
-        GameObject[] lights = GameObject.FindGameObjectsWithTag("UnableLight");
-        foreach (var light in lights)
-            Destroy(light);
         Sequence sequence = DOTween.Sequence();
         float d = 0;
-        GameObject blackSplashShaderObj = Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
+        GameObject blackSplashShaderObj =
+            Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
         blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
         blackSplashSize = -0.1f;
         blackSplash.SetFloat("_Size", blackSplashSize);
@@ -142,11 +145,13 @@ public class Respawn : MonoBehaviour
             AudioManager.instance.PlaySound(deathSound);
             VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
+            _lightVisibility.DisableVisibleLights2D();
         });
         float a = 0;
         sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.4f));
         sequence.Append(DOTween.To(() => dissolveAmount, x => dissolveAmount = x, 1.1f, shaderTime));
-        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX, transform.position + Vector3.down, luciolVFX.transform.localScale, luciolVFX.transform.eulerAngles));
+        sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(luciolVFX,
+            transform.position + Vector3.down, luciolVFX.transform.localScale, luciolVFX.transform.eulerAngles));
         sequence.AppendCallback(() => VFXInstantieur.instance.PlayVFXInWorld(sparkleVFX, transform));
         float c = 0;
         sequence.Append(DOTween.To(() => c, x => c = x, 1f, 1f));
