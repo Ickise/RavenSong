@@ -24,15 +24,12 @@ public class LightVisibility : MonoBehaviour
     {
         if (mainCamera == null) return;
 
-        // Calcule le frustum de la caméra
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(mainCamera);
 
-        // Parcourt chaque lumière et vérifie sa visibilité
         foreach (Light2D light in lights)
         {
             if (IsLightInCameraFrustum2D(light.transform.position, planes))
             {
-                Debug.Log("Désactivation de la lumière visible: " + light.name);
                 light.transform.parent.gameObject.SetActive(false);
             }
         }
@@ -40,7 +37,6 @@ public class LightVisibility : MonoBehaviour
         {
             if (IsLightInCameraFrustum2D(ia.transform.position, planes))
             {
-                Debug.Log("Désactivation de la lumière visible: " + ia.name);
                 ia.transform.parent.gameObject.SetActive(false);
             }
         }
@@ -48,7 +44,6 @@ public class LightVisibility : MonoBehaviour
 
     private bool IsLightInCameraFrustum2D(Vector3 position, Plane[] planes)
     {
-        // Utilise GeometryUtility pour vérifier si la position est dans le frustum
         return GeometryUtility.TestPlanesAABB(planes, new Bounds(position, Vector3.zero));
     }
 }
