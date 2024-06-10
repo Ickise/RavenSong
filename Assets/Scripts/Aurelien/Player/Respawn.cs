@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
@@ -34,9 +35,15 @@ public class Respawn : MonoBehaviour
     public static Vector2 spawnPosition;
     public static bool checkPoint;
 
+    private Light2D[] lights;
+
+    private LightVisibility _lightVisibility;
+
     private void Awake()
     {
         death = false;
+        _lightVisibility = GetComponentInChildren<LightVisibility>();
+    //    lights = FindObjectsOfType<Light2D>();
 
         if (checkPoint) return;
         //GetVisibleObject(false);
@@ -73,7 +80,7 @@ public class Respawn : MonoBehaviour
                 playerInput.enabled = true;
                 for (int i = 0; i < meshRenderer.childCount; i++)
                     meshRenderer.GetChild(i).gameObject.SetActive(true);
-            //    GetVisibleObject(true);
+                //    GetVisibleObject(true);
             });
         if (shaderDeathRespawn == null) return;
         shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
@@ -134,7 +141,7 @@ public class Respawn : MonoBehaviour
         float d = 0;
         GameObject blackSplashShaderObj =
             Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
-       // GetVisibleObject(false);
+        // GetVisibleObject(false);
         blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
         blackSplashSize = -0.1f;
         blackSplash.SetFloat("_Size", blackSplashSize);
@@ -144,6 +151,7 @@ public class Respawn : MonoBehaviour
             AudioManager.instance.PlaySound(deathSound);
             VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
+            _lightVisibility.DisableVisibleLights2D();
         });
         float a = 0;
         sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.4f));
@@ -174,15 +182,15 @@ public class Respawn : MonoBehaviour
     private void GetVisibleObject(bool enable)
     {
         canvas.SetActive(enable);
-        Renderer[] renderers = FindObjectsOfType<Renderer>();
 
-        foreach (Renderer obj in renderers)
+        foreach (Light2D light in lights)
         {
-            if (obj.isVisible)
-            {
-                Debug.Log(obj.isVisible);
+            Renderer renderer = light.GetComponent<Renderer>();
 
-                obj.gameObject.SetActive(enable);
+            if (renderer != null && renderer.isVisible)
+            {
+                Debug.Log("hi");
+                renderer.gameObject.SetActive(enable);
             }
         }
     }
