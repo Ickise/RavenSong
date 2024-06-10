@@ -34,19 +34,15 @@ public class Respawn : MonoBehaviour
 
     public static Vector2 spawnPosition;
     public static bool checkPoint;
-
-    private Light2D[] lights;
-
+    
     private LightVisibility _lightVisibility;
 
     private void Awake()
     {
         death = false;
         _lightVisibility = GetComponentInChildren<LightVisibility>();
-    //    lights = FindObjectsOfType<Light2D>();
 
         if (checkPoint) return;
-        //GetVisibleObject(false);
         FirstSpawn();
     }
 
@@ -80,7 +76,6 @@ public class Respawn : MonoBehaviour
                 playerInput.enabled = true;
                 for (int i = 0; i < meshRenderer.childCount; i++)
                     meshRenderer.GetChild(i).gameObject.SetActive(true);
-                //    GetVisibleObject(true);
             });
         if (shaderDeathRespawn == null) return;
         shaderDeathRespawn.material.SetFloat("_VerticalDissolve", 1.1f);
@@ -141,7 +136,6 @@ public class Respawn : MonoBehaviour
         float d = 0;
         GameObject blackSplashShaderObj =
             Instantiate(blackSplashShader, transform.position, Quaternion.identity, transform);
-        // GetVisibleObject(false);
         blackSplash = blackSplashShaderObj.GetComponent<SpriteRenderer>().material;
         blackSplashSize = -0.1f;
         blackSplash.SetFloat("_Size", blackSplashSize);
@@ -177,21 +171,5 @@ public class Respawn : MonoBehaviour
     private void OnDestroy()
     {
         ControlsParameter.GamePadVibration(this, 0, 0, 0);
-    }
-
-    private void GetVisibleObject(bool enable)
-    {
-        canvas.SetActive(enable);
-
-        foreach (Light2D light in lights)
-        {
-            Renderer renderer = light.GetComponent<Renderer>();
-
-            if (renderer != null && renderer.isVisible)
-            {
-                Debug.Log("hi");
-                renderer.gameObject.SetActive(enable);
-            }
-        }
     }
 }
