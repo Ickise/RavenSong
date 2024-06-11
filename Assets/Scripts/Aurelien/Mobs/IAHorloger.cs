@@ -39,7 +39,7 @@ public class IAHorloger : IA
         base.Update();
         // Color sbc = currentShaderBrillance.material.GetColor("_Flash_Fatigue_Color");
         // currentShaderBrillance.material.SetColor("_Flash_Fatigue_Color", new Color(sbc.r, currentValueShaderBrillance, sbc.b, sbc.a));
-        currentShaderBrillance.material.SetFloat("_FlashAmount", currentValueShaderBrillance);
+        // currentShaderBrillance.material.SetFloat("_FlashAmount", currentValueShaderBrillance);
     }
 
     protected override void StateManager()

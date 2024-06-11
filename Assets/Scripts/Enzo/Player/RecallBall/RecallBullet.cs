@@ -78,10 +78,20 @@ public class RecallBullet : MonoBehaviour
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
-            if (isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall)
-                imageIconsBarel.sprite = barelColor;
-            else
+            isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall;
+            if (isGoodDistance)
+            {
+                if (imageIconsBarel.sprite != barelColor)
+                {
+                    _bulletCollisionDetection.VFXRaisonnanceBall.Play();
+                    imageIconsBarel.sprite = barelColor;
+                }
+            }
+            else if (imageIconsBarel.sprite != barelWhiteAndBlack)
+            {
+                _bulletCollisionDetection.VFXRaisonnanceBall.Stop();
                 imageIconsBarel.sprite = barelWhiteAndBlack;
+            }
         }
 
         if (onRecall && bulletRigidbody != null)

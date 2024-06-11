@@ -6,7 +6,7 @@ public class BulletCollisionDetection : MonoBehaviour
     [SerializeField, Header("LayerCollision")]
     private LayerMask bulletCollision;
 
-    [SerializeField, Header("VFX")] private VisualEffect VFXRaisonnanceBall;
+    [Header("VFX")] public VisualEffect VFXRaisonnanceBall;
     [SerializeField] private VisualEffect VFXExplosionImpact;
 
     [SerializeField, Header("RadiusToDetectCollision"), Range(0, 1)]
