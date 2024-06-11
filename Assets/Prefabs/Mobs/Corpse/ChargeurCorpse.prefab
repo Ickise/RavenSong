@@ -47,6 +47,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b11d96138f81a54e8c93b6995c13917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerGround:
+    serializedVersion: 2
+    m_Bits: 8257
+  distance: 0.45
   timeToDestroyComponents: 0.3
 --- !u!212 &3841276797126208155
 SpriteRenderer:
@@ -156,7 +160,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.076634765, y: 0.15122807}
