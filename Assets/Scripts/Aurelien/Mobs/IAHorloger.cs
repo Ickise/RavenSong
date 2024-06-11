@@ -167,9 +167,9 @@ public class IAHorloger : IA
 
     private void ShaderBrillance(float value, float time)
     {
-        currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
-        DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, value, time)
-        .SetEase(Ease.OutBounce);
+        // currentShaderBrillance = skeletonAnimation.transform.GetComponent<MeshRenderer>();
+        // DOTween.To(() => currentValueShaderBrillance, x => currentValueShaderBrillance = x, value, time)
+        // .SetEase(Ease.OutBounce);
     }
 
     private void OnDestroy()
