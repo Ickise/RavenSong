@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class BallInterfacePosition : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class BallInterfacePosition : MonoBehaviour
     {
         cam = Camera.main;
         SetViewportToWorldPoints();
+        _gun.transform.parent.GetComponent<RecallBullet>()._ballInterfacePosition = this;
     }
 
     void FixedUpdate()
@@ -70,5 +72,10 @@ public class BallInterfacePosition : MonoBehaviour
     private bool IsOnScreen(Vector3 ammoPos)
     {
         return ammoPos.x >= DLWP.x - 0.02f && ammoPos.y >= DLWP.y && ammoPos.x <= URWP.x + 0.02f && ammoPos.y <= URWP.y;
+    }
+
+    public void ShakeBallUI()
+    {
+        indicator.transform.DOShakePosition(0.3f, Vector2.one * 0.2f, 100);
     }
 }
