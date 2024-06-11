@@ -76,6 +76,7 @@ public class BallInterfacePosition : MonoBehaviour
 
     public void ShakeBallUI()
     {
+        cam.DOShakePosition(0.3f, Vector2.one * 0.2f, 100);
         indicator.transform.DOShakePosition(0.3f, Vector2.one * 0.2f, 100);
     }
 }

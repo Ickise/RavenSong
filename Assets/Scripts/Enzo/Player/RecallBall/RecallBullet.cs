@@ -1,4 +1,5 @@
 using DG.Tweening;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.VFX;
@@ -51,13 +52,15 @@ public class RecallBullet : MonoBehaviour
     private float delay;
 
     [SerializeField] private Animator animatorIcons;
-
     [SerializeField] private Animator animatorBarel;
+    [SerializeField] private Image imageIconsBarel;
+    [SerializeField] private Sprite barelColor, barelWhiteAndBlack;
 
     private void Awake()
     {
         _playerAnimation = GetComponentInChildren<PlayerAnimation>();
         visualEffectTrailRecall = vfxTrailRecall.GetComponent<VisualEffect>();
+        imageIconsBarel = animatorIcons.GetComponent<Image>();
     }
 
     private void Start()
@@ -75,7 +78,10 @@ public class RecallBullet : MonoBehaviour
         if (_bulletCollisionDetection != null)
         {
             distanceAmmoPlayer = _bulletCollisionDetection.transform.position - transform.position;
-            isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall;
+            if (isGoodDistance = distanceAmmoPlayer.magnitude < distanceToRecall)
+                imageIconsBarel.sprite = barelColor;
+            else
+                imageIconsBarel.sprite = barelWhiteAndBlack;
         }
 
         if (onRecall && bulletRigidbody != null)

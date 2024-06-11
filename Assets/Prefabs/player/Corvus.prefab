@@ -99,7 +99,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237967857555162655}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.2626104, y: 1.1534004, z: -12}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -137,11 +137,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 9.7
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 8
+  orthographic size: 5.5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -361,7 +361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967438958619023172}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.014134407, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -533,7 +533,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736661597819335962}
   m_LocalRotation: {x: -0, y: -0, z: 0.00055114774, w: 0.9999999}
-  m_LocalPosition: {x: 0.014134407, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: 0.01413393, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -671,7 +671,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081539809428432178}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.014134407, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1311,6 +1311,7 @@ MonoBehaviour:
   impactDeathVFX: {fileID: 3935203508377705847, guid: 2a9dfbc8017bfff4b88348e48577ddc0, type: 3}
   blackSplashShader: {fileID: 50422086906125182, guid: fe9f82cb47a2cd742a83775ffd442c04, type: 3}
   deathSound: {fileID: 11400000, guid: 5147b5a5f17305b49ac8df804329b86d, type: 2}
+  canvas: {fileID: 0}
 --- !u!114 &7737656467659577540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1333,6 +1334,7 @@ MonoBehaviour:
   recupBalle: {fileID: 11400000, guid: 97d01eb260c6f3d418a59b39d6fcc582, type: 2}
   doRecall: 0
   audioSourceRecall: {fileID: 2001354968453441199}
+  _ballInterfacePosition: {fileID: 0}
   speedBulletRecall: 50
   speedDelay: 0.2
   delayBulletRecallInCorpse: 1
@@ -1340,6 +1342,9 @@ MonoBehaviour:
   distanceToRecall: 12
   animatorIcons: {fileID: 0}
   animatorBarel: {fileID: 0}
+  imageIconsBarel: {fileID: 0}
+  barelColor: {fileID: 21300000, guid: fa58af6d61ddf3547a48eb1f28229ed3, type: 3}
+  barelWhiteAndBlack: {fileID: 21300000, guid: bcffb59a0cc6181459e608f95b0c1253, type: 3}
 --- !u!114 &7644935309534444737
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1641,7 +1646,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3791076367058320981}
   m_LocalRotation: {x: -0, y: -0, z: 0.9999999, w: 0.0005512993}
-  m_LocalPosition: {x: -0.014134407, y: 0.4799087, z: 0}
+  m_LocalPosition: {x: -0.01413393, y: 0.4799087, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1921,7 +1926,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4302107771420068065}
   m_LocalRotation: {x: -0, y: -0, z: -0.9582356, w: 0.28598005}
-  m_LocalPosition: {x: -0.4290123, y: 0.4497745, z: 0}
+  m_LocalPosition: {x: -0.42901278, y: 0.44977462, z: 0}
   m_LocalScale: {x: 1, y: -1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2005,7 +2010,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5108646155374385951}
   m_LocalRotation: {x: -0, y: -0, z: -0.20909733, w: 0.97789484}
-  m_LocalPosition: {x: -0.28691673, y: 0.4074633, z: 0}
+  m_LocalPosition: {x: -0.28691673, y: 0.4074632, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
