@@ -1,7 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class Respawn : MonoBehaviour
@@ -146,6 +145,7 @@ public class Respawn : MonoBehaviour
             VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
             _lightVisibility.DisableVisibleLights2D();
+            canvas.SetActive(false);
         });
         float a = 0;
         sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.4f));
@@ -170,6 +170,6 @@ public class Respawn : MonoBehaviour
 
     private void OnDestroy()
     {
-        ControlsParameter.GamePadVibration(this, 0, 0, 0);
+//        ControlsParameter.GamePadVibration(this, 0, 0, 0);
     }
 }
