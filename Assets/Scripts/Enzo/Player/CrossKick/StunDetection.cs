@@ -27,6 +27,7 @@ public class StunDetection : MonoBehaviour
     public IEnumerator CrossKick(int currentDirection)
     {
         if (!canCrossKick) yield break;
+
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.crossKickHaut, ReAim);
         // Debug.Log("CrossSong");
         //AudioManager.instance.PlaySound(soundstunnotsuccessful);
@@ -37,7 +38,7 @@ public class StunDetection : MonoBehaviour
         c2D.enabled = true;
         currentStunSound = unsuccessfulStunSound;
         isCrossKickAnimationPlaying = true;
-        yield return 3;
+        yield return new WaitForSeconds(timeToDisableHitBox);
         AudioManager.instance.PlaySound(currentStunSound);
         c2D.enabled = false;
         yield return new WaitForSeconds(1);
