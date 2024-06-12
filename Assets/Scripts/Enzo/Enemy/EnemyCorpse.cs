@@ -27,7 +27,6 @@ public class EnemyCorpse : MonoBehaviour
     private void Update()
     {
         RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Vector2.down, distance, layerGround);
-        Debug.Log(hit2D.collider.name);
 
         if (hit2D.collider != null)
         {

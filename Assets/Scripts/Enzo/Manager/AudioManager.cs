@@ -1,6 +1,5 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { private set; get; }
@@ -28,6 +27,18 @@ public class AudioManager : MonoBehaviour
         }
 
         mainAudioSource.PlayOneShot(SetAudioParameters(mainAudioSource, data, pitch).AudioToPlay);
+    }
+    
+    public void PlaySoundWithSpecificAudioSource(SoundData data, AudioSource specifiedAudioSource = null, float pitch = 1)
+    {
+        //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
+        if (data == null)
+        {
+            Debug.LogWarning("sound data is not referenced");
+            return;
+        }
+
+        specifiedAudioSource.PlayOneShot(SetAudioParameters(specifiedAudioSource, data, pitch).AudioToPlay);
     }
 
     public void StopSound(AudioSource specifiedAudioSource = null)
