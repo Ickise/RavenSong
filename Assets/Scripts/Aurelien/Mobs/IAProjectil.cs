@@ -131,8 +131,7 @@ public class IAProjectil : IA
         yield return new WaitForSeconds(timeBetweenAttack);
         SetAnimation(rb2D.velocity == Vector2.zero ? AnimationState.shoot : AnimationState.shootWalk);
         Instantiate(projectil, transform.position, Quaternion.identity).GetComponent<Projectil>().playerPos = player.position;
-        GameObject currentVFXTir = Instantiate(VFXTir, posVFXTir.position, Quaternion.identity);
-        Destroy(currentVFXTir, 3);
+        VFXInstantieur.instance.PlayVFXInWorld(VFXTir, posVFXTir);
         StartCoroutine(Attack());
     }
 
