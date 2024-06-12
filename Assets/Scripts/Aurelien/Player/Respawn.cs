@@ -144,8 +144,8 @@ public class Respawn : MonoBehaviour
             AudioManager.instance.PlaySound(deathSound);
             VFXInstantieur.instance.PlayVFXInWorld(impactDeathVFX, transform);
             DOTween.To(() => blackSplashSize, x => blackSplashSize = x, 1f, 6).SetEase(Ease.OutCirc);
-            _lightVisibility.DisableVisibleLights2D();
             canvas.SetActive(false);
+            _lightVisibility.DisableVisibleLights2D();
         });
         float a = 0;
         sequence.Append(DOTween.To(() => a, x => a = x, 1f, 0.4f));
