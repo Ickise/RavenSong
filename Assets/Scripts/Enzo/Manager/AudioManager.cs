@@ -4,7 +4,7 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance { private set; get; }
     public static float volumeScale = 1;
-    [SerializeField] private AudioSource mainAudioSource, musicAudioSource;
+    [SerializeField] private AudioSource mainAudioSource, secondMainAudioSource, musicAudioSource;
 
     private void Awake()
     {
@@ -25,10 +25,12 @@ public class AudioManager : MonoBehaviour
             Debug.LogWarning("sound data is not referenced");
             return;
         }
-
-        mainAudioSource.PlayOneShot(SetAudioParameters(mainAudioSource, data, pitch).AudioToPlay);
+        if (mainAudioSource.isPlaying)
+            secondMainAudioSource.PlayOneShot(SetAudioParameters(secondMainAudioSource, data, pitch).AudioToPlay);
+        else
+            mainAudioSource.PlayOneShot(SetAudioParameters(mainAudioSource, data, pitch).AudioToPlay);
     }
-    
+
     public void PlaySoundWithSpecificAudioSource(SoundData data, AudioSource specifiedAudioSource = null, float pitch = 1)
     {
         //fonction à appeler dans les autres scripts AudioManager.instance.PlaySFX pour ne jouer qu'une seule fois un son
@@ -44,7 +46,10 @@ public class AudioManager : MonoBehaviour
     public void StopSound(AudioSource specifiedAudioSource = null)
     {
         if (specifiedAudioSource == null)
+        {
             mainAudioSource.Stop();
+            secondMainAudioSource.Stop();
+        }
         else specifiedAudioSource.Stop();
     }
 
