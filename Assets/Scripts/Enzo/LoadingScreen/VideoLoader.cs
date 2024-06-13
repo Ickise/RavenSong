@@ -52,5 +52,6 @@ public class VideoLoader : MonoBehaviour
         cinematicCameraVideoPlayer.Stop();
         cinematicCameraVideoPlayer.clip = null;
         _loadingVideoOnTrigger.canEnableObject = false;
+        Destroy(gameObject);
     }
 }
