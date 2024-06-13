@@ -12,6 +12,8 @@ public class ShowMakeInteraction : MonoBehaviour
 
     private Image interactionSprite;
 
+    private FillAmountImage _fillAmountImage;
+
     public UnityEvent onInteraction = new UnityEvent();
     public UnityEvent onDestroy = new UnityEvent();
 
@@ -21,6 +23,7 @@ public class ShowMakeInteraction : MonoBehaviour
     {
         interactionSprite = GetComponentInChildren<Image>();
         interactionSprite.enabled = false;
+        _fillAmountImage = GetComponentInChildren<FillAmountImage>();
     }
 
     private void OnTriggerStay2D(Collider2D other)
@@ -32,10 +35,12 @@ public class ShowMakeInteraction : MonoBehaviour
             if (InputReader.instance.canInteract)
             {
                 StartCoroutine(HoldActive());
+                StartCoroutine(_fillAmountImage.AnimateImageFill(timeToInteract));
             }
             else
             {
                 StopAllCoroutines();
+                _fillAmountImage.ResetFill();
             }
         }
     }

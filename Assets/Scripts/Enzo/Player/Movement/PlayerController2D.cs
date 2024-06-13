@@ -370,7 +370,7 @@ public class PlayerController2D : MonoBehaviour
     {
         if (DOTween.IsTweening("roll") || !_raycastDetection.IsGrounded || !canRoll) return;
         _ghostTrail.enabled = true;
-        
+
         _playerAnimation.FlipAnimation(LastDirection > 0);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashHaut);
         _playerAnimation.SetAnimation(PlayerAnimation.AnimationState.dashBas);
@@ -413,8 +413,6 @@ public class PlayerController2D : MonoBehaviour
 
     IEnumerator AnimateImageFill(float duration)
     {
-
-        
         float elapsedTime = 0f;
 
         imageRool.fillAmount = 1f;
