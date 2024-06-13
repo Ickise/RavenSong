@@ -106,6 +106,7 @@ MonoBehaviour:
   descriptionListToUpdate: []
   spriteListToUpdate: []
   soundTrigger: {fileID: 11400000, guid: 195a99983b1c7f04bb1a58632ad9d02d, type: 2}
+  checkpointNumber: 0
 --- !u!61 &8910330504125748738
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -179,6 +180,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  oneUse: 1
 --- !u!1001 &7743209744789271029
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -210,6 +215,14 @@ PrefabInstance:
     - target: {fileID: 1403832869267094206, guid: c514bc594cd8a2d488bc27aa845bc777, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003474530886270088, guid: c514bc594cd8a2d488bc27aa845bc777, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 933.3333
+      objectReference: {fileID: 0}
+    - target: {fileID: 5003474530886270088, guid: c514bc594cd8a2d488bc27aa845bc777, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 933.3333
       objectReference: {fileID: 0}
     - target: {fileID: 5558627926534155726, guid: c514bc594cd8a2d488bc27aa845bc777, type: 3}
       propertyPath: m_SortingOrder
