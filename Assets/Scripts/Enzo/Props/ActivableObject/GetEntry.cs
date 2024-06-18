@@ -17,14 +17,16 @@ public class GetEntry : MonoBehaviour
      Tooltip("Il faut mettre le Text du Titre de la page du monstre du Bestiaire dont nous voulons changer le titre")]
     private TextMeshProUGUI titleToUpdate;
 
-    [SerializeField,
+    /*[SerializeField,
      Tooltip(
          "Il faut mettre les textes de la page du monstre du Bestiaire dont nous voulons changer le texte et l'ordre a une importance")]
     private TextMeshProUGUI[] descriptionListToUpdate;
 
     [SerializeField, Header("Image"),
      Tooltip("Il faut les images de la page du monstre du Bestiaire dont nous voulons changer les visuels")]
-    private Image[] spriteListToUpdate;
+    private Image[] spriteListToUpdate;*/
+
+    [SerializeField] private Image visualToUpdate;
 
     [SerializeField] private SoundData soundTrigger;
 
@@ -38,7 +40,7 @@ public class GetEntry : MonoBehaviour
     private void Start()
     {
         unlockEntry = PlayerPrefs.GetInt(gameObject.name + "_estRécupéré", 0) == 1;
-
+        
         if (Checkpoint.listOfActivCheckpoint.Count < checkpointNumber) return;
         
         if (!unlockEntry) return;
@@ -51,8 +53,10 @@ public class GetEntry : MonoBehaviour
         AudioManager.instance.PlaySound(soundTrigger);
         buttonTitleToUpdate.text = _entryData.entryTitle;
         titleToUpdate.text = _entryData.entryTitle;
+        visualToUpdate.gameObject.SetActive(true);
+        visualToUpdate.sprite = _entryData.entryVisual;
 
-        for (int i = 0; i < descriptionListToUpdate.Length; i++)
+      /*  for (int i = 0; i < descriptionListToUpdate.Length; i++)
         {
             descriptionListToUpdate[i].text = _entryData.listOfTextEntry[i];
         }
@@ -60,7 +64,7 @@ public class GetEntry : MonoBehaviour
         for (int i = 0; i < spriteListToUpdate.Length; i++)
         {
             spriteListToUpdate[i].sprite = _entryData.entryVisualsList[i];
-        }
+        }*/
 
         KeepChanges();
         Destroy(gameObject);
