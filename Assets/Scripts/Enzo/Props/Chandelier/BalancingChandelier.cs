@@ -10,7 +10,7 @@ public class BalancingChandelier : MonoBehaviour
 
     [SerializeField] private float speed = 1f;
 
-    [SerializeField, Header("Bool"), Tooltip("Mettre true si on veut que la position change")]
+    [SerializeField, Header("Bools"), Tooltip("Mettre true si on veut que la position change")]
     private bool movePosition = true;
 
     [SerializeField, Tooltip("Mettre true si on veut que la rotation change")]
