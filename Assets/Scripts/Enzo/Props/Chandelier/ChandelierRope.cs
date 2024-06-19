@@ -26,7 +26,7 @@ public class ChandelierRope : MonoBehaviour
         _onBulletHit.onBulletHit.AddListener(OnBulletHit);
     }
 
-    private void OnBulletHit(GameObject bullet)
+    public void OnBulletHit(GameObject bullet)
     {
         Destroy(_balancingChandelier);
         chandelierRigidbody2D.isKinematic = false;
